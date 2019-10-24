@@ -1,0 +1,190 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.navbar-brand strong {
+    font-size: 28px;
+    margin-left: 5px;
+}
+.navbar .navbar-nav .nav-item {
+    margin-left: 5px;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+    padding: 7px 15px;
+    transition: all .4s ease;
+    color: #e91e6380;
+}
+
+.wedding-color {
+    background-color: rgba(28, 35, 49, 0.8);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: #FDBF00;
+}
+
+.loginBtn {
+    margin-right: 10px;
+    margin-left: 30px;
+}
+.loginBtn:hover{ background-color: #FDBF00;}
+
+.navbar .nav-link.signupBtn {
+    background-color: #FDBF00;
+    opacity: 1;
+}
+
+.nav-link.loginBtn:hover,
+.navbar .nav-link.signupBtn:hover {
+    color: #ffffff;
+}
+
+.btn-pink {
+    background-color: #FF3C6F !important;
+}
+
+.pink {
+    background-color: #FF3C6F !important;
+}
+
+.valid-feedback,
+.invalid-feedback {
+    text-align: right;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Social buttons */
+.btn-floating.btn-sm {
+    width: 36.15385px;
+    height: 36.15385px;
+}
+a.waves-effect, a.waves-light {
+    display: inline-block;
+}
+.btn-floating {
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    position: relative;
+    z-index: 1;
+    vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
+    margin: 15px 5px 0;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    width: 47px;
+    height: 47px;
+}
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.btn-floating.btn-sm i {
+    font-size: .96154rem;
+    line-height: 36.15385px;
+}
+.btn-floating i {
+    display: inline-block;
+    width: inherit;
+    text-align: center;
+    color: #fff;
+}
+.social-links .btn-default, .social-links .btn-default:after {
+    background-color: rgba(255,255,255,.1) !important;
+}
+.btn-fb:hover {
+	background-color:#4264aa;
+	color:#fff
+}
+.btn-fb.focus,
+.btn-fb:focus {
+	box-shadow:0 5px 11px 0 rgba(0,
+	0,
+	0,
+	.18),
+	0 4px 15px 0 rgba(0,
+	0,
+	0,
+	.15)
+}
+.btn-fb.active,
+.btn-fb:active,
+.btn-fb:focus {
+	background-color:#1e2e4f
+}
+.btn-tw:hover {
+	background-color:#6cb7f0;
+	color:#fff
+}
+.btn-tw.focus,
+.btn-tw:focus {
+	box-shadow:0 5px 11px 0 rgba(0,
+	0,
+	0,
+	.18),
+	0 4px 15px 0 rgba(0,
+	0,
+	0,
+	.15)
+}
+.btn-tw.active,
+.btn-tw:active,
+.btn-tw:focus {
+	background-color:#147bc9
+}
+
+.btn-ins:hover {
+	background-color:#356b99;
+	color:#fff
+}
+.btn-ins.focus,
+.btn-ins:focus {
+	box-shadow:0 5px 11px 0 rgba(0,
+	0,
+	0,
+	.18),
+	0 4px 15px 0 rgba(0,
+	0,
+	0,
+	.15)
+}
+.btn-ins.active,
+.btn-ins:active,
+.btn-ins:focus {
+	background-color:#14293a
+}
+.btn-li:hover {
+	background-color:#0092e4;
+	color:#fff
+}
+.btn-li.focus,
+.btn-li:focus {
+	box-shadow:0 5px 11px 0 rgba(0,
+	0,
+	0,
+	.18),
+	0 4px 15px 0 rgba(0,
+	0,
+	0,
+	.15)
+}
+.btn-li.active,
+.btn-li:active,
+.btn-li:focus {
+	background-color:#004064
+}
