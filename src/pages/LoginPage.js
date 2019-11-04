@@ -34,13 +34,13 @@ class LoginPage extends React.Component {
   submitHandler = event => {
     event.preventDefault();
     event.target.className += " was-validated";
-    const ApiUrl = 'API_BASE_URL';
+    const ApiUrl = 'https://oep-project.herokuapp.com/v0.0';
     const loginData = {
       email: this.state.email,
       password: this.state.password
     };
     this.setState( { loading: true }, () => {
-      axios.post( `${ApiUrl}/auth`, loginData )
+      axios.post( `${ApiUrl}/auth/sign-in`, loginData )
         .then( res => {
           console.log(res);
           if ( undefined === res.data.token ) {
@@ -105,10 +105,10 @@ class LoginPage extends React.Component {
                     <MDBCard >
                       <MDBCardBody className="z-depth-2">
                         <div className="text-center">
-                          <h4 className="text-heading"><strong>Login to your account<br />And begin a beautiful journey</strong></h4>
+                          <h4 className="text-heading"><strong>Log in to your account</strong></h4>
                         </div>
                         <hr />
-                        <form className="needs-validation" onSubmit={this.submitHandler} noValidate>
+                        <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
                           <MDBInput icon="envelope" group type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Your email" required>
                             <div className="valid-feedback">Looks good!</div>
                             <div className="invalid-feedback">

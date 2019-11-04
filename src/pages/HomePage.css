@@ -28,11 +28,11 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
   min-height: 650px;
 }
 .view .gradient{
-  background: -moz-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-  background: -webkit-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-  background: -webkit-gradient(linear, 45deg, from(rgba(42, 27, 161, 0.7)), to(rgba(29, 210, 177, 0.7)));
-  background: -o-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-  background: linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
+  background: -moz-linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
+  background: -webkit-linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
+  background: -webkit-gradient(linear, 45deg, from(rgba(29, 0, 255, 0.7)), to(rgba(29, 210, 177, 0.7)));
+  background: -o-linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
+  background: linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
 }
 .mask.gradient { z-index: 9; }
 .home-slider{ max-height: 650px; overflow: hidden;}

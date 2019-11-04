@@ -65,6 +65,11 @@ class App extends Component{
                   </MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
+                  <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/form-builder" >
+                    <strong>Form Builder</strong>
+                  </MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
                   <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/about-us" >
                     <strong>About Us</strong>
                   </MDBNavLink>
@@ -80,13 +85,13 @@ class App extends Component{
                   </MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <MDBNavLink className="loginBtn active" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
+                  <MDBNavLink className="btn aqua-gradient active" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
                     <strong>Login</strong>
                   </MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <MDBNavLink className="signupBtn active" onClick={this.closeCollapse("mainNavbarCollapse")} to="/register">
-                    <strong>Register</strong>
+                  <MDBNavLink className="btn peach-gradient active" onClick={this.closeCollapse("mainNavbarCollapse")} to="/register">
+                    <strong>Get started for FREE</strong>
                   </MDBNavLink>
                 </MDBNavItem>
               </MDBNavbarNav>

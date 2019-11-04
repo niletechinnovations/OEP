@@ -37,9 +37,9 @@ class LoginPage extends React.Component {
                   </MDBBtn>
                 </div>
                 <MDBCol md="6" xl="5" className="loginForm mb-3">
-                  <MDBCard className="white-text">
+                  <MDBCard>
                     <MDBCardBody className="z-depth-2">
-                      <h4 className="white-text text-center text-heading">
+                      <h4 className="text-center text-heading">
                         <strong>Create your free OEP account!</strong>
                       </h4>
                       <hr />

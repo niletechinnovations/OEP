@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  MDBContainer,
-  MDBCol,
-  MDBRow
-} from "mdbreact";
+import { MDBContainer, MDBCol, MDBRow } from "mdbreact";
 
 class AboutPage extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);

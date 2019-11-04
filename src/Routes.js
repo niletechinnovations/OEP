@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import registerPage from "./pages/RegisterPage";
 import adminDashboard from "./components/admin/dashboard/dashboard";
 import adminAgents from "./components/admin/agent/agentLists";
+import templateBuilder from "./pages/TemplateBuilderPage";
 
 class Routes extends React.Component{
     render() {
@@ -18,6 +19,7 @@ class Routes extends React.Component{
                 <Route exact path="/register" component={registerPage} />
                 <Route exact path="/admin/dashboard" component={adminDashboard} />
                 <Route exact path="/admin/agents" component={adminAgents} />
+                <Route exact path="/form-builder" component={templateBuilder} />
                 
                 <Route
                     render={function () {
