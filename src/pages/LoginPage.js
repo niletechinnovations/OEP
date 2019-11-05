@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import  { Redirect } from 'react-router-dom';
-
+import commenService from '../core/services/commonService';
 import {
   MDBView,
   MDBContainer,
@@ -11,7 +11,8 @@ import {
   MDBInput,
   MDBBtn,
   MDBMask,
-  MDBCard
+  MDBCard,
+  MDBAlert
 } from "mdbreact";
 import "./LoginPage.css";
 
@@ -25,7 +26,9 @@ class LoginPage extends React.Component {
       userName: '',
       loggedIn: false,
       loading: false,
-      error: ''
+      error: '',
+      alertColor: '',
+      alertClassName: 'd-none'
     };
   }
 
@@ -34,36 +37,40 @@ class LoginPage extends React.Component {
   submitHandler = event => {
     event.preventDefault();
     event.target.className += " was-validated";
-    const ApiUrl = 'https://oep-project.herokuapp.com/v0.0';
     const loginData = {
       email: this.state.email,
       password: this.state.password
     };
     this.setState( { loading: true }, () => {
-      axios.post( `${ApiUrl}/auth/sign-in`, loginData )
+      commenService.postAPI( `auth/sign-in`, loginData )
         .then( res => {
+         
           console.log(res);
-          if ( undefined === res.data.token ) {
-            this.setState( { error: res.data.message, loading: false } );
+          if ( undefined === res.data || !res.data.status ) {
+            this.setState( { error: res.data.message, loading: false, alertColor: 'danger', alertClassName: '' } );
             return;
           }
   
-          const { token, user } = res.data;
-  
-          localStorage.setItem( 'token', token );
-          localStorage.setItem( 'userName', user.name );
+          const loggedInfo = res.data;
+          
+          localStorage.setItem( 'accessToken', loggedInfo.data.accessToken );
+          localStorage.setItem( 'refreshToken', loggedInfo.data.refreshToken );
+          localStorage.setItem( 'role', loggedInfo.data.role );
+          localStorage.setItem( 'userName', loggedInfo.data.firstName );
   
           this.setState( {
-            loading: false,
-            token: token,
-            userName: user.name,
-            userEmail: user.email,
+            loading: false,              
             loggedIn: true
           } )
-         
+          
+          if(loggedInfo.data.role.toLowerCase() === 'admin')
+            this.props.history.push('/admin/dashboard');
+          else
+            this.props.history.push('/');
         } )
         .catch( err => {
-          this.setState( { error: err.response.data.message, loading: false } );
+          
+          this.setState( { error: err.message, loading: false, alertColor: 'danger', alertClassName: '' } );
         } )
     } )
 
@@ -74,12 +81,18 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    const { email, password, loggedIn } = this.state;
+    const { email, password, loggedIn, loading, error, alertColor, alertClassName } = this.state;
 
     if ( loggedIn || localStorage.getItem( 'token' ) ) {
 			return ( <Redirect to={`/admin/dashboard`} noThrow /> )
 		} else {
-
+    let loaderElement = '';
+    if(loading)
+      loaderElement = <div className="loaderSection">
+                             <div className="spinner-border text-primary" role="status">
+                                  <span className="sr-only">Loading...</span>
+                              </div>
+                        </div>;
       return (
         <>
         <div id="loginPage">
@@ -108,7 +121,12 @@ class LoginPage extends React.Component {
                           <h4 className="text-heading"><strong>Log in to your account</strong></h4>
                         </div>
                         <hr />
+                        {loaderElement}
+                        <MDBAlert color={alertColor} className={ alertClassName}>
+                         {error}
+                        </MDBAlert>
                         <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
+                          
                           <MDBInput icon="envelope" group type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Your email" required>
                             <div className="valid-feedback">Looks good!</div>
                             <div className="invalid-feedback">
@@ -139,9 +157,11 @@ class LoginPage extends React.Component {
                           <p>Don't have an account? <a href="/register">Sign Up</a></p>
                           </div>
                         </form>  
+                       
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
+
                 </MDBRow>
               </MDBContainer>
             </MDBMask>
