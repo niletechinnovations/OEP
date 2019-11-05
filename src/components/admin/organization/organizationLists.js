@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput } from 'mdbreact';
 import SideNavigation from "../sideNavigation";
 import OrganizationData from './organizationData';
+import Loader from '../../loader';
 import commonService from '../../../core/services/commonService';
 import './organization.css';
 import { FormErrors } from '../FormErrors';
@@ -221,11 +222,7 @@ class oragnizationLists extends Component {
       if(!loading)
         tableConatiner = <OrganizationData data={organizationList} editOrganizationAction={this.handleEditOrganization} deleteOrganizationAction={this.handleDeleteOrganization} />;
       else
-        loaderElement = <div className="loaderSection">
-                             <div className="spinner-border text-primary" role="status">
-                                  <span className="sr-only">Loading...</span>
-                              </div>
-                        </div>;
+        loaderElement = <Loader />
 
       return (
         <React.Fragment>

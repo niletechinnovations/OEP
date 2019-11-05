@@ -3,6 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBModal, MDBModalHeader, MDBModa
 
 import SideNavigation from "../sideNavigation";
 import CategoryDataItem from './CategoryData';
+import Loader from '../../loader';
 import commonService from '../../../core/services/commonService';
 import './category.css';
 import { FormErrors } from '../FormErrors';
@@ -232,11 +233,7 @@ class categoryLists extends Component {
       if(!loading)
         loaderElement = '';
       else
-          loaderElement = <div className="loaderSection">
-                             <div className="spinner-border text-primary" role="status">
-                                  <span className="sr-only">Loading...</span>
-                              </div>
-                        </div>;
+          loaderElement = <Loader />
 
       return (
         <React.Fragment>

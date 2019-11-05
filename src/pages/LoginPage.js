@@ -2,6 +2,7 @@ import React from "react";
 import  { Redirect, Link } from 'react-router-dom';
 
 import commenService from '../core/services/commonService';
+import Loader from '../components/loader';
 import {
   MDBView,
   MDBContainer,
@@ -88,11 +89,7 @@ class LoginPage extends React.Component {
 		} else {
     let loaderElement = '';
     if(loading)
-      loaderElement = <div className="loaderSection">
-                            <div className="spinner-border text-primary" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                      </div>;
+      loaderElement = <Loader />
       return (
         <>
         <div id="loginPage">

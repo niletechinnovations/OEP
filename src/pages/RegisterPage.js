@@ -12,6 +12,7 @@ import {
   MDBCard,
   MDBAlert
 } from "mdbreact";
+import Loader from '../components/loader';
 import "./RegisterPage.css";
 
 import commenService from '../core/services/commonService';
@@ -78,11 +79,7 @@ class RegisterPage extends React.Component {
     const { organizationName, firstName, lastName, email, phoneNumber, password, confirmPassword, loading, error, alertColor, alertClassName } = this.state;
     let loaderElement = '';
     if(loading)
-      loaderElement = <div className="loaderSection">
-                            <div className="spinner-border text-primary" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                      </div>;
+      loaderElement = <Loader />
     return (
       <>
       <div id="loginPage">

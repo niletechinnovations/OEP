@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import registerPage from "./pages/RegisterPage";
 import adminDashboard from "./components/admin/dashboard/dashboard";
 import organizationLists from "./components/admin/organization/organizationLists";
+import categoryLists from "./components/admin/category/categoryLists";
 import adminAgents from "./components/admin/agent/agentLists";
 import templateBuilder from "./pages/TemplateBuilderPage";
 import commonService from './core/services/commonService';
@@ -47,10 +48,11 @@ class Routes extends React.Component{
                   <Route exact path="/register" component={registerPage} />
                 </FrontEndLayout>
               </Route>
-              <Route exact path={["/admin/dashboard", "/admin/agents", "/form-builder", "/admin/organization"]}>
+              <Route exact path={["/admin/dashboard", "/admin/agents", "/form-builder", "/admin/organization","/admin/category"]}>
                 <AdminDashboardLayout>
                   <PrivateRoute exact path="/admin/dashboard" component={adminDashboard} />
                   <PrivateRoute exact path="/admin/organization" component={organizationLists} />
+                  <PrivateRoute exact path="/admin/category" component={categoryLists} />
                   <PrivateRoute exact path="/admin/agents" component={adminAgents} />
                   <Route exact path="/form-builder" component={templateBuilder} />
                 </AdminDashboardLayout>
