@@ -1,23 +1,5 @@
 import React, { Component } from "react";
-import { 
-  MDBNavbar,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarBrand,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBNavbarNav,
-  MDBFooter,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBIcon
-} from "mdbreact";
 
-
-import logo from "./assets/logo.png";
-import commonService from './core/services/commonService';
 import { BrowserRouter as Router} from "react-router-dom";
 
 import Routes from "./Routes";
