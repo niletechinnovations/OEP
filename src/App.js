@@ -15,7 +15,7 @@ import {
   MDBIcon
 } from "mdbreact";
 
-//import { ReactComponent as Logo } from "./assets/logo.png";
+
 import logo from "./assets/logo.png";
 
 import { BrowserRouter as Router} from "react-router-dom";
@@ -25,6 +25,7 @@ class App extends Component{
   state = {
     collapseID: ""
   };
+
 
   toggleCollapse = collapseID => () =>
     this.setState(prevState => ({
