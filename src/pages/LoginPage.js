@@ -24,7 +24,7 @@ class LoginPage extends React.Component {
       password: '',
       userName: '',
       loggedIn: false,
-      loading: false,
+      loading: true,
       error: ''
     };
   }
