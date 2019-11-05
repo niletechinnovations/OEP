@@ -25,6 +25,6 @@
     visibility: hidden;
   }
 
-.dashboard-content{ margin-left: 270px; margin-top: 6em; margin-bottom: 5em; }
+.dashboard-content{ margin-left: 270px; margin-top: 1em; margin-bottom: 5em; }
 .dashboard-content .md-form{  margin-top: 1rem; margin-bottom: 1rem;}
 .modal-dialog.cascading-modal .modal-header{ padding: 1rem; margin-bottom: 0px;}

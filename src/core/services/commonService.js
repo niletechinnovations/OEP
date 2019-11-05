@@ -1,27 +1,44 @@
 import axios from 'axios';
-const USER_API_BASE_URL = 'http://localhost:8080/';
+const API_BASE_URL = 'https://oep-project.herokuapp.com/v0.0/';
 class ApiService {
 
-    fetchUsers() {
-        return axios.get(USER_API_BASE_URL);
+    /*Get API*/
+    getAPI(urlSegment) {
+        return axios.get(API_BASE_URL+urlSegment);
     }
-
-    fetchUserById(userId) {
-        return axios.get(USER_API_BASE_URL + '/' + userId);
+    /*Get API With Authentication header */
+    getAPIWithAccessToken(urlSegment) {
+        const accessToken = localStorage.getItem("accessToken");
+        const headers = {
+            'Authorization': 'JWT '+accessToken
+        }
+        return axios.get(API_BASE_URL+urlSegment, {headers: headers});
     }
-
-    deleteUser(userId) {
-        return axios.delete(USER_API_BASE_URL + '/' + userId);
+    /*Post API Without Authentication header */
+    postAPI(urlSegment, formdata) {        
+        const headers = {
+            'Content-Type': 'application/json'           
+        }
+        return axios.post(API_BASE_URL+urlSegment, formdata, {headers: headers});
     }
+    /*Post API With Authentication header */
+    postAPIWithAccessToken(urlSegment, formdata){
+        const accessToken = localStorage.getItem("accessToken");
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'JWT '+accessToken
+        }
+        return axios.post(API_BASE_URL+urlSegment, formdata, {headers: headers});
+    } 
 
-    addUser(user) {
-        return axios.post(""+USER_API_BASE_URL, user);
+    /* Check user logged in or not */
+    getAuth(){
+        let accessToken = localStorage.getItem("accessToken");        
+        if(accessToken == '' || accessToken == null)
+          return false;
+        else
+          return true;
     }
-
-    editUser(user) {
-        return axios.put(USER_API_BASE_URL + '/' + user.id, user);
-    }
-
 }
 
 export default new ApiService();
