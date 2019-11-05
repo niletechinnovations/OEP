@@ -1,6 +1,7 @@
 import React from "react";
 import  { Redirect, Link } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import commenService from '../core/services/commonService';
 import Loader from '../components/loader';
 import {
@@ -12,8 +13,7 @@ import {
   MDBInput,
   MDBBtn,
   MDBMask,
-  MDBCard,
-  MDBAlert
+  MDBCard
 } from "mdbreact";
 import "./LoginPage.css";
 
@@ -27,9 +27,6 @@ class LoginPage extends React.Component {
       userName: '',
       loggedIn: false,
       loading: false,
-      error: '',
-      alertColor: '',
-      alertClassName: 'd-none'
     };
   }
 
@@ -48,7 +45,8 @@ class LoginPage extends React.Component {
          
           console.log(res);
           if ( undefined === res.data || !res.data.status ) {
-            this.setState( { error: res.data.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+            this.setState( { loading: false } );
+            toast.error(res.data.message);
             return;
           }
   
@@ -63,15 +61,16 @@ class LoginPage extends React.Component {
             loading: false,              
             loggedIn: true
           } )
-          
+          toast.success(res.data.message);
           if(loggedInfo.data.role.toLowerCase() === 'admin')
             this.props.history.push('/admin/dashboard');
           else
             this.props.history.push('/');
         } )
         .catch( err => {
-          
-          this.setState( { error: err.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+          debugger;
+          toast.error(err.message);
+          this.setState( { loading: false} );
         } )
     } )
 
@@ -82,7 +81,7 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    const { email, password, loggedIn, loading, error, alertColor, alertClassName } = this.state;
+    const { email, password, loggedIn, loading } = this.state;
 
     if ( loggedIn || localStorage.getItem( 'token' ) ) {
 			return ( <Redirect to={`/admin/dashboard`} noThrow /> )
@@ -118,10 +117,8 @@ class LoginPage extends React.Component {
                           <h4 className="text-heading"><strong>Log in to your account</strong></h4>
                         </div>
                         <hr />
-                        {loaderElement}
-                        <MDBAlert color={alertColor} className={ alertClassName}>
-                         {error}
-                        </MDBAlert>
+                        {loaderElement} 
+                        <ToastContainer />                       
                         <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
                           
                           <MDBInput icon="envelope" group type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Your email" required>

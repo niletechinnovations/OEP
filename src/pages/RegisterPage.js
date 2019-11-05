@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   MDBView,
   MDBContainer,
@@ -9,8 +11,7 @@ import {
   MDBInput,
   MDBBtn,
   MDBMask,
-  MDBCard,
-  MDBAlert
+  MDBCard
 } from "mdbreact";
 import Loader from '../components/loader';
 import "./RegisterPage.css";
@@ -32,10 +33,8 @@ class RegisterPage extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      loading: false,
-      error: '',
-      alertColor: '',
-      alertClassName: 'd-none'
+      loading: false
+      
     };
   }
 
@@ -56,16 +55,18 @@ class RegisterPage extends React.Component {
          
           console.log(res);
           if ( undefined === res.data || !res.data.status ) {
-            this.setState( { error: res.data.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+            this.setState( { loading: false} );
+            toast.error(res.data.message);
             return;
           }
-  
+          toast.success(res.data.message);
           this.props.history.push('/login');
           
         } )
         .catch( err => {
           
-          this.setState( { error: err.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+          this.setState( { loading: false } );
+          toast.error(err.message);
         } )
     } )
 
@@ -76,7 +77,7 @@ class RegisterPage extends React.Component {
   };
 
   render() {
-    const { organizationName, firstName, lastName, email, phoneNumber, password, confirmPassword, loading, error, alertColor, alertClassName } = this.state;
+    const { organizationName, firstName, lastName, email, phoneNumber, password, confirmPassword, loading } = this.state;
     let loaderElement = '';
     if(loading)
       loaderElement = <Loader />
@@ -109,9 +110,7 @@ class RegisterPage extends React.Component {
                       </h4>
                       <hr />
                       {loaderElement}
-                      <MDBAlert color={alertColor} className={ alertClassName}>
-                        {error}
-                      </MDBAlert>
+                      <ToastContainer />
                         
                       <form className="grey-textneeds-validation" onSubmit={this.submitHandler} noValidate>
                         <MDBRow>

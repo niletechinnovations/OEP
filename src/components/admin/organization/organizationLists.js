@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput } from 'mdbreact';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import SideNavigation from "../sideNavigation";
 import OrganizationData from './organizationData';
 import Loader from '../../loader';
@@ -44,7 +46,8 @@ class oragnizationLists extends Component {
           
            
           if ( undefined === res.data.data || !res.data.status ) {
-            this.setState( { error: res.data.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+            this.setState( { loading: false } );
+            toast.error(res.data.message);
             return;
           }   
 
@@ -57,7 +60,8 @@ class oragnizationLists extends Component {
             this.props.history.push('/login');
           }
           else
-            this.setState( { error: err.message, loading: false } );
+            this.setState( { loading: false } );
+            toast.error(err.message);
         } )
     } )
   }
@@ -87,13 +91,14 @@ class oragnizationLists extends Component {
           
            
           if ( undefined === res.data.data || !res.data.status ) {
-            let fieldValidationErrors = this.state.formErrors;
-            fieldValidationErrors.error = res.data.message;
-            this.setState( { formErrors: fieldValidationErrors, loading: false, alertColor: 'danger', alertClassName: '' } );
+           
+            this.setState( { loading: false} );
+            toast.error(res.data.message);
             return;
           } 
           let fieldValidationErrors = this.state.formErrors;
-          this.setState({ modal: false})
+          this.setState({ modal: false});
+          toast.success(res.data.message);
           this.organizationList();
          
         } )
@@ -103,7 +108,8 @@ class oragnizationLists extends Component {
             this.props.history.push('/login');
           }
           else
-            this.setState( { error: err.message, loading: false } );
+            this.setState( { loading: false } );
+            toast.error(err.message);
         } )
       }
       else{
@@ -111,24 +117,25 @@ class oragnizationLists extends Component {
         .then( res => {
           
            
-          if ( undefined === res.data.data || !res.data.status ) {
-            let fieldValidationErrors = this.state.formErrors;
-            fieldValidationErrors.error = res.data.message;
-            this.setState( { formErrors: fieldValidationErrors, loading: false, alertColor: 'danger', alertClassName: '' } );
+          if ( undefined === res.data.data || !res.data.status ) { 
+            this.setState( { loading: false} );
+            toast.error(res.data.message);
             return;
           } 
-          let fieldValidationErrors = this.state.formErrors;
-          this.setState({ modal: false})
+          
+          this.setState({ modal: false});
+          toast.success(res.data.message);
           this.organizationList();
          
         } )
         .catch( err => {         
-          if(err.response.status == 401 && err.response.status === undefined) {
+          if(err.response.status === 401 && err.response.status === undefined) {
             localStorage.clear();
             this.props.history.push('/login');
           }
           else
-            this.setState( { error: err.message, loading: false } );
+            this.setState( { loading: false } );
+            toast.error(err.message);
         } )
       }
     } );
@@ -229,6 +236,7 @@ class oragnizationLists extends Component {
           <SideNavigation />
           <main className="dashboard-content">
             <MDBContainer>
+              <ToastContainer />
               <MDBRow className="mb-12">
                 <MDBCol md="6">
                   <h2 className="section-heading mb-4">Organization List</h2>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput } from 'mdbreact';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import SideNavigation from "../sideNavigation";
 import CategoryDataItem from './CategoryData';
 import Loader from '../../loader';
@@ -42,8 +43,9 @@ class categoryLists extends Component {
         .then( res => {
           console.log(res);
            
-          if ( undefined === res.data.data || !res.data.status ) {
-            this.setState( { error: res.data.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+          if ( undefined == res.data.data || !res.data.status ) {
+            this.setState( {  loading: false } );
+            toast.error(res.data.message);    
             return;
           }   
 
@@ -51,12 +53,14 @@ class categoryLists extends Component {
          
         } )
         .catch( err => {         
-          if(err.response.status === 401 && err.response.status != undefined) {
+          if(err.response.status === 401 && err.response.status !== undefined) {
             localStorage.clear();
             this.props.history.push('/login');
           }
-          else
-            this.setState( { error: err.response.data.message, loading: false } );
+          else {
+            this.setState( { loading: false } );
+            toast.error(err.message);    
+          }
         } )
     } )
   }
@@ -65,8 +69,8 @@ class categoryLists extends Component {
     event.target.className += " was-validated";
     let formData = new FormData(); 
     
-    if(this.state.categoryImage !="" && this.state.categoryImage != undefined) {
-      if(this.state.categoryImage.type != "image/png" && this.state.categoryImage.type != "image/jpeg" && this.state.categoryImage.type != "image/jpg" && this.state.categoryImage.type != "image/svg") {
+    if(this.state.categoryImage !=="" && this.state.categoryImage !== undefined) {
+      if(this.state.categoryImage.type !== "image/png" && this.state.categoryImage.type !== "image/jpeg" && this.state.categoryImage.type !== "image/jpg" && this.state.categoryImage.type !== "image/svg") {
         return false;
       }
       formData.append('filename',this.state.categoryImage);
@@ -82,16 +86,16 @@ class categoryLists extends Component {
           .then( res => {
             console.log(res);
            
-            let formErrors = this.state.formErrors;
-            formErrors.error = '';
-            if ( undefined === res.data.data || !res.data.status ) {            
-              formErrors.error = res.data.message;            
-              this.setState({formErrors: formErrors});            
+            
+            if ( undefined === res.data.data || !res.data.status ) {
+              this.setState({loading: false});   
+              toast.error(res.data.message);             
               return;
             } 
             let updatedCategoryLists = this.state.categoryList;
             updatedCategoryLists[this.state.rowIndex] = res.data.data;
-            this.setState({formErrors: formErrors, modal: false, rowIndex: ""});
+            this.setState({modal: false, rowIndex: "", loading:false});
+            toast.success(res.data.message);    
             this.categoryList();
           } )
           .catch( err => {       
@@ -100,8 +104,10 @@ class categoryLists extends Component {
               localStorage.clear();
               this.props.history.push('/login');
             }
-            else
-              this.setState( { error: err.response.data.message, loading: false } );
+            else {
+              this.setState( { loading: false } );
+              toast.error(err.message);    
+            }
           } )
        
       }
@@ -113,12 +119,13 @@ class categoryLists extends Component {
            
             let formErrors = this.state.formErrors;
             formErrors.error = '';
-            if ( undefined === res.data.data || !res.data.status ) {            
-              formErrors.error = res.data.message;            
-              this.setState({formErrors: formErrors});            
+            if ( undefined === res.data.data || !res.data.status ) { 
+              this.setState({loading: false});           
+              toast.error(res.data.message);             
               return;
             }            
-            this.setState({formErrors: formErrors,  modal: false, loading: false});
+            this.setState({modal: false, loading: false});
+            toast.success(res.data.message); 
             this.categoryList();
           } )
           .catch( err => {       
@@ -127,8 +134,10 @@ class categoryLists extends Component {
               localStorage.clear();
               this.props.history.push('/login');
             }
-            else
-              this.setState( { error: err.response.data.message, loading: false } );
+            else{
+              this.setState( { loading: false } );
+              toast.error(err.message); 
+            }
           } )
       }
     })
@@ -181,7 +190,7 @@ class categoryLists extends Component {
     let formErrors = this.state.formErrors;
     formErrors.category_image = "";
     
-    if(targetFile.type != "image/png" && targetFile.type != "image/jpeg" && targetFile.type != "image/jpg" && targetFile.type != "image/svg") {
+    if(targetFile.type !== "image/png" && targetFile.type !== "image/jpeg" && targetFile.type !== "image/jpg" && targetFile.type !== "image/svg") {
       formErrors.category_image = " accept only png, jpeg, jpg";
       this.setState({ categoryImage: targetFile, formErrors: formErrors  });
     }
@@ -204,13 +213,13 @@ class categoryLists extends Component {
     this.setState( { loading: true}, () => {
       commonService.deleteAPIWithAccessToken( `category/`+categoryItem.categoryId)
         .then( res => {
-          console.log(res);       
-          debugger;
+          this.setState({loading: false});
           if ( undefined === res.data || !res.data.status ) {            
-                   
+             toast.error(res.data.message);      
             return;
           }         
-          this.setState({loading: false});
+          
+          toast.success(res.data.message);
           this.categoryList();
         } )
         .catch( err => {       
@@ -219,8 +228,10 @@ class categoryLists extends Component {
             localStorage.clear();
             this.props.history.push('/login');
           }
-          else
-            this.setState( { error: err.response.data.message, loading: false } );
+          else{
+            this.setState( { loading: false } );
+            toast.error(err.message);
+          }
       } )
     })
   }
@@ -240,6 +251,7 @@ class categoryLists extends Component {
           <SideNavigation />
           <main className="dashboard-content">
             <MDBContainer>
+              <ToastContainer />
               <MDBRow className="mb-12">
                 <MDBCol md="6">
                   <h2 className="section-heading mb-4">Category List</h2>
