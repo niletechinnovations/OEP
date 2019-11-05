@@ -1,6 +1,6 @@
 import React from "react";
-import axios from "axios";
-import  { Redirect } from 'react-router-dom';
+import  { Redirect, Link } from 'react-router-dom';
+
 import commenService from '../core/services/commonService';
 import {
   MDBView,
@@ -89,10 +89,10 @@ class LoginPage extends React.Component {
     let loaderElement = '';
     if(loading)
       loaderElement = <div className="loaderSection">
-                             <div className="spinner-border text-primary" role="status">
-                                  <span className="sr-only">Loading...</span>
-                              </div>
-                        </div>;
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                      </div>;
       return (
         <>
         <div id="loginPage">
@@ -154,7 +154,7 @@ class LoginPage extends React.Component {
                             <MDBBtn color="amber" type="submit">SIGN IN</MDBBtn>
                           </div>
                           <div className="text-center mt-5">
-                          <p>Don't have an account? <a href="/register">Sign Up</a></p>
+                          <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
                           </div>
                         </form>  
                        

@@ -1,18 +1,11 @@
 import React from 'react';
-import logo from "../../assets/mdb-react-small.png";
-import { MDBNavItem,
-  MDBNavLink,
-  MDBNavbarBrand,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBNavbarNav,
+import { 
   MDBFooter,
   MDBContainer,
   MDBRow,
   MDBCol,
   MDBBtn,
   MDBIcon } from 'mdbreact';
-import { NavLink } from 'react-router-dom';
 import './frontEndFooter.css';
 
 const frontEndFooter = () => {

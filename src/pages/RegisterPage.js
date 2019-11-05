@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import {
   MDBView,
   MDBContainer,
@@ -8,13 +9,80 @@ import {
   MDBInput,
   MDBBtn,
   MDBMask,
-  MDBCard
+  MDBCard,
+  MDBAlert
 } from "mdbreact";
 import "./RegisterPage.css";
 
-class LoginPage extends React.Component {
+import commenService from '../core/services/commonService';
+
+
+class RegisterPage extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
+
+  constructor( props ){
+    super( props );
+
+    this.state = {
+      organizationName: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      loading: false,
+      error: '',
+      alertColor: '',
+      alertClassName: 'd-none'
+    };
+  }
+
+  submitHandler = event => {
+    event.preventDefault();
+    event.target.className += " was-validated";
+    const signupData = {
+      organizationName: this.state.organizationName,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      phoneNumber: this.state.phoneNumber,
+      email: this.state.email,
+      password: this.state.password,
+    };
+    this.setState( { loading: true }, () => {
+      commenService.postAPI( `auth/sign-up`, signupData )
+        .then( res => {
+         
+          console.log(res);
+          if ( undefined === res.data || !res.data.status ) {
+            this.setState( { error: res.data.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+            return;
+          }
+  
+          this.props.history.push('/login');
+          
+        } )
+        .catch( err => {
+          
+          this.setState( { error: err.message, loading: false, alertColor: 'danger', alertClassName: '' } );
+        } )
+    } )
+
+  };
+
+  changeHandler = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
   render() {
+    const { organizationName, firstName, lastName, email, phoneNumber, password, confirmPassword, loading, error, alertColor, alertClassName } = this.state;
+    let loaderElement = '';
+    if(loading)
+      loaderElement = <div className="loaderSection">
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                      </div>;
     return (
       <>
       <div id="loginPage">
@@ -23,7 +91,7 @@ class LoginPage extends React.Component {
             <MDBContainer>
               <MDBRow>
                 <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
-                  <h2 className="display-5 font-weight-bold mt-5">Why Join OEP?</h2>
+                  <h2 className="display-5 font-weight-bold mt-5 pt-2">Why Join OEP?</h2>
                   <hr className="hr-light" />
                   <p>We're Committed to Service Excellence.</p>
                   <p>
@@ -36,44 +104,85 @@ class LoginPage extends React.Component {
                     Learn More
                   </MDBBtn>
                 </div>
-                <MDBCol md="6" xl="5" className="loginForm mb-3">
+                <MDBCol md="6" xl="5" className="loginForm mb-5">
                   <MDBCard>
                     <MDBCardBody className="z-depth-2">
                       <h4 className="text-center text-heading">
                         <strong>Create your free OEP account!</strong>
                       </h4>
                       <hr />
+                      {loaderElement}
+                      <MDBAlert color={alertColor} className={ alertClassName}>
+                        {error}
+                      </MDBAlert>
+                        
+                      <form className="grey-textneeds-validation" onSubmit={this.submitHandler} noValidate>
+                        <MDBRow>
+                          <MDBCol md="12">
+                            <MDBInput type="text" id="org-name" label="Organization Name" name="organizationName" value={organizationName} onChange={this.changeHandler} required>
+                              <div className="invalid-feedback">
+                                Organization name is required.
+                              </div>
+                            </MDBInput>
+                          </MDBCol>
+                        </MDBRow>
+                        <MDBRow>
+                          <MDBCol md="6">
+                            <MDBInput type="text" id="first-name" label="Contact person first name" name="firstName" value={firstName} onChange={this.changeHandler} required>
+                              <div className="invalid-feedback">
+                                First name is required.
+                              </div>
+                            </MDBInput>
+                          </MDBCol>
+                          <MDBCol md="6">
+                            <MDBInput type="text" id="last-name" label="Contact person last name" name="lastName" value={lastName} onChange={this.changeHandler} required>
+                              <div className="invalid-feedback">
+                                Last name is required.
+                              </div>
+                            </MDBInput>
+                          </MDBCol>
+                        </MDBRow>
+                        
                       <MDBRow>
                         <MDBCol md="6">
-                          <MDBInput type="text" id="first-name" label="First Name" />
+                          <MDBInput type="text" id="phoneNumber" label="Phone number" name="phoneNumber" value={phoneNumber} onChange={this.changeHandler} required>
+                              <div className="invalid-feedback">
+                                Phone number is required.
+                              </div>
+                            </MDBInput>
                         </MDBCol>
                         <MDBCol md="6">
-                          <MDBInput type="text" id="last-name" label="Last Name" />
+                          <MDBInput type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Email address *" required>
+                            <div className="invalid-feedback">
+                            Email-id is required.
+                            </div>
+                          </MDBInput>
                         </MDBCol>
                       </MDBRow>
                       <MDBRow>
                         <MDBCol md="6">
-                          <MDBInput type="text" id="phone" label="Your Phone" />
+                          <MDBInput type="password" name="password" value={password} onChange={this.changeHandler} id="password" label="Password *" required>
+                            <div className="invalid-feedback">
+                              Password is required.
+                            </div>
+                          </MDBInput>
                         </MDBCol>
                         <MDBCol md="6">
-                          <MDBInput type="email" id="email" label="Your email" />
-                        </MDBCol>
-                      </MDBRow>
-                      <MDBRow>
-                        <MDBCol md="6">
-                          <MDBInput type="password" id="password" label="Password *" />
-                        </MDBCol>
-                        <MDBCol md="6">
-                          <MDBInput type="password" id="confirm-password" label="Confirm Password" />
+                          <MDBInput type="password" name="confirmPassword" value={confirmPassword} onChange={this.changeHandler} id="confirmPassword" label="Confirm Password *" required>
+                            <div className="invalid-feedback">
+                              Confirm password is required.
+                            </div>
+                          </MDBInput>
                         </MDBCol>
                       </MDBRow>
                         
                       <div className="text-center mt-3 black-text">
                         <MDBBtn color="amber" type="submit">SIgn Up</MDBBtn>
                       </div>
-                      <div className="text-center mt-5">
-                        <p>Already have an account? <a href="/register">Log in</a></p>
+                      <div className="text-center mt-3 grey-text">
+                        <p>Already have an account? <Link to="/login">Log in</Link></p>
                       </div>
+                      </form>
                     </MDBCardBody>
                   </MDBCard>
                 </MDBCol>
@@ -87,4 +196,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default RegisterPage;

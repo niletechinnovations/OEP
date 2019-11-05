@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 import {
   MDBCarousel, MDBCarouselInner, MDBCarouselItem,
   MDBView,
@@ -7,7 +9,9 @@ import {
   MDBCol,
   MDBRow,
   MDBBtn,
-  MDBIcon
+  MDBIcon,
+  MDBCard,
+  MDBCardBody
 } from "mdbreact";
 import "./HomePage.css";
 
@@ -43,7 +47,7 @@ class HomePage extends React.Component {
                 <MDBRow>
                 <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
                   <h1 className="h1-responsive font-weight-bold mt-sm-5">
-                    Make purchases with our app{" "}
+                  Inspections are just the beginning{" "}
                   </h1>
                   <hr className="hr-light" />
                   <h6 className="mb-4">
@@ -52,10 +56,11 @@ class HomePage extends React.Component {
                     veniam sapiente, fugiat! Commodi sequi non animi ea dolor
                     molestiae iste.
                   </h6>
-                  <MDBBtn color="white">Download</MDBBtn>
-                  <MDBBtn outline color="white">
-                    Learn More
-                  </MDBBtn>
+                  <Link to="/register">
+                    <MDBBtn color="amber">Get Started for FREE</MDBBtn>
+                  </Link>  
+                  <MDBBtn outline color="white">Download APP</MDBBtn>
+                  
                 </div>
                 <MDBCol md="6" xl="5" className="mt-xl-5">
                   <img
@@ -83,89 +88,50 @@ class HomePage extends React.Component {
               </p>
 
               <MDBRow>
-                <MDBCol md="4">
-                  <MDBRow className="mb-3">
-                    <MDBCol size="2">
-                      <MDBIcon
-                        icon="flag-checkered"
-                        size="2x"
-                        className="deep-purple-text"
-                      />
-                    </MDBCol>
-                    <MDBCol size="10">
-                      <h5 className="font-weight-bold mb-3">International</h5>
-                      <p className="grey-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Reprehenderit maiores nam, aperiam minima assumenda.
-                      </p>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="mb-3">
-                    <MDBCol size="2">
-                      <MDBIcon icon="flask" size="2x" className="deep-purple-text" />
-                    </MDBCol>
-                    <MDBCol size="10">
-                      <h5 className="font-weight-bold mb-3">Experimental</h5>
-                      <p className="grey-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Reprehenderit maiores nam, aperiam minima assumenda deleniti.
-                      </p>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow className="mb-3">
-                    <MDBCol size="2">
-                      <MDBIcon icon="glass-martini" size="2x" className="deep-purple-text" />
-                    </MDBCol>
-                    <MDBCol size="10">
-                      <h5 className="font-weight-bold mb-3">Relaxing</h5>
-                      <p className="grey-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Reprehenderit maiores nam, aperiam minima assumenda deleniti.
-                      </p>
-                    </MDBCol>
-                  </MDBRow>
-                </MDBCol>
-                <MDBCol md="4" className="text-name">
+                <MDBCol lg="5" className="text-center text-lg-left">
                   <img
                     className="img-fluid"
-                    src="https://mdbootstrap.com/img/Mockups/Transparent/Small/iphone-portfolio1.png"
+                    src="https://mdbootstrap.com/img/Photos/Others/screens-section.jpg"
                     alt=""
                   />
                 </MDBCol>
-                <MDBCol md="4">
+                <MDBCol lg="7">
                   <MDBRow className="mb-3">
-                    <MDBCol size="2">
-                      <MDBIcon icon="heart" size="2x" className="deep-purple-text" />
+                    <MDBCol size="1">
+                      <MDBIcon icon="share" size="lg" className="indigo-text" />
                     </MDBCol>
-                    <MDBCol size="10">
-                      <h5 className="font-weight-bold mb-3">Beloved</h5>
+                    <MDBCol xl="10" md="11" size="10">
+                      <h5 className="font-weight-bold mb-3">Start with the basics</h5>
                       <p className="grey-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Reprehenderit maiores nam, aperiam minima assumenda deleniti.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        enim ad minima veniam, quis nostrum exercitationem ullam.
+                        Reprehenderit maiores aperiam assumenda deleniti hic.
                       </p>
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-3">
-                    <MDBCol size="2">
-                      <MDBIcon icon="bolt" size="2x" className="deep-purple-text" />
+                    <MDBCol size="1">
+                      <MDBIcon icon="share" size="lg" className="indigo-text" />
                     </MDBCol>
-                    <MDBCol size="10">
-                      <h5 className="font-weight-bold mb-3">Rapid</h5>
+                    <MDBCol xl="10" md="11" size="10">
+                      <h5 className="font-weight-bold mb-3">Improve your processes</h5>
                       <p className="grey-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Reprehenderit maiores nam, aperiam minima assumenda deleniti.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        enim ad minima veniam, quis nostrum exercitationem ullam.
+                        Reprehenderit maiores aperiam assumenda deleniti hic.
                       </p>
                     </MDBCol>
                   </MDBRow>
                   <MDBRow className="mb-3">
-                    <MDBCol size="2">
-                      <MDBIcon icon="magic" size="2x" className="deep-purple-text" />
+                    <MDBCol size="1">
+                      <MDBIcon icon="share" size="lg" className="indigo-text" />
                     </MDBCol>
-                    <MDBCol size="10">
-                      <h5 className="font-weight-bold mb-3">Magical</h5>
+                    <MDBCol xl="10" md="11" size="10">
+                      <h5 className="font-weight-bold mb-3">Reach your full potential</h5>
                       <p className="grey-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Reprehenderit maiores nam, aperiam minima assumenda deleniti.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        enim ad minima veniam, quis nostrum exercitationem ullam.
+                        Reprehenderit maiores aperiam assumenda deleniti hic.
                       </p>
                     </MDBCol>
                   </MDBRow>
@@ -174,7 +140,145 @@ class HomePage extends React.Component {
             </MDBContainer>
           </section>  
         </div>
-            
+        <section className="my-5 pt-5 pb-2 featured-section">
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol md="4" className="md-0 mb-5">
+                <MDBCard className="p-3">
+                <MDBRow>
+                  <MDBCol lg="2" md="3" size="2">
+                    <MDBIcon icon="bullhorn" size="2x" className="blue-text" />
+                  </MDBCol>
+                  <MDBCol lg="10" md="9" size="10">
+                    <h4 className="font-weight-bold">Actions</h4>
+                    <p className="grey-text">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                      do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam.
+                    </p>
+                    
+                  </MDBCol>
+                </MDBRow>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol md="4" className="md-0 mb-5">
+              <MDBCard className="p-3">
+                <MDBRow>
+                  <MDBCol lg="2" md="3" size="2">
+                    <MDBIcon icon="cogs" size="2x" className="pink-text" />
+                  </MDBCol>
+                  <MDBCol lg="10" md="9" size="10">
+                    <h4 className="font-weight-bold">Inspections</h4>
+                    <p className="grey-text">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                      do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam.
+                    </p>
+                    
+                  </MDBCol>
+                </MDBRow>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol md="4" className="md-0 mb-5">
+              <MDBCard className="p-3">
+                <MDBRow>
+                  <MDBCol lg="2" md="3" size="2">
+                    <MDBIcon icon="users" size="2x" className="purple-text" />
+                  </MDBCol>
+                  <MDBCol lg="10" md="9" size="10">
+                    <h4 className="font-weight-bold">Team Management</h4>
+                    <p className="grey-text">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                      do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam.
+                    </p>
+                   
+                  </MDBCol>
+                </MDBRow>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+        </section>
+        
+        
+      <section className="text-center my-5 pb-5">
+        <MDBContainer>
+          <h2 className="h1-responsive font-weight-bold my-5">
+            Explore our features
+          </h2>
+          
+          <MDBRow className="text-center">
+            <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
+              <MDBView className="overlay rounded z-depth-1" waves>
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Others/images/58.jpg"
+                  alt=""
+                  className="img-fluid"
+                />
+                <a href="#!">
+                  <MDBMask overlay="white-slight" />
+                </a>
+              </MDBView>
+              <MDBCardBody className="pb-0">
+                <h4 className="font-weight-bold my-3">Get everyone on the same paperless page</h4>
+                <p className="grey-text">
+                  Temporibus autem quibusdam et aut officiis debitis aut rerum
+                  necessitatibus saepe eveniet ut et voluptates repudiandae.
+                </p>
+                <MDBBtn color="indigo" size="sm">
+                  <MDBIcon far icon="clone" className="left" /> Learn more
+                </MDBBtn>
+              </MDBCardBody>
+            </MDBCol>
+            <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
+              <MDBView className="overlay rounded z-depth-1" waves>
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Others/project4.jpg"
+                  alt=""
+                  className="img-fluid"
+                />
+                <a href="#!">
+                  <MDBMask overlay="white-slight" />
+                </a>
+              </MDBView>
+              <MDBCardBody className="pb-0">
+                <h4 className="font-weight-bold my-3">Generate instant, professional reports</h4>
+                <p className="grey-text">
+                  Temporibus autem quibusdam et aut officiis debitis aut rerum
+                  necessitatibus saepe eveniet ut et voluptates repudiandae.
+                </p>
+                <MDBBtn color="indigo" size="sm">
+                  <MDBIcon far icon="clone" className="left" /> Learn more
+                </MDBBtn>
+              </MDBCardBody>
+            </MDBCol>
+            <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
+              <MDBView className="overlay rounded z-depth-1" waves>
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg"
+                  alt=""
+                  className="img-fluid"
+                />
+                <a href="#!">
+                  <MDBMask overlay="white-slight" />
+                </a>
+              </MDBView>
+              <MDBCardBody className="pb-0">
+                <h4 className="font-weight-bold my-3">Get a bird’s eye view with analytics</h4>
+                <p className="grey-text">
+                  Temporibus autem quibusdam et aut officiis debitis aut rerum
+                  necessitatibus saepe eveniet ut et voluptates repudiandae.
+                </p>
+                <MDBBtn color="indigo" size="sm">
+                  <MDBIcon far icon="clone" className="left" /> Learn more
+                </MDBBtn>
+              </MDBCardBody>
+            </MDBCol>
+          </MDBRow>
+          </MDBContainer>
+        </section>
+
         <div className="streak streak-md download-section">
           <MDBContainer>
             <MDBRow>
