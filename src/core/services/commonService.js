@@ -34,7 +34,7 @@ class ApiService {
     /* Check user logged in or not */
     getAuth(){
         let accessToken = localStorage.getItem("accessToken");        
-        if(accessToken == '' || accessToken == null)
+        if(accessToken === '' || accessToken === null)
           return false;
         else
           return true;
