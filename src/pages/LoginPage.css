@@ -7,7 +7,7 @@
 }
 
   #loginPage h6 { line-height: 1.7; }
-  .loginForm hr{ border-color: #ffa000; margin-top: 10px; margin-bottom: 35px;}
+  .loginForm hr{ border-color: #ffa000; margin-top: 10px; margin-bottom: 10px;}
   .loginForm .md-form{ margin-top: 1em; margin-bottom: 1em; }
   .loginForm .text-heading{ line-height: 1.5em;}
   .loginForm  p a{ color:#ffa000; line-height: 1.5em;}
