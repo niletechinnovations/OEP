@@ -31,10 +31,29 @@ class ApiService {
         return axios.post(API_BASE_URL+urlSegment, formdata, {headers: headers});
     } 
 
+    /*PUt API With Authentication header */
+    putAPIWithAccessToken(urlSegment, formdata){
+        const accessToken = localStorage.getItem("accessToken");
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'JWT '+accessToken
+        }
+        return axios.put(API_BASE_URL+urlSegment, formdata, {headers: headers});
+    } 
+
+    /*Delete API With Authentication header and Without parameter */
+    deleteAPIWithAccessToken(urlSegment){
+        const accessToken = localStorage.getItem("accessToken");
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'JWT '+accessToken
+        }
+        return axios.delete(API_BASE_URL+urlSegment, {headers: headers});
+    } 
     /* Check user logged in or not */
     getAuth(){
         let accessToken = localStorage.getItem("accessToken");        
-        if(accessToken == '' || accessToken == null)
+        if(accessToken === '' || accessToken === null)
           return false;
         else
           return true;

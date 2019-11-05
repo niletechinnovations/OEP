@@ -14,9 +14,9 @@ class oragnizationLists extends Component {
       modal: false,      
       organizationList: [],
       loading: true,
-      rowIndex: "",
-      formField: {organizationName: '', email: '', firstName: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', roleName: '' },
-      formErrors: {organization_name: '', email: '', first_name: '', role: '', error: ''},
+      rowIndex: -1,
+      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
+      formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: false,
 
     } 
@@ -25,11 +25,11 @@ class oragnizationLists extends Component {
     this.handleDeleteOrganization = this.handleDeleteOrganization.bind(this);
   }
 
-  // Fetch the category List
+  // Fetch the organization List
   componentDidMount() { 
     this.organizationList();
   }
-  /*Category List API*/
+  /*organization List API*/
   organizationList() {
   	const accessToken = localStorage.getItem("accessToken");
   	const headers = {
@@ -40,7 +40,7 @@ class oragnizationLists extends Component {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('organization')
         .then( res => {
-          debugger;
+          
            
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( { error: res.data.message, loading: false, alertColor: 'danger', alertClassName: '' } );
@@ -51,7 +51,7 @@ class oragnizationLists extends Component {
          
         } )
         .catch( err => {         
-          if(err.response.status == 401 && err.response.status === undefined) {
+          if(err.response.status === 401 && err.response.status !==  undefined) {
             localStorage.clear();
             this.props.history.push('/login');
           }
@@ -60,22 +60,86 @@ class oragnizationLists extends Component {
         } )
     } )
   }
+  /* Submit Form Handler*/
   submitHandler (event) {
     event.preventDefault();
     event.target.className += " was-validated";
-    let formData = new FormData(); 
-    const accessToken = localStorage.getItem("accessToken");
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'JWT '+accessToken
-    }
+    this.setState( { loading: true}, () => {
+      const formInputField = this.state.formField;
+      const formData = {
+        "email": formInputField.email,
+        "firstName": formInputField.first_name, 
+        "phoneNumber": formInputField.phoneNumber, 
+        "address": formInputField.address, 
+        "roleName": formInputField.role, 
+        "city": formInputField.city, 
+        "state": formInputField.state, 
+        "country": formInputField.country, 
+        "postalCode": formInputField.postalCode, 
+        "organizationName": formInputField.organization_name
+      };
+      const rowIndex = this.state.rowIndex;
+      if(rowIndex > -1) {
+        const organizationInfo = this.state.organizationList[rowIndex];
+        commonService.putAPIWithAccessToken('organization/'+organizationInfo.organizationId, formData)
+        .then( res => {
+          
+           
+          if ( undefined === res.data.data || !res.data.status ) {
+            let fieldValidationErrors = this.state.formErrors;
+            fieldValidationErrors.error = res.data.message;
+            this.setState( { formErrors: fieldValidationErrors, loading: false, alertColor: 'danger', alertClassName: '' } );
+            return;
+          } 
+          let fieldValidationErrors = this.state.formErrors;
+          this.setState({ modal: false})
+          this.organizationList();
+         
+        } )
+        .catch( err => {         
+          if(err.response.status == 401 && err.response.status === undefined) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else
+            this.setState( { error: err.message, loading: false } );
+        } )
+      }
+      else{
+        commonService.postAPIWithAccessToken('organization', formData)
+        .then( res => {
+          
+           
+          if ( undefined === res.data.data || !res.data.status ) {
+            let fieldValidationErrors = this.state.formErrors;
+            fieldValidationErrors.error = res.data.message;
+            this.setState( { formErrors: fieldValidationErrors, loading: false, alertColor: 'danger', alertClassName: '' } );
+            return;
+          } 
+          let fieldValidationErrors = this.state.formErrors;
+          this.setState({ modal: false})
+          this.organizationList();
+         
+        } )
+        .catch( err => {         
+          if(err.response.status == 401 && err.response.status === undefined) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else
+            this.setState( { error: err.message, loading: false } );
+        } )
+      }
+    } );
     
   };
-
+  /* Input Field On changes*/
   changeHandler = event => {
     const name = event.target.name;
-    const value = event.target.value
-    this.setState({ [name]: value },
+    const value = event.target.value;
+    const formField = this.state.formField
+    formField[name] = value;
+    this.setState({ formField: formField },
                   () => { this.validateField(name, value) });
   };
   
@@ -83,22 +147,33 @@ class oragnizationLists extends Component {
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
     fieldValidationErrors.error = '';
-    let category_name_valid = this.state.category_name_valid; 
+   
     switch(fieldName) {         
-      case 'category_name':
-        category_name_valid = (value !== '') ? true : false;
-        fieldValidationErrors.category_name = category_name_valid ? '' : ' is required';
-        break;              
+      case 'organization_name':        
+        fieldValidationErrors.organization_name = (value !== '') ? '' : ' is required';
+        break; 
+      case 'email':        
+        fieldValidationErrors.email = (value !== '') ? ((!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value))) ? " invalid format" : "") : ' is required';
+        break; 
+      case 'first_name':        
+        fieldValidationErrors.contact_person = (value !== '') ? '' : ' is required';
+      case 'role':        
+        fieldValidationErrors.role = (value !== '') ? '' : ' is required';
+        break;               
       default:
         break;
     }
-    this.setState({formErrors: fieldValidationErrors,
-                    category_name_valid: category_name_valid,                   
+    this.setState({formErrors: fieldValidationErrors,       
                   }, this.validateForm);
   }
   /* Validate Form */
   validateForm() {
-    this.setState({formValid: this.state.category_name_valid});
+    let formstatus = true;
+    const formErrors = this.state.formErrors;
+    const formField = this.state.formField;
+    this.setState({formValid: 
+      (formErrors.organization_name == ""  && formErrors.email == "" && formErrors.contact_person == "" && formErrors.role == "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" && formField.email !== "") 
+      ? true : false});
   }
   /* Set Error Class*/
   errorClass(error) {
@@ -108,20 +183,32 @@ class oragnizationLists extends Component {
   toggle = () => {
     this.setState({
       modal: !this.state.modal,
-      category_name: "",
-      rowIndex: "",
-      formValid: false
+      rowIndex: -1,
+      formValid: false,
+      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
+      formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''}
     });
   }
-  
+  /* Edit organization*/
   handleEditOrganization(rowIndex){
-   
-      debugger;
+      const organizationInfo = this.state.organizationList[rowIndex];
+      const formField = {
+        organization_name: organizationInfo.organizationName, 
+        email: organizationInfo.email, 
+        first_name: organizationInfo.firstName, 
+        phoneNumber: organizationInfo.phoneNumber, 
+        address: organizationInfo.address, 
+        city: organizationInfo.city, 
+        state: organizationInfo.state, 
+        country: organizationInfo.country, 
+        postalCode: organizationInfo.postalCode, 
+        role: organizationInfo.roleName };
+      this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
   }
-
+  /* Delete organization*/
   handleDeleteOrganization(rowIndex){
    
-   debugger; 
+    
    
     
   }
@@ -171,16 +258,16 @@ class oragnizationLists extends Component {
                 <FormErrors formErrors={this.state.formErrors} />
                 <MDBRow>
                   <MDBCol md="6">
-                    <MDBInput value={this.state.formField.organizationName} name="organization_name" onChange={this.changeHandler} type="text" id="organization_name" label="Organization name" required ></MDBInput>
+                    <MDBInput value={this.state.formField.organization_name} name="organization_name" onChange={this.changeHandler} type="text" id="organization_name" label="Organization name*" required ></MDBInput>
                   </MDBCol>                 
                   <MDBCol md="6">
-                    <MDBInput value={this.state.formField.email} name="email" onChange={this.changeHandler} type="email" id="email" label="Email" required ></MDBInput>
+                    <MDBInput value={this.state.formField.email} name="email" onChange={this.changeHandler} type="email" id="email" label="Email*" required ></MDBInput>
                   </MDBCol>
                   <MDBCol md="6">
-                    <MDBInput value={this.state.formField.firstName} name="first_name" onChange={this.changeHandler} type="text" id="first_name" label="Contact person" required ></MDBInput>
+                    <MDBInput value={this.state.formField.first_name} name="first_name" onChange={this.changeHandler} type="text" id="first_name" label="Contact person*" required ></MDBInput>
                   </MDBCol>
                   <MDBCol md="6">
-                    <MDBInput value={this.state.formField.roleName} name="role" onChange={this.changeHandler} type="text" id="role" label="Role" required ></MDBInput>
+                    <MDBInput value={this.state.formField.role} name="role" onChange={this.changeHandler} type="text" id="role" label="Role*" required ></MDBInput>
                   </MDBCol>
                   <MDBCol md="6">
                     <MDBInput value={this.state.formField.phoneNumber} name="phoneNumber" onChange={this.changeHandler} type="text" id="role" label="Contact Number"></MDBInput>

@@ -100,8 +100,8 @@ class organizationData extends Component {
     let rowsItem = [];
     let indexCount = 0;
     for(const [i, orgnization] of this.props.data.entries()){
-      let catInfo = {
-        name: orgnization.organizationName,  
+      let orgnizationInfo = {
+        organizationName: orgnization.organizationName,  
         firstName: orgnization.firstName,
         email: orgnization.email,
         roleName: orgnization.roleName,
@@ -115,7 +115,7 @@ class organizationData extends Component {
           <a disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteOrganizationItem(i)}><MDBIcon icon="trash"></MDBIcon></a></p>,       
       }      
-      rowsItem.push(catInfo);
+      rowsItem.push(orgnizationInfo);
     }
     data.rows = rowsItem;
 
