@@ -16,14 +16,9 @@ class dashboard extends Component {
         <SideNavigation  />
         <main className="dashboard-content">
           <MDBContainer>
-            <AdminCardSection1 />
-            <ChartSection1 />
-            <TableSection />
-            <ChartSection2 />
-            <MDBRow className="mb-4">
-               
-            </MDBRow>
             <AdminCardSection2 />
+            <ChartSection1 />
+            
           </MDBContainer>
         </main>
       </React.Fragment>
