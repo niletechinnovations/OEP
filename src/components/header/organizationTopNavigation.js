@@ -18,11 +18,15 @@ class TopNavigation extends Component {
         super(props);
         this.state = {
           collapse: false,
-          isLoggedOut: false
+          isLoggedOut: false,
+          userName: ""
         } 
         
     }
-    
+    componentDidMount() { 
+        const userName = localStorage.getItem("userName"); 
+        this.setState({userName: userName});
+    }
 
     onClick = () => {
         this.setState({
@@ -45,8 +49,8 @@ class TopNavigation extends Component {
         else 
             return (
                 <MDBNavbar className="flexible-navbar" light expand="md" scrolling>
-                    <MDBNavbarBrand href="/">
-                        <strong>Admin Dashboard</strong>
+                    <MDBNavbarBrand href="/organization/dashboard">
+                        <strong>{this.state.userName}</strong>
                     </MDBNavbarBrand>
                     <MDBNavbarToggler onClick = { this.onClick } />
                     <MDBCollapse isOpen = { this.state.collapse } navbar>
@@ -55,11 +59,11 @@ class TopNavigation extends Component {
                             <MDBNavItem>
                                 <MDBDropdown dropleft>
                                     <MDBDropdownToggle nav caret>
-                                      <span className="mr-2">Admin</span>
+                                      {this.state.userName}
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu basic>
-                                      <MDBDropdownItem><MDBNavLink to="#!"><MDBIcon icon="user" className="mr-2"/>Profile</MDBNavLink></MDBDropdownItem>
-                                      <MDBDropdownItem><MDBNavLink to="/admin/change-password"><MDBIcon icon="key" className="mr-2"/>Change Password</MDBNavLink></MDBDropdownItem>
+                                      <MDBDropdownItem><MDBNavLink to="/organization/profile"><MDBIcon icon="user" className="mr-2"/>Profile</MDBNavLink></MDBDropdownItem>
+                                      <MDBDropdownItem><MDBNavLink to="/organization/change-password"><MDBIcon icon="key" className="mr-2"/>Change Password</MDBNavLink></MDBDropdownItem>
                                       <MDBDropdownItem onClick={() => this.logoutUser()}><MDBNavLink to="#!"><MDBIcon icon="power-off" className="mr-2"/>Logout</MDBNavLink></MDBDropdownItem>
                                     </MDBDropdownMenu>
                                   </MDBDropdown>

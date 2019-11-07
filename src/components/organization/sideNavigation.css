@@ -27,3 +27,4 @@
 .dashboard-content{ margin-left: 270px; margin-top: 1em; margin-bottom: 5em; }
 .dashboard-content .md-form{  margin-top: 1rem; margin-bottom: 1rem;}
 .modal-dialog.cascading-modal .modal-header{ padding: 1rem; margin-bottom: 0px;}
+.dropdown-menu {  min-width : 14rem;}

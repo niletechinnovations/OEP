@@ -55,7 +55,7 @@ class oragnizationLists extends Component {
          
         } )
         .catch( err => {         
-          if(err.response.status === 401 && err.response.status !==  undefined) {
+          if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
             this.props.history.push('/login');
           }
@@ -103,7 +103,7 @@ class oragnizationLists extends Component {
          
         } )
         .catch( err => {         
-          if(err.response.status == 401 && err.response.status === undefined) {
+          if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
             this.props.history.push('/login');
           }
@@ -129,7 +129,7 @@ class oragnizationLists extends Component {
          
         } )
         .catch( err => {         
-          if(err.response.status === 401 && err.response.status === undefined) {
+          if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
             this.props.history.push('/login');
           }

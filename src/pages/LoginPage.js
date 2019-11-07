@@ -62,13 +62,15 @@ class LoginPage extends React.Component {
             loggedIn: true
           } )
           toast.success(res.data.message);
-          if(loggedInfo.data.role.toLowerCase() === 'admin')
+          /*if(loggedInfo.data.role.toLowerCase() === 'admin')
             this.props.history.push('/admin/dashboard');
+          else if(loggedInfo.data.role.toLowerCase() === 'organization')
+            this.props.history.push('/organization/dashboard');
           else
-            this.props.history.push('/');
+            this.props.history.push('/');*/
         } )
         .catch( err => {
-          debugger;
+          
           toast.error(err.message);
           this.setState( { loading: false} );
         } )
@@ -83,8 +85,14 @@ class LoginPage extends React.Component {
   render() {
     const { email, password, loggedIn, loading } = this.state;
 
-    if ( loggedIn || localStorage.getItem( 'token' ) ) {
-			return ( <Redirect to={`/admin/dashboard`} noThrow /> )
+    if ( loggedIn || localStorage.getItem( 'accessToken' ) ) {
+      if(localStorage.getItem( 'role' ).toLowerCase() === "admin")
+			  return ( <Redirect to={`/admin/dashboard`} noThrow /> )
+      else if(localStorage.getItem( 'role' ).toLowerCase() === "organization")
+        return ( <Redirect to={`/organization/dashboard`} noThrow /> )
+      else
+        return ( <Redirect to={`/`} noThrow /> )
+
 		} else {
     let loaderElement = '';
     if(loading)

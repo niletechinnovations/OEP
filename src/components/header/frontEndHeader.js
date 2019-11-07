@@ -8,24 +8,34 @@ import { MDBNavbar,
   MDBCollapse,
   MDBNavbarNav,
   MDBContainer} from 'mdbreact';
-//import { NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import commonService from '../../core/services/commonService';
 import './frontEndHeader.css';
 
 class FrontEndHeader extends React.Component {
-    state = {
-      collapseID: ""
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+          collapseID: false,
+          isLoggedOut: false
+        } 
+        
+    }
 
     toggleCollapse = collapseID => () =>
       this.setState(prevState => ({
         collapseID: prevState.collapseID !== collapseID ? collapseID : ""
-      }));
+    }));
 
     closeCollapse = collapseID => () => {
       window.scrollTo(0, 0);
       this.state.collapseID === collapseID && this.setState({ collapseID: "" });
     };
+    logoutUser() {
+        localStorage.clear();
+        this.setState({isLoggedOut:true});
+    };
+
     render(){
       
 
@@ -33,19 +43,26 @@ class FrontEndHeader extends React.Component {
        let  headerItem = '';
         if(commonService.getAuth()) {
           headerItem =<MDBNavItem>
-            <MDBNavLink className="btn-gr" onClick={this.closeCollapse("mainNavbarCollapse")} to="/logout">
+            <MDBNavLink className="btn-gr" to= "/" onClick={() => this.logoutUser()}>
               Logout
             </MDBNavLink>
           </MDBNavItem>
          }
          else {
-          headerItem = <MDBNavItem>
-            <MDBNavLink className="btn-gr" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
-              Login
-            </MDBNavLink>
-          </MDBNavItem>
+          headerItem = <>
+                <MDBNavItem>
+                  <MDBNavLink className="btn-gr" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
+                    Login
+                  </MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink className="btn-Get" onClick={this.closeCollapse("mainNavbarCollapse")} to="/register">
+                    Get started for FREE
+                  </MDBNavLink>
+                </MDBNavItem>
+              </>
           
-        }
+        }    
     return (
         <MDBNavbar color="white-color" bg="light" expand="lg" fixed="top" scrolling >
           <MDBContainer>
@@ -81,11 +98,7 @@ class FrontEndHeader extends React.Component {
                   </MDBNavLink>
                 </MDBNavItem>
                 {headerItem}
-                <MDBNavItem>
-                  <MDBNavLink className="btn-Get" onClick={this.closeCollapse("mainNavbarCollapse")} to="/register">
-                    Get started for FREE
-                  </MDBNavLink>
-                </MDBNavItem>
+                
               </MDBNavbarNav>
             </MDBCollapse>
             </MDBContainer>
