@@ -13,7 +13,11 @@ import {
   MDBInput,
   MDBBtn,
   MDBMask,
-  MDBCard
+  MDBCard,
+  MDBModal,
+  MDBModalHeader,
+  MDBModalBody,
+  MDBModalFooter
 } from "mdbreact";
 import "./LoginPage.css";
 
@@ -25,6 +29,8 @@ class LoginPage extends React.Component {
       email: '',
       password: '',
       userName: '',
+      forgotPasswordEmail: "",
+      modal: false,
       loggedIn: false,
       loading: false,
     };
@@ -81,9 +87,51 @@ class LoginPage extends React.Component {
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+  /*Handle Forgot Password Field*/
+  changeForgotPasswordHandler = event => {
+
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  /*Forgot Password */
+  submitForgotPasswordHandler = event => {
+    event.preventDefault();
+    event.target.className += " was-validated";
+    const forgotData = {
+      email: this.state.forgotPasswordEmail
+    };
+    this.setState( { loading: true }, () => {
+      commenService.postAPI( `auth/forgot-password`, forgotData )
+        .then( res => {
+         
+          console.log(res);
+          if ( undefined === res.data || !res.data.status ) {
+            this.setState( { loading: false } );
+            toast.error(res.data.message);
+            return;
+          } 
+  
+          this.setState( {
+            loading: false,
+            modal: false
+          } )
+          toast.success(res.data.message);          
+        } )
+        .catch( err => {          
+          toast.error(err.message);
+          this.setState( { loading: false} );
+        } )
+    } )
+  }
+  /*Hide Modal*/
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+      forgotPasswordEmail: ""
+    });
+  }
 
   render() {
-    const { email, password, loggedIn, loading } = this.state;
+    const { email, password, loggedIn, loading, forgotPasswordEmail} = this.state;
 
     if ( loggedIn || localStorage.getItem( 'accessToken' ) ) {
       if(localStorage.getItem( 'role' ).toLowerCase() === "admin")
@@ -148,7 +196,7 @@ class LoginPage extends React.Component {
                             </MDBCol>
                             <MDBCol md="5" className="d-flex justify-content-end">
                               <p className="font-small pt-3">
-                                <a href="#!" className="ml-1">Forgot Password?</a>
+                                <a onClick={this.toggle} href="#!" className="ml-1">Forgot Password?</a>
                             </p>
                             </MDBCol>
                           </MDBRow>
@@ -166,6 +214,27 @@ class LoginPage extends React.Component {
 
                 </MDBRow>
               </MDBContainer>
+              <MDBModal isOpen={this.state.modal} toggle={this.toggle} size="lg" className="cascading-modal forgot-password-modal">
+                <MDBModalHeader toggle={this.toggle}>Forgot Password</MDBModalHeader>
+                <form className="grey-text needs-validation" onSubmit={this.submitForgotPasswordHandler} >
+                  <MDBModalBody>
+                      <MDBRow>
+                        <MDBCol md="12">      
+                          <MDBInput icon="envelope" group type="email" name="forgotPasswordEmail" value={forgotPasswordEmail} onChange={this.changeForgotPasswordHandler} id="forgot_email" label="Your email" required>
+                            <div className="valid-feedback">Looks good!</div>
+                            <div className="invalid-feedback">
+                              Please enter your registered email-id.
+                            </div>
+                          </MDBInput>   
+                        </MDBCol>
+                      </MDBRow>  
+                      <MDBModalFooter>
+                        <MDBBtn className="btn-account" type="submit">Forgot</MDBBtn>
+                        <MDBBtn className="btn-account" type="button" onClick={this.toggle}>Cancel</MDBBtn>
+                      </MDBModalFooter>                    
+                  </MDBModalBody>
+                </form>
+              </MDBModal>
             </MDBMask>
           </MDBView>
         </div>  

@@ -102,3 +102,7 @@
     top: 50%;
     left: 50%;
 }
+.forgot-password-modal {
+    width: 400px;
+}
+.forgot-password-modal .modal-footer { border: none; }
