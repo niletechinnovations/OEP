@@ -45,26 +45,30 @@ class HomePage extends React.Component {
             
               <MDBContainer>
                 <MDBRow>
-                <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
-                  <h1 className="h1-responsive font-weight-bold mt-sm-5">
-                  Inspections are just the beginning{" "}
-                  </h1>
-                  <hr className="hr-light" />
-                  <h6 className="mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                    veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                    molestiae iste.
-                  </h6>
-                  <Link to="/register">
-                    <MDBBtn color="amber">Get Started for FREE</MDBBtn>
-                  </Link>  
-                  <MDBBtn outline color="white">Download APP</MDBBtn>
-                  
-                </div>
+                <MDBCol className="col-md-6 mt-xl-5 mb-5">
+                  <div className="main-slider-content">
+                      <h1 className="">
+                      Inspections are just the beginning{" "}
+                      </h1>
+                      <p className="">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Rem repellendus quasi fuga nesciunt dolorum nulla magnam
+                        veniam sapiente, fugiat! Commodi sequi non animi ea dolor
+                        molestiae iste.
+                      </p>
+                      <div className="btn-section">
+                        <Link className="btn-Started" to="/register">
+                        Get Started for FREE
+                        </Link>
+                        <Link className="btn-Download">
+                          Download APP
+                        </Link>
+                      </div>
+                    </div>    
+                </MDBCol>
                 <MDBCol md="6" xl="5" className="mt-xl-5">
                   <img
-                    src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"
+                    src="/images/admin-new.png"
                     alt=""
                     className="img-fluid"
                   />
@@ -77,16 +81,17 @@ class HomePage extends React.Component {
         </MDBView>  
 
         <div className="main-content"> 
-          <section className="my-4">
-            <MDBContainer>  
-              <h2 className="h2-responsive font-weight-bold text-center my-3">
-                Why is it so great?
-              </h2>
-              <p className="lead grey-text w-responsive text-center mx-auto mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt
-              </p>
-
+          <section className="my-4 why-section">
+            <MDBContainer> 
+                <div className="heading-title"> 
+                  <h2 className="my-3">
+                    Why is it so great?
+                  </h2>
+                  <p className="lead grey-text w-responsive text-center mx-auto mb-5">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt
+                  </p>
+                </div>
               <MDBRow>
                 <MDBCol lg="5" className="text-center text-lg-left">
                   <img
@@ -98,11 +103,11 @@ class HomePage extends React.Component {
                 <MDBCol lg="7">
                   <MDBRow className="mb-3">
                     <MDBCol size="1">
-                      <MDBIcon icon="share" size="lg" className="indigo-text" />
+                      <MDBIcon icon="share" size="lg" className="icon-arrow" />
                     </MDBCol>
-                    <MDBCol xl="10" md="11" size="10">
-                      <h5 className="font-weight-bold mb-3">Start with the basics</h5>
-                      <p className="grey-text">
+                    <MDBCol xl="10" md="11" size="10" className="why-col">
+                      <h5 className="mb-3">Start with the basics</h5>
+                      <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit
                         enim ad minima veniam, quis nostrum exercitationem ullam.
                         Reprehenderit maiores aperiam assumenda deleniti hic.
@@ -111,11 +116,11 @@ class HomePage extends React.Component {
                   </MDBRow>
                   <MDBRow className="mb-3">
                     <MDBCol size="1">
-                      <MDBIcon icon="share" size="lg" className="indigo-text" />
+                      <MDBIcon icon="share" size="lg" className="icon-arrow" />
                     </MDBCol>
-                    <MDBCol xl="10" md="11" size="10">
-                      <h5 className="font-weight-bold mb-3">Improve your processes</h5>
-                      <p className="grey-text">
+                    <MDBCol xl="10" md="11" size="10" className="why-col">
+                      <h5 className="mb-3">Improve your processes</h5>
+                      <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit
                         enim ad minima veniam, quis nostrum exercitationem ullam.
                         Reprehenderit maiores aperiam assumenda deleniti hic.
@@ -124,11 +129,11 @@ class HomePage extends React.Component {
                   </MDBRow>
                   <MDBRow className="mb-3">
                     <MDBCol size="1">
-                      <MDBIcon icon="share" size="lg" className="indigo-text" />
+                      <MDBIcon icon="share" size="lg" className="icon-arrow" />
                     </MDBCol>
-                    <MDBCol xl="10" md="11" size="10">
-                      <h5 className="font-weight-bold mb-3">Reach your full potential</h5>
-                      <p className="grey-text">
+                    <MDBCol xl="10" md="11" size="10" className="why-col">
+                      <h5 className="mb-3">Reach your full potential</h5>
+                      <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit
                         enim ad minima veniam, quis nostrum exercitationem ullam.
                         Reprehenderit maiores aperiam assumenda deleniti hic.
@@ -140,74 +145,65 @@ class HomePage extends React.Component {
             </MDBContainer>
           </section>  
         </div>
-        <section className="my-5 pt-5 pb-2 featured-section">
+        <section className="my-5 pt-5 pb-2 ">
           <MDBContainer>
             <MDBRow>
               <MDBCol md="4" className="md-0 mb-5">
-                <MDBCard className="p-3">
-                <MDBRow>
-                  <MDBCol lg="2" md="3" size="2">
-                    <MDBIcon icon="bullhorn" size="2x" className="blue-text" />
-                  </MDBCol>
-                  <MDBCol lg="10" md="9" size="10">
-                    <h4 className="font-weight-bold">Actions</h4>
-                    <p className="grey-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam.
-                    </p>
-                    
-                  </MDBCol>
-                </MDBRow>
-                </MDBCard>
+                <div className="single-featured-box">
+                    <div className="icon">
+                        <img
+                          src="/images/actions.svg"
+                          alt=""
+                          height="70"
+                        />
+                    </div>
+                    <h3>Actions</h3>
+                    <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
+                    <a className="read-more-btn" href="#">Read More</a>
+                </div>
               </MDBCol>
+
               <MDBCol md="4" className="md-0 mb-5">
-              <MDBCard className="p-3">
-                <MDBRow>
-                  <MDBCol lg="2" md="3" size="2">
-                    <MDBIcon icon="cogs" size="2x" className="pink-text" />
-                  </MDBCol>
-                  <MDBCol lg="10" md="9" size="10">
-                    <h4 className="font-weight-bold">Inspections</h4>
-                    <p className="grey-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam.
-                    </p>
-                    
-                  </MDBCol>
-                </MDBRow>
-                </MDBCard>
+                <div className="single-featured-box">
+                    <div className="icon">
+                        <img
+                          src="/images/Inspections.svg"
+                          alt=""
+                          height="70"
+                        />
+                    </div>
+                    <h3>Inspections</h3>
+                    <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
+                    <a className="read-more-btn" href="#">Read More</a>
+                </div>
               </MDBCol>
+
               <MDBCol md="4" className="md-0 mb-5">
-              <MDBCard className="p-3">
-                <MDBRow>
-                  <MDBCol lg="2" md="3" size="2">
-                    <MDBIcon icon="users" size="2x" className="purple-text" />
-                  </MDBCol>
-                  <MDBCol lg="10" md="9" size="10">
-                    <h4 className="font-weight-bold">Team Management</h4>
-                    <p className="grey-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam.
-                    </p>
-                   
-                  </MDBCol>
-                </MDBRow>
-                </MDBCard>
+                <div className="single-featured-box">
+                    <div className="icon">
+                        <img
+                          src="/images/team.svg"
+                          alt=""
+                          height="70"
+                        />
+                    </div>
+                    <h3>Team Management</h3>
+                    <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
+                    <a className="read-more-btn" href="#">Read More</a>
+                </div>
               </MDBCol>
             </MDBRow>
           </MDBContainer>
         </section>
         
         
-      <section className="text-center my-5 pb-5">
+      <section className="text-center features-section my-5 pb-5">
         <MDBContainer>
-          <h2 className="h1-responsive font-weight-bold my-5">
-            Explore our features
-          </h2>
-          
+          <div className="heading-title">
+            <h2 className="my-3">
+              Explore our features
+            </h2>
+          </div>
           <MDBRow className="text-center">
             <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
               <MDBView className="overlay rounded z-depth-1" waves>
@@ -220,15 +216,15 @@ class HomePage extends React.Component {
                   <MDBMask overlay="white-slight" />
                 </a>
               </MDBView>
-              <MDBCardBody className="pb-0">
-                <h4 className="font-weight-bold my-3">Get everyone on the same paperless page</h4>
-                <p className="grey-text">
+              <MDBCardBody className="pb-0 features-card">
+                <h4>Get everyone on the same paperless page</h4>
+                <p>
                   Temporibus autem quibusdam et aut officiis debitis aut rerum
                   necessitatibus saepe eveniet ut et voluptates repudiandae.
                 </p>
-                <MDBBtn color="indigo" size="sm">
-                  <MDBIcon far icon="clone" className="left" /> Learn more
-                </MDBBtn>
+                <Link className="btn-Started" to="/">
+                  Learn more
+                </Link>
               </MDBCardBody>
             </MDBCol>
             <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
@@ -242,15 +238,15 @@ class HomePage extends React.Component {
                   <MDBMask overlay="white-slight" />
                 </a>
               </MDBView>
-              <MDBCardBody className="pb-0">
-                <h4 className="font-weight-bold my-3">Generate instant, professional reports</h4>
-                <p className="grey-text">
+              <MDBCardBody className="pb-0 features-card">
+                <h4>Generate instant, professional reports</h4>
+                <p>
                   Temporibus autem quibusdam et aut officiis debitis aut rerum
                   necessitatibus saepe eveniet ut et voluptates repudiandae.
                 </p>
-                <MDBBtn color="indigo" size="sm">
-                  <MDBIcon far icon="clone" className="left" /> Learn more
-                </MDBBtn>
+                <Link className="btn-Started" to="/">
+                  Learn more
+                </Link>
               </MDBCardBody>
             </MDBCol>
             <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
@@ -264,15 +260,15 @@ class HomePage extends React.Component {
                   <MDBMask overlay="white-slight" />
                 </a>
               </MDBView>
-              <MDBCardBody className="pb-0">
-                <h4 className="font-weight-bold my-3">Get a bird’s eye view with analytics</h4>
-                <p className="grey-text">
+              <MDBCardBody className="pb-0 features-card">
+                <h4>Get a bird’s eye view with analytics</h4>
+                <p>
                   Temporibus autem quibusdam et aut officiis debitis aut rerum
                   necessitatibus saepe eveniet ut et voluptates repudiandae.
                 </p>
-                <MDBBtn color="indigo" size="sm">
-                  <MDBIcon far icon="clone" className="left" /> Learn more
-                </MDBBtn>
+                <Link className="btn-Started" to="/">
+                  Learn more
+                </Link>
               </MDBCardBody>
             </MDBCol>
           </MDBRow>
@@ -309,21 +305,36 @@ class HomePage extends React.Component {
         <section className="product-counter-section py-5">
           <div className="product-counter-wrap">
             <MDBContainer>
-              <MDBRow>
-                <MDBCol md="5" sm="6">
-                  <div className="counter-content-wrap">
-                    <MDBIcon icon="trophy" />
-                    <h6 className="counter-title"><strong>Trusted by 4000+</strong></h6>
-                    <p>High performing team worldwide</p>
-                  </div>
-                </MDBCol>
-                <MDBCol md="7" sm="6">
-                  <ul className="counter-list list-inline text-right">
-                    <li className="list-inline-item"><span className="count">145052</span><span className="title">Downloads</span></li>
-                    <li className="list-inline-item"><span className="count">4400+</span><span className="title">Active Installs</span></li>
-                    <li className="list-inline-item"><span className="count">5000+</span><span className="title">Paid Users</span></li>
-                  </ul>
-                </MDBCol>  
+                <MDBRow>
+                  <MDBCol md="5" sm="6">
+                    <div className="counter-content-wrap">
+                      <MDBIcon icon="trophy" />
+                      <h6 className="counter-title"><strong>Trusted by 4000+</strong></h6>
+                      <p>High performing team worldwide</p>
+                    </div>
+                  </MDBCol>
+                  <MDBCol md="7" sm="6">
+                    <MDBRow>
+                      <MDBCol md="4" sm="4">
+                        <div className="counter-card">
+                          <div className="counter-value blue-text">145052</div>
+                          <h2 className="counter-text">Downloads</h2>
+                        </div>
+                      </MDBCol>
+                      <MDBCol md="4" sm="4">
+                        <div className="counter-card">
+                          <div className="counter-value green-text">4400</div>
+                          <h2 className="counter-text">Active Installs</h2>
+                        </div>
+                      </MDBCol>
+                      <MDBCol md="4" sm="4">
+                        <div className="counter-card">
+                          <div className="counter-value yellow1-text">5000</div>
+                          <h2 className="counter-text">Paid Users</h2>
+                        </div>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCol>  
               </MDBRow>
             </MDBContainer>
           </div>

@@ -1,3 +1,21 @@
+.account-form .md-form label {color: #607D8B; font-size: 13px; }
+.account-form  h4 {color: #607D8B; font-size: 20px; font-weight: 300;}
+
+.btn-account {margin-bottom: 0; margin-right: 10px; font-size: 12px; padding: 10px 15px; border-radius: 5px; background: #636364 !important; text-transform: uppercase; font-weight: 600; position: relative; z-index: 1; color: #ffffff !important; display: inline-block; }
+
+.btn-account:after {position: absolute; right: 0; top: 0; width: 0%; height: 100%; content: ""; background-color: #fbdc85; z-index: -1; border-radius: 1px; -webkit-transition: .5s; -o-transition: .5s; transition: .5s; }
+.btn-account:hover{color: #ffffff !important  }
+.btn-account:hover:after {width: 100%; left: 0; right: auto; } 
+
+.text-foot p{color:#607D8B; font-size: 14px; padding: 0; line-height: 24px;}
+.account-form .form-check-label{color:#607D8B; font-size: 12px; padding: 0; line-height: 24px;}
+.account-form .prefix {
+    top: 17px;
+    font-size: 14px;
+    color: #607d8b;
+}
+
+
 #loginPage .view {
     background-image: url(/images/architecture-bg.jpg);
     background-repeat: no-repeat;
@@ -5,6 +23,7 @@
     background-position: 50%;
     height: 100vh;
 }
+
 
   #loginPage h6 { line-height: 1.7; }
   .loginForm hr{ border-color: #ffa000; margin-top: 10px; margin-bottom: 10px;}

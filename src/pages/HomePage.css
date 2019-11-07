@@ -13,6 +13,16 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .btn.btn-sm.indigo:hover{
   color: #fff;
 }
+/*============================================================
+        main-banner-content
+============================================================*/
+.main-slider-content {display: flex;  justify-content: center; flex-direction: column; height: 100%; }
+.main-slider-content h1 {color: #fff; font-size: 35px; font-weight: 600; padding: 0;}
+.main-slider-content p{color: #fff; font-size: 14px; padding: 0; line-height: 24px;}
+
+
+
+
 
 .nav-link.active{
   background-color: rgba(255, 255, 255, 0.1);
@@ -20,20 +30,28 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .homepage-search-bar{ position: absolute; top: 10%; left: 10%; z-index: 9;}
 .search_form .col-md-3, .search_form .col-md-1{ padding-left: 10px; padding-right: 10px; }
 .search-box-bg{ background:  rgba(0, 0, 0, 0.5) }
-.view.home-bg{
-  background-image: url(/images/architecture-bg.jpg);
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-  min-height: 650px;
-}
-.view .gradient{
+.view.home-bg{background-image: url(/images/architecture-bg.jpg); background-repeat: no-repeat; background-position: top center; background-size: cover; min-height: 650px; } .view .gradient {background: rgba(39, 39, 41, 0.54); }
+.btn-Started{margin-bottom: 0; margin-right:10px;font-size: 12px;padding: 10px 15px;border-radius: 5px;background: transparent;text-transform:uppercase;font-weight: 600;position: relative;z-index: 1;color: #fbdc85 !important;border: 1px solid #fbdc85;display: inline-block;} 
+.btn-Started:after {position: absolute; right: 0; top: 0; width: 0%; height: 100%; content: ""; background-color: #fbdc85; z-index: -1; border-radius: 1px; -webkit-transition: .5s; -o-transition: .5s; transition: .5s; }
+.btn-Started:hover{color: #ffffff !important  }
+.btn-Started:hover:after {width: 100%; left: 0; right: auto; } 
+
+.btn-Download{margin-bottom: 0;padding: 10px 15px;font-size: 12px;border-radius: 5px;background: transparent;text-transform:uppercase;font-weight: 600;position: relative;z-index: 1;color: #ffffff !important;border: 1px solid #ffffff;display: inline-block;} 
+.btn-Download:after {position: absolute; right: 0; top: 0; width: 0%; height: 100%; content: ""; background-color: #ffffff; z-index: -1; border-radius: 1px; -webkit-transition: .5s; -o-transition: .5s; transition: .5s; }
+.btn-Download:hover{color: #fcd34e  !important }
+.btn-Download:hover:after {width: 100%; left: 0; right: auto; } 
+
+/*.view .gradient{
+  background: linear-gradient(45deg, rgba(255, 225, 138, 0.65), rgba(255, 211, 146, 0.50) 100%);
+
   background: -moz-linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
   background: -webkit-linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
   background: -webkit-gradient(linear, 45deg, from(rgba(29, 0, 255, 0.7)), to(rgba(29, 210, 177, 0.7)));
   background: -o-linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
   background: linear-gradient(45deg, rgba(29, 0, 255, 0.7), rgba(29, 210, 177, 0.7) 100%);
-}
+}*/
+
+
 .mask.gradient { z-index: 9; }
 .home-slider{ max-height: 650px; overflow: hidden;}
 
@@ -76,7 +94,7 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
   background: linear-gradient(150deg, rgba(253, 191, 0, 0.65) 15%, rgba(143, 110, 213, 0.7) 70%, rgba(215, 130, 217, 0.5) 94%);
 }
 .download-app-img{
-  margin-top: -115px;
+  margin-top: -94px;
 }
 
 .download-app-text{
@@ -139,20 +157,73 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
   background: #fff;
 }
 .download-app-button a:hover p, .download-btn.hover-active p{
-  color: #281483;
+  color: #f1cf7c;
 }
 .download-app-button a:hover i, .download-btn.hover-active i{
-  background: linear-gradient(to bottom, #281483 15%, #8f6ed5 70%, #d782d9 94%);
+  background: linear-gradient(to bottom, #dcb15d 15%, #f9da87 70%, #ebc674 94%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .download-btn.hover-active{
   background: #fff;
 }
-
 /*==================================
+        Why is it so great?
+====================================*/
+.icon-arrow{color: #f9dd8f }
+.yellow-text1 {
+    color: #FFC107;
+}
+.why-section .heading-title h2{color: #607D8B; font-weight: bold;  text-align:center;font-size: 30px;}
+.why-section .heading-title p{color: #607D8B;font-size: 14px; text-align:center;padding: 0; line-height: 24px;}
+
+
+.why-col p{color: #607D8B;font-size: 14px; padding: 0; line-height: 24px;}
+.why-col h5{color: #607D8B;
+    line-height: 24px;
+    font-size: 18px;}
+
+ /*==================================
+        featured CSS
+====================================*/
+
+.single-featured-box {text-align: center; position: relative; padding: 115px 25px 40px; overflow: hidden; background-color: #fff; border-radius: 5px; box-shadow: 0 15px 30px rgb(228, 235, 251); }
+.single-featured-box .icon i {font-size: 68px; color: #03A9F4; }
+.single-featured-box .icon {transition: .4s; color: #ee0979; position: absolute; top: 40px; left: 50%; transform: translate(-50%,0); margin-top: -12px; }
+.single-featured-box:hover .icon {top: 23px; -webkit-animation: .4s ease-in-out; animation: .4s ease-in-out; }
+.single-featured-box h3 {transition: .4s; margin-bottom: 10px; font-weight: 400; color: #607D8B; line-height: 24px; font-size: 18px; }
+.single-featured-box p {transition: .4s; margin-bottom: 0; color: #607D8B; font-size: 14px; padding: 0; line-height: 24px; }
+.single-featured-box:hover h3, 
+.single-featured-box:hover p {transform: translateY(-20px); }
+.read-more-btn {display: inline-block; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); opacity: 0; visibility: hidden; transition: .6; font-size: 13px; font-weight: 500; color: #f0bc5e; border: 1px solid; padding: 5px 15px; }
+.read-more-btn::before {content: ""; position: absolute; left: 0; bottom: 1px; width: 0; transition: .5s; height: 1px; background: #03A9F4; }
+.single-featured-box:hover .read-more-btn {opacity: 1; visibility: visible; bottom: 23px; }
+
+
+
+.features-section .heading-title h2{color: #607D8B; font-weight: bold;  text-align:center;font-size: 30px;}
+.featured-section .heading-title p{color: #607D8B;font-size: 14px; text-align:center;padding: 0; line-height: 24px;}
+
+.features-card h4{color: #607D8B;
+    line-height: 24px;
+    font-size: 18px;}
+.features-card p {
+    color: #607D8B;
+    font-size: 14px;
+    padding: 0;
+    line-height: 24px;
+}
+
+ /*==================================
         10. COUNTER SECTION CSS
 ====================================*/
+.counter-card {border: 1px solid #d3d9e6;    align-items: center; border-radius: 5px; position: relative; padding: 20px; display: flex; justify-content: center; flex-direction: column; }
+.counter-text {margin-bottom: 0; color: #607D8B; font-size: 14px; padding: 0; line-height: 24px; }
+.counter-value {margin-bottom: 10px; font-weight: 600; color: #607D8B; line-height: 24px; font-size: 25px; }
+.yellow-text1 {color: #FFC107; }
+
+
+
 .product-counter-section{ display: block;}
 .counter-content-wrap i{
   float: left;
@@ -163,16 +234,24 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
   overflow: hidden;
   align-items: center;
   top: 8px;
-  background: linear-gradient(to bottom, #281483 15%, #8f6ed5 70%, #d782d9 94%);
+  background: linear-gradient(to bottom, #dcb15d 15%, #f9da87 70%, #ebc674 94%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .product-counter-section .counter-title {
-  font-size: 1.371rem;
-  line-height: 1.3em;
-  color: #747474;
-  margin-bottom: 0;
-  font-weight: 500;
+      transition: .4s;
+    margin-bottom: 10px;
+    font-weight: 400;
+    color: #607D8B;
+    line-height: 24px;
+    font-size: 18px;
+}
+.counter-content-wrap p {
+    margin-bottom: 0;
+    color: #607D8B;
+    font-size: 14px;
+    padding: 0;
+    line-height: 24px;
 }
 .product-counter-section .counter-list {
   font-size: 1.143rem;
@@ -193,13 +272,13 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
   font-size: 16px;
 }
 .product-counter-section .counter-list li:nth-child(3n+1) .count {
-  color: #281483;
+  color: #f6c628;
 }
 .product-counter-section .counter-list li:nth-child(3n+2) .count {
-  color: #8f6ed5;
+  color: #4caf50;
 }
 .product-counter-section .counter-list li:nth-child(3n+3) .count {
-  color: #d782d9;
+  color: #03a9f4;
 }
 
 @media (max-width: 768px){

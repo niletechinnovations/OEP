@@ -85,30 +85,32 @@ class RegisterPage extends React.Component {
       <>
       <div id="loginPage">
         <MDBView>
-          <MDBMask className="rgba-indigo-strong d-flex justify-content-center align-items-center" >
+          <MDBMask className="bg-mask d-flex justify-content-center align-items-center" >
             <MDBContainer>
               <MDBRow>
-                <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
-                  <h2 className="display-5 font-weight-bold mt-5 pt-2">Why Join OEP?</h2>
-                  <hr className="hr-light" />
-                  <p>We're Committed to Service Excellence.</p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                    veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                    molestiae iste.
-                  </p>
-                  <MDBBtn outline color="white">
-                    Learn More
-                  </MDBBtn>
-                </div>
+                <MDBCol className="col-md-6 mt-xl-5 mb-5">
+                  <div className="account-content">
+                    <h1>Why Join OEP?</h1>
+                    <p>We're Committed to Service Excellence.</p>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Rem repellendus quasi fuga nesciunt dolorum nulla magnam
+                      veniam sapiente, fugiat! Commodi sequi non animi ea dolor
+                      molestiae iste.
+                    </p>
+                    <div className="btn-section">
+                    <a className="btn-Started" href="#">Learn More</a>
+                    </div>
+                  </div>
+                </MDBCol>
+
                 <MDBCol md="6" xl="5" className="loginForm mb-5">
-                  <MDBCard>
+                  <MDBCard className="account-form">
                     <MDBCardBody className="z-depth-2">
                       <h4 className="text-center text-heading">
                         <strong>Create your free OEP account!</strong>
                       </h4>
-                      <hr />
+
                       {loaderElement}
                       <ToastContainer />
                         
@@ -172,10 +174,10 @@ class RegisterPage extends React.Component {
                         </MDBCol>
                       </MDBRow>
                         
-                      <div className="text-center mt-3 black-text">
-                        <MDBBtn color="amber" type="submit">SIgn Up</MDBBtn>
+                      <div className="text-center mt-3 mb-3 black-text">
+                        <MDBBtn className="btn-account" type="submit">Sign Up</MDBBtn>
                       </div>
-                      <div className="text-center mt-3 grey-text">
+                      <div className="text-center text-foot">
                         <p>Already have an account? <Link to="/login">Log in</Link></p>
                       </div>
                       </form>

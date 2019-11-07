@@ -93,30 +93,30 @@ class LoginPage extends React.Component {
         <>
         <div id="loginPage">
           <MDBView>
-            <MDBMask className="rgba-indigo-strong d-flex justify-content-center align-items-center" >
+            <MDBMask className="bg-mask d-flex justify-content-center align-items-center" >
               <MDBContainer>
                 <MDBRow>
-                  <div className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5">
-                    <h2 className="display-5 font-weight-bold mt-5">Customize your form builder</h2>
-                    <hr className="hr-light" />
-                    <p>We're Committed to Service Excellence.</p>
-                    <p>Learn more about how to get the most out of OEP.</p>
-                    <p>
-                      Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                      veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                      molestiae iste.
-                    </p>
-                    <MDBBtn outline color="white">
-                      Learn More
-                    </MDBBtn>
-                  </div>
+                  <MDBCol className="col-md-6 mt-xl-5 mb-5">
+                    <div className="account-content">
+                      <h1 className="">Customize your form builder</h1>
+                      <p>We're Committed to Service Excellence.</p>
+                      <p>Learn more about how to get the most out of OEP.</p>
+                      <p>
+                        Rem repellendus quasi fuga nesciunt dolorum nulla magnam
+                        veniam sapiente, fugiat! Commodi sequi non animi ea dolor
+                        molestiae iste.
+                      </p>
+                      <div className="btn-section">
+                        <a className="btn-Started" href="#">Learn More</a>
+                      </div>
+                    </div>
+                  </MDBCol>
                   <MDBCol md="6" xl="5" className="loginForm mb-3">
-                    <MDBCard >
+                    <MDBCard className="account-form">
                       <MDBCardBody className="z-depth-2">
                         <div className="text-center">
                           <h4 className="text-heading"><strong>Log in to your account</strong></h4>
                         </div>
-                        <hr />
                         {loaderElement} 
                         <ToastContainer />                       
                         <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
@@ -144,10 +144,10 @@ class LoginPage extends React.Component {
                             </p>
                             </MDBCol>
                           </MDBRow>
-                          <div className="text-center mt-3">
-                            <MDBBtn color="amber" type="submit">SIGN IN</MDBBtn>
+                          <div className="text-center mt-3 mb-2">
+                            <MDBBtn className="btn-account" type="submit">SIGN IN</MDBBtn>
                           </div>
-                          <div className="text-center mt-5">
+                          <div className="text-center text-foot">
                           <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
                           </div>
                         </form>  

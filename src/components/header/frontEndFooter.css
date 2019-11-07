@@ -1,0 +1,11 @@
+.footer-section{background: #1e222b;}
+.foot-padding{padding: 30px 0}
+.fot-title {font-size: 12px; margin-bottom: 20px;padding: 0.6rem 0 0 0; }
+.social-links{list-style: none; margin: 0; padding: 0;}
+.social-links li{display: inline-block;padding: 0 10px;}
+
+
+.foot-nav a{font-size: 12px;}
+.foot-content p {color: #ffffff; font-size: 13px; padding: 0; line-height: 24px; }
+
+.footer-copyright p {color: #ffffff; font-size: 13px; padding: 0; line-height: 24px; }

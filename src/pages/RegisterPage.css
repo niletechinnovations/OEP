@@ -1,5 +1,26 @@
+.account-content {display: flex;  justify-content: center; flex-direction: column; height: 100%; }
+.account-content h1 {color: #fff; font-size: 35px; font-weight: 600; padding: 0;}
+.account-content p{color: #fff; font-size: 14px; padding: 0; line-height: 24px;}
+
+
+
+.bg-mask{
+    background: rgba(39, 39, 41, 0.54);
+}
+.account-form .md-form label {color: #607D8B; font-size: 13px; }
+.account-form  h4 {color: #607D8B; font-size: 20px; font-weight: 300;}
+
+.btn-account {margin-bottom: 0; margin-right: 10px; font-size: 12px; padding: 10px 15px; border-radius: 5px; background: #636364 !important; text-transform: uppercase; font-weight: 600; position: relative; z-index: 1; color: #ffffff !important; display: inline-block; }
+
+.btn-account:after {position: absolute; right: 0; top: 0; width: 0%; height: 100%; content: ""; background-color: #fbdc85; z-index: -1; border-radius: 1px; -webkit-transition: .5s; -o-transition: .5s; transition: .5s; }
+.btn-account:hover{color: #ffffff !important  }
+.btn-account:hover:after {width: 100%; left: 0; right: auto; } 
+
+.text-foot p{color:#607D8B; font-size: 14px; padding: 0; line-height: 24px;}
+
+
 #loginPage .view {
-    background-image: url(/images/architecture-bg.jpg);
+    background-image: url(/images/parking-inspection.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50%;

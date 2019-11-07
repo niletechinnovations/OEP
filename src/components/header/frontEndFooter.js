@@ -10,43 +10,83 @@ import './frontEndFooter.css';
 
 const frontEndFooter = () => {
     return (
-        <MDBFooter color="mdb-color darken-4">
-          <MDBContainer>
-            <MDBRow className="d-flex align-items-center">
-              <MDBCol md="7">
-                <p className="text-center text-md-left mt-2">
-                Copyright &copy; {new Date().getFullYear()} OEP - All Rights Reserved.
-                </p>
+        <MDBFooter  className="footer-section">
+          <MDBContainer className="foot-padding text-center text-md-left">
+            <MDBRow>
+              <MDBCol md="4">
+                <div className="foot-content">
+                  <img
+                    src="images/logo.png"
+                    alt=""
+                    height="60"
+                  />
+                  <p>Laapp, a carefully crafted and powerful HTML5 template, it's perfect to showcase your App or Startup</p>
+                </div>
               </MDBCol>
-              <MDBCol md="5">
-                <div className="text-center text-md-right">
-                  <ul className="list-unstyled list-inline social-links">
-                    <li className="list-inline-item">
-                     <MDBBtn floating social="fb" size="sm" href="https://www.facebook.com/" target="_blank" className="pr-1" >
-                      <MDBIcon fab icon="facebook"/>
-                    </MDBBtn>
+              <MDBCol md="2">
+                <nav className="flex-column foot-nav">
+                  <a href="#" className="py-2 text-contrast nav-link">About</a>
+                  <a href="#" className="py-2 text-contrast nav-link">Contact us</a>
+                  <a href="#" className="py-2 text-contrast nav-link">Blog</a>
+                </nav>
+              </MDBCol>
+              <MDBCol md="2">
+                <nav className="flex-column foot-nav">
+                  <a href="#" className="py-2 text-contrast nav-link">Privacy Policy</a>
+                  <a href="#" className="py-2 text-contrast nav-link">Terms & Conditions</a>
+                  <a href="#" className="py-2 text-contrast nav-link">FAQ's</a>
+                </nav>
+              </MDBCol>
+
+              <MDBCol md="2">
+                <nav className="flex-column foot-nav">
+                  <a href="#" className="py-2 text-contrast nav-link">Templates</a>
+                  <a href="#" className="py-2 text-contrast nav-link">Resources</a>
+                  <a href="#" className="py-2 text-contrast nav-link">Integrations</a>
+                </nav>
+              </MDBCol>
+              <MDBCol md="2">
+                  <h2 className="fot-title">Follow us</h2>
+                  <ul className="social-links">
+                    <li>
+                      <a href="https://www.facebook.com/" target="_blank">
+                        <MDBIcon fab icon="facebook"/>
+                      </a>
                     </li>
-                    <li className="list-inline-item">
-                      <MDBBtn floating social="tw" size="sm" href="https://www.twitter.com/" target="_blank" className="pr-1" >
-                        <MDBIcon fab icon="twitter" />
-                      </MDBBtn>
+                    <li>
+                      <a href="https://www.twitter.com/" target="_blank">
+                        <MDBIcon fab icon="twitter"/>
+                      </a>
                     </li>
-                    <li className="list-inline-item">
-                      <MDBBtn floating social="li" size="sm" href="https://www.linkedin.com/" target="_blank" className="pr-1" >
+                    <li>
+                      <a href="https://www.linkedin.com/" target="_blank">
                         <MDBIcon fab icon="linkedin"/>
-                      </MDBBtn>
+                      </a>
                     </li>
-                    <li className="list-inline-item">
-                      <MDBBtn floating social="ins" size="sm" href="https://www.instagram.com" target="_blank" className="pr-0" >
+                    <li>
+                      <a href="https://www.instagram.com/" target="_blank">
                         <MDBIcon fab icon="instagram"/>
-                      </MDBBtn>
+                      </a>
                     </li>
                   </ul>
-                  </div>
               </MDBCol>
+
             </MDBRow>
           </MDBContainer>
-        </MDBFooter>
+      <div className="footer-copyright text-center py-1">
+        <MDBContainer>
+          <MDBRow className="d-flex align-items-center">
+              <MDBCol md="12">
+                <p className="text-center  mt-2">
+                Copyright &copy; {new Date().getFullYear()} OEP - All Rights Reserved. &nbsp;
+                Powered by: <a href="https://www.niletechnologies.com/" target="_blank">Nile Technologies</a>
+                </p>
+              </MDBCol>
+            </MDBRow>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+        
     );
 }
 

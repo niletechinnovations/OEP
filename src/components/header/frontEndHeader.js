@@ -33,21 +33,21 @@ class FrontEndHeader extends React.Component {
        let  headerItem = '';
         if(commonService.getAuth()) {
           headerItem =<MDBNavItem>
-            <MDBNavLink className="btn aqua-gradient active" onClick={this.closeCollapse("mainNavbarCollapse")} to="/logout">
-              <strong>Logout</strong>
+            <MDBNavLink className="btn-gr" onClick={this.closeCollapse("mainNavbarCollapse")} to="/logout">
+              Logout
             </MDBNavLink>
           </MDBNavItem>
          }
          else {
           headerItem = <MDBNavItem>
-            <MDBNavLink className="btn aqua-gradient active" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
-              <strong>Login</strong>
+            <MDBNavLink className="btn-gr" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
+              Login
             </MDBNavLink>
           </MDBNavItem>
           
         }
     return (
-        <MDBNavbar color=" wedding-color" dark expand="lg" fixed="top" scrolling transparent>
+        <MDBNavbar color="white-color" bg="light" expand="lg" fixed="top" scrolling >
           <MDBContainer>
             <MDBNavbarBrand href="/" className="py-0 font-weight-bold">
               <img alt="Logo" style={{ height: "auto", width: "3.6rem" }} src={logo}/>
@@ -57,33 +57,33 @@ class FrontEndHeader extends React.Component {
               <MDBNavbarNav right>
                 <MDBNavItem>
                   <MDBNavLink exact to="/" onClick={this.closeCollapse("mainNavbarCollapse")}>
-                    <strong>Home</strong>
+                    Home
                   </MDBNavLink>
                 </MDBNavItem>
                 {/* <MDBNavItem>
                   <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/form-builder" >
-                    <strong>Form Builder</strong>
+                    Form Builder
                   </MDBNavLink>
                 </MDBNavItem> */}
                 <MDBNavItem>
                   <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/about-us" >
-                    <strong>About Us</strong>
+                    About Us
                   </MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/blog" >
-                    <strong>Blog</strong>
+                    Blog
                   </MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/contact-us" >
-                    <strong>Contact Us</strong>
+                    Contact Us
                   </MDBNavLink>
                 </MDBNavItem>
                 {headerItem}
                 <MDBNavItem>
-                  <MDBNavLink className="btn peach-gradient active" onClick={this.closeCollapse("mainNavbarCollapse")} to="/register">
-                    <strong>Get started for FREE</strong>
+                  <MDBNavLink className="btn-Get" onClick={this.closeCollapse("mainNavbarCollapse")} to="/register">
+                    Get started for FREE
                   </MDBNavLink>
                 </MDBNavItem>
               </MDBNavbarNav>
