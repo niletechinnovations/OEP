@@ -48,6 +48,7 @@ class RegisterPage extends React.Component {
       phoneNumber: this.state.phoneNumber,
       email: this.state.email,
       password: this.state.password,
+      role: 'organization'
     };
     this.setState( { loading: true }, () => {
       commenService.postAPI( `auth/sign-up`, signupData )
