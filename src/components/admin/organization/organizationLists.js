@@ -34,12 +34,7 @@ class oragnizationLists extends Component {
   }
   /*organization List API*/
   organizationList() {
-  	const accessToken = localStorage.getItem("accessToken");
-  	const headers = {
-  	    'Content-Type': 'application/json',
-  	    'Authorization': 'JWT '+accessToken
-  	}
-
+  	
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('organization')
         .then( res => {
@@ -59,9 +54,10 @@ class oragnizationLists extends Component {
             localStorage.clear();
             this.props.history.push('/login');
           }
-          else
+          else {
             this.setState( { loading: false } );
             toast.error(err.message);
+          }
         } )
     } )
   }
@@ -96,7 +92,7 @@ class oragnizationLists extends Component {
             toast.error(res.data.message);
             return;
           } 
-          let fieldValidationErrors = this.state.formErrors;
+          
           this.setState({ modal: false});
           toast.success(res.data.message);
           this.organizationList();
@@ -165,6 +161,7 @@ class oragnizationLists extends Component {
         break; 
       case 'first_name':        
         fieldValidationErrors.contact_person = (value !== '') ? '' : ' is required';
+        break;
       case 'role':        
         fieldValidationErrors.role = (value !== '') ? '' : ' is required';
         break;               
@@ -176,11 +173,11 @@ class oragnizationLists extends Component {
   }
   /* Validate Form */
   validateForm() {
-    let formstatus = true;
+    
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     this.setState({formValid: 
-      (formErrors.organization_name == ""  && formErrors.email == "" && formErrors.contact_person == "" && formErrors.role == "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" && formField.email !== "") 
+      (formErrors.organization_name === ""  && formErrors.email === "" && formErrors.contact_person === "" && formErrors.role === "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" && formField.email !== "") 
       ? true : false});
   }
   /* Set Error Class*/
@@ -224,11 +221,9 @@ class oragnizationLists extends Component {
   render() {
       const { organizationList, loading } = this.state;     
       
-      let tableConatiner ='';
+      
       let loaderElement = '';
-      if(!loading)
-        tableConatiner = <OrganizationData data={organizationList} editOrganizationAction={this.handleEditOrganization} deleteOrganizationAction={this.handleDeleteOrganization} />;
-      else
+      if(loading)        
         loaderElement = <Loader />
 
       return (

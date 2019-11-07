@@ -17,13 +17,12 @@ class CategoryData extends Component {
   }
   componentDidMount() {     
     let rowsItem = [];
-    let indexCount = 0;
     for(const [i, cat] of this.props.data.entries()){
       let catInfo = {
         name: cat.categoryName,        
-        action: <p><a disabled={this.state.buttonProcessing} onClick={() => 
+        action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.editCategoryItem(i)}><MDBIcon icon="edit"></MDBIcon> </a>
-          <a disabled={this.state.buttonProcessing} onClick={() => 
+          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteCategoryItem(i)}><MDBIcon icon="trash"></MDBIcon></a></p>,       
       }      
       rowsItem.push(catInfo);
@@ -59,13 +58,13 @@ class CategoryData extends Component {
       rows: this.state.dataTableItem
     };
     let rowsItem = [];
-    let indexCount = 0;
+    
     for(const [i, cat] of this.props.data.entries()){
       let catInfo = {
         name: cat.categoryName,        
-        action: <p><a disabled={this.state.buttonProcessing} onClick={() => 
+        action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.editCategoryItem(i)}><MDBIcon icon="edit"></MDBIcon> </a>
-          <a disabled={this.state.buttonProcessing} onClick={() => 
+          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteCategoryItem(i)}><MDBIcon icon="trash"></MDBIcon></a></p>,       
       }      
       rowsItem.push(catInfo);

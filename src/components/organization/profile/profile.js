@@ -27,12 +27,7 @@ class profile extends Component {
     this.getProfile();
   }
   /*get profile API*/
-  getProfile() {
-    const accessToken = localStorage.getItem("accessToken");
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'JWT '+accessToken
-    }
+  getProfile() {   
 
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('profile')
@@ -137,6 +132,7 @@ class profile extends Component {
         break;
       case 'first_name':        
         fieldValidationErrors.contact_person = (value !== '') ? '' : ' is required';
+        break;
       case 'role':        
         fieldValidationErrors.role = (value !== '') ? '' : ' is required';
         break;               
@@ -148,11 +144,10 @@ class profile extends Component {
   }
   /* Validate Form */
   validateForm() {
-    let formstatus = true;
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     this.setState({formValid: 
-      (formErrors.organization_name == ""  && formErrors.contact_person == "" && formErrors.role == "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" ) 
+      (formErrors.organization_name === ""  && formErrors.contact_person === "" && formErrors.role === "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" ) 
       ? true : false});
   }
   /* Set Error Class*/

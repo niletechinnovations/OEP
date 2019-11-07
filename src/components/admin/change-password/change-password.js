@@ -78,6 +78,7 @@ class changePassword extends Component {
         break;
       case 'new_password':        
         fieldValidationErrors.new_password = (value !== '') ? '' : ' is required';
+        break;
       case 'confirm_password':        
         fieldValidationErrors.confirm_password = (value !== '') ? '' : ' is required';
         break;               
@@ -89,17 +90,16 @@ class changePassword extends Component {
   }
   /* Validate Form */
   validateForm() {
-    let formstatus = true;
+    
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
-    debugger;
     if(formField.new_password !== formField.confirm_password) {
       formErrors.error = "New password and confirm password deos not match!";
       this.setState({formValid: false, formErrors: formErrors});
       return 
     }
     this.setState({formValid: 
-        (formErrors.confirm_password == ""  && formErrors.new_password == "" && formErrors.old_password == "" && formField.old_password !== "" && formField.new_password !== "" && formField.confirm_password !== "" ) 
+        (formErrors.confirm_password === ""  && formErrors.new_password === "" && formErrors.old_password === "" && formField.old_password !== "" && formField.new_password !== "" && formField.confirm_password !== "" ) 
       ? true : false});
   }
   /* Set Error Class*/

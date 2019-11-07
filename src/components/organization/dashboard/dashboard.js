@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBRow } from 'mdbreact';
+import { MDBContainer } from 'mdbreact';
 import SideNavigation from "../sideNavigation";
-import AdminCardSection1 from "../sections/AdminCardSection1";
 import AdminCardSection2 from '../sections/AdminCardSection2';
-import TableSection from '../sections/TableSection';
 import ChartSection1 from '../sections/ChartSection1';
-import ChartSection2 from '../sections/ChartSection2';
 import './dashboard.css';
 
 

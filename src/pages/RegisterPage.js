@@ -99,7 +99,7 @@ class RegisterPage extends React.Component {
                       molestiae iste.
                     </p>
                     <div className="btn-section">
-                    <a className="btn-Started" href="#">Learn More</a>
+                    <a className="btn-Started" href="#!">Learn More</a>
                     </div>
                   </div>
                 </MDBCol>

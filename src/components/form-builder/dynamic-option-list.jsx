@@ -76,7 +76,9 @@ export default class DynamicOptionList extends React.Component {
 
   render() {
     if (this.state.dirty) {
-      this.state.element.dirty = true;
+      let element = this.state.element;
+      element.dirty = true;
+      this.setState({element: element});
     }
     return (
       <div className="dynamic-option-list">

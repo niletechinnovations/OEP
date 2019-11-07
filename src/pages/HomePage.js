@@ -7,10 +7,8 @@ import {
   MDBMask,
   MDBContainer,
   MDBCol,
-  MDBRow,
-  MDBBtn,
+  MDBRow,  
   MDBIcon,
-  MDBCard,
   MDBCardBody
 } from "mdbreact";
 import "./HomePage.css";
@@ -159,7 +157,7 @@ class HomePage extends React.Component {
                     </div>
                     <h3>Actions</h3>
                     <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
-                    <a className="read-more-btn" href="#">Read More</a>
+                    <a className="read-more-btn" href="#!">Read More</a>
                 </div>
               </MDBCol>
 
@@ -174,7 +172,7 @@ class HomePage extends React.Component {
                     </div>
                     <h3>Inspections</h3>
                     <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
-                    <a className="read-more-btn" href="#">Read More</a>
+                    <a className="read-more-btn" href="#!">Read More</a>
                 </div>
               </MDBCol>
 
@@ -189,7 +187,7 @@ class HomePage extends React.Component {
                     </div>
                     <h3>Team Management</h3>
                     <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
-                    <a className="read-more-btn" href="#">Read More</a>
+                    <a className="read-more-btn" href="#!">Read More</a>
                 </div>
               </MDBCol>
             </MDBRow>

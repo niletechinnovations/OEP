@@ -52,15 +52,18 @@ export default class StarRating extends React.Component {
     this.min = 0;
     this.max = this.props.ratingAmount || 5;
     if (this.props.rating) {
-      this.state.editing = this.props.editing || false;
+      let editing = this.props.editing || false;
       const ratingVal = this.props.rating;
-      this.state.ratingCache.pos = this.getStarRatingPosition(ratingVal);
-      this.state.ratingCache.rating = ratingVal;
+      let ratingCache = this.state.ratingCache;
+      ratingCache.pos = this.getStarRatingPosition(ratingVal);
+      ratingCache.rating = ratingVal;
 
       this.setState({
-        ratingCache: this.state.ratingCache,
         rating: ratingVal,
         pos: this.getStarRatingPosition(ratingVal),
+        editing: editing,
+        ratingCache: ratingCache
+
       });
     }
   }
@@ -243,9 +246,7 @@ export default class StarRating extends React.Component {
       <span className="react-star-rating">
         <span ref={c => this.rootNode = c} style={{ cursor: 'pointer' }} className={classes}>
           {starRating}
-          <input type="number" name={this.props.name} value={this.state.ratingCache.rating} style={{ display: 'none !important' }} min={this.min} max={this.max} readOnly style={{
-            width: 65,
-          }}/>
+          <input type="number" name={this.props.name} value={this.state.ratingCache.rating} style={{ display: 'none !important' }} min={this.min} max={this.max} readOnly />
         </span>
       </span>
     );

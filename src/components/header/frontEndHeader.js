@@ -8,7 +8,7 @@ import { MDBNavbar,
   MDBCollapse,
   MDBNavbarNav,
   MDBContainer} from 'mdbreact';
-import { Redirect } from 'react-router';
+
 import commonService from '../../core/services/commonService';
 import './frontEndHeader.css';
 
