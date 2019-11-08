@@ -17,7 +17,8 @@ import {
   MDBModal,
   MDBModalHeader,
   MDBModalBody,
-  MDBModalFooter
+  MDBModalFooter,
+  MDBIcon
 } from "mdbreact";
 import "./LoginPage.css";
 
@@ -195,7 +196,7 @@ class LoginPage extends React.Component {
                               <MDBInput label={ <>Keep me signed in</> } type='checkbox' id='checkbox1' />
                             </MDBCol>
                             <MDBCol md="5" className="d-flex justify-content-end">
-                              <p className="font-small pt-3">
+                              <p className="Forgot-text pt-3">
                                 <a onClick={this.toggle} href="#!" className="ml-1">Forgot Password?</a>
                             </p>
                             </MDBCol>
@@ -215,7 +216,10 @@ class LoginPage extends React.Component {
                 </MDBRow>
               </MDBContainer>
               <MDBModal isOpen={this.state.modal} toggle={this.toggle} size="lg" className="cascading-modal forgot-password-modal">
-                <MDBModalHeader toggle={this.toggle}>Forgot Password</MDBModalHeader>
+                <h2>Forgot Password</h2>
+                <MDBBtn onClick={this.toggle} className="close">
+                  <MDBIcon icon="times" />
+                </MDBBtn>
                 <form className="grey-text needs-validation" onSubmit={this.submitForgotPasswordHandler} >
                   <MDBModalBody>
                       <MDBRow>
@@ -227,11 +231,10 @@ class LoginPage extends React.Component {
                             </div>
                           </MDBInput>   
                         </MDBCol>
+                        <MDBCol md="12" className="text-center">
+                          <MDBBtn className="btn-account" type="submit">Forgot</MDBBtn>
+                        </MDBCol>
                       </MDBRow>  
-                      <MDBModalFooter>
-                        <MDBBtn className="btn-account" type="submit">Forgot</MDBBtn>
-                        <MDBBtn className="btn-account" type="button" onClick={this.toggle}>Cancel</MDBBtn>
-                      </MDBModalFooter>                    
                   </MDBModalBody>
                 </form>
               </MDBModal>

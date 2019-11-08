@@ -7,8 +7,9 @@
 .btn-account:hover{color: #ffffff !important  }
 .btn-account:hover:after {width: 100%; left: 0; right: auto; } 
 
-.text-foot p{color:#607D8B; font-size: 14px; padding: 0; line-height: 24px;}
-.account-form .form-check-label{color:#607D8B; font-size: 12px; padding: 0; line-height: 24px;}
+.text-foot p,
+.Forgot-text{color:#607D8B; font-size: 12px !important; padding: 0; line-height: 24px;}
+.account-form .form-check-label{color:#607D8B; font-size: 12px !important; padding: 0; line-height: 24px;}
 .account-form .prefix {
     top: 17px;
     font-size: 14px;
@@ -106,3 +107,25 @@
     width: 400px;
 }
 .forgot-password-modal .modal-footer { border: none; }
+
+.forgot-password-modal button.close {
+    padding: 0px 5px;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    color: #607d8b !important;
+    background-color: transparent !important;
+    box-shadow: none;
+    font-size: 20px;
+}
+
+.forgot-password-modal .modal-content h2 {
+    text-align: left;
+    font-size: 18px;
+    color: #607D8B;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.forgot-password-modal form .form-group i{top: 17px; font-size: 14px; color: #607d8b;}
+.forgot-password-modal form .form-group label{color: #607D8B; font-size: 13px;}
