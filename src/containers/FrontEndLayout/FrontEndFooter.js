@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   MDBFooter,
   MDBContainer,
@@ -24,9 +25,9 @@ const frontEndFooter = () => {
               </MDBCol>
               <MDBCol md="2">
                 <nav className="flex-column foot-nav">
-                  <a href="#!" className="py-2 text-contrast nav-link">About</a>
-                  <a href="#!" className="py-2 text-contrast nav-link">Contact us</a>
-                  <a href="#!" className="py-2 text-contrast nav-link">Blog</a>
+                  <Link to="/about-us" className="py-2 text-contrast nav-link">About</Link>
+                  <Link to="/contact-us" className="py-2 text-contrast nav-link">Contact us</Link>
+                  <Link to="/blog" className="py-2 text-contrast nav-link">Blog</Link>
                 </nav>
               </MDBCol>
               <MDBCol md="2">

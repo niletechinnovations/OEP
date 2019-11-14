@@ -3,6 +3,8 @@ import { Route, Redirect, Switch } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import BlogPage from "./pages/BlogPage";
 import LoginPage from "./pages/LoginPage";
 import ResetPassword from "./pages/ResetPassword";
 import registerPage from "./pages/RegisterPage";
@@ -64,10 +66,12 @@ class Routes extends React.Component{
         );
         return (
             <Switch>
-              <Route exact path={["/about-us", "/login", "/register", "/reset-password/:token", "/"]}>
+              <Route exact path={["/about-us","/contact", "/blog", "/login", "/register", "/reset-password/:token", "/"]}>
                 <FrontEndLayout>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/about-us" component={AboutPage} />
+                  <Route exact path="/contact" component={ContactPage} />
+                  <Route exact path="/blog" component={BlogPage} />
                   <Route exact path="/login" component={LoginPage} />
                   <Route exact path="/register" component={registerPage} />
                   <Route exact path="/reset-password/:token" component={ResetPassword} />
