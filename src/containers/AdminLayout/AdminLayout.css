@@ -1,0 +1,10 @@
+.dashboard-template .app-header .nav-item .nav-link {
+     padding-top: 0; 
+     padding-bottom: 0; 
+     background: 0; 
+     border: 0; 
+     color: #73818f;
+}
+.dashboard-template .Toastify__toast-container--top-right {
+	top: 3em !important;
+}
