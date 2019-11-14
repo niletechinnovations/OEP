@@ -1,11 +1,13 @@
 import React from "react";
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label} from 'reactstrap';
-import {ReactFormBuilder} from "../../FormBuilder/reactFormBuilder";
+import DemoBar from '../../FormBuilder/demobar';
+import {ReactFormBuilder} from "../../FormBuilder/";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import Loader from '../../Loader/Loader';
-//import "./../assets/css/bootstrap.min.css";
+import { FormErrors } from '../../Formerrors/Formerrors';
+
 import "../../../assets/css/font-awesome.min.css";
 import "react-form-builder2/dist/app.css";
 import "./TemplateBuilderPage.css";
@@ -17,16 +19,62 @@ class TemplateBuilderPage extends React.Component {
       loading: false,      
       categoryList: [], 
       formField: { categoryId: '', subCategoryId: '', template_name: ''},
+      formErrors: {category: '', subcategory: '', template_form: '', template_name: '', error: ''},
+      templateData: [],
+      templateId: "",
+      formValid: false,
+      templatePreviewData : [],
       formProccessing: false
     }     
-    this.getSubCategoryList = this.getSubCategoryList.bind(this);    
+    this.getSubCategoryList = this.getSubCategoryList.bind(this);
+    this.handleUpdatedFormHandleChange = this.handleUpdatedFormHandleChange.bind(this);   
+    this.submitHandler = this.submitHandler.bind(this);  
+    this.resetForm = this.resetForm.bind(this); 
   }
 
   // Fetch the subCategory List
-  componentDidMount() {   
+  componentDidMount() {
+    const { match: { params } } = this.props;
+    if(params.templateId !== undefined && params.templateId !=="") 
+      this.getTemplateDetail(params.templateId);
+      
     this.categoryList();
   }
 
+  getTemplateDetail(templateId) {
+    this.setState( { loading: true}, () => {
+      commonService.getAPIWithAccessToken('template/'+templateId)
+        .then( res => {
+          console.log(res);
+           
+          if ( undefined === res.data.data || !res.data.status ) {
+            this.setState( {  loading: false } );
+            toast.error(res.data.message);  
+            this.props.history.push('/template');  
+            return;
+          } 
+          const templateDetail = res.data.data;
+
+          let formField = this.state.formField;
+          formField.categoryId = templateDetail.categoryId;
+          formField.subCategoryId = templateDetail.subCategoryId;
+          formField.template_name = templateDetail.templateName;
+          this.getSubCategoryList(templateDetail.categoryId, false);
+          this.setState({loading:false, formField: formField, formValid: true, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
+         
+        } )
+        .catch( err => {         
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else {
+            this.setState( { loading: false } );
+            toast.error(err.message);    
+          }
+        } )
+    } ) 
+  }
   /*categoryList List API*/
   categoryList() {   
    
@@ -54,7 +102,8 @@ class TemplateBuilderPage extends React.Component {
       } )
     
   }
-  getSubCategoryList(categoryId) {
+  /*Sub Category*/
+  getSubCategoryList(categoryId, hideSubcat = true) {
     const formField = this.state.formField;
     if(categoryId === "") {      
       formField.subCategoryId = '';
@@ -71,9 +120,10 @@ class TemplateBuilderPage extends React.Component {
           toast.error(res.data.message);    
           return;
         }   
-        formField.subCategoryId = '';
+        if(hideSubcat)
+          formField.subCategoryId = '';
         this.setState({subCategoryList: res.data.data, formField: formField, loading: false});     
-       
+        
       } )
       .catch( err => {         
         if(err.response !== undefined && err.response.status === 401) {
@@ -90,23 +140,141 @@ class TemplateBuilderPage extends React.Component {
 
   }
 
-  /*Handle Input Change*/
+  
   /* Input Field On changes*/
   changeHandler = event => {
     const name = event.target.name;
     const value = event.target.value;
     const formField = this.state.formField
     formField[name] = value;
-    this.setState({ formField: formField });
+    this.setState({ formField: formField }, () => { this.validateField(name, value) });
   };
-
+  /*Handle catgeory Input Change and bind subcategory*/
   changeCategoryHandle = event => {
     const name = event.target.name;
     const value = event.target.value;
     const formField = this.state.formField
     formField[name] = value;
-    this.setState({ formField: formField });
+    this.setState({ formField: formField }, () => { this.validateField(name, value) });
     this.getSubCategoryList(value);
+  }
+  /* Validate Field*/
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    fieldValidationErrors.error = '';
+   
+    switch(fieldName) {         
+      case 'categoryId':        
+        fieldValidationErrors.category = (value !== '') ? '' : ' is required';
+        break; 
+      case 'subCategoryId':        
+        fieldValidationErrors.subcategory = (value !== '') ? '' : ' is required';
+        break; 
+      case 'template_name':        
+        fieldValidationErrors.template_name = (value !== '') ? '' : ' is required';
+        break;
+                    
+      default:
+        break;
+    }
+    this.setState({formErrors: fieldValidationErrors,       
+                  }, this.validateForm);
+  }
+  /* Validate Form */
+  validateForm() {
+    
+    const formErrors = this.state.formErrors;
+    const formField = this.state.formField;
+    this.setState({formValid: 
+      (formErrors.category === ""  && formErrors.subcategory === "" && formErrors.template_name === "" && formField.categoryId !== "" && formField.subCategoryId !== "" && formField.template_name !== "") 
+      ? true : false});
+  }
+  /* Set Error Class*/
+  errorClass(error) {
+    return(error.length === 0 ? '' : 'has-error');
+  }
+
+  /*handle Form Edit Change*/
+  handleUpdatedFormHandleChange(data) {
+    this.setState({templateData: data});    
+  }
+
+  /* Submit Form Handler*/
+  submitHandler (event) {
+    event.preventDefault();    
+    if(this.state.templateData.length < 1 ) {
+      toast.error("Please create atleast single field in form");
+      return false;
+    }
+    event.target.className += " was-validated";
+    this.setState( { loading: true}, () => {
+
+      const formInputField = this.state.formField;
+      let formData = {
+        "categoryId": formInputField.categoryId,
+        "subCategoryId": formInputField.subCategoryId, 
+        "templateName": formInputField.template_name, 
+        "formField": this.state.templateData
+      };
+      debugger;
+      if(this.state.templateId !== "" ) {
+        formData.templateId = this.state.templateId;
+        commonService.putAPIWithAccessToken('template', formData)
+        .then( res => {        
+           
+          if ( undefined === res.data.data || !res.data.status ) { 
+            this.setState( { loading: false} );
+            toast.error(res.data.message);
+            return;
+          } 
+          
+          this.setState({ modal: false});
+          toast.success(res.data.message);
+          this.props.history.push('/admin/template');
+         
+        } )
+        .catch( err => {         
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else
+            this.setState( { loading: false } );
+            toast.error(err.message);
+        } )
+      }
+      else {
+        commonService.postAPIWithAccessToken('template', formData)
+        .then( res => {        
+           
+          if ( undefined === res.data.data || !res.data.status ) { 
+            this.setState( { loading: false} );
+            toast.error(res.data.message);
+            return;
+          } 
+          
+          this.setState({ modal: false});
+          toast.success(res.data.message);
+          this.props.history.push('/admin/template');
+         
+        } )
+        .catch( err => {         
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else
+            this.setState( { loading: false } );
+            toast.error(err.message);
+        } )
+      }
+      
+    } );
+    
+  };
+
+  resetForm(){
+    this.props.history.push('/template');
   }
 
   render() {
@@ -126,7 +294,8 @@ class TemplateBuilderPage extends React.Component {
               <CardBody>
                 {loaderElement}
                 <ToastContainer />
-                <Form>
+                <Form onSubmit={this.submitHandler} noValidate>
+                  <FormErrors formErrors={this.state.formErrors} />
                   <Row>
                     <Col lg={6}>
                       <FormGroup> 
@@ -160,14 +329,16 @@ class TemplateBuilderPage extends React.Component {
                       <FormGroup>
                         <Label htmlFor="templateBuilderPage">Form Builder Area</Label>
                         <div id="templateBuilderPage" className="">
-                          <ReactFormBuilder></ReactFormBuilder>  
+                          <ReactFormBuilder data={this.state.templatePreviewData}></ReactFormBuilder>  
+                          
                         </div>
                       </FormGroup>
                     </Col>
-                    <Button color="primary" type="submit">Save</Button>
-                    <Button color="secondary">Cancel</Button>
+                    <Button color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
+                    <Button color="secondary" onClick={this.resetForm}>Cancel</Button>
                   </Row>
                 </Form>
+                <DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange}></DemoBar>
               </CardBody>
             </Card>
           </Col>  

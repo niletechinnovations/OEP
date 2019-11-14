@@ -32,6 +32,11 @@ export default {
           name: 'Create Template',
           url: '/admin/create-template',
           icon: 'icon-theme',     
+        },
+        {
+          name: 'Template List',
+          url: '/admin/template',
+          icon: 'icon-theme',     
         }
       ]
     }, 
