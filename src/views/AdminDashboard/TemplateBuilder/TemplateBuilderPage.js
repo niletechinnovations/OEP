@@ -216,7 +216,7 @@ class TemplateBuilderPage extends React.Component {
         "templateName": formInputField.template_name, 
         "formField": this.state.templateData
       };
-      debugger;
+      
       if(this.state.templateId !== "" ) {
         formData.templateId = this.state.templateId;
         commonService.putAPIWithAccessToken('template', formData)
@@ -274,7 +274,7 @@ class TemplateBuilderPage extends React.Component {
   };
 
   resetForm(){
-    this.props.history.push('/template');
+    this.props.history.push('/admin/template');
   }
 
   render() {

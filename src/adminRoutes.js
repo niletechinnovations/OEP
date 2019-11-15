@@ -7,6 +7,7 @@ import SubCategory from './views/AdminDashboard/SubCategory/SubCategory';
 import ChangePassword from'./views/AdminDashboard/ChangePassword/ChangePassword';
 import TemplateList from'./views/AdminDashboard/TemplateBuilder/Template';
 import TemplateBuilder from'./views/AdminDashboard/TemplateBuilder/TemplateBuilderPage';
+import Employee from './views/AdminDashboard/Organization/Employee/Employee';
 
 const adminRoutes = [
   { path: '/admin/', exact: true, name: 'Home' },
@@ -16,6 +17,8 @@ const adminRoutes = [
   { path: '/admin/category', exact: true,  name: 'Category', component: Category },
   { path: '/admin/subcategory', exact: true,  name: 'Subcategory', component: SubCategory },
   { path: '/admin/organization', exact: true,  name: 'Organization', component: Organization },
+  { path: '/admin/organization/employee', exact: true,  name: 'Employee', component: Employee },
+  { path: '/admin/organization/employee/:organizationId', exact: true,  name: 'Employee', component: Employee },
   { path: '/admin/change-password', exact: true,  name: 'Change Password', component: ChangePassword },
   { path: '/admin/template', exact: true,  name: 'Template List', component: TemplateList },
   { path: '/admin/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },

@@ -21,9 +21,20 @@ export default {
       ]
     },  
     {
-      name: 'Organization',
+      name: 'Manage Organization',
       url: '/admin/organization',
-      icon: 'icon-people',     
+      icon: 'icon-people', 
+      children: [{
+          name: 'Organization List',
+          url: '/admin/organization',
+          icon: 'icon-people',     
+        },
+        {
+          name: 'Employee List',
+          url: '/admin/organization/employee',
+          icon: 'icon-people',     
+        },
+      ]    
     },
     {
       name: 'Manage Template',

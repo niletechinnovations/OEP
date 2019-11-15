@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import  { Link } from 'react-router-dom';
 import { Table } from 'reactstrap';
 function OrganizationRow(props) {
   const Organization = props.Organization;
@@ -53,7 +54,7 @@ class OrganizationData extends Component {
         organizationName: orgnization.organizationName,  
         firstName: orgnization.firstName,
         email: orgnization.email,
-        roleName: orgnization.roleName || " ",
+        roleName: orgnization.organizationRole || " ",
         phoneNumber: orgnization.phoneNumber || " ",
         address: orgnization.address || " ",
         city: orgnization.city || " ",      
@@ -62,6 +63,7 @@ class OrganizationData extends Component {
         status: orgnization.status || true,   
         action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.editOrganizationItem(i)}><i className="fa fa-pencil"></i> </a>
+          <Link to={`/admin/organization/employee/${orgnization.authId}`}><i className="fa fa-user"></i> </Link>
           <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteOrganizationItem(i)}><i className="fa fa-trash"></i></a></p>,       
       }      
