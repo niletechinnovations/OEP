@@ -155,13 +155,8 @@ class LoginPage extends React.Component {
                 <MDBRow>
                   <MDBCol className="col-md-6 mt-xl-5 mb-5">
                     <div className="account-content">
-                      <h1 className="">Customize your form builder</h1>
-                      <p>We're Committed to Service Excellence.</p>
-                      <p>Learn more about how to get the most out of OEP.</p>
-                      <p>
-                        Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                        veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                        molestiae iste.
+                      <h1 className="">Customize your Template</h1>
+                      <p>We provide the basic templates for the world to get you started in the right direction. If you need more details in your business, you can also develop the template for your precise needs, we will help you do this.
                       </p>
                       <div className="btn-section">
                         <a className="btn-Started" href="#!">Learn More</a>

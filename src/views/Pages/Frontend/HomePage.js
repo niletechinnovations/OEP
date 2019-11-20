@@ -49,10 +49,7 @@ class HomePage extends React.Component {
                       Inspections are just the beginning{" "}
                       </h1>
                       <p className="">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                        veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                        molestiae iste.
+                        OEP will be the platform to help you inspect what you expect.
                       </p>
                       <div className="btn-section">
                         <Link className="btn-Started" to="/register">
@@ -83,12 +80,9 @@ class HomePage extends React.Component {
             <MDBContainer> 
                 <div className="heading-title"> 
                   <h2 className="my-3">
-                    Why is it so great?
+                    Why OEP Retail?
                   </h2>
-                  <p className="lead grey-text w-responsive text-center mx-auto mb-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt
-                  </p>
+                  
                 </div>
               <MDBRow>
                 <MDBCol lg="5" className="text-center text-lg-left">
@@ -104,11 +98,9 @@ class HomePage extends React.Component {
                       <MDBIcon icon="share" size="lg" className="icon-arrow" />
                     </MDBCol>
                     <MDBCol xl="10" md="11" size="10" className="why-col">
-                      <h5 className="mb-3">Start with the basics</h5>
+                      <h5 className="mb-3">Helps you deliver the basics consistently.</h5>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                        enim ad minima veniam, quis nostrum exercitationem ullam.
-                        Reprehenderit maiores aperiam assumenda deleniti hic.
+                        OEP will help you deliver the basics on a daily and hourly basis. The power of fundamentals in any business will drive your bottom line and customer experience.
                       </p>
                     </MDBCol>
                   </MDBRow>
@@ -117,11 +109,9 @@ class HomePage extends React.Component {
                       <MDBIcon icon="share" size="lg" className="icon-arrow" />
                     </MDBCol>
                     <MDBCol xl="10" md="11" size="10" className="why-col">
-                      <h5 className="mb-3">Improve your processes</h5>
+                      <h5 className="mb-3">Improve your day to day processes.</h5>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                        enim ad minima veniam, quis nostrum exercitationem ullam.
-                        Reprehenderit maiores aperiam assumenda deleniti hic.
+                        Improving your daily processes will help drive consistency in your business and allow you the agile flexibility to improve daily.
                       </p>
                     </MDBCol>
                   </MDBRow>
@@ -130,11 +120,9 @@ class HomePage extends React.Component {
                       <MDBIcon icon="share" size="lg" className="icon-arrow" />
                     </MDBCol>
                     <MDBCol xl="10" md="11" size="10" className="why-col">
-                      <h5 className="mb-3">Reach your full potential</h5>
+                      <h5 className="mb-3">Reaching your FULL potential.</h5>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                        enim ad minima veniam, quis nostrum exercitationem ullam.
-                        Reprehenderit maiores aperiam assumenda deleniti hic.
+                        The power of basic fundamentals in any business will enhance the customer experience and your bottom line. The key is consistently perform these basics to reach your full potential. OEP will help you your team.
                       </p>
                     </MDBCol>
                   </MDBRow>
@@ -155,8 +143,8 @@ class HomePage extends React.Component {
                           height="70"
                         />
                     </div>
-                    <h3>Actions</h3>
-                    <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
+                    <h3>Take Action</h3>
+                    <p>The most important step is to start and take action on how to improve on a daily basis. OEP retail will help you begin and allow you the flexibility to gradually increase your focus.</p>
                     <a className="read-more-btn" href="#!">Read More</a>
                 </div>
               </MDBCol>
@@ -170,8 +158,8 @@ class HomePage extends React.Component {
                           height="70"
                         />
                     </div>
-                    <h3>Inspections</h3>
-                    <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
+                    <h3>Daily Walks</h3>
+                    <p>Daily walks are inspections incorporated into your normal daily routine, but these walks are now recorded and can be shared as needed with OEP retail.</p>
                     <a className="read-more-btn" href="#!">Read More</a>
                 </div>
               </MDBCol>
@@ -185,8 +173,8 @@ class HomePage extends React.Component {
                           height="70"
                         />
                     </div>
-                    <h3>Team Management</h3>
-                    <p>Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan.</p>
+                    <h3>Team Oriented</h3>
+                    <p>OEP Retail allows you to include your internal team in the walks/inspections and your external leaders with the simple features of emailing, texting or sharing the information.</p>
                     <a className="read-more-btn" href="#!">Read More</a>
                 </div>
               </MDBCol>
@@ -215,7 +203,7 @@ class HomePage extends React.Component {
                 </a>
               </MDBView>
               <MDBCardBody className="pb-0 features-card">
-                <h4>Get everyone on the same paperless page</h4>
+                <h4>No more paper or endless filing in a dusty cabinet or binder that no one ever reviews.</h4>
                 <p>
                   Temporibus autem quibusdam et aut officiis debitis aut rerum
                   necessitatibus saepe eveniet ut et voluptates repudiandae.
@@ -239,8 +227,7 @@ class HomePage extends React.Component {
               <MDBCardBody className="pb-0 features-card">
                 <h4>Generate instant, professional reports</h4>
                 <p>
-                  Temporibus autem quibusdam et aut officiis debitis aut rerum
-                  necessitatibus saepe eveniet ut et voluptates repudiandae.
+                  Real time reports to make quick and effective decisions for you and your teams.
                 </p>
                 <Link className="btn-Started" to="/">
                   Learn more
@@ -261,8 +248,7 @@ class HomePage extends React.Component {
               <MDBCardBody className="pb-0 features-card">
                 <h4>Get a bird’s eye view with analytics</h4>
                 <p>
-                  Temporibus autem quibusdam et aut officiis debitis aut rerum
-                  necessitatibus saepe eveniet ut et voluptates repudiandae.
+                  Use data analytics along with your experience to improve your business quickly and effectively.
                 </p>
                 <Link className="btn-Started" to="/">
                   Learn more

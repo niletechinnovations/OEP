@@ -94,12 +94,7 @@ class RegisterPage extends React.Component {
                 <MDBCol className="col-md-6 mt-xl-5 mb-5">
                   <div className="account-content">
                     <h1>Why Join OEP?</h1>
-                    <p>We're Committed to Service Excellence.</p>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                      veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                      molestiae iste.
+                    <p>OEP Retail will enhance and help you maintain the fundamentals of your business along with allowing you the flexibility to share your findings with your team in real time.  This action will move you and your business quicker and much more effectively.
                     </p>
                     <div className="btn-section">
                     <a className="btn-Started" href="#!">Learn More</a>

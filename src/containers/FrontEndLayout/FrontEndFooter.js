@@ -20,7 +20,7 @@ const frontEndFooter = () => {
                     alt=""
                     height="60"
                   />
-                  <p>Laapp, a carefully crafted and powerful HTML5 template, it's perfect to showcase your App or Startup</p>
+                  <p>OEP Retail is the Operational Excellence Platform for all your retail needs. The platform is 20 plus years in the making from actual retail walks and processes. Built by an operational retailer for retailers just like you.</p>
                 </div>
               </MDBCol>
               <MDBCol md="2">
