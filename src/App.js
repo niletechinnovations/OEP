@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import  AdminLayout from './containers/AdminLayout/AdminLayout';
 import  OrganizationLayout from './containers/OrganizationLayout/OrganizationLayout';
 import  FrontEndLayout from './containers/FrontEndLayout/FrontEndLayout';
-import './App.scss';
+//import './App.scss';
 /*Common Service*/
 import commonService from './core/services/commonService';
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
