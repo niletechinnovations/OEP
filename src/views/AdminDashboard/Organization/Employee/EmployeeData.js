@@ -1,28 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
-function EmployeeRow(props) {
-  const Employee = props.Employee;
+import MUIDataTable from "mui-datatables";
 
-  const getStatus = (status) => {
-    return status === true ? 'Active' : 'Inactive'
-  }  
-  return (
-    <tr>   
-      <td>{Employee.firstName}</td>
-      <td>{Employee.email}</td>
-      <td>{Employee.organizationName}</td>
-      <td>{Employee.roleName}</td>      
-      <td>{Employee.phoneNumber}</td>
-      <td>{Employee.address}</td>
-      <td>{Employee.city}</td>
-      <td>{Employee.state}</td>
-      <td>{Employee.country}</td>
-
-      <td>{getStatus(Employee.status)}</td>
-      <td>{Employee.action}</td>
-    </tr>
-  )
-} 
 class EmployeeData extends Component {
   
   constructor(props){
@@ -68,31 +46,59 @@ class EmployeeData extends Component {
       rowsItem.push(orgInfo);
     }      
     
-    
+    const columns = [ 
+      {
+        label: 'Employee Name',
+        name: 'firstName',
+      },     
+      {
+        label: 'Organization Name',
+        name: 'organizationName',
+      },
+      
+      {
+        label: 'Email',
+        name: 'email',
+      },
+      {
+        label: 'Phone Number',
+        name: 'phoneNumber',
+      },
+      {
+        label: 'Status',
+        name: 'status',
+      },
+      {
+        label: 'Action',
+        name: 'action',
+      },
+    ];
+    const options = {
+      search: true,
+      filter: false,
+      searchOpen: false,
+      print: false,
+      download: false,
+      responsive: 'stacked',
+      selectableRows: 'none',
+      textLabels: {
+        body: {
+          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          toolTip: "Sort",
+          columnHeaderTooltip: column => `Sort for ${column.label}`
+        },
+      },
+      fixedHeaderOptions: { xAxis: false, yAxis: false }
+
+    };
     
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th> 
-            <th scope="col">Organization Name</th>  
-            <th scope="col">Role</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Address</th>       
-            <th scope="col">City</th>
-            <th scope="col">State</th>
-            <th scope="col">Country</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsItem.map((Employee, index) =>
-            <EmployeeRow key={index} Employee={Employee}/>
-          )}
-        </tbody>
-      </Table>
+      <MUIDataTable
+        title={"Employee List"}
+        data={rowsItem}
+        columns={columns}
+        options={options}
+      />
     );
   }
 }

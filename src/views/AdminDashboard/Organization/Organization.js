@@ -238,7 +238,7 @@ class Organization extends Component {
               </CardHeader>
               <CardBody>
                 
-                <OrganizationData data={organizationList} editOrganizationAction={this.handleEditOrganization} deleteOrganizationAction={this.handleDeleteOrganization} />
+                <OrganizationData data={organizationList} editOrganizationAction={this.handleEditOrganization} deleteOrganizationAction={this.handleDeleteOrganization} dataTableLoadingStatus = {this.state.loading} />
                   
               </CardBody>
             </Card>

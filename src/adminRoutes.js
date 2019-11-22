@@ -8,6 +8,10 @@ import ChangePassword from'./views/AdminDashboard/ChangePassword/ChangePassword'
 import TemplateList from'./views/AdminDashboard/TemplateBuilder/Template';
 import TemplateBuilder from'./views/AdminDashboard/TemplateBuilder/TemplateBuilderPage';
 import Employee from './views/AdminDashboard/Organization/Employee/Employee';
+import Inspection from './views/AdminDashboard/Inspection/InspectionLists';
+import AssignInspection from './views/AdminDashboard/Inspection/AssignInspection';
+
+
 
 const adminRoutes = [
   { path: '/admin/', exact: true, name: 'Home' },
@@ -23,6 +27,8 @@ const adminRoutes = [
   { path: '/admin/template', exact: true,  name: 'Template List', component: TemplateList },
   { path: '/admin/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/admin/create-template/:templateId', exact: true,  name: 'Create Template', component: TemplateBuilder },
+  { path: '/admin/inspection', exact: true,  name: 'Inspection', component: Inspection },
+  { path: '/admin/inspection/assign-inspection', exact: true,  name: 'Assign Inspection', component: AssignInspection },
 ];
 
 export default adminRoutes;

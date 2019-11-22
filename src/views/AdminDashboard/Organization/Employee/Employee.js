@@ -312,7 +312,7 @@ class Employee extends Component {
                     </Row>  
                   </Col>
                   <Col md={12}>
-                    <EmployeeData data={EmployeeList} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} />
+                    <EmployeeData data={EmployeeList} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} dataTableLoadingStatus = {this.state.loading} />
                   </Col>
                 </Row> 
               </CardBody>

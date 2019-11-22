@@ -1,19 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
-function CategoryRow(props) {
-  const category = props.category;
-
-  const getStatus = (status) => {
-    return status === true ? 'Active' : 'Inactive'
-  }  
-  return (
-    <tr>      
-      <td>{category.name}</td>
-      <td>{getStatus(category.status)}</td>
-      <td>{category.action}</td>
-    </tr>
-  )
-} 
+import MUIDataTable from "mui-datatables";
 class CategoryData extends Component {
   
   constructor(props){
@@ -37,12 +23,26 @@ class CategoryData extends Component {
   }
   
   render() {
-    
+    const columns = [
+      {
+        label: 'Name',
+        name: 'name',
+      },
+      {
+        label: 'Status',
+        name: 'status',
+      },
+      {
+        label: 'Action',
+        name: 'action',
+      },
+    ];
+
     let rowsItem = [];    
     for(const [i, cat] of this.props.data.entries()){
       let catInfo = {
         name: cat.categoryName,
-        status: cat.status || true ,       
+        status: cat.status ? "Active" : "Inactive" ,       
         action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.editCategoryItem(i)}><i className="fa fa-pencil"></i> </a>
           <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
@@ -50,23 +50,32 @@ class CategoryData extends Component {
       }      
       rowsItem.push(catInfo);
     }
+    const options = {
+      search: true,
+      filter: false,
+      searchOpen: false,
+      print: false,
+      download: false,
+      responsive: 'stacked',
+      selectableRows: 'none',
+      textLabels: {
+        body: {
+          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          toolTip: "Sort",
+          columnHeaderTooltip: column => `Sort for ${column.label}`
+        },
+      },
+      fixedHeaderOptions: { xAxis: false, yAxis: false }
+
+    };
     
-    debugger;
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>            
-            <th scope="col">Name</th>            
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsItem.map((category, index) =>
-            <CategoryRow key={index} category={category}/>
-          )}
-        </tbody>
-      </Table>
+      <MUIDataTable
+        title={"Category List"}
+        data={rowsItem}
+        columns={columns}
+        options={options}
+      />
     );
   }
 }

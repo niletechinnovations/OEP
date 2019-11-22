@@ -52,9 +52,19 @@ export default {
       ]
     }, 
     {
-      name: 'Create Inspection',
-      url: '#!',
-      icon: 'icon-people',     
+      name: 'Inspection',      
+      icon: 'icon-people', 
+      children: [{
+          name: 'Assign Inspection',
+          url: '/admin/inspection/assign-inspection',
+          icon: 'icon-theme',     
+        },
+        {
+          name: 'View Inspection',
+          url: '/admin/inspection',
+          icon: 'icon-theme',     
+        }
+      ]    
     },
     {
       name: 'Reports',

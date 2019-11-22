@@ -253,7 +253,7 @@ class Category extends Component {
                 <strong>Category</strong> <Button color="primary" className="pull-right" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>                
-                <CategoryData data={categoryList} editCategoryAction={this.handleEditCategory} deleteCategoryAction={this.handleDeleteCategory} />
+                <CategoryData data={categoryList} editCategoryAction={this.handleEditCategory} deleteCategoryAction={this.handleDeleteCategory} dataTableLoadingStatus = {this.state.loading} />
                   
               </CardBody>
             </Card>

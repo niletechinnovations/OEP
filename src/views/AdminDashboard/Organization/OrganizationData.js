@@ -1,29 +1,7 @@
 import React, { Component } from 'react';
 import  { Link } from 'react-router-dom';
-import { Table } from 'reactstrap';
-function OrganizationRow(props) {
-  const Organization = props.Organization;
+import MUIDataTable from "mui-datatables";
 
-  const getStatus = (status) => {
-    return status === true ? 'Active' : 'Inactive'
-  }  
-  return (
-    <tr>      
-      <td>{Organization.organizationName}</td>
-      <td>{Organization.firstName}</td>
-      <td>{Organization.email}</td>
-      <td>{Organization.roleName}</td>
-      <td>{Organization.phoneNumber}</td>
-      <td>{Organization.address}</td>
-      <td>{Organization.city}</td>
-      <td>{Organization.state}</td>
-      <td>{Organization.country}</td>
-
-      <td>{getStatus(Organization.status)}</td>
-      <td>{Organization.action}</td>
-    </tr>
-  )
-} 
 class OrganizationData extends Component {
   
   constructor(props){
@@ -60,7 +38,7 @@ class OrganizationData extends Component {
         city: orgnization.city || " ",      
         state: orgnization.state || " ",
         country: orgnization.country || " ",
-        status: orgnization.status || true,   
+        status: orgnization.status ? "Active" : "Inactive",   
         action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.editOrganizationItem(i)}><i className="fa fa-pencil"></i> </a>
           <Link to={`/admin/organization/employee/${orgnization.authId}`}><i className="fa fa-user"></i> </Link>
@@ -69,32 +47,59 @@ class OrganizationData extends Component {
       }      
       rowsItem.push(orgInfo);
     }      
-    
+    const columns = [      
+      {
+        label: 'Organization Name',
+        name: 'organizationName',
+      },
+      {
+        label: 'Contact Person',
+        name: 'firstName',
+      },
+      {
+        label: 'Email',
+        name: 'email',
+      },
+      {
+        label: 'Phone Number',
+        name: 'phoneNumber',
+      },
+      {
+        label: 'Status',
+        name: 'status',
+      },
+      {
+        label: 'Action',
+        name: 'action',
+      },
+    ];
+    const options = {
+      search: true,
+      filter: false,
+      searchOpen: false,
+      print: false,
+      download: false,
+      responsive: 'stacked',
+      selectableRows: 'none',
+      textLabels: {
+        body: {
+          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          toolTip: "Sort",
+          columnHeaderTooltip: column => `Sort for ${column.label}`
+        },
+      },
+      fixedHeaderOptions: { xAxis: false, yAxis: false }
+
+    };
     
     
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>            
-            <th scope="col">Organization Name</th> 
-            <th scope="col">Contact Person</th>
-            <th scope="col">Email</th>   
-            <th scope="col">Role</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Address</th>       
-            <th scope="col">City</th>
-            <th scope="col">State</th>
-            <th scope="col">Country</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsItem.map((Organization, index) =>
-            <OrganizationRow key={index} Organization={Organization}/>
-          )}
-        </tbody>
-      </Table>
+      <MUIDataTable
+        title={"Organization"}
+        data={rowsItem}
+        columns={columns}
+        options={options}
+      />
     );
   }
 }

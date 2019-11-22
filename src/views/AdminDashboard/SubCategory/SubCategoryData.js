@@ -1,20 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
-function SubCategoryRow(props) {
-  const SubCategory = props.SubCategory;
+import MUIDataTable from "mui-datatables";
 
-  const getStatus = (status) => {
-    return status === true ? 'Active' : 'Inactive'
-  }  
-  return (
-    <tr>      
-      <td>{SubCategory.name}</td>
-      <td>{SubCategory.parentCategory}</td>
-      <td>{getStatus(SubCategory.status)}</td>
-      <td>{SubCategory.action}</td>
-    </tr>
-  )
-} 
 class SubCategoryData extends Component {
   
   constructor(props){
@@ -44,7 +30,7 @@ class SubCategoryData extends Component {
       let catInfo = {
         name: cat.subCategoryName,
         parentCategory: cat.categoryName,
-        status: cat.status || true ,       
+        status: cat.status ? "Active" : "Inactive" ,       
         action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.editSubCategoryItem(i)}><i className="fa fa-pencil"></i> </a>
           <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
@@ -52,23 +38,49 @@ class SubCategoryData extends Component {
       }      
       rowsItem.push(catInfo);
     }    
-   
+    const columns = [
+      {
+        label: 'Name',
+        name: 'name',
+      },
+      {
+        label: 'Parent Category',
+        name: 'parentCategory'
+      },
+      {
+        label: 'Status',
+        name: 'status',
+      },
+      {
+        label: 'Action',
+        name: 'action',
+      },
+    ];
+    const options = {
+      search: true,
+      filter: false,
+      searchOpen: false,
+      print: false,
+      download: false,
+      responsive: 'stacked',
+      selectableRows: 'none',
+      textLabels: {
+        body: {
+          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          toolTip: "Sort",
+          columnHeaderTooltip: column => `Sort for ${column.label}`
+        },
+      },
+      fixedHeaderOptions: { xAxis: false, yAxis: false }
+
+    };
     return (
-      <Table responsive hover>
-        <thead>
-          <tr>            
-            <th scope="col">Name</th> 
-            <th scope="col">Parent Category</th>            
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsItem.map((SubCategory, index) =>
-            <SubCategoryRow key={index} SubCategory={SubCategory}/>
-          )}
-        </tbody>
-      </Table>
+      <MUIDataTable
+        title={"Category List"}
+        data={rowsItem}
+        columns={columns}
+        options={options}
+      />
     );
   }
 }

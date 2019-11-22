@@ -296,7 +296,7 @@ class SubCategory extends Component {
               <CardBody>
                
                 {loaderElement}
-                <SubCategoryData data={subCategoryList} editSubCategoryAction={this.handleEditSubCategory} deleteSubCategoryAction={this.handleDeleteSubCategory} />
+                <SubCategoryData data={subCategoryList} editSubCategoryAction={this.handleEditSubCategory} deleteSubCategoryAction={this.handleDeleteSubCategory} dataTableLoadingStatus = {this.state.loading} />
             
               </CardBody>
             </Card>
