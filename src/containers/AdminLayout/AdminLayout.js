@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
 
@@ -55,6 +56,7 @@ class AdminLayout extends Component {
           <main className="main">
             <AppBreadcrumb appRoutes={adminRoutes} router={router}/>
             <Container fluid>
+              <ToastContainer />
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {adminRoutes.map((route, idx) => {

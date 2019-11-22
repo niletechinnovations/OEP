@@ -20,19 +20,14 @@ class HomePage extends React.Component {
       <>
       <MDBView className="home-bg">
       <MDBMask className="gradient"></MDBMask>
-        <MDBCarousel activeItem={1} length={3} showControls={false} showIndicators={false} className="z-depth-1 home-slider" slide>
-          <MDBCarouselInner>
+        <MDBCarousel activeItem={1} length={2} showControls={false} showIndicators={false} className="z-depth-1 home-slider" slide>
+          <MDBCarouselInner>            
             <MDBCarouselItem itemId="1">
-              <MDBView>
-                <img className="d-block w-100" src="/images/parking-inspection.jpg" alt="Parking Inspection" />
-              </MDBView>
-            </MDBCarouselItem>
-            <MDBCarouselItem itemId="2">
               <MDBView>
                 <img className="d-block w-100" src="/images/site-inspection.jpg" alt="Store Inspection" />
               </MDBView>
             </MDBCarouselItem>
-            <MDBCarouselItem itemId="3">
+            <MDBCarouselItem itemId="2">
               <MDBView>
                 <img className="d-block w-100" src="/images/store-inspection.jpg" alt="Store Inspection" />
               </MDBView>
@@ -46,10 +41,10 @@ class HomePage extends React.Component {
                 <MDBCol className="col-md-6 mt-xl-5 mb-5">
                   <div className="main-slider-content">
                       <h1 className="">
-                      Inspections are just the beginning{" "}
+                      OEP will be the platform to help you inspect what you expect{" "}
                       </h1>
                       <p className="">
-                        OEP will be the platform to help you inspect what you expect.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                       </p>
                       <div className="btn-section">
                         <Link className="btn-Started" to="/register">

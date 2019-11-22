@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Input, FormGroup, Label} from 'reactstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 
@@ -187,14 +187,15 @@ class Template extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
+         
+          {loaderElement}
           <Col lg={12}>
             <Card>
               <CardHeader>
                 <strong>Template List</strong> 
               </CardHeader>
               <CardBody>
-                <ToastContainer />
-                {loaderElement}
+               
                 <Row>
                   <Col md={12}>
                     <Row>

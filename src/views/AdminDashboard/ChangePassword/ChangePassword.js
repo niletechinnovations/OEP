@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label} from 'reactstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 
@@ -123,7 +123,7 @@ class ChangePassword extends Component {
                 <strong>Change Password</strong>
               </CardHeader>
               <CardBody>
-                <ToastContainer />
+                
                 {loaderElement}
                 <Form onSubmit={this.submitHandler} noValidate>                  
                   <FormErrors formErrors={this.state.formErrors} />

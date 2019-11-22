@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 
@@ -245,14 +245,14 @@ class Category extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
+          
+          {loaderElement}
           <Col lg={12}>
             <Card>
               <CardHeader>
                 <strong>Category</strong> <Button color="primary" className="pull-right" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
-              <CardBody>
-                <ToastContainer />
-                {loaderElement}
+              <CardBody>                
                 <CategoryData data={categoryList} editCategoryAction={this.handleEditCategory} deleteCategoryAction={this.handleDeleteCategory} />
                   
               </CardBody>

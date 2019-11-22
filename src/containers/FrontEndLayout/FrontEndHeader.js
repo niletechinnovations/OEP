@@ -43,7 +43,7 @@ class FrontEndHeader extends React.Component {
        let  headerItem = '';
         if(commonService.getAuth()) {
           headerItem =<MDBNavItem>
-            <MDBNavLink className="btn-gr" to= "/" onClick={() => this.logoutUser()}>
+            <MDBNavLink className="btn-header-white" to= "/" onClick={() => this.logoutUser()}>
               Logout
             </MDBNavLink>
           </MDBNavItem>
@@ -51,7 +51,7 @@ class FrontEndHeader extends React.Component {
          else {
           headerItem = <>
                 <MDBNavItem>
-                  <MDBNavLink className="btn-gr" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
+                  <MDBNavLink className="btn-header-white" onClick={this.closeCollapse("mainNavbarCollapse")} to="/login">
                     Login
                   </MDBNavLink>
                 </MDBNavItem>
@@ -64,7 +64,7 @@ class FrontEndHeader extends React.Component {
           
         }    
     return (
-        <MDBNavbar color="white-color" bg="light" expand="lg" fixed="top" scrolling >
+        <MDBNavbar className="main-header" color="white-color" bg="light" expand="lg" fixed="top" scrolling >
           <MDBContainer>
             <MDBNavbarBrand href="/" className="py-0 font-weight-bold">
               <img alt="Logo" style={{ height: "auto", width: "3.6rem" }} src={logo}/>

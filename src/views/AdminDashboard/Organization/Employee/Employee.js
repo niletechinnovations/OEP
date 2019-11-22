@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../../core/services/commonService';
 import { FormErrors } from '../../../Formerrors/Formerrors';
@@ -42,10 +42,10 @@ class Employee extends Component {
     }
     this.EmployeeList(organizationId);
     this.organizationList();
+    
   }
   /*Employee List API*/
   EmployeeList(organizationId = '') {
-    debugger;
     let stroreWalkQuery = "";
     if(organizationId !== "" ) 
       stroreWalkQuery = "?organizationId="+organizationId;
@@ -157,8 +157,7 @@ class Employee extends Component {
       else{
         commonService.postAPIWithAccessToken('store-walk', formData)
         .then( res => {
-          
-           
+         
           if ( undefined === res.data.data || !res.data.status ) { 
             this.setState( { formProccessing: false} );
             toast.error(res.data.message);
@@ -281,14 +280,15 @@ class Employee extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
+          
+          {loaderElement}
           <Col lg={12}>
             <Card>
               <CardHeader>
                 <strong>Employee List</strong> <Button color="primary" className="pull-right" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
-                <ToastContainer />
-                {loaderElement}
+                
                 <Row>
                   <Col md={12}>
                     <Row>
