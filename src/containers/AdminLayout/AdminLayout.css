@@ -9,6 +9,11 @@
 	top: 3em !important;
 }
 .app-header { background-color: #1e222b !important; }
+
 .dashboard-template .app-header .nav-item .nav-link {
 	color: #fff !important;
+}
+a.profileDropDownLink {
+    color: #23282c !important;
+    padding: 0px !important;
 }
