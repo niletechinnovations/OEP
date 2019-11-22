@@ -187,7 +187,7 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
         featured CSS
 ====================================*/
 
-.single-featured-box {text-align: center; position: relative; padding: 115px 25px 40px; overflow: hidden; background-color: #fff; border-radius: 5px; box-shadow: 0 15px 30px rgb(228, 235, 251); }
+.single-featured-box {text-align: center; position: relative; padding: 115px 25px 40px; overflow: hidden; background-color: #fff; border-radius: 5px; box-shadow: 0 15px 30px rgb(228, 235, 251); min-height: 320px;  }
 .single-featured-box .icon i {font-size: 68px; color: #03A9F4; }
 .single-featured-box .icon {transition: .4s; color: #ee0979; position: absolute; top: 40px; left: 50%; transform: translate(-50%,0); margin-top: -12px; }
 .single-featured-box:hover .icon {top: 23px; -webkit-animation: .4s ease-in-out; animation: .4s ease-in-out; }
@@ -318,3 +318,6 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
   .download-btn{ padding: 3px 15px;}
   .download-btn.hover-active{ margin-right: 0;}
 }
+
+.cardContent{min-height: 260px; height: 220px; position: relative;}
+.btn-Started.btnKeyFeatures{position: absolute; bottom: 0px; left: 0; right: 0; width: 50%; margin: 0 auto; }

@@ -24,12 +24,12 @@ class HomePage extends React.Component {
           <MDBCarouselInner>            
             <MDBCarouselItem itemId="1">
               <MDBView>
-                <img className="d-block w-100" src="/images/site-inspection.jpg" alt="Store Inspection" />
+                <img className="d-block w-100" src="/images/site-inspection-1.jpg" alt="Store Inspection" />
               </MDBView>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="2">
               <MDBView>
-                <img className="d-block w-100" src="/images/store-inspection.jpg" alt="Store Inspection" />
+                <img className="d-block w-100" src="/images/store-inspection-1.jpg" alt="Store Inspection" />
               </MDBView>
             </MDBCarouselItem>
           </MDBCarouselInner>
@@ -57,11 +57,7 @@ class HomePage extends React.Component {
                     </div>    
                 </MDBCol>
                 <MDBCol md="6" xl="5" className="mt-xl-5">
-                  <img
-                    src="/images/admin-new.png"
-                    alt=""
-                    className="img-fluid"
-                  />
+                  <img src="/images/admin-new.png" alt="" className="img-fluid" />
                 </MDBCol>
               </MDBRow>
               </MDBContainer>
@@ -189,21 +185,19 @@ class HomePage extends React.Component {
             <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
               <MDBView className="overlay rounded z-depth-1" waves>
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Others/images/58.jpg"
-                  alt=""
-                  className="img-fluid"
+                  src="https://mdbootstrap.com/img/Photos/Others/images/58.jpg" alt="" className="img-fluid"
                 />
                 <a href="#!">
                   <MDBMask overlay="white-slight" />
                 </a>
               </MDBView>
-              <MDBCardBody className="pb-0 features-card">
+              <MDBCardBody className="pb-0 features-card cardContent">
                 <h4>No more paper or endless filing in a dusty cabinet or binder that no one ever reviews.</h4>
                 <p>
                   Temporibus autem quibusdam et aut officiis debitis aut rerum
                   necessitatibus saepe eveniet ut et voluptates repudiandae.
                 </p>
-                <Link className="btn-Started" to="/">
+                <Link className="btn-Started btnKeyFeatures" to="/">
                   Learn more
                 </Link>
               </MDBCardBody>
@@ -219,12 +213,12 @@ class HomePage extends React.Component {
                   <MDBMask overlay="white-slight" />
                 </a>
               </MDBView>
-              <MDBCardBody className="pb-0 features-card">
+              <MDBCardBody className="pb-0 features-card cardContent">
                 <h4>Generate instant, professional reports</h4>
                 <p>
                   Real time reports to make quick and effective decisions for you and your teams.
                 </p>
-                <Link className="btn-Started" to="/">
+                <Link className="btn-Started btnKeyFeatures" to="/">
                   Learn more
                 </Link>
               </MDBCardBody>
@@ -240,12 +234,12 @@ class HomePage extends React.Component {
                   <MDBMask overlay="white-slight" />
                 </a>
               </MDBView>
-              <MDBCardBody className="pb-0 features-card">
+              <MDBCardBody className="pb-0 features-card cardContent">
                 <h4>Get a bird’s eye view with analytics</h4>
                 <p>
                   Use data analytics along with your experience to improve your business quickly and effectively.
                 </p>
-                <Link className="btn-Started" to="/">
+                <Link className="btn-Started btnKeyFeatures" to="/">
                   Learn more
                 </Link>
               </MDBCardBody>
