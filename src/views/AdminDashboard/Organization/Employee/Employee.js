@@ -284,8 +284,8 @@ class Employee extends Component {
           {loaderElement}
           <Col lg={12}>
             <Card>
-              <CardHeader>
-                <strong>Employee List</strong> <Button color="primary" className="pull-right" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+              <CardHeader className="mainHeading">
+                <strong>Employee List</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
                 

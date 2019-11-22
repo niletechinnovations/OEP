@@ -290,8 +290,8 @@ class SubCategory extends Component {
         <Row>
           <Col lg={12}>
             <Card>
-              <CardHeader>
-                <strong>Subcategory</strong> <Button color="primary" className="pull-right" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+              <CardHeader className="mainHeading">
+                <strong>Subcategory</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
                

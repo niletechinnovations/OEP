@@ -119,7 +119,7 @@ class ChangePassword extends Component {
         <Row className="justify-content-center">
           <Col lg={5}>
             <Card>
-              <CardHeader>
+              <CardHeader className="mainHeading">
                 <strong>Change Password</strong>
               </CardHeader>
               <CardBody>

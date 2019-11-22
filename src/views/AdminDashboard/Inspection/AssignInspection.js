@@ -415,8 +415,8 @@ class AssignInspection extends React.Component {
         <Row>
           <Col lg={12}>
             <Card>
-              <CardHeader>
-                <strong>Create Template</strong>
+              <CardHeader className="mainHeading">
+                <strong>Assign Inspection</strong>
               </CardHeader>
               <CardBody>
                 {loaderElement}

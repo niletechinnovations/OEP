@@ -288,7 +288,7 @@ class TemplateBuilderPage extends React.Component {
         <Row>
           <Col lg={12}>
             <Card>
-              <CardHeader>
+              <CardHeader className="mainHeading">
                 <strong>Create Template</strong>
               </CardHeader>
               <CardBody>

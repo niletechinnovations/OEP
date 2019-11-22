@@ -303,7 +303,7 @@ class InspectionLists extends Component {
           {loaderElement}
           <Col lg={12}>
             <Card>
-              <CardHeader>
+              <CardHeader className="mainHeading">
                 <strong>Inspection</strong>
               </CardHeader>
               <CardBody>

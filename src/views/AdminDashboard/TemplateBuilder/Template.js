@@ -191,7 +191,7 @@ class Template extends Component {
           {loaderElement}
           <Col lg={12}>
             <Card>
-              <CardHeader>
+              <CardHeader className="mainHeading">
                 <strong>Template List</strong> 
               </CardHeader>
               <CardBody>

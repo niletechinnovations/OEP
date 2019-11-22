@@ -233,8 +233,8 @@ class Organization extends Component {
           {loaderElement}
           <Col lg={12}>
             <Card>
-              <CardHeader>
-                <strong>Organization List</strong> <Button color="primary" className="pull-right" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+              <CardHeader className="mainHeading">
+                <strong>Organization List</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
                 
