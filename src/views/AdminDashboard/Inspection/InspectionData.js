@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import  { Link } from 'react-router-dom';
 import MUIDataTable from "mui-datatables";
 
   
@@ -35,7 +35,7 @@ class InspectionData extends Component {
         templateName: inspection.templateName || " ",
         categoryName: inspection.categoryName || " ",
         subCategoryName: inspection.subCategoryName || " ",
-        action: <p><a href={`/admin/inspection/assign-inspection/${inspection.inspectionId}`} disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </a>
+        action: <p><Link to={`/admin/inspection/assign-inspection/${inspection.inspectionId}`} disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link>
           <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></a></p>,       
       }      

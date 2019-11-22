@@ -38,13 +38,13 @@ class AssignInspection extends React.Component {
   componentDidMount() {
     const { match: { params } } = this.props;
     if(params.inspectionId !== undefined && params.inspectionId !=="") 
-      this.getTemplateDetail(params.inspectionId);
+      this.getInspectionDetail(params.inspectionId);
       
     this.categoryList();
     this.organizationList();
   }
 
-  getTemplateDetail(inspectionId) {
+  getInspectionDetail(inspectionId) {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('inspection/'+inspectionId)
         .then( res => {
@@ -56,14 +56,19 @@ class AssignInspection extends React.Component {
             this.props.history.push('/template');  
             return;
           } 
-          const templateDetail = res.data.data;
+          const inspectionDetail = res.data.data;
 
           let formField = this.state.formField;
-          formField.categoryId = templateDetail.categoryId;
-          formField.subCategoryId = templateDetail.subCategoryId;
-          formField.inspection_name = templateDetail.templateName;
-          this.getSubCategoryList(templateDetail.categoryId, false);
-          this.setState({loading:false, formField: formField, formValid: true, inspectionId: templateDetail.inspectionId, templatePreviewData: templateDetail.formField});     
+          formField.categoryId = inspectionDetail.categoryId;
+          formField.subCategoryId = inspectionDetail.subCategoryId;
+          formField.inspection_name = inspectionDetail.inspectionName;
+          formField.organizationId = inspectionDetail.organizationId;
+          formField.employeeId = inspectionDetail.employeeId;
+          formField.templateId = inspectionDetail.templateId;
+          this.getSubCategoryList(inspectionDetail.categoryId, false);
+          this.getEmployeeList(inspectionDetail.organizationId, false);
+          this.getTemplateList(inspectionDetail.categoryId, inspectionDetail.subCategoryId, false);
+          this.setState({loading:false, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId});     
          
         } )
         .catch( err => {         

@@ -29,6 +29,7 @@ const adminRoutes = [
   { path: '/admin/create-template/:templateId', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/admin/inspection', exact: true,  name: 'Inspection', component: Inspection },
   { path: '/admin/inspection/assign-inspection', exact: true,  name: 'Assign Inspection', component: AssignInspection },
+  { path: '/admin/inspection/assign-inspection/:inspectionId', exact: true,  name: 'Assign Inspection', component: AssignInspection },
 ];
 
 export default adminRoutes;
