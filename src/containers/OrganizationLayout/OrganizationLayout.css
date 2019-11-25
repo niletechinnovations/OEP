@@ -8,3 +8,18 @@
 .dashboard-template .Toastify__toast-container--top-right {
 	top: 3em !important;
 }
+.app-header { background-color: #1e222b !important; }
+
+.dashboard-template .app-header .nav-item .nav-link {
+	color: #fff !important;
+}
+a.profileDropDownLink {
+    color: #000 !important;
+    padding: 0px !important;
+}
+ 
+ .navbar .dropdown-menu a{font-size: 12px !important;}
+.sidebar .nav-link{font-size: 12px;} 
+.btn[class*="btn-outline-"]{padding-top: 6px; padding-bottom: 6px; font-size: 12px;}
+.mainHeading{display: flex; align-items: center; right: 0;}
+.categoryAdd{position: absolute; right: 0; top: 0;}

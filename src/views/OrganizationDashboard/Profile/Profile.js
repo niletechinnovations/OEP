@@ -164,7 +164,7 @@ class Profile extends Component {
         <Row>
           <Col lg={12}>
             <Card>
-              <CardHeader>
+              <CardHeader className="mainHeading">
                 <strong>Profile Info</strong> 
               </CardHeader>
               <CardBody>
