@@ -31,9 +31,9 @@ class SubCategoryData extends Component {
         name: cat.subCategoryName,
         parentCategory: cat.categoryName,
         status: cat.status ? "Active" : "Inactive" ,       
-        action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+        action: <p><a href="#!"className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editSubCategoryItem(i)}><i className="fa fa-pencil"></i> </a>
-          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteSubCategoryItem(i)}><i className="fa fa-trash"></i></a></p>,       
       }      
       rowsItem.push(catInfo);

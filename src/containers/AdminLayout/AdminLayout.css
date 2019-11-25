@@ -1,3 +1,6 @@
+body.header-fixed {
+	background:#e8edf2 ;
+}
 .dashboard-template .app-header .nav-item .nav-link {
      padding-top: 0; 
      padding-bottom: 0; 
@@ -10,14 +13,41 @@
 }
 .app-header { background-color: #1e222b !important; }
 
-.dashboard-template .app-header .nav-item .nav-link {
-	color: #fff !important;
-}
+
 a.profileDropDownLink {
     color: #000 !important;
     padding: 0px !important;
 }
+.app-header {
+    background-color: #ffffff !important;
+    background: #fff;
+    box-shadow: 0 0 13px rgba(0, 0, 0, 0.13);
+    border: none;
+}
  
  .navbar .dropdown-menu a{font-size: 12px !important;}
-.sidebar .nav-link{font-size: 12px;} 
+.sidebar .nav-link{font-size: 12px;color: #3a4248;} 
 .btn[class*="btn-outline-"]{padding-top: 6px; padding-bottom: 6px; font-size: 12px;}
+.card{border: none;box-shadow: none;}
+.card-header {background: #fff; border-bottom: 1px solid #e8edf2; }
+.sidebar{background: #ffffff;}
+.sidebar .nav-link.active,
+.sidebar ul li a.nav-link:hover{color:#FFC107; background: #ffffff;}
+.sidebar .nav-link.active {color: #FFC107; background: none; }
+.sidebar .nav-link.active .nav-icon,
+.sidebar .nav-link:hover .nav-icon{ color: #FFC107;}
+.sidebar .nav-dropdown.open {background: #d5e2ef; }
+.sidebar .nav-dropdown.open .nav-link {color: #1e222b;}
+.sidebar .nav-dropdown.open .nav-link:hover{color:#FFC107; background: #ffffff;}
+.sidebar .nav-dropdown.open a.nav-link.active {color: #FFC107; background: #fff; }
+.sidebar .sidebar-minimizer,
+.sidebar .sidebar-minimizer:hover{background:#ffc107}
+.sidebar-minimized .sidebar .sidebar-minimizer{background:#ffc107}
+.breadcrumb{border: none;}
+.breadcrumb li.breadcrumb-item {color: #797d80; font-size: 10px; }
+
+footer.app-footer {background: #fff; border: none; font-size: 12px; }
+
+a.btn-edit {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #4CAF50; text-align: center; border-radius: 5px; margin: 0 2px; color: #4CAF50; display: inline-block; }
+a.btn-delete {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #F44336; text-align: center; border-radius: 5px; margin: 0 2px; color: #F44336; display: inline-block; }
+a.btn-view {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #ffc108; text-align: center; border-radius: 5px; margin: 0 2px; color: #FFC107; display: inline-block; }

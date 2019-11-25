@@ -39,10 +39,10 @@ class OrganizationData extends Component {
         state: orgnization.state || " ",
         country: orgnization.country || " ",
         status: orgnization.status ? "Active" : "Inactive",   
-        action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+        action: <p><a href="#!" className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editOrganizationItem(i)}><i className="fa fa-pencil"></i> </a>
-          <Link to={`/admin/organization/employee/${orgnization.authId}`}><i className="fa fa-user"></i> </Link>
-          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+          <Link className="btn-view" to={`/admin/organization/employee/${orgnization.authId}`}><i className="fa fa-user"></i> </Link>
+          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteOrganizationItem(i)}><i className="fa fa-trash"></i></a></p>,       
       }      
       rowsItem.push(orgInfo);

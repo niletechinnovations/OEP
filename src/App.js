@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 // import { renderRoutes } from 'react-router-config';
-
-
-// Containers
-import  AdminLayout from './containers/AdminLayout/AdminLayout';
-import  OrganizationLayout from './containers/OrganizationLayout/OrganizationLayout';
-import  FrontEndLayout from './containers/FrontEndLayout/FrontEndLayout';
 import './App.scss';
 /*Common Service*/
 import commonService from './core/services/commonService';
+
+// Containers
+const AdminLayout = React.lazy(() => import('./containers/AdminLayout'));
+const OrganizationLayout = React.lazy(() => import('./containers/OrganizationLayout'));
+const FrontEndLayout = React.lazy(() => import('./containers/FrontEndLayout/FrontEndLayout'));
+
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
 class App extends Component {
