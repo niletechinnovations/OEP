@@ -23,7 +23,7 @@ class TemplateData extends Component {
       let templateInfo = {
         templateName: template.templateName,  
         type: template.type === 'free' ? 'Default' : 'Paid',
-        status: template.status === 'free' ? 'Active' : 'Inactive',
+        status: template.status ? 'Active' : 'Inactive',
         categoryName: template.categoryName || " ",
         subCategoryName: template.subCategoryName || " ",
         action: <Link to={`/admin/create-template/${template.templateId}`}><i className="fa fa-eye"></i> </Link>,       
