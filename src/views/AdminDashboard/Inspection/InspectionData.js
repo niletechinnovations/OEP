@@ -35,8 +35,8 @@ class InspectionData extends Component {
         templateName: inspection.templateName || " ",
         categoryName: inspection.categoryName || " ",
         subCategoryName: inspection.subCategoryName || " ",
-        action: <p><Link to={`/admin/inspection/assign-inspection/${inspection.inspectionId}`} disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link>
-          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+        action: <p><Link to={`/admin/inspection/assign-inspection/${inspection.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link>
+          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></a></p>,       
       }      
       rowsItem.push(inspectionInfo);

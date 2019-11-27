@@ -30,7 +30,7 @@ a.profileDropDownLink {
 .btn[class*="btn-outline-"]{padding-top: 6px; padding-bottom: 6px; font-size: 12px;}
 .card{border: none;box-shadow: none;}
 .card-header {background: #fff; border-bottom: 1px solid #e8edf2; }
-.sidebar{background: #ffffff;}
+.sidebar{background: #ffffff; box-shadow: 0 0 30px #E0E0E4;}
 .sidebar .nav-link.active,
 .sidebar ul li a.nav-link:hover{color:#FFC107; background: #ffffff;}
 .sidebar .nav-link.active {color: #FFC107; background: none; }

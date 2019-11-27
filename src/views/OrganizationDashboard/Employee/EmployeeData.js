@@ -38,9 +38,9 @@ class EmployeeData extends Component {
         state: employee.state || " ",
         country: employee.country || " ",
         status: employee.status || true,   
-        action: <p><a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+        action: <p><a href="#!" className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </a>
-          <a href="#!" disabled={this.state.buttonProcessing} onClick={() => 
+          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteEmployeeItem(i)}><i className="fa fa-trash"></i></a></p>,       
       }      
       rowsItem.push(orgInfo);
