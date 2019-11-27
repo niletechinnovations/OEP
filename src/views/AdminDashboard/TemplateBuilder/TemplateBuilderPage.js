@@ -24,9 +24,7 @@ class TemplateBuilderPage extends React.Component {
       templateId: "",
       formValid: false,
       templatePreviewData : [],
-      formProccessing: false,
-      modal: true,
-      showPreview: false
+      formProccessing: false,      
     }     
     this.getSubCategoryList = this.getSubCategoryList.bind(this);
     this.handleUpdatedFormHandleChange = this.handleUpdatedFormHandleChange.bind(this);   
@@ -286,7 +284,7 @@ class TemplateBuilderPage extends React.Component {
   }
 
   render() {
-    const { subCategoryList, loading, categoryList, modal, showPreview } = this.state;     
+    const { subCategoryList, loading, categoryList } = this.state;     
     let loaderElement ='';
     if(loading)
       loaderElement = <Loader />
@@ -303,7 +301,7 @@ class TemplateBuilderPage extends React.Component {
                 {loaderElement}
                 <Row>
                   <Col lg={12}>
-                      <DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange} ></DemoBar>
+                      <DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange} fileName = {this.state.formField.template_name} ></DemoBar>
                   </Col>
                 </Row>
                 <Form onSubmit={this.submitHandler} noValidate>

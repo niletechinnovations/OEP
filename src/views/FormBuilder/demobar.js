@@ -1,8 +1,8 @@
 import React from 'react';
 import store from './stores/store';
 import ReactFormGenerator from './form';
-
-const answers = {};
+import Doc from './DocService';
+import PdfContainer from './PdfContainer';
 // const answers = {
 //   'dropdown_38716F53-51AA-4A53-9A9B-367603D82548': 'd2',
 //   'checkboxes_8D6BDC45-76A3-4157-9D62-94B6B24BB833': [
@@ -71,7 +71,7 @@ export default class Demobar extends React.Component {
     return false;
     
   }
-
+  createPdf = (html) => Doc.createPdf(html, this.props.fileName);
   render() {   
 
     var modalClass = 'modal formBuilderPreview';
@@ -92,18 +92,19 @@ export default class Demobar extends React.Component {
                     <h4 className="modal-title">Preview Template </h4>
                     <a href="#!" className="btn btn-default pull-right" data-dismiss="modal" onClick={this.closePreview.bind(this)}>&times;</a>
                   </div>
-                  <ReactFormGenerator
-                    download_path=""
-                    back_action="/"
-                    back_name="Back"
-                    answer_data={{}}
-                    action_name="Save"
-                    form_action="/"
-                    form_method="POST"
-                    hide_actions= "true"
-                    variables={this.props.variables}
-                    data={this.state.data} />
-
+                  <PdfContainer createPdf={this.createPdf}>                    
+                      <ReactFormGenerator
+                        download_path=""
+                        back_action="/"
+                        back_name="Back"
+                        answer_data={{}}
+                        action_name="Save"
+                        form_action="/"
+                        form_method="POST"
+                        hide_actions= "true"
+                        variables={this.props.variables}
+                        data={this.state.data} />                    
+                  </PdfContainer>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
                   </div>

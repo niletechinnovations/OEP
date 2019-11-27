@@ -20,3 +20,7 @@
 }
 .form-builder-preview { top: 100px; }
 .form-builder-preview .react-form-builder-form { padding: 0px 20px; }
+.pdf-toolbar .categoryAdd { right: 70px; }
+.modal-content.form-builder-preview { max-height: 580px; overflow-y: scroll;}
+.modal-content.form-builder-preview .modal-header { padding: 0rem 1rem; }
+.form-builder-preview .modal-header a { padding: 0.25rem 0.75rem; }
