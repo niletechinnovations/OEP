@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../../core/services/commonService';
@@ -22,7 +23,7 @@ class Employee extends Component {
       formField: { organizationId: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
       formErrors: { email: '', employee_name: '', role: '', error: ''},
       formValid: false,
-      filterItem: { filter_organization_id: ''},
+      filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
     } 
     this.handleEditEmployee = this.handleEditEmployee.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
@@ -45,10 +46,16 @@ class Employee extends Component {
     
   }
   /*Employee List API*/
-  EmployeeList(organizationId = '') {
+  EmployeeList(filterItem) {
     let stroreWalkQuery = "";
-    if(organizationId !== "" ) 
-      stroreWalkQuery = "?organizationId="+organizationId;
+    if(filterItem.filter_organization_id !== undefined && filterItem.filter_organization_id !== "" ) 
+      stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&organizationId="+filterItem.filter_organization_id: "?organizationId="+filterItem.filter_organization_id;
+    if(filterItem.country !== undefined && filterItem.country !== "" ) 
+      stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&country="+filterItem.country: "?country="+filterItem.country;
+    if(filterItem.state !== undefined && filterItem.state !== "" ) 
+      stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&state="+filterItem.state: "?state="+filterItem.state;
+    if(filterItem.custom_search !== undefined && filterItem.custom_search !== "" ) 
+      stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&keyword="+filterItem.custom_search: "?keyword="+filterItem.custom_search;
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('store-walk'+stroreWalkQuery)
         .then( res => {
@@ -103,7 +110,7 @@ class Employee extends Component {
   }
   filterEmployeeList(){
     const filterItem = this.state.filterItem;
-    this.EmployeeList(filterItem.filter_organization_id);
+    this.EmployeeList(filterItem);
   }
   /* Submit Form Handler*/
   submitHandler (event) {
@@ -267,7 +274,29 @@ class Employee extends Component {
    
     
   }
+  selectCountry (val) {
+    let formField = this.state.formField;
+    formField.country = val
+    this.setState({ formField: formField });
+  }
+ 
+  selectRegion (val) {
+    let formField = this.state.formField;
+    formField.state = val
+    this.setState({ formField: formField });
+  }
 
+  selectFilterCountry (val) {
+    let filterItem = this.state.filterItem;
+    filterItem.country = val
+    this.setState({ filterItem: filterItem });
+  }
+ 
+  selectFilterRegion (val) {
+    let filterItem = this.state.filterItem;
+    filterItem.state = val
+    this.setState({ filterItem: filterItem });
+  }
   render() {
 
     const { EmployeeList, loading, modal, formProccessing, organizationList } = this.state;     
@@ -292,7 +321,7 @@ class Employee extends Component {
                 <Row>
                   <Col md={12}>
                     <Row>
-                      <Col md={"4"}>
+                      <Col md={"2"}>
                         <FormGroup> 
                           <Label htmlFor="filter_organization_id">Organization</Label>            
                           <Input type="select" placeholder="Organization *" id="filter_organization_id" name="filter_organization_id" value={this.state.filterItem.filter_organization_id} onChange={this.changeFilterHandler} >
@@ -303,7 +332,25 @@ class Employee extends Component {
                           </Input>
                         </FormGroup>  
                       </Col>
+                      <Col md={"2"}>
+                        <FormGroup> 
+                          <Label htmlFor="filter_organization_id">Country</Label>            
+                          <CountryDropdown id="filterCountry" name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
+                        </FormGroup>  
+                      </Col>
                       <Col md={"3"}>
+                        <FormGroup> 
+                          <Label htmlFor="filter_organization_id">State</Label>            
+                          <RegionDropdown  id="filterState" name="filterState" className="form-control" country={this.state.filterItem.country} defaultOptionLabel="Select State" blankOptionLabel="Select State"   value={this.state.filterItem.state}  onChange={(val) => this.selectFilterRegion(val)} /> 
+                        </FormGroup>  
+                      </Col>
+                      <Col md={"3"}>
+                        <FormGroup> 
+                          <Label htmlFor="filter_organization_id">Search By Email/ Name</Label>            
+                          <Input type="text" placeholder="Search By Email/ Name" id="custom_search" name="custom_search" value={this.state.formField.custom_search} onChange={this.changeFilterHandler} />
+                        </FormGroup>  
+                      </Col>
+                      <Col md={"2"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="filter_organization_id">&nbsp;</Label> 
                           <Button color="success" type="button" onClick={this.filterEmployeeList}>Search</Button> 
@@ -366,29 +413,30 @@ class Employee extends Component {
                     <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
                   </FormGroup>
                 </Col>
-                <Col md={"6"}>
+                <Col md={"6"}>  
+                  <FormGroup> 
+                    <Label htmlFor="country">Country</Label>     
+                    <CountryDropdown id="country" name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
+                    
+                  </FormGroup>
+                </Col>                
+                <Col md={"6"}>  
+                  <FormGroup> 
+                    <Label htmlFor="state">State</Label>  
+                    <RegionDropdown  id="state" name="state" className="form-control" country={this.state.formField.country} defaultOptionLabel="Select State" blankOptionLabel="Select State"   value={this.state.formField.state}  onChange={(val) => this.selectRegion(val)} /> 
+                  </FormGroup>
+                </Col>
+                <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="city">City</Label>            
                     <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
                   </FormGroup>
                 </Col>
-                <Col md={"6"}>
-                  <FormGroup> 
-                    <Label htmlFor="state">State</Label>            
-                    <Input type="text" placeholder="State" id="state" name="state" value={this.state.formField.state} onChange={this.changeHandler}  />
-                  </FormGroup>
-                </Col>
-                <Col md={"6"}>
-                  <FormGroup> 
-                    <Label htmlFor="country">Country</Label>            
-                    <Input type="text" placeholder="Country" id="country" name="country" value={this.state.formField.country} onChange={this.changeHandler}  />
-                  </FormGroup>
-                </Col>
-                <Col md={"6"}>
+                <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="postalCode">Postal Code</Label>            
                     <Input type="text" placeholder="Postal Code" id="postalCode" name="postalCode" value={this.state.formField.postalCode} onChange={this.changeHandler}  />
-                  </FormGroup>           
+                  </FormGroup>
                 </Col>
               </Row>
             </ModalBody>

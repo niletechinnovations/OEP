@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import { toast } from 'react-toastify';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
@@ -21,11 +22,13 @@ class Organization extends Component {
       formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: false,
+      filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
 
     } 
     this.handleEditOrganization = this.handleEditOrganization.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.handleDeleteOrganization = this.handleDeleteOrganization.bind(this);
+    this.filterOragnizationList = this.filterOragnizationList.bind(this);
     
   }
   // Fetch the organization List
@@ -33,10 +36,17 @@ class Organization extends Component {
     this.organizationList();
   }
   /*organization List API*/
-  organizationList() {
+  organizationList(filterItem = {}) {
+    let organizationQuery = "";
     
+    if(filterItem.country !== undefined && filterItem.country !== "" ) 
+      organizationQuery += (organizationQuery !=="" ) ? "&country="+filterItem.country: "?country="+filterItem.country;
+    if(filterItem.state !== undefined && filterItem.state !== "" ) 
+      organizationQuery += (organizationQuery !=="" ) ? "&state="+filterItem.state: "?state="+filterItem.state;
+    if(filterItem.custom_search !== undefined && filterItem.custom_search !== "" ) 
+      organizationQuery += (organizationQuery !=="" ) ? "&keyword="+filterItem.custom_search: "?keyword="+filterItem.custom_search;
     this.setState( { loading: true}, () => {
-      commonService.getAPIWithAccessToken('organization')
+      commonService.getAPIWithAccessToken('organization'+organizationQuery)
         .then( res => {
           
            
@@ -217,6 +227,40 @@ class Organization extends Component {
    
     
   }
+  filterOragnizationList(){
+    const filterItem = this.state.filterItem;
+    this.organizationList(filterItem);
+  }
+  selectCountry (val) {
+    let formField = this.state.formField;
+    formField.country = val
+    this.setState({ formField: formField });
+  }
+ 
+  selectRegion (val) {
+    let formField = this.state.formField;
+    formField.state = val
+    this.setState({ formField: formField });
+  }
+
+  selectFilterCountry (val) {
+    let filterItem = this.state.filterItem;
+    filterItem.country = val
+    this.setState({ filterItem: filterItem });
+  }
+ 
+  selectFilterRegion (val) {
+    let filterItem = this.state.filterItem;
+    filterItem.state = val
+    this.setState({ filterItem: filterItem });
+  }
+  changeFilterHandler = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+    const filterItem = this.state.filterItem
+    filterItem[name] = value;
+    this.setState({ filterItem: filterItem });
+  };
 
   render() {
 
@@ -237,9 +281,39 @@ class Organization extends Component {
                 <strong>Organization List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
-                
-                <OrganizationData data={organizationList} editOrganizationAction={this.handleEditOrganization} deleteOrganizationAction={this.handleDeleteOrganization} dataTableLoadingStatus = {this.state.loading} />
-                  
+                <Row>
+                  <Col md={12}>
+                    <Row>                      
+                      <Col md={"3"}>
+                        <FormGroup> 
+                          <Label htmlFor="filter_organization_id">Country</Label>            
+                          <CountryDropdown id="filterCountry" name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
+                        </FormGroup>  
+                      </Col>
+                      <Col md={"3"}>
+                        <FormGroup> 
+                          <Label htmlFor="filter_organization_id">State</Label>            
+                          <RegionDropdown  id="filterState" name="filterState" className="form-control" country={this.state.filterItem.country} defaultOptionLabel="Select State" blankOptionLabel="Select State"   value={this.state.filterItem.state}  onChange={(val) => this.selectFilterRegion(val)} /> 
+                        </FormGroup>  
+                      </Col>
+                      <Col md={"3"}>
+                        <FormGroup> 
+                          <Label htmlFor="filter_organization_id">Search By Email/ Name</Label>            
+                          <Input type="text" placeholder="Search By Email/ Name" id="custom_search" name="custom_search" value={this.state.formField.custom_search} onChange={this.changeFilterHandler} />
+                        </FormGroup>  
+                      </Col>
+                      <Col md={"3"}>
+                        <FormGroup className="filter-button-section"> 
+                          <Label htmlFor="filter_organization_id">&nbsp;</Label> 
+                          <Button color="success" type="button" onClick={this.filterOragnizationList}>Search</Button> 
+                        </FormGroup>             
+                      </Col>
+                    </Row>  
+                  </Col>
+                  <Col lg={12}>
+                    <OrganizationData data={organizationList} editOrganizationAction={this.handleEditOrganization} deleteOrganizationAction={this.handleDeleteOrganization} dataTableLoadingStatus = {this.state.loading} />
+                  </Col>  
+                </Row>
               </CardBody>
             </Card>
           </Col>
@@ -285,23 +359,24 @@ class Organization extends Component {
                     <Label htmlFor="address">Address</Label>            
                     <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
                   </FormGroup>
+                </Col>                
+                <Col md={"6"}>  
+                  <FormGroup> 
+                    <Label htmlFor="country">Country</Label>     
+                    <CountryDropdown id="country" name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
+                    
+                  </FormGroup>
+                </Col>                
+                <Col md={"6"}>  
+                  <FormGroup> 
+                    <Label htmlFor="state">State</Label>  
+                    <RegionDropdown  id="state" name="state" className="form-control" country={this.state.formField.country} defaultOptionLabel="Select State" blankOptionLabel="Select State"   value={this.state.formField.state}  onChange={(val) => this.selectRegion(val)} /> 
+                  </FormGroup>
                 </Col>
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="city">City</Label>            
                     <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
-                  </FormGroup>
-                </Col>
-                <Col md={"6"}>  
-                  <FormGroup> 
-                    <Label htmlFor="state">State</Label>            
-                    <Input type="text" placeholder="State" id="state" name="state" value={this.state.formField.state} onChange={this.changeHandler}  />
-                  </FormGroup>
-                </Col>
-                <Col md={"6"}>  
-                  <FormGroup> 
-                    <Label htmlFor="country">Country</Label>            
-                    <Input type="text" placeholder="Country" id="country" name="country" value={this.state.formField.country} onChange={this.changeHandler}  />
                   </FormGroup>
                 </Col>
                 <Col md={"6"}>  

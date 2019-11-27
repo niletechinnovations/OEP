@@ -9,12 +9,7 @@ export default {
       name: 'Employee',
       url: '/organization/employee',
       icon: 'icon-people',     
-    },
-    {
-      name: 'Profile',
-      url: '/organization/profile',
-      icon: 'icon-user',     
-    },
+    },    
     {
       name: 'Inspection',      
       icon: 'icon-people', 
@@ -29,6 +24,11 @@ export default {
           icon: 'icon-theme',     
         }
       ]    
+    },
+    {
+      name: 'Profile',
+      url: '/organization/profile',
+      icon: 'icon-user',     
     },
   ],
 };
