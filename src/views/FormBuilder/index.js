@@ -52,21 +52,30 @@ class ReactFormBuilder extends React.Component {
            </p>
            <Container />
          </div> */}
-         <div className="react-form-builder clearfix">
-           <div>
-             <Preview files={this.props.files}
-                 manualEditModeOff={this.manualEditModeOff.bind(this)}
-                 showCorrectColumn={this.props.showCorrectColumn}
-                 parent={this}
-                 data={this.props.data}
-                 onLoad={this.props.onLoad}
-                 onPost={this.props.onPost}
-                 editModeOn={this.editModeOn}
-                 editMode={this.state.editMode}
-                 variables={this.props.variables}
-                 editElement={this.state.editElement} />
-             <Toolbar {...toolbarProps} />
-           </div>
+         <div className="react-form-builder template-builder-layout clearfix">
+          <div className="row">
+            <div className="col-md-9">
+             <div className="full-width-template-layout">
+               <Preview files={this.props.files}
+                   manualEditModeOff={this.manualEditModeOff.bind(this)}
+                   showCorrectColumn={this.props.showCorrectColumn}
+                   parent={this}
+                   data={this.props.data}
+                   onLoad={this.props.onLoad}
+                   onPost={this.props.onPost}
+                   editModeOn={this.editModeOn}
+                   editMode={this.state.editMode}
+                   variables={this.props.variables}
+                   editElement={this.state.editElement} />
+               
+             </div>
+            </div>
+            <div className="col-md-3">
+               <div className="template-builder-tollbar ">
+                  <Toolbar {...toolbarProps} />
+               </div>
+            </div>
+          </div> 
          </div>
        </div>
     );
