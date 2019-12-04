@@ -185,7 +185,7 @@ class HomePage extends React.Component {
             <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
               <MDBView className="overlay rounded z-depth-1" waves>
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Others/images/58.jpg" alt="" className="img-fluid"
+                  src="/images/endless-paper.jpg" alt="" className="img-fluid"
                 />
                 <a href="#!">
                   <MDBMask overlay="white-slight" />
@@ -226,7 +226,7 @@ class HomePage extends React.Component {
             <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
               <MDBView className="overlay rounded z-depth-1" waves>
                 <img
-                  src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg"
+                  src="/images/58.jpg"
                   alt=""
                   className="img-fluid"
                 />

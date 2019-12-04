@@ -127,8 +127,7 @@ class Category extends Component {
             toast.success(res.data.message); 
             this.categoryList();
           } )
-          .catch( err => {       
-              
+          .catch( err => {
             if(err.response !== undefined && err.response.status === 401) {
               localStorage.clear();
               this.props.history.push('/login');

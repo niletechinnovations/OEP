@@ -308,7 +308,7 @@ class TemplateBuilderPage extends React.Component {
                   <FormErrors formErrors={this.state.formErrors} />
                   
                   <Row>
-                    <Col lg={6}>
+                    <Col lg={3}>
                       <FormGroup> 
                         <Label htmlFor="categoryId">Category <span className="mandatory">*</span></Label>            
                         <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.formField.categoryId} onChange={this.changeCategoryHandle} required >
@@ -319,7 +319,7 @@ class TemplateBuilderPage extends React.Component {
                         </Input>
                       </FormGroup>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={3}>
                       <FormGroup> 
                         <Label htmlFor="subCategoryId">Subcategory <span className="mandatory">*</span></Label>            
                         <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.formField.subCategoryId} onChange={this.changeHandler} required >
@@ -330,7 +330,7 @@ class TemplateBuilderPage extends React.Component {
                         </Input>
                       </FormGroup>
                     </Col>
-                    <Col lg={12}>
+                    <Col lg={6}>
                         <FormGroup>
                           <Label htmlFor="template_name">Template Name</Label>            
                           <Input type="text" placeholder="Template Name *" value={this.state.formField.template_name} onChange={this.changeHandler} id="template_name" name="template_name" required />

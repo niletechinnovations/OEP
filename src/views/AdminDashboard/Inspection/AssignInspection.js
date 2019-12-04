@@ -53,7 +53,7 @@ class AssignInspection extends React.Component {
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);  
-            this.props.history.push('/template');  
+            this.props.history.push('/admin/inspection');  
             return;
           } 
           const inspectionDetail = res.data.data;

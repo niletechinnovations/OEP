@@ -175,6 +175,13 @@ export default class Toolbar extends React.Component {
         content: 'Placeholder Web site link ...',
         href: 'http://www.example.com',
       },
+      {
+        key: 'Camera',
+        name: 'Camera',
+        icon: 'fa fa-camera',
+        label: 'Placeholder Label',
+        field_name: 'camera_',
+      },
     ];
   }
 
