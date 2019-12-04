@@ -178,7 +178,7 @@ class HomePage extends React.Component {
         <MDBContainer>
           <div className="heading-title">
             <h2 className="my-3">
-              Explore our features
+              Explore Our Features
             </h2>
           </div>
           <MDBRow className="text-center">
