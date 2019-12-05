@@ -126,22 +126,22 @@ class PreviewTemplatePage extends React.Component {
     const formErrors = this.state.formErrors;
     let formField = this.state.formField;
     let count = 0;
-    /*Object.keys(formErrors).forEach(function(key) {
+    Object.keys(formErrors).forEach(function(key) {
         if(formField[key] !== undefined && formField[key] === "")
           count++;
     });
     if(count > 0 ){
       toast.error("Please fill all required field");
       return;
-    }    */
+    }    
     let formData = {}
     formData.inspectionId = this.state.inspectionId;
     formData.templateId = this.state.templateId;
     formData.organizationId = this.state.organizationId;
     formData.feedBackData = formField;
-    debugger;
-  
-    commonService.postAPIWithAccessToken('template/filled-form', formData)
+    
+    
+    commonService.postAPIWithAccessToken('inspection/feedback', formData)
       .then( res => {        
          
         if ( undefined === res.data.data || !res.data.status ) { 
@@ -155,7 +155,8 @@ class PreviewTemplatePage extends React.Component {
         //this.props.history.push('/admin/template');
        
       } )
-      .catch( err => {         
+      .catch( err => {     
+            
         if(err.response !== undefined && err.response.status === 401) {
           localStorage.clear();
           this.props.history.push('/login');
@@ -163,12 +164,11 @@ class PreviewTemplatePage extends React.Component {
         else
           this.setState( { loading: false } );
           toast.error(err.message);
-      } )    
-    
+      } );
   };
 
   resetForm(){
-    this.props.history.push('/admin/template');
+    this.props.history.push('/admin/inspection');
   }
 
   toggle = () => {
@@ -186,7 +186,7 @@ class PreviewTemplatePage extends React.Component {
     this.setState({formField: formField});
   }
   render() {
-    const { subCategoryList, loading, categoryList } = this.state;     
+    const { loading } = this.state;     
     let loaderElement ='';
     if(loading) {
       loaderElement = <Loader />

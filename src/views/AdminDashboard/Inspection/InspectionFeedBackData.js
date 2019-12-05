@@ -4,7 +4,7 @@ import MUIDataTable from "mui-datatables";
 
   
   
-class InspectionData extends Component {
+class InspectionFeedBackData extends Component {
   
   constructor(props){
     super(props);   
@@ -26,29 +26,23 @@ class InspectionData extends Component {
   render() {
     
     let rowsItem = [];
-    
-    for(const [i, inspection] of this.props.data.entries()){
-      let inspectionInfo = {
-        organizationName: inspection.organizationName,  
-        inspectionName: inspection.inspectionName,
-        employeeName: inspection.employeeName,
-        templateName: inspection.templateName || " ",
-        categoryName: inspection.categoryName || " ",
-        subCategoryName: inspection.subCategoryName || " ",
-        action: <p><Link to={`/admin/inspection/assign-inspection/${inspection.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link> <Link to={`/admin/inspection/${inspection.inspectionId}`} title="View Feedback" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link> 
-          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></a></p>,       
+    const inspectionInfo = this.props.inspectionInfo;
+    for(const [i, feedback] of this.props.data.entries()){
+      let feedbackInfo = {
+        inspectionName: inspectionInfo.inspectionName,
+        organizationName: inspectionInfo.organizationName,  
+        employeeName: inspectionInfo.employeeFirstName+" "+inspectionInfo.employeeLastName,
+        templateName: inspectionInfo.templateName || " ",
+        date: feedback.createdAt || " ",
+        action: <p><Link to={`/admin/inspection/feedback/${feedback._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
+          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing}><i className="fa fa-trash"></i></a></p>,       
       }      
-      rowsItem.push(inspectionInfo);
+      rowsItem.push(feedbackInfo);
     }
     const columns = [
       {
         label: 'Inspection',
         name: 'inspectionName',
-      },
-      {
-        label: 'Organization',
-        name: 'organizationName',
       },
       {
         label: 'Employee',
@@ -59,12 +53,8 @@ class InspectionData extends Component {
         name: 'templateName',
       },
       {
-        label: 'Category',
-        name: 'categoryName',
-      },
-      {
-        label: 'Subcategory',
-        name: 'subCategoryName',
+        label: 'Date',
+        name: 'date',
       },
       {
         label: 'Action',
@@ -91,7 +81,7 @@ class InspectionData extends Component {
     };
     return (
       <MUIDataTable
-        title={"Inspection"}
+        title={"Inspection Feedback"}
         data={rowsItem}
         columns={columns}
         options={options}
@@ -100,4 +90,4 @@ class InspectionData extends Component {
   }
 }
 
-export default InspectionData;
+export default InspectionFeedBackData;

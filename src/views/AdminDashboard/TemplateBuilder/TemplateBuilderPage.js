@@ -296,14 +296,10 @@ class TemplateBuilderPage extends React.Component {
             <Card>
               <CardHeader className="mainHeading">
                 <strong>Create Template</strong>
+                <div className="previewButton"><DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange} fileName = {this.state.formField.template_name} ></DemoBar></div>
               </CardHeader>
               <CardBody>
-                {loaderElement}
-                <Row>
-                  <Col lg={12}>
-                      <DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange} fileName = {this.state.formField.template_name} ></DemoBar>
-                  </Col>
-                </Row>
+                {loaderElement}                
                 <Form onSubmit={this.submitHandler} noValidate>
                   <FormErrors formErrors={this.state.formErrors} />
                   

@@ -10,17 +10,17 @@ function FieldLayout(props) {
         <Col lg={12}>
           <h2>{formFieldDetails.content}</h2>
         </Col>
-      )
+      );
       break;
     case 'TextInput':
       return(
         <Col lg={12}>
           <FormGroup>
             <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
+            <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}   />
           </FormGroup>
         </Col>
-      )
+      );
       break;
     case 'Checkboxes':
       return(
@@ -29,7 +29,7 @@ function FieldLayout(props) {
             <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((checkBoxOptions, index) =>              
-                <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent} />
+                <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} checked={props.formValue === checkBoxOptions.value ? true : false} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}  />
               )}
             </div>
           </FormGroup>
@@ -41,7 +41,7 @@ function FieldLayout(props) {
         <Col lg={12}>
           <FormGroup>
             <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
+            <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}  />
           </FormGroup>
         </Col>
       )
@@ -51,7 +51,7 @@ function FieldLayout(props) {
         <Col lg={12}>
           <FormGroup>
             <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} onChange={props.onchangeEvent}>
+            <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} value={props.formValue} required={formFieldDetails.required ? true : false} >
 
               {formFieldDetails.options.map((dropOptions, index) =>              
                 <option value={dropOptions.value} key={index} >{dropOptions.text}</option>
@@ -68,7 +68,7 @@ function FieldLayout(props) {
             <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((radioButtonOptions, index) =>              
-                <CustomInput key={index} name={formFieldDetails.id} type="radio" className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
+                <CustomInput key={index} name={formFieldDetails.id} type="radio" checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}   />
               )}
             </div>
           </FormGroup>
@@ -83,11 +83,13 @@ function FieldLayout(props) {
       )
       break;
     case 'Camera':
+      
       return(
           <Col lg={12}>
           <FormGroup>
             <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeFileEvent}  />
+            <Input name={formFieldDetails.id} type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}  />
+            <PreviewFileInput formValue = {props.formValue} apiUrl={props.apiUrl} />
           </FormGroup>
         </Col> 
       ) 
@@ -102,8 +104,18 @@ function FieldLayout(props) {
 
   }
 } 
-
-class PreviewTemplatePageForm extends Component {
+function PreviewFileInput (props) {
+  
+  if(props.formValue !== "") {
+    if(props.formValue.toLowerCase().indexOf('.png') > -1 || props.formValue.toLowerCase().indexOf('.jpeg') > -1 || props.formValue.toLowerCase().indexOf('.jpg') > -1) 
+        return (<img src={`${props.apiUrl}survey/${props.formValue}`} width="200px" height="200px" alt="" />);        
+    else 
+       return(<a href={`${props.apiUrl}survey/${props.formValue}`} target="_blank"  rel="noopener noreferrer"><i className="fa fa-download"></i>Download</a>);  
+  }
+  else
+      return ('');
+}
+class FeedBackPreviewPageForm extends Component {
   
   constructor(props){
     super(props);   
@@ -115,41 +127,23 @@ class PreviewTemplatePageForm extends Component {
     
   }
   componentDidMount() {   
-    let formFiled = {};
-    let formErrors = {};
-    for(const [i, formFieldDetails] of this.props.templateField.entries()){
-      if(formFieldDetails.element === "Header" || formFieldDetails.element === "Paragraph" || formFieldDetails.element === "LineBreak" || formFieldDetails.element === "Label")
-        continue;
-      if(formFieldDetails.required)
-        formErrors[formFieldDetails.id] = "";
-      formFiled[formFieldDetails.id] = "";
-    };
-    this.props.createFormFieldName(formFiled, formErrors);
-  }
-  changeHandle = event => {
-    this.props.updateFormFieldValue(event.target.name, event.target.value);
-  }
-  changeFileHandle = event => {
-    const targetFile = event.target.files[0];
-    const targetFieldName = event.target.name;
-    var reader = new FileReader();
-    const objProps = this.props;
-    reader.onload = function(e) {
-      objProps.updateFormFieldValue(targetFieldName, e.target.result);
-    }
-    reader.readAsDataURL(targetFile);
-  }
-  render() {
-    const formFiled = this.props.templateField;
     
+  }
+  
+  render() {
+    
+    
+    const formFeild = this.props.templateField;
+    const formFeildValue = this.props.feedBackData;
+    debugger;
     return (
       <Row>
-         {formFiled.map((formFieldDetails, index) =>
-            <FieldLayout key={index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} formFieldVal = {this.props.updateFormFieldValue} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} />
+         {formFeild.map((formFieldDetails, index) =>
+            <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
           )}
       </Row>
     );
   }
 }
 
-export default PreviewTemplatePageForm;
+export default FeedBackPreviewPageForm;

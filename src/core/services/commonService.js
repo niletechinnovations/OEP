@@ -58,6 +58,10 @@ class ApiService {
         else
           return true;
     }
+    /*Get API Url*/
+    getAPIUrl(){
+        return API_BASE_URL;
+    }
 }
 
 export default new ApiService();

@@ -10,7 +10,9 @@ import TemplateBuilder from'./views/AdminDashboard/TemplateBuilder/TemplateBuild
 import PreviewTemplatePage from'./views/AdminDashboard/TemplateBuilder/PreviewTemplatePage';
 import Employee from './views/AdminDashboard/Organization/Employee/Employee';
 import Inspection from './views/AdminDashboard/Inspection/InspectionLists';
+import InspectionFeedBack from './views/AdminDashboard/Inspection/InspectionFeedBack';
 import AssignInspection from './views/AdminDashboard/Inspection/AssignInspection';
+import FeedBackPreviewPage from './views/AdminDashboard/Inspection/FeedBackPreviewPage';
 
 
 
@@ -29,9 +31,11 @@ const adminRoutes = [
   { path: '/admin/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/admin/create-template/:templateId', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/admin/preview/:inspectionId', exact: true,  name: 'Preview Template', component: PreviewTemplatePage },
-  { path: '/admin/inspection', exact: true,  name: 'Inspection', component: Inspection },
+  { path: '/admin/inspection', exact: true,  name: 'Inspection', component: Inspection },  
   { path: '/admin/inspection/assign-inspection', exact: true,  name: 'Assign Inspection', component: AssignInspection },
   { path: '/admin/inspection/assign-inspection/:inspectionId', exact: true,  name: 'Assign Inspection', component: AssignInspection },
+  { path: '/admin/inspection/:inspectionId', exact: true,  name: 'Inspection Feedback', component: InspectionFeedBack },
+  { path: '/admin/inspection/feedback/:feedBackId', exact: true,  name: 'Feedback Preview', component: FeedBackPreviewPage },
 ];
 
 export default adminRoutes;

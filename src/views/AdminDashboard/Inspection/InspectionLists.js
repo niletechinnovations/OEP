@@ -87,7 +87,7 @@ class InspectionLists extends Component {
           return;
         }   
 
-        this.setState({loading:false, organizationList: res.data.data});     
+        this.setState({organizationList: res.data.data});     
        
       } )
       .catch( err => {         
