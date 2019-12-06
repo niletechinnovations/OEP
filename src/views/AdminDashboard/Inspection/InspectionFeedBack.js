@@ -78,7 +78,7 @@ class InspectionFeedBack extends Component {
           <Col lg={12}>
             <Card>
               <CardHeader className="mainHeading">
-                <strong>Inspection</strong> <Button color="" className="categoryAdd" type="button" onClick={this.backButtonPrevious}><i className="fa fa-arrow-left"></i> Back</Button>
+                <strong>Feedback</strong> <Button color="" className="categoryAdd" type="button" onClick={this.backButtonPrevious}><i className="fa fa-arrow-left"></i> Back</Button>
               </CardHeader>
               <CardBody>
                 <Row>

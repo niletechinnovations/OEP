@@ -1,5 +1,6 @@
 import axios from 'axios';
 const API_BASE_URL = 'https://oep-project.herokuapp.com/v0.0/';
+const API_BASE_URL_WITH_OUT_VERSION = 'https://oep-project.herokuapp.com/';
 class ApiService {
 
     /*Get API*/
@@ -60,7 +61,7 @@ class ApiService {
     }
     /*Get API Url*/
     getAPIUrl(){
-        return API_BASE_URL;
+        return API_BASE_URL_WITH_OUT_VERSION;
     }
 }
 
