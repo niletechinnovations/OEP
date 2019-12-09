@@ -13,6 +13,7 @@ import Inspection from './views/AdminDashboard/Inspection/InspectionLists';
 import InspectionFeedBack from './views/AdminDashboard/Inspection/InspectionFeedBack';
 import AssignInspection from './views/AdminDashboard/Inspection/AssignInspection';
 import FeedBackPreviewPage from './views/AdminDashboard/Inspection/FeedBackPreviewPage';
+import Store from './views/AdminDashboard/Organization/Store/Store';
 
 
 
@@ -26,6 +27,8 @@ const adminRoutes = [
   { path: '/admin/organization', exact: true,  name: 'Organization', component: Organization },
   { path: '/admin/organization/employee', exact: true,  name: 'Employee', component: Employee },
   { path: '/admin/organization/employee/:organizationId', exact: true,  name: 'Employee', component: Employee },
+  { path: '/admin/organization/store', exact: true,  name: 'Store', component: Store },
+  { path: '/admin/organization/store/:organizationId', exact: true,  name: 'Store', component: Store },
   { path: '/admin/change-password', exact: true,  name: 'Change Password', component: ChangePassword },
   { path: '/admin/template', exact: true,  name: 'Template List', component: TemplateList },
   { path: '/admin/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },

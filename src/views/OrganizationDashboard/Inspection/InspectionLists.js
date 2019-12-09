@@ -145,7 +145,7 @@ class InspectionLists extends Component {
     const filterItem = this.state.filterItem;
    
     this.setState( { loading: true}, () => { 
-      commonService.getAPIWithAccessToken('store-walk')
+      commonService.getAPIWithAccessToken('employee')
       .then( res => {
         console.log(res);
          

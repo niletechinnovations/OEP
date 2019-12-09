@@ -16,11 +16,12 @@ class AssignInspection extends React.Component {
       subCategoryList: [],      
       loading: false,      
       categoryList: [], 
-      formField: { categoryId: '', subCategoryId: '', inspection_name: '', organizationId: '', employeeId: '', templateId: ''},
-      formErrors: {category: '', subcategory: '', organization: '', employee: '', template: '', inspection_name: '', error: ''},
+      formField: { categoryId: '', subCategoryId: '', inspection_name: '', organizationId: '', employeeId: '', templateId: '', storeId: ''},
+      formErrors: {category: '', subcategory: '', organization: '', store: '', employee: '', template: '', inspection_name: '', error: ''},
       employeeList: [],
       templateList: [],
       templateData: [],
+      storeList: [],
       inspectionId: "",
       formValid: false,
       templatePreviewData : [],
@@ -28,6 +29,7 @@ class AssignInspection extends React.Component {
     }     
     this.getSubCategoryList = this.getSubCategoryList.bind(this);
     this.getEmployeeList = this.getEmployeeList.bind(this);
+    this.getStoreList = this.getStoreList.bind(this);
     this.getTemplateList = this.getTemplateList.bind(this);   
     this.submitHandler = this.submitHandler.bind(this);  
     this.resetForm = this.resetForm.bind(this); 
@@ -41,6 +43,7 @@ class AssignInspection extends React.Component {
       
     this.categoryList();
     this.getEmployeeList();
+    this.getStoreList();
   }
 
   getInspectionDetail(inspectionId) {
@@ -64,6 +67,7 @@ class AssignInspection extends React.Component {
           formField.organizationId = inspectionDetail.organizationId;
           formField.employeeId = inspectionDetail.employeeId;
           formField.templateId = inspectionDetail.templateId;
+          formField.storeId = inspectionDetail.storeId;
           this.getSubCategoryList(inspectionDetail.categoryId, false);          
           this.getTemplateList(inspectionDetail.categoryId, inspectionDetail.subCategoryId, false);
           this.setState({loading:false, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId});     
@@ -151,7 +155,7 @@ class AssignInspection extends React.Component {
   getEmployeeList(hideEmployee = true) {
     const formField = this.state.formField;    
     this.setState( { loading: true}, () => { 
-      commonService.getAPIWithAccessToken('store-walk')
+      commonService.getAPIWithAccessToken('employee')
       .then( res => {
         console.log(res);
          
@@ -163,6 +167,40 @@ class AssignInspection extends React.Component {
         if(hideEmployee)
           formField.employeeId = '';
         this.setState({employeeList: res.data.data, formField: formField, loading: false});     
+        
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else { 
+          this.setState( {  loading: false } );        
+          toast.error(err.message); 
+
+        }
+      } )
+    })
+
+  }
+
+  /*get Store List*/
+  getStoreList(hideStore = true) {
+    const formField = this.state.formField;
+    
+    this.setState( { loading: true}, () => { 
+      commonService.getAPIWithAccessToken('store')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        if(hideStore)
+          formField.storeId = '';
+        this.setState({storeList: res.data.data, formField: formField, loading: false});     
         
       } )
       .catch( err => {         
@@ -301,7 +339,8 @@ class AssignInspection extends React.Component {
         "subCategoryId": formInputField.subCategoryId, 
         "inspectionName": formInputField.inspection_name,
         "employeeId": formInputField.employeeId,
-        "templateId": formInputField.templateId
+        "templateId": formInputField.templateId,
+        "storeId": formInputField.storeId,
       };
       
       if(this.state.inspectionId !== "" ) {
@@ -317,7 +356,7 @@ class AssignInspection extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/admin/inspection');
+          this.props.history.push('/organization/inspection');
          
         } )
         .catch( err => {         
@@ -342,7 +381,7 @@ class AssignInspection extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/admin/inspection');
+          this.props.history.push('/organization/inspection');
          
         } )
         .catch( err => {         
@@ -361,11 +400,11 @@ class AssignInspection extends React.Component {
   };
 
   resetForm(){
-    this.props.history.push('/admin/inspection');
+    this.props.history.push('/organization/inspection');
   }
 
   render() {
-    const { subCategoryList, loading, categoryList, employeeList, templateList } = this.state;     
+    const { subCategoryList, loading, categoryList, employeeList, templateList, storeList } = this.state;     
     let loaderElement ='';
     if(loading)
       loaderElement = <Loader />
@@ -428,6 +467,17 @@ class AssignInspection extends React.Component {
                         </Input>
                       </FormGroup>
                     </Col>
+                    <Col lg={6}>
+                      <FormGroup> 
+                        <Label htmlFor="storeId">Store <span className="mandatory">*</span></Label>            
+                        <Input type="select" placeholder="Store Name *" id="storeId" name="storeId" value={this.state.formField.storeId} onChange={this.changeHandler} required >
+                          <option value="">Select Store</option>
+                          {storeList.map((storeItem, index) =>
+                            <SetStoreDropDownItem key={index} storeItem={storeItem} selectedCategory={this.state.formField.storeId} />
+                          )}
+                        </Input>
+                      </FormGroup>
+                    </Col>
                     <Col lg={12}>
                         <FormGroup>
                           <Label htmlFor="inspection_name">Inspection Name</Label>            
@@ -469,6 +519,11 @@ function SetEmployeeDropDownItem(props){
 function SetTemplateDropDownItem(props){
   const templateDetail = props.templateItem;
   return (<option value={templateDetail.templateId} >{templateDetail.templateName}</option>)
+}
+
+function SetStoreDropDownItem(props){
+  const storeDetail = props.storeItem;
+  return (<option value={storeDetail.storeId} >{storeDetail.storeName}</option>)
 }
 
 export default AssignInspection;

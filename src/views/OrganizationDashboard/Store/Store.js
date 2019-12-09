@@ -3,53 +3,42 @@ import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, L
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import commonService from '../../../../core/services/commonService';
-import { FormErrors } from '../../../Formerrors/Formerrors';
+import commonService from '../../../core/services/commonService';
+import { FormErrors } from '../../Formerrors/Formerrors';
 
-import Loader from '../../../Loader/Loader';
-import EmployeeData from './EmployeeData';
-import './Employee.css'
+import Loader from '../../Loader/Loader';
+import StoreData from './StoreData';
+import './Store.css'
 
-class Employee extends Component {
+class Store extends Component {
   constructor(props){
     super(props);
     this.state = {
       modal: false,      
-      EmployeeList: [],
-      organizationList: [],
+      storeList: [],      
       loading: true,
       formProccessing: false,
       rowIndex: -1,
-      formField: { organizationId: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
-      formErrors: { email: '', employee_name: '', role: '', error: ''},
+      formField: { store_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: ''},
+      formErrors: { store_name: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
     } 
-    this.handleEditEmployee = this.handleEditEmployee.bind(this);
+    this.handleEditStore = this.handleEditStore.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
-    this.handleDeleteEmployee = this.handleDeleteEmployee.bind(this);
-    this.filterEmployeeList = this.filterEmployeeList.bind(this);
+    this.handleDeleteStore = this.handleDeleteStore.bind(this);
+    this.filterStoreList = this.filterStoreList.bind(this);
     
   }
   // Fetch the Employee List
-  componentDidMount() { 
-    const { match: { params } } = this.props;
-    let organizationId = "";
-    if(params.organizationId !== undefined) {
-      organizationId = params.organizationId;
-      let filterItem = this.state.filterItem;
-      filterItem.filter_organization_id = params.organizationId;
-      this.setState({filterItem: filterItem});
-    }
-    this.EmployeeList(organizationId);
-    this.organizationList();
+  componentDidMount() {     
+    this.storeList({});   
     
   }
   /*Employee List API*/
-  EmployeeList(filterItem) {
+  storeList(filterItem = {}) {
     let stroreWalkQuery = "";
-    if(filterItem.filter_organization_id !== undefined && filterItem.filter_organization_id !== "" ) 
-      stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&organizationId="+filterItem.filter_organization_id: "?organizationId="+filterItem.filter_organization_id;
+    
     if(filterItem.country !== undefined && filterItem.country !== "" ) 
       stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&country="+filterItem.country: "?country="+filterItem.country;
     if(filterItem.state !== undefined && filterItem.state !== "" ) 
@@ -57,7 +46,7 @@ class Employee extends Component {
     if(filterItem.custom_search !== undefined && filterItem.custom_search !== "" ) 
       stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&keyword="+filterItem.custom_search: "?keyword="+filterItem.custom_search;
     this.setState( { loading: true}, () => {
-      commonService.getAPIWithAccessToken('employee'+stroreWalkQuery)
+      commonService.getAPIWithAccessToken('store'+stroreWalkQuery)
         .then( res => {
           
            
@@ -67,7 +56,7 @@ class Employee extends Component {
             return;
           }   
 
-          this.setState({loading:false, EmployeeList: res.data.data});     
+          this.setState({loading:false, storeList: res.data.data});     
          
         } )
         .catch( err => {         
@@ -83,34 +72,10 @@ class Employee extends Component {
     } )
   }
 
-  /*Organization List API*/
-  organizationList() {   
-    
-    commonService.getAPIWithAccessToken('organization')
-      .then( res => {       
-         
-        if ( undefined === res.data.data || !res.data.status ) {
-          this.setState( { loading: false } );
-          toast.error(res.data.message);
-          return;
-        }   
-
-        this.setState({loading:false, organizationList: res.data.data});     
-       
-      } )
-      .catch( err => {         
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else 
-          this.setState( { loading: false } );
-      } )
-    
-  }
-  filterEmployeeList(){
+  
+  filterStoreList(){
     const filterItem = this.state.filterItem;
-    this.EmployeeList(filterItem);
+    this.storeList(filterItem);
   }
   /* Submit Form Handler*/
   submitHandler (event) {
@@ -118,24 +83,20 @@ class Employee extends Component {
     event.target.className += " was-validated";
     this.setState( { formProccessing: true}, () => {
       const formInputField = this.state.formField;
-      const formData = {
-        "email": formInputField.email,
-        "firstName": formInputField.first_name, 
+      const formData = {       
+        "storeName": formInputField.store_name, 
         "phoneNumber": formInputField.phoneNumber, 
         "address": formInputField.address, 
-        "roleName": formInputField.role, 
         "city": formInputField.city, 
         "state": formInputField.state, 
         "country": formInputField.country, 
-        "postalCode": formInputField.postalCode, 
-        "employeeName": formInputField.first_name,
-        "organizationAuthId": formInputField.organizationId,
+        "postalCode": formInputField.postalCode,      
       };
       const rowIndex = this.state.rowIndex;
       if(rowIndex > -1) {
-        const employeeInfo = this.state.EmployeeList[rowIndex];
+        const storeInfo = this.state.storeList[rowIndex];
 
-        commonService.putAPIWithAccessToken('employee/'+employeeInfo.profileId, formData)
+        commonService.putAPIWithAccessToken('store/'+storeInfo.storeId, formData)
         .then( res => {
           
            
@@ -148,7 +109,7 @@ class Employee extends Component {
           
           this.setState({ modal: false, formProccessing: false});
           toast.success(res.data.message);
-          this.EmployeeList();
+          this.storeList();
          
         } )
         .catch( err => {         
@@ -162,7 +123,7 @@ class Employee extends Component {
         } )
       }
       else{
-        commonService.postAPIWithAccessToken('employee', formData)
+        commonService.postAPIWithAccessToken('store', formData)
         .then( res => {
          
           if ( undefined === res.data.data || !res.data.status ) { 
@@ -173,7 +134,7 @@ class Employee extends Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.EmployeeList();
+          this.storeList();
          
         } )
         .catch( err => {         
@@ -213,15 +174,11 @@ class Employee extends Component {
     fieldValidationErrors.error = '';
    
     switch(fieldName) {   
-      case 'email':        
-        fieldValidationErrors.email = (value !== '') ? ((!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value))) ? " invalid format" : "") : ' is required';
-        break; 
-      case 'first_name':        
-        fieldValidationErrors.employee_name = (value !== '') ? '' : ' is required';
+      
+      case 'store_name':        
+        fieldValidationErrors.store_name = (value !== '') ? '' : ' is required';
         break;
-      case 'role':        
-        fieldValidationErrors.role = (value !== '') ? '' : ' is required';
-        break;               
+                 
       default:
         break;
     }
@@ -234,7 +191,7 @@ class Employee extends Component {
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     this.setState({formValid: 
-      (formErrors.email === "" && formErrors.employee_name === "" && formErrors.role === ""  && formField.role !== "" && formField.first_name !== "" && formField.email !== "") 
+      (formErrors.store_name === "" && formField.store_name !== "") 
       ? true : false});
   }
   /* Set Error Class*/
@@ -247,28 +204,25 @@ class Employee extends Component {
       modal: !this.state.modal,
       rowIndex: -1,
       formValid: false,
-      formField: {email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
-      formErrors: {email: '', employee_name: '', role: '', error: ''}
+      formField: { store_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '' },
+      formErrors: {store_name: '', error: ''}
     });
   }
   /* Edit Employee*/
-  handleEditEmployee(rowIndex){
-      const employeeInfo = this.state.EmployeeList[rowIndex];
-      const formField = {
-        organizationId: employeeInfo.organizationAuthId,        
-        email: employeeInfo.email, 
-        first_name: employeeInfo.firstName, 
-        phoneNumber: employeeInfo.phoneNumber, 
-        address: employeeInfo.address, 
-        city: employeeInfo.city, 
-        state: employeeInfo.state, 
-        country: employeeInfo.country, 
-        postalCode: employeeInfo.postalCode, 
-        role: employeeInfo.roleName };
+  handleEditStore(rowIndex){
+      const storeInfo = this.state.storeList[rowIndex];
+      const formField = {        
+        store_name: storeInfo.storeName, 
+        phoneNumber: storeInfo.phoneNumber, 
+        address: storeInfo.address, 
+        city: storeInfo.city, 
+        state: storeInfo.state, 
+        country: storeInfo.country, 
+        postalCode: storeInfo.postalCode };
       this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
   }
   /* Delete Employee*/
-  handleDeleteEmployee(rowIndex){
+  handleDeleteStore(rowIndex){
    
     
    
@@ -299,7 +253,7 @@ class Employee extends Component {
   }
   render() {
 
-    const { EmployeeList, loading, modal, formProccessing, organizationList } = this.state;     
+    const { storeList, loading, modal, formProccessing } = this.state;     
     let loaderElement = '';
     if(loading)        
       loaderElement = <Loader />
@@ -314,28 +268,17 @@ class Employee extends Component {
           <Col lg={12}>
             <Card>
               <CardHeader className="mainHeading">
-                <strong>Employee List</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Store List</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
                 
                 <Row>
                   <Col md={12}>
-                    <Row>
-                      <Col md={"2"}>
-                        <FormGroup> 
-                          <Label htmlFor="filter_organization_id">Organization</Label>            
-                          <Input type="select" placeholder="Organization *" id="filter_organization_id" name="filter_organization_id" value={this.state.filterItem.filter_organization_id} onChange={this.changeFilterHandler} >
-                            <option value="">Select Organization</option>
-                            {organizationList.map((organizationInfo, index) =>
-                              <SetOrganizationDropDownItem key={index} organizationInfo={organizationInfo} />
-                            )}
-                          </Input>
-                        </FormGroup>  
-                      </Col>
-                      <Col md={"2"}>
+                    <Row>                     
+                      <Col md={"3"}>
                         <FormGroup> 
                           <Label htmlFor="filter_organization_id">Country</Label>            
-                          <CountryDropdown id="filterCountry" priorityOptions={priorityCountry} name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
+                          <CountryDropdown id="filterCountry" name="filterCountry" priorityOptions={priorityCountry} className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
                         </FormGroup>  
                       </Col>
                       <Col md={"3"}>
@@ -346,60 +289,37 @@ class Employee extends Component {
                       </Col>
                       <Col md={"3"}>
                         <FormGroup> 
-                          <Label htmlFor="filter_organization_id">Search By Email/ Name</Label>            
-                          <Input type="text" placeholder="Search By Email/ Name" id="custom_search" name="custom_search" value={this.state.formField.custom_search} onChange={this.changeFilterHandler} />
+                          <Label htmlFor="filter_organization_id">Search By Store/ City</Label>            
+                          <Input type="text" placeholder="Search By Store/ City" id="custom_search" name="custom_search" value={this.state.formField.custom_search} onChange={this.changeFilterHandler} />
                         </FormGroup>  
                       </Col>
                       <Col md={"2"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="filter_organization_id">&nbsp;</Label> 
-                          <Button color="success" type="button" onClick={this.filterEmployeeList}>Search</Button> 
+                          <Button color="success" type="button" onClick={this.filterStoreList}>Search</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>  
                   </Col>
                   <Col md={12}>
-                    <EmployeeData data={EmployeeList} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} dataTableLoadingStatus = {this.state.loading} />
+                    <StoreData data={storeList} editStoreAction={this.handleEditStore} deleteStoreAction={this.handleDeleteStore} dataTableLoadingStatus = {this.state.loading} />
                   </Col>
                 </Row> 
               </CardBody>
             </Card>
           </Col>
         </Row>
-        <Modal isOpen={modal} toggle={this.toggle} className="full-width-modal-section employee-modal">
-          <ModalHeader toggle={this.toggle}>Employee</ModalHeader>
+        <Modal isOpen={modal} toggle={this.toggle} className="full-width-modal-section store-modal">
+          <ModalHeader toggle={this.toggle}>Store</ModalHeader>
           <Form onSubmit={this.submitHandler} noValidate>
             <ModalBody>
               <FormErrors formErrors={this.state.formErrors} />
-              <Row>
+              <Row>                
                 <Col md={"6"}>
                   <FormGroup> 
-                    <Label htmlFor="organizationId">Organization</Label>            
-                    <Input type="select" placeholder="Organization *" id="organizationId" name="organizationId" value={this.state.formField.organizationId} onChange={this.changeHandler} required >
-                      <option value="">Select Organization</option>
-                      {organizationList.map((organizationInfo, index) =>
-                        <SetOrganizationDropDownItem key={index} organizationInfo={organizationInfo} />
-                      )}
-                    </Input>
+                    <Label htmlFor="store_name">Store Name</Label>            
+                    <Input type="text" placeholder="Store Name *" id="store_name" name="store_name" value={this.state.formField.store_name} onChange={this.changeHandler} required />
                   </FormGroup>  
-                </Col>
-                <Col md={"6"}>
-                  <FormGroup> 
-                    <Label htmlFor="first_name">Employee Name</Label>            
-                    <Input type="text" placeholder="Employee Name *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
-                  </FormGroup>  
-                </Col>
-                <Col md={"6"}>
-                  <FormGroup> 
-                    <Label htmlFor="email">Email</Label>            
-                    <Input type="text" placeholder="Email *" id="email" name="email" value={this.state.formField.email} onChange={this.changeHandler} required />
-                  </FormGroup>              
-                </Col>
-                <Col md={"6"}>
-                  <FormGroup> 
-                    <Label htmlFor="role">Role</Label>            
-                    <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler} required />
-                  </FormGroup>
                 </Col>
                 <Col md={"6"}>
                   <FormGroup> 
@@ -416,7 +336,7 @@ class Employee extends Component {
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="country">Country</Label>     
-                    <CountryDropdown id="country" priorityOptions={priorityCountry} name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
+                    <CountryDropdown id="country" name="country" priorityOptions={priorityCountry} className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
                     
                   </FormGroup>
                 </Col>                
@@ -452,9 +372,4 @@ class Employee extends Component {
   }
 }
 
-function SetOrganizationDropDownItem (props) {
-  const organizationInfo = props.organizationInfo;
-  return (<option value={organizationInfo.authId} >{organizationInfo.organizationName}</option>)
-}
-
-export default Employee;
+export default Store;

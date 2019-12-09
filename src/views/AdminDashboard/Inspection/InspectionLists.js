@@ -175,7 +175,7 @@ class InspectionLists extends Component {
       return;
     }
     this.setState( { loading: true}, () => { 
-      commonService.getAPIWithAccessToken('store-walk?organizationId='+organizationId)
+      commonService.getAPIWithAccessToken('employee?organizationId='+organizationId)
       .then( res => {
         console.log(res);
          
@@ -325,7 +325,7 @@ class InspectionLists extends Component {
                         <FormGroup> 
                           <Label htmlFor="employeeId">Employee </Label>            
                           <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.filterItem.employeeId} onChange={this.changeFilterHandler}  >
-                            <option value="">Select Subcategory</option>
+                            <option value="">Select Employee</option>
                             {employeeList.map((employeeInfo, index) =>
                               <SetEmployeeDropDownItem key={index} employeeInfo={employeeInfo} selectedCategory={this.state.filterItem.employeeId} />
                             )}

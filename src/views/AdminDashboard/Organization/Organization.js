@@ -269,7 +269,7 @@ class Organization extends Component {
     if(loading)        
       loaderElement = <Loader />
     const processingBtnText = <>Submit <i className="fa fa-spinner"></i></>;
-
+    const priorityCountry = ['US'];
     return (
       <div className="animated fadeIn">
         <Row>
@@ -287,7 +287,7 @@ class Organization extends Component {
                       <Col md={"3"}>
                         <FormGroup> 
                           <Label htmlFor="filter_organization_id">Country</Label>            
-                          <CountryDropdown id="filterCountry" name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
+                          <CountryDropdown id="filterCountry" priorityOptions={priorityCountry} name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
                         </FormGroup>  
                       </Col>
                       <Col md={"3"}>
@@ -363,7 +363,7 @@ class Organization extends Component {
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="country">Country</Label>     
-                    <CountryDropdown id="country" name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
+                    <CountryDropdown id="country" priorityOptions={priorityCountry} name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
                     
                   </FormGroup>
                 </Col>                

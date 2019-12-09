@@ -47,7 +47,7 @@ class Employee extends Component {
     if(filterItem.custom_search !== undefined && filterItem.custom_search !== "" ) 
       stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&keyword="+filterItem.custom_search: "?keyword="+filterItem.custom_search;
     this.setState( { loading: true}, () => {
-      commonService.getAPIWithAccessToken('store-walk'+stroreWalkQuery)
+      commonService.getAPIWithAccessToken('employee'+stroreWalkQuery)
         .then( res => {
           
            
@@ -88,13 +88,13 @@ class Employee extends Component {
         "state": formInputField.state, 
         "country": formInputField.country, 
         "postalCode": formInputField.postalCode, 
-        "EmployeeName": formInputField.first_name
+        "employeeName": formInputField.first_name
       };
       const rowIndex = this.state.rowIndex;
       if(rowIndex > -1) {
         const employeeInfo = this.state.EmployeeList[rowIndex];
 
-        commonService.putAPIWithAccessToken('store-walk/'+employeeInfo.profileId, formData)
+        commonService.putAPIWithAccessToken('employee/'+employeeInfo.profileId, formData)
         .then( res => {
           
            
@@ -121,7 +121,7 @@ class Employee extends Component {
         } )
       }
       else{
-        commonService.postAPIWithAccessToken('store-walk', formData)
+        commonService.postAPIWithAccessToken('employee', formData)
         .then( res => {
           
            
@@ -269,7 +269,7 @@ class Employee extends Component {
       loaderElement = <Loader />
 
     const processingBtnText = <>Submit <i className="fa fa-spinner"></i></>;
-
+    const priorityCountry = ['US'];
     return (
       <div className="animated fadeIn">
         <Row>
@@ -287,7 +287,7 @@ class Employee extends Component {
                       <Col md={"3"}>
                         <FormGroup> 
                           <Label htmlFor="filter_organization_id">Country</Label>            
-                          <CountryDropdown id="filterCountry" name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
+                          <CountryDropdown id="filterCountry" priorityOptions={priorityCountry} name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
                         </FormGroup>  
                       </Col>
                       <Col md={"3"}>
@@ -357,7 +357,7 @@ class Employee extends Component {
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="country">Country</Label>     
-                    <CountryDropdown id="country" name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
+                    <CountryDropdown id="country" priorityOptions={priorityCountry} name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
                     
                   </FormGroup>
                 </Col>                
