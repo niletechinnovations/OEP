@@ -21,7 +21,9 @@ import {
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import commonService from '../../../core/services/commonService';
 
 
 const brandPrimary = getStyle('--primary')
@@ -420,9 +422,38 @@ class Dashboard extends Component {
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
+      loading: false,
+      dashBoardStats: {organizationCount: 0, inspectionCount: 0}
     };
   }
 
+  componentDidMount() { 
+    this.setState( { loading: true}, () => {
+      commonService.getAPIWithAccessToken('dashboard')
+        .then( res => {
+          console.log(res);
+           
+          if ( undefined === res.data.data || !res.data.status ) {
+            this.setState( {  loading: false } );
+            toast.error(res.data.message);    
+            return;
+          }   
+
+          this.setState({loading:false, dashBoardStats: res.data.data});     
+         
+        } )
+        .catch( err => {         
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else {
+            this.setState( { loading: false } );
+            toast.error(err.message);    
+          }
+        } )
+    } )
+  }
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
@@ -458,7 +489,7 @@ class Dashboard extends Component {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">1500</div>
+                <div className="text-value">{this.state.dashBoardStats.inspectionCount}</div>
                 <div>Total Inspections</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
@@ -482,7 +513,7 @@ class Dashboard extends Component {
                     </DropdownMenu>
                   </Dropdown>
                 </ButtonGroup>
-                <div className="text-value">100</div>
+                <div className="text-value">{this.state.dashBoardStats.organizationCount}</div>
                 <div>Total Organizations</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>

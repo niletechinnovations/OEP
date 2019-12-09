@@ -11,7 +11,7 @@ function FieldLayout(props) {
           <h2>{formFieldDetails.content}</h2>
         </Col>
       )
-      break;
+     
     case 'TextInput':
       return(
         <Col lg={12}>
@@ -21,7 +21,7 @@ function FieldLayout(props) {
           </FormGroup>
         </Col>
       )
-      
+     
     case 'Checkboxes':
       return(
         <Col lg={12}>
@@ -35,7 +35,7 @@ function FieldLayout(props) {
           </FormGroup>
         </Col>
       )
-      
+     
     case 'TextArea':
       return(
         <Col lg={12}>
@@ -45,7 +45,7 @@ function FieldLayout(props) {
           </FormGroup>
         </Col>
       )
-      
+     
     case 'Dropdown':
       return(
         <Col lg={12}>
@@ -60,7 +60,7 @@ function FieldLayout(props) {
           </FormGroup>
         </Col>
       )
-      
+     
     case 'RadioButtons':
       return(
         <Col lg={12}>
@@ -74,14 +74,14 @@ function FieldLayout(props) {
           </FormGroup>
         </Col>
       )
-      
+     
     case 'Paragraph':
       return(
         <Col lg={12}>
           <p>{formFieldDetails.content}</p>
         </Col>
       )
-      
+     
     case 'Camera':
       return(
           <Col lg={12}>
@@ -91,14 +91,14 @@ function FieldLayout(props) {
           </FormGroup>
         </Col> 
       ) 
-      
+     
     default: 
       return (
         <Col lg={12}>
           <h2>{formFieldDetails.label}</h2>
         </Col>
       )
-      
+     
 
   }
 } 
