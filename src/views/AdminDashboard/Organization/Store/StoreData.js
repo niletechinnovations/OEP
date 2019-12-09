@@ -25,8 +25,7 @@ class StoreData extends Component {
 
   render() {
     
-    let rowsItem = [];  
-    debugger;  
+    let rowsItem = [];
     for(const [i, Store] of this.props.data.entries()){
       let orgInfo = {   
         organizationName: Store.organizationName,      

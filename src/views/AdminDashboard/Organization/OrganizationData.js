@@ -42,6 +42,7 @@ class OrganizationData extends Component {
         action: <p><a href="#!" className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editOrganizationItem(i)}><i className="fa fa-pencil"></i> </a>
           <Link className="btn-view" to={`/admin/organization/employee/${orgnization.authId}`}><i className="fa fa-user"></i> </Link>
+          <Link className="btn-view" to={`/admin/organization/store/${orgnization.authId}`}><i className="fa fa-venus"></i> </Link>
           <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteOrganizationItem(i)}><i className="fa fa-trash"></i></a></p>,       
       }      

@@ -9,6 +9,11 @@ export default {
       name: 'Employee',
       url: '/organization/employee',
       icon: 'icon-people',     
+    }, 
+    {
+      name: 'Store',
+      url: '/organization/store',
+      icon: 'icon-location',     
     },    
     {
       name: 'Inspection',      
