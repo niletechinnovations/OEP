@@ -41,7 +41,7 @@ class Store extends Component {
       filterItem.filter_organization_id = params.organizationId;
       this.setState({filterItem: filterItem});
     }
-    this.storeList({organizationId: organizationId});
+    this.storeList({filter_organization_id: organizationId});
     this.organizationList();
     
   }

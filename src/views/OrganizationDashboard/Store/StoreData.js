@@ -35,10 +35,10 @@ class StoreData extends Component {
         state: Store.state || " ",
         country: Store.country || " ",
         status: Store.status ? 'Active' : 'Inactive',   
-        action: <p><a href className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editStoreItem(i)}><i className="fa fa-pencil"></i> </a>
-          <a href className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteStoreItem(i)}><i className="fa fa-trash"></i></a></p>,       
+        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+          this.editStoreItem(i)}><i className="fa fa-pencil"></i> </button>
+          <button href className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+          this.deleteStoreItem(i)}><i className="fa fa-trash"></i></button></p>,       
       }      
       rowsItem.push(orgInfo);
     }      

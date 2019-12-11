@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label} from 'reactstrap';
+import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
@@ -24,9 +25,11 @@ class AssignInspection extends React.Component {
       templateData: [],
       storeList: [],
       inspectionId: "",
+      selectedEmployee: [],
       formValid: false,
       templatePreviewData : [],
-      formProccessing: false
+      formProccessing: false,
+      changeDropDown: false
     }     
     this.getSubCategoryList = this.getSubCategoryList.bind(this);
     this.getEmployeeList = this.getEmployeeList.bind(this);
@@ -59,7 +62,6 @@ class AssignInspection extends React.Component {
             return;
           } 
           const inspectionDetail = res.data.data;
-          debugger;
           let formField = this.state.formField;
           formField.categoryId = inspectionDetail.categoryId;
           formField.subCategoryId = inspectionDetail.subCategoryId;
@@ -292,13 +294,20 @@ class AssignInspection extends React.Component {
     })
   }
   /* Input Field On changes*/
-  changeHandler = event => {
+  changeHandler = event => {    
     const name = event.target.name;
     const value = event.target.value;
     const formField = this.state.formField
     formField[name] = value;
     this.setState({ formField: formField }, () => { this.validateField(name, value) });
   };
+  /* Change Employee handler*/
+  changeEmployeeHandler = event => { 
+    if(event.value !== "")
+      this.setState({selectedEmployee: event, changeDropDown: true});
+    else
+      this.setState({selectedEmployee: {}, changeDropDown: true});
+  }
   /*Handle catgeory Input Change and bind subcategory*/
   changeCategoryHandle = event => {
     const name = event.target.name;
@@ -368,7 +377,7 @@ class AssignInspection extends React.Component {
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     this.setState({formValid: 
-      (formErrors.category === ""  && formErrors.subcategory === "" && formErrors.inspection_name === "" && formErrors.organization === "" && formErrors.employee === "" && formErrors.template === "" && formField.categoryId !== "" && formField.subCategoryId !== "" && formField.inspection_name !== "" && formField.organizationId !== "" && formField.employeeId !== "" && formField.templateId !== "") 
+      (formErrors.category === ""  && formErrors.subcategory === "" && formErrors.inspection_name === "" && formErrors.organization === "" && formErrors.template === "" && formField.categoryId !== "" && formField.subCategoryId !== "" && formField.inspection_name !== "" && formField.organizationId !== "" && formField.templateId !== "") 
       ? true : false});
   }
   /* Set Error Class*/
@@ -380,6 +389,7 @@ class AssignInspection extends React.Component {
   submitHandler (event) {
     event.preventDefault();   
     event.target.className += " was-validated";
+
     this.setState( { loading: true}, () => {
 
       const formInputField = this.state.formField;
@@ -392,6 +402,10 @@ class AssignInspection extends React.Component {
         "templateId": formInputField.templateId,
         "storeId": formInputField.storeId
       };
+      if(this.state.inspectionId === "")
+        formData.employeeId = this.state.selectedEmployee.map(i => i.value).join(',');
+      else
+        formData.employeeId = this.state.selectedEmployee.value;
       
       if(this.state.inspectionId !== "" ) {
         formData.inspectionId = this.state.inspectionId;
@@ -454,11 +468,20 @@ class AssignInspection extends React.Component {
   }
 
   render() {
-    const { subCategoryList, loading, categoryList, organizationList, employeeList, templateList, storeList } = this.state;     
+    const { subCategoryList, loading, categoryList, organizationList, employeeList, templateList, storeList, selectedEmployee } = this.state;     
     let loaderElement ='';
+    let employeeListSuggest = [{value: "", label: "Select Employee"}];
+    let selectedEmployeList = selectedEmployee;
+    for(let i=0; i< employeeList.length; i++) {
+      employeeListSuggest.push({value: employeeList[i].authId, label: employeeList[i].firstName+' '+employeeList[i].lastName});
+      if(this.state.formField.employeeId !== "" ){
+        if(this.state.formField.employeeId === employeeList[i].authId && !this.state.changeDropDown )
+         selectedEmployeList =  {value: employeeList[i].authId, label: employeeList[i].firstName+' '+employeeList[i].lastName};
+      }
+    }
     if(loading)
       loaderElement = <Loader />
-    
+    const isMulti = (this.state.inspectionId !== "") ? false : true;
     return (
       <div className="animated fadeIn">
         <Row>
@@ -486,13 +509,13 @@ class AssignInspection extends React.Component {
                     </Col>
                     <Col lg={6}>
                       <FormGroup> 
-                        <Label htmlFor="employeeId">Employee <span className="mandatory">*</span></Label>            
-                        <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.formField.employeeId} onChange={this.changeHandler} required >
-                          <option value="">Select Subcategory</option>
-                          {employeeList.map((employeeInfo, index) =>
-                            <SetEmployeeDropDownItem key={index} employeeInfo={employeeInfo} selectedCategory={this.state.formField.employeeId} />
-                          )}
-                        </Input>
+                        <Label htmlFor="employeeId">Employee</Label> 
+                        <Select
+                          id="employeeId" name="employeeId" value={selectedEmployeList} onChange={this.changeEmployeeHandler}
+                          isMulti={isMulti} isSearchable ={true}
+                          options={employeeListSuggest}
+                        />           
+                        
                       </FormGroup>
                     </Col>
                     <Col lg={6}>
@@ -573,11 +596,6 @@ function SetSubCategoryDropDownItem (props) {
 function SetOrganizationDropDownItem (props) {
   const organizationInfo = props.organizationInfo;
   return (<option value={organizationInfo.authId} >{organizationInfo.organizationName}</option>)
-}
-
-function SetEmployeeDropDownItem(props){
-  const employeeInfo = props.employeeInfo;
-  return (<option value={employeeInfo.authId} >{employeeInfo.firstName+' '+employeeInfo.lastName}</option>)
 }
 
 function SetTemplateDropDownItem(props){
