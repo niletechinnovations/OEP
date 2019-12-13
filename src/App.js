@@ -9,6 +9,7 @@ import commonService from './core/services/commonService';
 const AdminLayout = React.lazy(() => import('./containers/AdminLayout'));
 const OrganizationLayout = React.lazy(() => import('./containers/OrganizationLayout'));
 const FrontEndLayout = React.lazy(() => import('./containers/FrontEndLayout/FrontEndLayout'));
+const CommonLayout = React.lazy(() => import('./containers/CommonLayout/CommonLayout'));
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -21,6 +22,7 @@ class App extends Component {
             <Switch>
               <OrganizationRoute path="/organization" name="Organization" component={OrganizationLayout} />
               <PrivateRoute path="/admin" name="Admin" component={AdminLayout} />
+              <Route path="/common" name="Common" component={CommonLayout} />
               <Route path="/" name="Home" component={FrontEndLayout} />
               
               

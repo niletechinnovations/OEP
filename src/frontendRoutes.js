@@ -6,6 +6,7 @@ import LoginPage from './views/Pages/Frontend/LoginPage';
 import ResetPassword from './views/Pages/Frontend/ResetPassword';
 import RegisterPage from './views/Pages/Frontend/RegisterPage';
 
+
 const frontendRoutes = [
   { path: '/', exact: true, name: 'Home', component: HomePage },
   { path: '/home', name: 'Home', component: HomePage },  

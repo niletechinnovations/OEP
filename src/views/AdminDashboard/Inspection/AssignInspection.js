@@ -470,7 +470,7 @@ class AssignInspection extends React.Component {
   render() {
     const { subCategoryList, loading, categoryList, organizationList, employeeList, templateList, storeList, selectedEmployee } = this.state;     
     let loaderElement ='';
-    let employeeListSuggest = [{value: "", label: "Select Employee"}];
+    let employeeListSuggest = [{value: "", label: "Select Employee", isDisabled: true}];
     let selectedEmployeList = selectedEmployee;
     for(let i=0; i< employeeList.length; i++) {
       employeeListSuggest.push({value: employeeList[i].authId, label: employeeList[i].firstName+' '+employeeList[i].lastName});
