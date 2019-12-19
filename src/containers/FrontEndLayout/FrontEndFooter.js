@@ -15,11 +15,7 @@ const frontEndFooter = () => {
             <MDBRow>
               <MDBCol md="4">
                 <div className="foot-content">
-                  <img
-                    src="images/logo.png"
-                    alt=""
-                    height="60"
-                  />
+                  <img src="images/logo.svg" alt="OEP" height="60" />
                   <p>OEP Retail is the Operational Excellence Platform for all your retail needs. The platform is 20 plus years in the making from actual retail walks and processes. Built by an operational retailer for retailers just like you.</p>
                 </div>
               </MDBCol>
