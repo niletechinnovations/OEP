@@ -40,9 +40,9 @@ export default class Toolbar extends React.Component {
         ];
       case 'RadioButtons':
         return [
-          { value: 'place_holder_option_1', text: 'Place holder option 1', key: `radiobuttons_option_${ID.uuid()}` },
-          { value: 'place_holder_option_2', text: 'Place holder option 2', key: `radiobuttons_option_${ID.uuid()}` },
-          { value: 'place_holder_option_3', text: 'Place holder option 3', key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'Yes', text: 'Yes', key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'No', text: 'No', key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'N/A', text: 'N/A', key: `radiobuttons_option_${ID.uuid()}` },
         ];
       default:
         return [];
