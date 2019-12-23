@@ -162,7 +162,7 @@ class StartInspection extends React.Component {
                             <MDBCard>
                                 <MDBCardBody>
                                     <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} formField={this.state.formField} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue} updateRemarks={this.handleUpdateRemarks} remarksValue={this.state.remarks} updateMediaFile={this.handleUpdateMediaFile} /> 
-                                    <Button onClick={this.handleSubmitForm.bind(this)} className="success">Submit</Button>
+                                    <Button onClick={this.handleSubmitForm.bind(this)} className="btn-gr">Submit</Button>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>
