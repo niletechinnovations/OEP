@@ -1,1 +1,19 @@
 .hide { display: none; }
+
+.inspection-form-section {background: #F5F6FA; padding: 20px; border-radius: 5px; position: relative; }
+.inspection-form-section h2 {font-size: 18px; font-weight: bold !important; color: #000; margin-bottom: 10px; }
+.inspection-form-card {margin-bottom: 20px; padding: 20px; border-radius: 8px; position: relative; background: #fff; box-shadow: 0 0 30px #b8bfdc8a; }
+label.inspection-title {font-size: 14px; font-weight: 600; color: #464852; }
+span.inspection-no-value {background: #eceef6; height: 40px; width: 40px; border-radius: 3px; display: inline-block; text-align: center; line-height: 40px; margin-right: 10px; }
+
+.inspection-check .radioInput {font-size: 14px; width: 100%; padding: 10px 10px 10px 30px; margin-bottom: 5px; background: #ffffff; border-radius: 3px; border:1px solid #d9e0e3; }
+.btn-bl {background-color: #2196F3 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-gr {background-color: #4caf50 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-re {background-color: #ff1100 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-ye {background-color: #ffc107 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+
+.inspection-btn-section .btn:hover, 
+.inspection-btn-section .btn:focus, 
+.inspection-btn-section .btn:active{ box-shadow: none !important; outline: none; color: #ffffff }
+label.remarks-label {font-size: 12px; margin-bottom: 0; }
+textarea.remarks-form-group.form-control {border: 1px solid #d9e0e3; font-size: 12px; }

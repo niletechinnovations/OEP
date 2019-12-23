@@ -7,9 +7,7 @@ function FieldLayout(props) {
   switch(formFieldDetails.element) {
     case 'Header':
       return(
-        <Col lg={12}>
-          <h2>{formFieldDetails.content}</h2>
-        </Col>
+        <h2>{formFieldDetails.content}</h2>
       )
      
     case 'TextInput':
@@ -66,10 +64,10 @@ function FieldLayout(props) {
       className += props.formFieldRemarks[formFieldDetails.id] ? 'show' : 'hide';
 
       return(
-        <Col lg={12}>          
+        <div className="inspection-form-card">
             <FormGroup>
-              <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-              <div>
+              <Label className="inspection-title"><span className="inspection-no-value">1</span>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+              <div className="inspection-check">
                 {formFieldDetails.options.map((radioButtonOptions, index) =>              
                   <CustomInput key={index} name={formFieldDetails.id} type="radio" checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
                 )}
@@ -77,18 +75,18 @@ function FieldLayout(props) {
             </FormGroup>
             <div className={className}>
               <FormGroup>
-                <Label>Remarks</Label>
-                <Input name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks" value={props.remarksValue}  />
+                <Label className="remarks-label">Remarks</Label>
+                <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks" value={props.remarksValue}  />
               </FormGroup> 
-              <Button onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
-              <Button onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
+              <Button className="btn-gr" onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
+              <Button className="btn-re" onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
             </div>  
-            <div className="bottom-section">              
-              <Button onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Remark</Button> 
-              <Button>Photo</Button> 
-              <Button>Action</Button> 
+            <div className="inspection-btn-section">              
+              <Button className="btn-bl" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Remark</Button> 
+              <Button className="btn-gr">Photo</Button> 
+              <Button className="btn-ye">Action</Button> 
             </div>       
-        </Col>
+        </div>
       )
      
     case 'Paragraph':
@@ -191,11 +189,11 @@ class PreviewTemplatePageForm extends Component {
   render() {
     const formFiled = this.props.templateField;
     return (
-      <Row>
+      <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
             <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} />
           )}
-      </Row>
+      </div>
     );
   }
 }
