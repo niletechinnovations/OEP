@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Col, Row, Input, FormGroup, Label, CustomInput, Button} from 'reactstrap';
 
+
+
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
   //props.formFieldName(formFieldDetails.id);
@@ -62,7 +64,24 @@ function FieldLayout(props) {
     case 'RadioButtons':
       let className = "remarks-section ";
       className += props.formFieldRemarks[formFieldDetails.id] ? 'show' : 'hide';
-
+      let remarkSection = '';
+      if(props.remarksValue != "" && !props.formFieldRemarks[formFieldDetails.id]) 
+        remarkSection = <div className="remarks-section">
+                          <Label className="remarks-label">Remarks</Label>
+                          <p>{props.remarksValue}</p><Button className="btn-bl" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                        </div>
+      else
+        remarkSection = <div className={className}>
+              <FormGroup>
+                <Label className="remarks-label">Remarks</Label>
+                <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks" value={props.remarksValue}  />
+              </FormGroup> 
+              <Button className="btn-gr" onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
+              <Button className="btn-re" onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
+            </div> ;
+      let mediaClassName = 'media-section';
+      
+      mediaClassName += (props.mediaFileData.length > 0 ) ? 'show' : 'hide';
       return(
         <div className="inspection-form-card">
             <FormGroup>
@@ -73,17 +92,16 @@ function FieldLayout(props) {
                 )}
               </div>
             </FormGroup>
-            <div className={className}>
-              <FormGroup>
-                <Label className="remarks-label">Remarks</Label>
-                <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks" value={props.remarksValue}  />
-              </FormGroup> 
-              <Button className="btn-gr" onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
-              <Button className="btn-re" onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
-            </div>  
+            {remarkSection}
+            <div className={mediaClassName}>
+                {props.mediaFileData.map((mediaData, mediaindex) => 
+                    <ImgTag src={mediaData} key={mediaindex} />
+                )} 
+            </div>
             <div className="inspection-btn-section">              
               <Button className="btn-bl" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Remark</Button> 
-              <Button className="btn-gr">Photo</Button> 
+              <Label className="btn btn-gr" for={`media__${formFieldDetails.id}`}>Photo </Label> 
+              <Input name={`media__${formFieldDetails.id}`} type="file" accept="image/*" className="hide" data-inputid={formFieldDetails.id} id={`media__${formFieldDetails.id}`} onChange={props.onchangeFileEvent}  />
               <Button className="btn-ye">Action</Button> 
             </div>       
         </div>
@@ -127,6 +145,7 @@ class PreviewTemplatePageForm extends Component {
       dataTableItem: [],
       formFieldRemarks: {},
       formFieldValueRemarks: {},
+      mediaFileData: {},
     };
     
   }
@@ -147,11 +166,17 @@ class PreviewTemplatePageForm extends Component {
   }
   changeFileHandle = event => {
     const targetFile = event.target.files[0];
-    const targetFieldName = event.target.name;
+    const targetFieldName = event.target.name;    
     var reader = new FileReader();
-    const objProps = this.props;
+    const objProps = this;
+    let mediaFileData = this.state.mediaFileData;
+    const inputFieldId = event.target.dataset.inputid;
+    let mediaFileDataArray = mediaFileData[event.target.dataset.inputid] ? mediaFileData[event.target.dataset.inputid] : []
     reader.onload = function(e) {
-      objProps.updateFormFieldValue(targetFieldName, e.target.result);
+      mediaFileDataArray.push(e.target.result);
+      debugger;
+      mediaFileData[inputFieldId] = mediaFileDataArray;
+      objProps.setState({mediaFileData: mediaFileData})
     }
     reader.readAsDataURL(targetFile);
   }
@@ -181,21 +206,27 @@ class PreviewTemplatePageForm extends Component {
   cancelRemarkEventHandle = event => {
     let formFieldRemarks = this.state.formFieldRemarks;
     formFieldRemarks[event.target.dataset.inputid] = false;
-    let formFieldValueRemarks = this.state.formFieldValueRemarks;
-    formFieldValueRemarks[event.target.dataset.inputid] = "";
-    this.setState({formFieldRemarks: formFieldRemarks, formFieldValueRemarks: formFieldValueRemarks});
-    this.props.updateRemarks(event.target.dataset.inputid, "");
+    //let formFieldValueRemarks = this.state.formFieldValueRemarks;
+    //formFieldValueRemarks[event.target.dataset.inputid] = "";
+    this.setState({formFieldRemarks: formFieldRemarks});
+    //this.props.updateRemarks(event.target.dataset.inputid, "");
   }
   render() {
     const formFiled = this.props.templateField;
+    debugger;
     return (
       <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
-            <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} />
+            <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} 
+            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} />
           )}
       </div>
     );
   }
 }
 
+
+function ImgTag(props){
+  return (<img src={props.src} width="200px" height="200px" />)
+}
 export default PreviewTemplatePageForm;
