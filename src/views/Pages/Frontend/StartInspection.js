@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBCol, MDBRow, MDBCard,MDBCardBody } from "mdbreact";
+import { MDBContainer, MDBCol, MDBRow, MDBCard,MDBCardBody, Button } from "mdbreact";
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
@@ -14,6 +14,8 @@ class StartInspection extends React.Component {
     this.state = {   
       loading: false, 
       formField: {},
+      remarks: {},
+      mediaFileInfo: {},
       formErrors: {},
       templateData: [],
       inspectionId: "",
@@ -26,6 +28,9 @@ class StartInspection extends React.Component {
     
     this.handleFormFieldName = this.handleFormFieldName.bind(this);
     this.handleUpdateFormFieldValue = this.handleUpdateFormFieldValue.bind(this);
+    this.handleUpdateRemarks = this.handleUpdateRemarks.bind(this);
+    this.handleUpdateMediaFile = this.handleUpdateMediaFile.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
 
   // Fetch the subCategory List
@@ -67,101 +72,8 @@ class StartInspection extends React.Component {
           }
         } )
     } ) 
-  }
-
+  } 
   
-  /* Input Field On changes*/
-  changeHandler = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const formField = this.state.formField
-    formField[name] = value;
-    this.setState({ formField: formField }, () => { this.validateField(name, value) });
-  };
- 
-  /* Validate Field*/
-  validateField(fieldName, value) {
-    let fieldValidationErrors = this.state.formErrors;
-    fieldValidationErrors.error = '';
-   
-    switch(fieldName) {         
-      case 'categoryId':        
-        fieldValidationErrors.category = (value !== '') ? '' : ' is required';
-        break; 
-      case 'subCategoryId':        
-        fieldValidationErrors.subcategory = (value !== '') ? '' : ' is required';
-        break; 
-      case 'template_name':        
-        fieldValidationErrors.template_name = (value !== '') ? '' : ' is required';
-        break;
-                    
-      default:
-        break;
-    }
-    this.setState({formErrors: fieldValidationErrors,       
-                  }, this.validateForm);
-  }
-  /* Validate Form */
-  validateForm() {
-    
-    const formErrors = this.state.formErrors;
-    const formField = this.state.formField;
-    this.setState({formValid: 
-      (formErrors.category === ""  && formErrors.subcategory === "" && formErrors.template_name === "" && formField.categoryId !== "" && formField.subCategoryId !== "" && formField.template_name !== "") 
-      ? true : false});
-  }
-  /* Set Error Class*/
-  errorClass(error) {
-    return(error.length === 0 ? '' : 'has-error');
-  }
-
-  /* Submit Form Handler*/
-  submitHandler (event) {
-    event.preventDefault();   
-    const formErrors = this.state.formErrors;
-    let formField = this.state.formField;
-    let count = 0;
-    Object.keys(formErrors).forEach(function(key) {
-        if(formField[key] !== undefined && formField[key] === "")
-          count++;
-    });
-    if(count > 0 ){
-      toast.error("Please fill all required field");
-      return;
-    }    
-    let formData = {}
-    formData.inspectionId = this.state.inspectionId;
-    formData.templateId = this.state.templateId;
-    formData.organizationId = this.state.organizationId;
-    formData.feedBackData = formField;
-    
-    
-    commonService.postAPIWithAccessToken('inspection/feedback', formData)
-      .then( res => {        
-         
-        if ( undefined === res.data.data || !res.data.status ) { 
-          this.setState( { loading: false} );
-          toast.error(res.data.message);
-          return;
-        } 
-        
-        this.setState({ modal: false});
-        toast.success(res.data.message);
-        //this.props.history.push('/admin/template');
-       
-      } )
-      .catch( err => {     
-            
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else
-          this.setState( { loading: false } );
-          toast.error(err.message);
-      } );
-  };
-
   resetForm(){
     this.props.history.push('/admin/inspection');
   }
@@ -180,6 +92,60 @@ class StartInspection extends React.Component {
     formField[fieldName] = fieldValue;
     this.setState({formField: formField});
   }
+  /*Update Remarks*/
+  handleUpdateRemarks(fieldName, fieldValue){
+    let remarks = this.state.remarks;
+    //fieldName = fieldName.split('remarks__');
+    remarks[fieldName] = fieldValue;
+    this.setState({remarks: remarks});
+  }
+
+  /*Update Media File Url*/
+  handleUpdateMediaFile(fieldName, fieldValue){
+    let mediaFile = this.state.mediaFileInfo;
+    let fieldMedia = mediaFile[fieldName] ?  mediaFile[fieldName] : [];
+    fieldMedia.push(fieldValue);
+    mediaFile[fieldName] = fieldMedia;
+    this.setState({mediaFile: mediaFile});
+  }
+
+  /*Submit Form Handler*/
+
+  handleSubmitForm() {
+    
+    if(this.state.inspectionId == ""){
+      toast.error("Something Went Wrong");
+      return false;
+    }
+    let formData = {inspectionId: this.state.inspectionId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo};
+    debugger;
+    this.setState( { loading: true}, () => {
+      commonService.postAPIWithAccessToken('inspection/feedback', formData)
+        .then( res => {        
+          debugger;
+          if ( undefined === res.data.data || !res.data.status ) { 
+            this.setState( { loading: false} );
+            toast.error(res.data.message);
+            return;
+          } 
+          
+          this.setState({ modal: false});
+          toast.success(res.data.message);
+          //this.props.history.push('/admin/template');
+         
+        } )
+        .catch( err => {         
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else
+            this.setState( { loading: false } );
+            toast.error(err.message);
+        } )
+    });
+  }
+
   render() {
     let loaderElement = '';
     if(this.state.loading)
@@ -195,7 +161,8 @@ class StartInspection extends React.Component {
                         <MDBCol lg="12" className="">
                             <MDBCard>
                                 <MDBCardBody>
-                                    <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} answers={this.state.userAnswer} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue}  /> 
+                                    <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} formField={this.state.formField} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue} updateRemarks={this.handleUpdateRemarks} remarksValue={this.state.remarks} updateMediaFile={this.handleUpdateMediaFile} /> 
+                                    <Button onClick={this.handleSubmitForm.bind(this)} className="success">Submit</Button>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>
