@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {Col, Row, Input, FormGroup, Label, CustomInput, Button} from 'reactstrap';
-
+const yellow = 'ye';
+const blue = 'bl';
+const green = 'gr';
+const red = 're'
 
 
 function FieldLayout(props) {
@@ -66,7 +69,7 @@ function FieldLayout(props) {
       className += props.formFieldRemarks[formFieldDetails.id] ? 'show' : 'hide';
       let remarkSection = '';
       if(props.remarksValue != "" && !props.formFieldRemarks[formFieldDetails.id]) 
-        remarkSection = <div className="remarks-section">
+        remarkSection = <div className="remarks-content-section">
                           <Label className="remarks-label">Remarks</Label>
                           <p>{props.remarksValue}</p><Button className="btn-bl" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                         </div>
@@ -76,8 +79,8 @@ function FieldLayout(props) {
                 <Label className="remarks-label">Remarks</Label>
                 <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks" value={props.remarksValue}  />
               </FormGroup> 
-              <Button className="btn-gr" onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
-              <Button className="btn-re" onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
+              <Button color={green} onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
+              <Button color={red} onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
             </div> ;
       let mediaClassName = 'media-section';
       
@@ -85,7 +88,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title"><span className="inspection-no-value">1</span>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
               <div className="inspection-check">
                 {formFieldDetails.options.map((radioButtonOptions, index) =>              
                   <CustomInput key={index} name={formFieldDetails.id} type="radio" checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
@@ -99,10 +102,10 @@ function FieldLayout(props) {
                 )} 
             </div>
             <div className="inspection-btn-section">              
-              <Button className="btn-bl" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Remark</Button> 
+              <Button color={blue} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Remark</Button> 
               <Label className="btn btn-gr" for={`media__${formFieldDetails.id}`}>Photo </Label> 
               <Input name={`media__${formFieldDetails.id}`} type="file" accept="image/*" className="hide" data-inputid={formFieldDetails.id} id={`media__${formFieldDetails.id}`} onChange={props.onchangeFileEvent}  />
-              <Button className="btn-ye">Action</Button> 
+              <Button color={yellow}>Action</Button> 
             </div>       
         </div>
       )
@@ -227,6 +230,6 @@ class PreviewTemplatePageForm extends Component {
 
 
 function ImgTag(props){
-  return (<img src={props.src} width="200px" height="200px" />)
+  return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" /> </div><i className="fa fa-times"></i></div>)
 }
 export default PreviewTemplatePageForm;
