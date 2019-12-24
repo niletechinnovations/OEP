@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Col, Row, Input, FormGroup, Label, CustomInput, Button} from 'reactstrap';
+import { toast} from 'react-toastify';
 const yellow = 'ye';
 const blue = 'bl';
 const green = 'gr';
-const red = 're'
-
+const red = 're';
 
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
@@ -98,7 +98,7 @@ function FieldLayout(props) {
             {remarkSection}
             <div className={mediaClassName}>
                 {props.mediaFileData.map((mediaData, mediaindex) => 
-                    <ImgTag src={mediaData} key={mediaindex} />
+                    <ImgTag src={mediaData} key={mediaindex} deleteImageItem= {props.deleteImage} dataIndex={mediaindex} dataid={formFieldDetails.id} />
                 )} 
             </div>
             <div className="inspection-btn-section">              
@@ -149,12 +149,14 @@ class PreviewTemplatePageForm extends Component {
       formFieldRemarks: {},
       formFieldValueRemarks: {},
       mediaFileData: {},
+      inspectionId: ""
     };
     
   }
   componentDidMount() {   
     let formFiled = {};
     let formErrors = {};
+    this.setState({inspectionId: this.props.inspectionId});
     for(const [i, formFieldDetails] of this.props.templateField.entries()){
       if(formFieldDetails.element === "Header" || formFieldDetails.element === "Paragraph" || formFieldDetails.element === "LineBreak" || formFieldDetails.element === "Label")
         continue;
@@ -164,26 +166,35 @@ class PreviewTemplatePageForm extends Component {
     };
     this.props.createFormFieldName(formFiled, formErrors);
   }
+  /* Change Input Field*/
   changeHandle = event => {
     this.props.updateFormFieldValue(event.target.name, event.target.value);
   }
+
+  /*Browse File to Upload*/
+
   changeFileHandle = event => {
     const targetFile = event.target.files[0];
-    const targetFieldName = event.target.name;    
+    if(targetFile.type !== "image/png" && targetFile.type !== "image/jpeg" && targetFile.type !== "image/jpg" && targetFile.type !== "image/svg") {
+      toast.error("Images allowed only");
+      return false;
+    }
+    const targetFieldName = event.target.name;       
     var reader = new FileReader();
     const objProps = this;
     let mediaFileData = this.state.mediaFileData;
     const inputFieldId = event.target.dataset.inputid;
     let mediaFileDataArray = mediaFileData[event.target.dataset.inputid] ? mediaFileData[event.target.dataset.inputid] : []
     reader.onload = function(e) {
-      mediaFileDataArray.push(e.target.result);
-      debugger;
+      mediaFileDataArray.push(e.target.result);      
       mediaFileData[inputFieldId] = mediaFileDataArray;
-      objProps.setState({mediaFileData: mediaFileData})
+      objProps.setState({mediaFileData: mediaFileData});
     }
     reader.readAsDataURL(targetFile);
+    objProps.props.updateMediaFile(inputFieldId, targetFile);
   }
 
+  /*Handle Remarks Data*/
   remarkChangeEventHandle = event =>  {
     let formFieldValueRemarks = this.state.formFieldValueRemarks;
     let fieldName = event.target.name.split('remarks__');
@@ -191,12 +202,15 @@ class PreviewTemplatePageForm extends Component {
     this.setState({formFieldValueRemarks: formFieldValueRemarks});
     
   }
+
+  /*Show Remarks Form*/
   remarkEventHandle = event => {
+    debugger;
     let formFieldRemarks = this.state.formFieldRemarks;
     formFieldRemarks[event.target.dataset.inputid] = true;
     this.setState({formFieldRemarks: formFieldRemarks});
   }
-
+  /*Save Remarks Form*/
   remarkSaveEventHandle = event =>  {
     let formFieldRemarks = this.state.formFieldRemarks;
     formFieldRemarks[event.target.dataset.inputid] = false;
@@ -206,6 +220,8 @@ class PreviewTemplatePageForm extends Component {
     
     
   }
+
+  /*Hide Remarks Form*/
   cancelRemarkEventHandle = event => {
     let formFieldRemarks = this.state.formFieldRemarks;
     formFieldRemarks[event.target.dataset.inputid] = false;
@@ -214,22 +230,32 @@ class PreviewTemplatePageForm extends Component {
     this.setState({formFieldRemarks: formFieldRemarks});
     //this.props.updateRemarks(event.target.dataset.inputid, "");
   }
+
+  deleteInspectionImage = event => {
+    let mediaFileData = this.state.mediaFileData;
+    const inputFieldId = event.target.dataset.inputid;
+    let mediaFileDataArray = mediaFileData[event.target.dataset.inputid] ? mediaFileData[event.target.dataset.inputid] : [];
+    mediaFileDataArray.splice(parseInt(event.target.dataset.currentindex), 1);
+    mediaFileData[inputFieldId] = mediaFileDataArray;
+    this.setState({mediaFileData: mediaFileData});
+
+  }
   render() {
     const formFiled = this.props.templateField;
-    debugger;
+    
     return (
       <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
             <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} 
-            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} />
+            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} deleteImage= {this.deleteInspectionImage.bind(this)} />
           )}
       </div>
     );
   }
 }
 
-
+/*Display Browse Image*/
 function ImgTag(props){
-  return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" /> </div><i className="fa fa-times"></i></div>)
+  return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" /> </div><i className="fa fa-times" onClick={props.deleteImageItem} data-inputid={props.dataid} data-currentindex={props.dataIndex}></i></div>)
 }
 export default PreviewTemplatePageForm;

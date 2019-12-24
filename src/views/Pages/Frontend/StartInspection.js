@@ -101,12 +101,35 @@ class StartInspection extends React.Component {
   }
 
   /*Update Media File Url*/
-  handleUpdateMediaFile(fieldName, fieldValue){
+  handleUpdateMediaFile(fieldName, fileInput){
     let mediaFile = this.state.mediaFileInfo;
     let fieldMedia = mediaFile[fieldName] ?  mediaFile[fieldName] : [];
-    fieldMedia.push(fieldValue);
-    mediaFile[fieldName] = fieldMedia;
-    this.setState({mediaFile: mediaFile});
+    let formData = new FormData();     
+    formData.append('filename',fileInput);
+    formData.append('questionId',fieldName);
+    formData.append('inspectionId',this.state.inspectionId);
+    commonService.postAPIWithAccessToken('inspection/media/'+this.state.inspectionId, formData)
+      .then( res => { 
+        if ( undefined === res.data.data || !res.data.status ) { 
+          this.setState( { loading: false} );
+          toast.error(res.data.message);
+          return;
+        } 
+        
+        fieldMedia.push({mediaFileId: res.data.data[0]._id, 'mediaFile': res.data.data[0].mediaFile});
+        mediaFile[fieldName] = fieldMedia;
+        this.setState({mediaFileInfo: mediaFile});
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else
+          this.setState( { loading: false } );
+          toast.error(err.message);
+      } )    
   }
 
   /*Submit Form Handler*/
@@ -118,11 +141,11 @@ class StartInspection extends React.Component {
       return false;
     }
     let formData = {inspectionId: this.state.inspectionId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo};
-    debugger;
+    
     this.setState( { loading: true}, () => {
       commonService.postAPIWithAccessToken('inspection/feedback', formData)
         .then( res => {        
-          debugger;
+          
           if ( undefined === res.data.data || !res.data.status ) { 
             this.setState( { loading: false} );
             toast.error(res.data.message);
@@ -131,7 +154,6 @@ class StartInspection extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          //this.props.history.push('/admin/template');
          
         } )
         .catch( err => {         
@@ -161,7 +183,7 @@ class StartInspection extends React.Component {
                         <MDBCol lg="12" className="">
                             <MDBCard>
                                 <MDBCardBody>
-                                    <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} formField={this.state.formField} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue} updateRemarks={this.handleUpdateRemarks} remarksValue={this.state.remarks} updateMediaFile={this.handleUpdateMediaFile} /> 
+                                    <PreviewTemplatePageForm inspectionId={this.state.inspectionId} templateField = {this.state.templatePreviewData} formField={this.state.formField} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue} updateRemarks={this.handleUpdateRemarks} remarksValue={this.state.remarks} updateMediaFile={this.handleUpdateMediaFile} /> 
                                     <Button onClick={this.handleSubmitForm.bind(this)} className="btn-gr">Submit</Button>
                                 </MDBCardBody>
                             </MDBCard>
