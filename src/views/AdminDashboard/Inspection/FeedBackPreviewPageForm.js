@@ -65,11 +65,19 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <div>
-              {formFieldDetails.options.map((radioButtonOptions, index) =>              
-                <CustomInput key={index} name={formFieldDetails.id} type="radio" checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}   />
-              )}
+            <Label>{formFieldDetails.label}</Label>
+            <p>{props.formValue.input || ""}</p>
+            <div className="notes-section">
+              <strong>Remarks</strong>
+              <p>{props.formValue.remarks || ""}</p>
+            </div>
+            <div className="photos-section">
+              <strong>Photo</strong>
+              {
+                props.formValue.mediaFile.map((mediaInfo, mediaFileIndex) => 
+                  <PreviewFileInput key={mediaFileIndex} filename={mediaInfo.mediaFile} apiUrl={props.apiUrl} />
+                )
+              }
             </div>
           </FormGroup>
         </Col>
@@ -105,12 +113,12 @@ function FieldLayout(props) {
   }
 } 
 function PreviewFileInput (props) {
-  
-  if(props.formValue !== "") {
-    if(props.formValue.toLowerCase().indexOf('.png') > -1 || props.formValue.toLowerCase().indexOf('.jpeg') > -1 || props.formValue.toLowerCase().indexOf('.jpg') > -1) 
-        return (<img src={`${props.apiUrl}survey/${props.formValue}`} width="200px" height="200px" alt="" />);        
+  debugger;
+  if(props.filename !== "") {
+    if(props.filename.toLowerCase().indexOf('.png') > -1 || props.filename.toLowerCase().indexOf('.jpeg') > -1 || props.filename.toLowerCase().indexOf('.jpg') > -1) 
+        return (<img src={`${props.apiUrl}feedback/${props.filename}`} width="200px" height="200px" alt="" />);        
     else 
-       return(<a href={`${props.apiUrl}survey/${props.formValue}`} target="_blank"  rel="noopener noreferrer"><i className="fa fa-download"></i>Download</a>);  
+       return(<a href={`${props.apiUrl}feedback/${props.filename}`} target="_blank"  rel="noopener noreferrer"><i className="fa fa-download"></i>Download</a>);  
   }
   else
       return ('');

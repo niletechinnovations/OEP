@@ -44,7 +44,7 @@ class InspectionFeedBack extends Component {
           const inspectionFeedBack = responseData.inspectionFeedBack;
           delete responseData['inspectionFeedBack'];
           const inspectionInfo = responseData;
-          debugger;
+          
           this.setState({loading:false, inspectionFeedbackList: inspectionFeedBack, inspectionInfo: inspectionInfo});     
          
         } )

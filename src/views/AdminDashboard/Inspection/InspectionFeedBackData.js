@@ -28,10 +28,13 @@ class InspectionFeedBackData extends Component {
     let rowsItem = [];
     const inspectionInfo = this.props.inspectionInfo;
     for(const [i, feedback] of this.props.data.entries()){
+      
       let feedbackInfo = {
         inspectionName: inspectionInfo.inspectionName,
         organizationName: inspectionInfo.organizationName,  
         employeeName: inspectionInfo.employeeFirstName+" "+inspectionInfo.employeeLastName,
+        score: `${feedback.score * 100}%`,
+        failedItem: feedback.wrongQuestion,
         templateName: inspectionInfo.templateName || " ",
         date: feedback.createdAt || " ",
         action: <p><Link to={`/admin/inspection/feedback/${feedback._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
@@ -49,8 +52,12 @@ class InspectionFeedBackData extends Component {
         name: 'employeeName',
       },
       {
-        label: 'Template',
-        name: 'templateName',
+        label: 'Score',
+        name: 'score',
+      },
+      {
+        label: 'Failed Item',
+        name: 'failedItem',
       },
       {
         label: 'Date',

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardHeader, Col, Row, Button} from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, Button, FormGroup, Label} from 'reactstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
@@ -26,7 +26,7 @@ class FeedBackPreviewPage extends React.Component {
   // Fetch the subCategory List
   componentDidMount() {
     const { match: { params } } = this.props;
-    debugger;
+    
     if(params.feedBackId !== undefined && params.feedBackId !=="") 
       this.getInspectionFeedBackDetail(params.feedBackId);
     const apiUrl = commonService.getAPIUrl();
@@ -36,13 +36,12 @@ class FeedBackPreviewPage extends React.Component {
   getInspectionFeedBackDetail(feedBackId) {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('inspection/feedback/detail/'+feedBackId)
-        .then( res => {
-          console.log(res);
-           debugger;
+        .then( res => {         
+           
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);  
-            this.props.history.push('/inspection');  
+            this.props.history.push('/admin/inspection');  
             return;
           } 
           const feedBackDetail = res.data.data;
@@ -50,8 +49,7 @@ class FeedBackPreviewPage extends React.Component {
           this.setState({loading:false, feedBackInfo: feedBackDetail});     
          
         } )
-        .catch( err => { 
-          debugger;        
+        .catch( err => {                   
           if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
             this.props.history.push('/login');
@@ -68,7 +66,7 @@ class FeedBackPreviewPage extends React.Component {
   }
   createPdf = (html) => Doc.createPdf(html, this.state.feedBackInfo.inspectionId);
   render() {
-    const { loading } = this.state;     
+    const { loading, feedBackInfo} = this.state;     
     let loaderElement ='';
     if(loading) {
       loaderElement = <Loader />
@@ -102,7 +100,61 @@ class FeedBackPreviewPage extends React.Component {
               </CardHeader>
               <CardBody className="feedBackPreview">
                 {loaderElement}
-                <PdfContainer createPdf={this.createPdf}>               
+                <PdfContainer createPdf={this.createPdf}>  
+                  <Row>
+                    <Col md={12}>
+                      <Row>
+                        <Col md={3}>
+                          <FormGroup> 
+                            <Label htmlFor="organizationId"><strong>Inspection</strong></Label>  
+                            <p>{feedBackInfo.inspectionName ? feedBackInfo.inspectionName : ''}</p>
+                          </FormGroup>  
+                        </Col>
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="employeeId"><strong>Organization</strong> </Label>            
+                            <p>{feedBackInfo.organizationName ? feedBackInfo.organizationName : ''}</p>
+                          </FormGroup>
+                        </Col>                     
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId"><strong>Employee</strong></Label>            
+                            <p>{feedBackInfo.employeeName}</p>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId"><strong>Template</strong></Label>            
+                            <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
+                          </FormGroup>
+                        </Col>  
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId"><strong>Template</strong></Label>            
+                            <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="score"><strong>Score</strong></Label>            
+                            <p>{feedBackInfo.score * 100 }%</p>
+                          </FormGroup>
+                        </Col> 
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="score"><strong>Failed Item</strong></Label>            
+                            <p>{feedBackInfo.failedItem}</p>
+                          </FormGroup>
+                        </Col> 
+                        <Col lg={6}>
+                          <FormGroup> 
+                            <Label htmlFor="score"><strong>Address</strong></Label>            
+                            <p>{`${feedBackInfo.address} ${feedBackInfo.city} ${feedBackInfo.state} ${feedBackInfo.country}`}</p>
+                          </FormGroup>
+                        </Col>                  
+                      </Row>  
+                    </Col>                    
+                  </Row>             
                   <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} apiUrl={this.state.apiUrl}   /> 
                 </PdfContainer>
               </CardBody>
