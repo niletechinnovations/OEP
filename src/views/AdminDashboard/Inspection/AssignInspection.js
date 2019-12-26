@@ -426,11 +426,12 @@ class AssignInspection extends React.Component {
         "templateId": formInputField.templateId,
         "assignEmployee": selectedEmployeList
       };
-
-      if(this.state.inspectionId === "")
-        formData.employeeId = this.state.selectedEmployee.map(i => i.value).join(',');
-      else
-        formData.employeeId = this.state.selectedEmployee.value;
+      debugger;
+      if(this.state.inspectionId !== ""){
+        formData.employeeId = selectedEmployeList[0].employeeId;
+        formData.storeId = selectedEmployeList[0].storeId;
+      }
+      
       
       if(this.state.inspectionId !== "" ) {
         formData.inspectionId = this.state.inspectionId;
