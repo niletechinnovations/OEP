@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Col, Row, Input, FormGroup, Label, CustomInput, Button} from 'reactstrap';
+import {Col, Row, Input, FormGroup, Label, CustomInput, Form, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast} from 'react-toastify';
+import { FormErrors } from '../../Formerrors/Formerrors';
 const yellow = 'ye';
 const blue = 'bl';
 const green = 'gr';
@@ -105,7 +106,7 @@ function FieldLayout(props) {
               <Button color={blue} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Remark</Button> 
               <Label className="btn btn-gr" for={`media__${formFieldDetails.id}`}>Photo </Label> 
               <Input name={`media__${formFieldDetails.id}`} type="file" accept="image/*" className="hide" data-inputid={formFieldDetails.id} id={`media__${formFieldDetails.id}`} onChange={props.onchangeFileEvent}  />
-              <Button color={yellow}>Action</Button> 
+              <Button color={yellow} onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Action</Button> 
             </div>       
         </div>
       )
@@ -149,9 +150,12 @@ class PreviewTemplatePageForm extends Component {
       formFieldRemarks: {},
       formFieldValueRemarks: {},
       mediaFileData: {},
-      inspectionId: ""
+      inspectionId: "",
+      modal: false,
+      actionData: {}
     };
-    
+    this.submitHandler = this.submitHandler.bind(this);
+    this.handleActionInput = this.handleActionInput.bind(this);
   }
   componentDidMount() {   
     let formFiled = {};
@@ -204,8 +208,7 @@ class PreviewTemplatePageForm extends Component {
   }
 
   /*Show Remarks Form*/
-  remarkEventHandle = event => {
-    debugger;
+  remarkEventHandle = event => {   
     let formFieldRemarks = this.state.formFieldRemarks;
     formFieldRemarks[event.target.dataset.inputid] = true;
     this.setState({formFieldRemarks: formFieldRemarks});
@@ -240,16 +243,97 @@ class PreviewTemplatePageForm extends Component {
     this.setState({mediaFileData: mediaFileData});
 
   }
+
+
+  /*Action Handle Request*/
+
+  actionEventHandle = event => {
+    let actionFormData = this.state.actionData;
+    let questionActionInfo = this.props.actionValue[event.target.dataset.inputid] ? this.props.actionValue[event.target.dataset.inputid] : {};
+    debugger;
+    actionFormData['questionId'] = event.target.dataset.inputid;
+    actionFormData['action_description'] = questionActionInfo.description || "";
+    actionFormData['employee_id'] = questionActionInfo.employeeId || "";
+    actionFormData['priority_input'] = questionActionInfo.priority || "";
+    actionFormData['due_date'] = questionActionInfo.dueDate || "";
+    this.setState({
+      modal: true, 
+      actionData: actionFormData    
+    });
+  }
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,     
+    });
+  }
+
+  submitHandler (event) {
+    event.preventDefault();
+    let actionFormData = this.state.actionData;
+    actionFormData.priority_input = actionFormData.priority_input ? actionFormData.priority_input : 1;
+    let formData = {description: actionFormData.action_description, employeeId: actionFormData.employee_id, priority: actionFormData.priority_input, dueDate: actionFormData.due_date};
+    this.props.updateAction(actionFormData.questionId, formData);
+  }
+
+  handleActionInput = event => {
+    let actionFormData = this.state.actionData
+    actionFormData[event.target.name] = event.target.value;
+    this.setState({actionData: actionFormData});
+  }
   render() {
     const formFiled = this.props.templateField;
-    
+   
     return (
+      <>
       <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
             <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} 
-            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} deleteImage= {this.deleteInspectionImage.bind(this)} />
+            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} 
+            onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} 
+            remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} 
+            formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} 
+            deleteImage= {this.deleteInspectionImage.bind(this)} actionEvent={this.actionEventHandle}  />
           )}
       </div>
+      <Modal isOpen={this.state.modal} toggle={this.toggle} className="category-modal-section">
+        <ModalHeader toggle={this.toggle}>Category</ModalHeader>
+        <Form onSubmit={this.submitHandler}>
+          <ModalBody>
+            
+            <FormGroup> 
+              <Label htmlFor="action_description">Description</Label>            
+              <Input type="textarea" placeholder="Description *" id="action_description" name="action_description" value={this.state.actionData.action_description} onChange={this.handleActionInput} required />
+            </FormGroup>
+            <FormGroup>      
+              <Label htmlFor="employee_id">Assign</Label>            
+              <Input type="select" placeholder="Employee *" id="employee_id" name="employee_id" value={this.state.actionData.employee_id} onChange={this.handleActionInput} required>
+                <option value="">Select Employee</option>         
+                {this.props.employeeList.map((employeeInfo, index) =>
+                  <SetEmployeeDropDownItem key={index} employeeInfo={employeeInfo} />
+                )}       
+              </Input>
+            </FormGroup> 
+           <FormGroup>      
+              <Label htmlFor="priority_input">Priority</Label>            
+              <Input type="select" placeholder="priority *" id="priority_input" name="priority_input" value={this.state.actionData.priority_input} onChange={this.handleActionInput} >
+                <option value="1">Low</option> 
+                <option value="2">Medium</option>  
+                <option value="3">High</option>                
+              </Input>
+            </FormGroup> 
+            <FormGroup>      
+              <Label htmlFor="due_date">Due</Label>            
+              <Input type="date" placeholder="Due" id="due_date" name="due_date" value={this.state.actionData.due_date} onChange={this.handleActionInput} />
+            </FormGroup> 
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" type="submit">Submit</Button>
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+      </>
     );
   }
 }
@@ -257,5 +341,10 @@ class PreviewTemplatePageForm extends Component {
 /*Display Browse Image*/
 function ImgTag(props){
   return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" /> </div><i className="fa fa-times" onClick={props.deleteImageItem} data-inputid={props.dataid} data-currentindex={props.dataIndex}></i></div>)
+}
+/*Employee Dropdown List*/
+function SetEmployeeDropDownItem(props){
+  const employeeDetail = props.employeeInfo;
+  return (<option value={employeeDetail.authId} >{employeeDetail.firstName} {employeeDetail.lastName}</option>)
 }
 export default PreviewTemplatePageForm;

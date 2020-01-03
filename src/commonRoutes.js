@@ -3,7 +3,7 @@ import StartInspection from './views/Pages/Frontend/StartInspection';
 
 const commonRoutes = [
   { path: '/common/template/:templateId', exact: true, name: 'Template Preview', component: TemplatePreview },
-  { path: '/common/inspection/:inspectionId', exact: true, name: 'Inspection', component: StartInspection },
+  { path: '/common/inspection/:inspectionId/:authId', exact: true, name: 'Inspection', component: StartInspection },
 ];
 
 export default commonRoutes;
