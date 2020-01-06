@@ -26,7 +26,8 @@ class StartInspection extends React.Component {
       userAnswer: {},
       authId: "",  
       employeeList: [],
-      actionData: {}    
+      actionData: {},
+      actionFormHide: false    
     }    
     
     this.handleFormFieldName = this.handleFormFieldName.bind(this);
@@ -142,40 +143,70 @@ class StartInspection extends React.Component {
 
   /*Update Action Data*/
   handleActionData(fieldName, actionFormData){
-    debugger;
       if(this.state.inspectionId == ""){
         toast.error("Something Went Wrong");
         return false;
       } 
       let actionInfo = this.state.actionData;
-      let actionInfoItem = actionInfo[fieldName] ?  actionInfo[fieldName] : {};
+      let actionInfoItem = actionInfo[fieldName] ?  actionInfo[fieldName] : {};      
       actionInfo[fieldName] = actionFormData;
+      
       let formData = {inspectionId: this.state.inspectionId, authId: this.state.authId, questionId: fieldName, description: actionFormData.description, employeeId: actionFormData.employeeId, priority: actionFormData.priority, dueDate: actionFormData.dueDate, type: 1};
       this.setState({actionData: actionInfo})
-      /*this.setState( { loading: true}, () => {
-      commonService.postAPIWithAccessToken('inspection/action', formData)
-          .then( res => {        
-            
-            if ( undefined === res.data.data || !res.data.status ) { 
-              this.setState( { loading: false} );
-              toast.error(res.data.message);
-              return;
-            } 
-            actionInfo[fieldName] = res.data.data
-            this.setState({ actionData: actionInfo});
-            toast.success(res.data.message);
-           
-          } )
-          .catch( err => {         
-            if(err.response !== undefined && err.response.status === 401) {
-              localStorage.clear();
-              this.props.history.push('/login');
-            }
-            else
-              this.setState( { loading: false } );
-              toast.error(err.message);
-          } )
-      });*/
+      
+      if(actionInfoItem._id != undefined ) {
+        formData.actionId = actionInfoItem._id;
+        this.setState( { loading: true, actionFormHide: false}, () => {
+          commonService.putAPIWithAccessToken('action', formData)
+              .then( res => {        
+                
+                if ( undefined === res.data.data || !res.data.status ) { 
+                  this.setState( { loading: false} );
+                  toast.error(res.data.message);
+                  return;
+                } 
+                actionInfo[fieldName] = res.data.data
+                this.setState({ actionData: actionInfo, loading: false, actionFormHide: true});
+                toast.success(res.data.message);
+               
+              } )
+              .catch( err => {         
+                if(err.response !== undefined && err.response.status === 401) {
+                  localStorage.clear();
+                  this.props.history.push('/login');
+                }
+                else
+                  this.setState( { loading: false } );
+                  toast.error(err.message);
+              } )
+          });
+      }
+      else {
+        this.setState( { loading: true, actionFormHide: false}, () => {
+          commonService.postAPIWithAccessToken('action', formData)
+              .then( res => {        
+                
+                if ( undefined === res.data.data || !res.data.status ) { 
+                  this.setState( { loading: false} );
+                  toast.error(res.data.message);
+                  return;
+                } 
+                actionInfo[fieldName] = res.data.data
+                this.setState({ actionData: actionInfo, loading: false, actionFormHide: true});
+                toast.success(res.data.message);
+               
+              } )
+              .catch( err => {         
+                if(err.response !== undefined && err.response.status === 401) {
+                  localStorage.clear();
+                  this.props.history.push('/login');
+                }
+                else
+                  this.setState( { loading: false } );
+                  toast.error(err.message);
+              } )
+          });
+     }
   }
 
   /*Submit Form Handler*/
@@ -186,7 +217,7 @@ class StartInspection extends React.Component {
       toast.error("Something Went Wrong");
       return false;
     }
-    let formData = {inspectionId: this.state.inspectionId, authId: this.state.authId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo};
+    let formData = {inspectionId: this.state.inspectionId, authId: this.state.authId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, actionInfo: this.state.actionData};
    
     this.setState( { loading: true}, () => {
       commonService.postAPIWithAccessToken('inspection/feedback', formData)
@@ -198,7 +229,7 @@ class StartInspection extends React.Component {
             return;
           } 
           
-          this.setState({ modal: false});
+          this.setState({ modal: false, loading: false});
           toast.success(res.data.message);
          
         } )
@@ -232,7 +263,7 @@ class StartInspection extends React.Component {
                                     <PreviewTemplatePageForm inspectionId={this.state.inspectionId} templateField = {this.state.templatePreviewData} formField={this.state.formField} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue} 
                                     updateRemarks={this.handleUpdateRemarks} remarksValue={this.state.remarks} 
                                     updateMediaFile={this.handleUpdateMediaFile} employeeList={this.state.employeeList} 
-                                    updateAction={this.handleActionData} actionValue={this.state.actionData} /> 
+                                    updateAction={this.handleActionData} actionValue={this.state.actionData} actionFormHide={this.state.actionFormHide} /> 
                                     <Button onClick={this.handleSubmitForm.bind(this)} className="btn-gr">Submit</Button>
                                 </MDBCardBody>
                             </MDBCard>

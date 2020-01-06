@@ -69,6 +69,14 @@ function FieldLayout(props) {
       let className = "remarks-section ";
       className += props.formFieldRemarks[formFieldDetails.id] ? 'show' : 'hide';
       let remarkSection = '';
+      let actionView = '';
+      if(props.actionValue != "")
+        actionView = <div className="action-content-section">
+                        <Label className="remarks-label">Action</Label>
+                        <p>{props.actionValue.description}</p>
+                        <p>Due Date: {props.actionValue.dueDate}</p>
+                        <Button className="btn-bl" onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                      </div>;
       if(props.remarksValue != "" && !props.formFieldRemarks[formFieldDetails.id]) 
         remarkSection = <div className="remarks-content-section">
                           <Label className="remarks-label">Remarks</Label>
@@ -97,6 +105,7 @@ function FieldLayout(props) {
               </div>
             </FormGroup>
             {remarkSection}
+            {actionView}
             <div className={mediaClassName}>
                 {props.mediaFileData.map((mediaData, mediaindex) => 
                     <ImgTag src={mediaData} key={mediaindex} deleteImageItem= {props.deleteImage} dataIndex={mediaindex} dataid={formFieldDetails.id} />
@@ -249,8 +258,8 @@ class PreviewTemplatePageForm extends Component {
 
   actionEventHandle = event => {
     let actionFormData = this.state.actionData;
-    let questionActionInfo = this.props.actionValue[event.target.dataset.inputid] ? this.props.actionValue[event.target.dataset.inputid] : {};
     debugger;
+    let questionActionInfo = this.props.actionValue[event.target.dataset.inputid] ? this.props.actionValue[event.target.dataset.inputid] : {};
     actionFormData['questionId'] = event.target.dataset.inputid;
     actionFormData['action_description'] = questionActionInfo.description || "";
     actionFormData['employee_id'] = questionActionInfo.employeeId || "";
@@ -274,6 +283,9 @@ class PreviewTemplatePageForm extends Component {
     actionFormData.priority_input = actionFormData.priority_input ? actionFormData.priority_input : 1;
     let formData = {description: actionFormData.action_description, employeeId: actionFormData.employee_id, priority: actionFormData.priority_input, dueDate: actionFormData.due_date};
     this.props.updateAction(actionFormData.questionId, formData);
+    this.setState({
+      modal: false,     
+    });
   }
 
   handleActionInput = event => {
@@ -289,14 +301,15 @@ class PreviewTemplatePageForm extends Component {
       <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
             <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} 
-            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} 
+            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} 
+            remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} 
             onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} 
             remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} 
             formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} 
-            deleteImage= {this.deleteInspectionImage.bind(this)} actionEvent={this.actionEventHandle}  />
+            deleteImage= {this.deleteInspectionImage.bind(this)} actionEvent={this.actionEventHandle} actionValue={this.props.actionValue[formFieldDetails.id] ? this.props.actionValue[formFieldDetails.id] : ""}  />
           )}
       </div>
-      <Modal isOpen={this.state.modal} toggle={this.toggle} className="category-modal-section">
+      <Modal isOpen={this.state.modal } toggle={this.toggle} className="category-modal-section">
         <ModalHeader toggle={this.toggle}>Category</ModalHeader>
         <Form onSubmit={this.submitHandler}>
           <ModalBody>

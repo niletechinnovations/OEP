@@ -212,7 +212,7 @@ const cardChartData4 = {
     },
   ],
 };
-const cardChartData14 = {
+/*const cardChartData14 = {
   labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
   datasets: [
     {
@@ -221,6 +221,19 @@ const cardChartData14 = {
       backgroundColor: 'rgba(99, 154, 255, 0.73)',
     },
   ],
+};*/
+
+const cardChartData14 = (labels = [], data = []) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Inspection',
+        backgroundColor: 'rgba(99, 154, 255, 0.73)',
+        data: data,
+      },
+    ],
+  }
 };
 const cardChartOpts14 = {
  
@@ -435,7 +448,8 @@ class Dashboard extends Component {
       inspectionLabels: [],
       inspectionData: [],
       organizationLables: [],
-      organizationData: []
+      organizationData: [],
+      conductedInspection: {labels: [], data: []}
     };
   }
 
@@ -451,6 +465,9 @@ class Dashboard extends Component {
             return;
           }   
           const responseData = res.data.data;
+          let conductedInspection = this.state.conductedInspection;
+          conductedInspection.labels =  responseData.inspectionConducted.labels;
+          conductedInspection.data =  responseData.inspectionConducted.data;
           this.setState({loading:false, dashBoardStats: res.data.data, 
             inspectionData: responseData.inspectionGraphData.data, inspectionLabels: responseData.inspectionGraphData.labels,
             organizationData: responseData.organizationGraphData.data, organizationLables: responseData.organizationGraphData.labels});     
@@ -595,7 +612,7 @@ class Dashboard extends Component {
                   
                 </Row>
                 <div className="chart-wrapper" >
-                  <Bar data={cardChartData14} options={cardChartOpts14}  />
+                  <Bar data={cardChartData14(this.state.conductedInspection.labels, this.state.conductedInspection.data)} options={cardChartOpts14}  />
                 </div>
               </CardBody>              
             </Card>
