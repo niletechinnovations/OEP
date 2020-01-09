@@ -36,3 +36,36 @@
 .previewButton {
     width: 89%;
 }
+.preview-template .modal-header h4 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    padding: 10px 0;
+}
+
+.form-builder-preview {
+    max-height: 440px;
+    overflow-y: scroll;
+    background: #e8edf2;
+    padding: 10px 0;
+}
+.preview-template .rfb-item {
+    padding: 10px;
+    position: relative;
+    background: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.preview-template .rfb-item .form-label span{font-size: 12px;
+    font-weight: 600;}
+
+.preview-template .rfb-item h3.static {font-size: 15px; font-weight: bold; margin-bottom: 10px; }
+.preview-template {top: 5%; }
+.btn-bl {background-color: #2196F3 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-gr {background-color: #4caf50 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-re {background-color: #ff1100 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-ye {background-color: #ffc107 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+section.pdf-toolbar {
+    padding: 0px 15px;
+}

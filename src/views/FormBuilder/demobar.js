@@ -81,33 +81,33 @@ export default class Demobar extends React.Component {
 
     return (
         <div className="templatePreview">
-          <a className="btn btn-primary pull-right" style={{ marginRight: '10px'}} href="#!" onClick={this.showPreview.bind(this)}>Preview Form</a>       
+          <a className="btn btn-bl pull-right" style={{ marginRight: '10px'}} href="#!" onClick={this.showPreview.bind(this)}>Preview Form</a>       
 
           { this.state.previewVisible &&
             <div className={modalClass}>
-              <div className="modal-dialog">
-                
-                <div className="modal-content form-builder-preview">
+              <div className="modal-dialog preview-template">
+                <div className="modal-content">
                   <div className="modal-header">                    
                     <h4 className="modal-title">Preview Template </h4>
-                    <a href="#!" className="btn btn-default pull-right" data-dismiss="modal" onClick={this.closePreview.bind(this)}>&times;</a>
+                    <a href="#!" className=" btn-re pull-right" data-dismiss="modal" onClick={this.closePreview.bind(this)}>&times;</a>
                   </div>
-                  <PdfContainer createPdf={this.createPdf}>                    
-                      <ReactFormGenerator
-                        download_path=""
-                        back_action="/"
-                        back_name="Back"
-                        answer_data={{}}
-                        action_name="Save"
-                        form_action="/"
-                        form_method="POST"
-                        hide_actions= "true"
-                        variables={this.props.variables}
-                        data={this.state.data} />                    
-                  </PdfContainer>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.closePreview.bind(this)}>Close</button>
+                  <div className="form-builder-body form-builder-preview">
+
+                    <PdfContainer createPdf={this.createPdf}>                    
+                        <ReactFormGenerator
+                          download_path=""
+                          back_action="/"
+                          back_name="Back"
+                          answer_data={{}}
+                          action_name="Save"
+                          form_action="/"
+                          form_method="POST"
+                          hide_actions= "true"
+                          variables={this.props.variables}
+                          data={this.state.data} />                    
+                    </PdfContainer>
                   </div>
+                  
                 </div>
               </div>
             </div>

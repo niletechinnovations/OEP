@@ -74,13 +74,13 @@ function FieldLayout(props) {
         actionView = <div className="action-content-section">
                         <Label className="remarks-label">Action</Label>
                         <p>{props.actionValue.description}</p>
-                        <p>Due Date: {props.actionValue.dueDate}</p>
-                        <Button className="btn-bl" onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                        <div className="date"><b>Due Date:</b> {props.actionValue.dueDate}</div>
+                        <Button className="btn-bl btn-edit" onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                       </div>;
       if(props.remarksValue != "" && !props.formFieldRemarks[formFieldDetails.id]) 
         remarkSection = <div className="remarks-content-section">
                           <Label className="remarks-label">Remarks</Label>
-                          <p>{props.remarksValue}</p><Button className="btn-bl" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                          <p>{props.remarksValue}</p><Button className="btn-bl btn-edit" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                         </div>
       else
         remarkSection = <div className={className}>
@@ -341,8 +341,8 @@ class PreviewTemplatePageForm extends Component {
             </FormGroup> 
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" type="submit">Submit</Button>
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button className="btn btn-gr" type="submit">Submit</Button>
+            <Button className="btn btn-re" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Form>
       </Modal>
