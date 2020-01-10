@@ -80,7 +80,7 @@ export default class Demobar extends React.Component {
     }
 
     return (
-        <div className="templatePreview">
+        <div className="templatePreview1">
           <a className="btn btn-bl pull-right" style={{ marginRight: '10px'}} href="#!" onClick={this.showPreview.bind(this)}>Preview Form</a>       
 
           { this.state.previewVisible &&
