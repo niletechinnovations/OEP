@@ -41,11 +41,11 @@ class FeedBackPreviewPage extends React.Component {
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);  
-            this.props.history.push('/admin/inspection');  
+            this.props.history.push('/organization/inspection');  
             return;
           } 
           const feedBackDetail = res.data.data;
-          debugger;        
+                
           this.setState({loading:false, feedBackInfo: feedBackDetail});     
          
         } )
@@ -62,7 +62,7 @@ class FeedBackPreviewPage extends React.Component {
     } ) 
   }
   backButtonPrevious(){
-    this.props.history.push('/admin/inspection/'+this.state.feedBackInfo.inspectionId);
+    this.props.history.push('/organization/inspection/'+this.state.feedBackInfo.inspectionId);
   }
   createPdf = (html) => Doc.createPdf(html, this.state.feedBackInfo.inspectionId);
   render() {

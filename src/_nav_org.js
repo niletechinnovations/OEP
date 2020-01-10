@@ -13,7 +13,7 @@ export default {
     {
       name: 'Store',
       url: '/organization/store',
-      icon: 'icon-location',     
+      icon: 'icon-people',     
     },    
     {
       name: 'Inspection',      
@@ -29,6 +29,11 @@ export default {
           icon: 'icon-theme',     
         }
       ]    
+    },
+    {
+      name: 'Action',      
+      icon: 'icon-people', 
+      url: '/organization/action',  
     },
     {
       name: 'Profile',

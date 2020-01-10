@@ -4,7 +4,7 @@ import MUIDataTable from "mui-datatables";
 
   
   
-class InspectionData extends Component {
+class ActionData extends Component {
   
   constructor(props){
     super(props);   
@@ -28,40 +28,42 @@ class InspectionData extends Component {
     let rowsItem = [];
     
     for(const [i, inspection] of this.props.data.entries()){
+      
       let inspectionInfo = {
-        organizationName: inspection.organizationName,  
-        inspectionName: inspection.inspectionName,
-        employeeName: inspection.employeeName,
-        templateName: inspection.templateName || " ",
-        categoryName: inspection.categoryName || " ",
-        subCategoryName: inspection.subCategoryName || " ",
-        action: <p><Link to={`/organization/inspection/assign-inspection/${inspection.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link>
-          <Link to={`/organization/inspection/${inspection.inspectionId}`} title="View Feedback" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
-          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></a></p>,       
+       description: inspection.description,
+       createdBy: inspection.AssignBy != undefined ? inspection.AssignBy.firstName + ' '+ inspection.AssignBy.lastName : '',
+       assignTo: inspection.AssignTo != undefined ? inspection.AssignTo.firstName + ' '+  inspection.AssignTo.lastName : '', 
+       dueDate: inspection.dueDate,   
+       priority: inspection.priority == 1 ? 'Low' : (inspection.priority == 2  ? 'Medium': 'High'),
+       status: inspection.status == 1 ? 'To Do' : (inspection.status == 2  ? 'In Process': 'Completed'), 
+       action: '' 
       }      
       rowsItem.push(inspectionInfo);
     }
     const columns = [
       {
-        label: 'Inspection',
-        name: 'inspectionName',
-      },      
-      {
-        label: 'Employee',
-        name: 'employeeName',
+        label: 'Description',
+        name: 'description',
       },
       {
-        label: 'Template',
-        name: 'templateName',
+        label: 'Created By',
+        name: 'createdBy',
       },
       {
-        label: 'Category',
-        name: 'categoryName',
+        label: 'Assign To',
+        name: 'assignTo',
       },
       {
-        label: 'Subcategory',
-        name: 'subCategoryName',
+        label: 'Due Date',
+        name: 'dueDate',
+      },
+      {
+        label: 'Priority',
+        name: 'priority',
+      },
+      {
+        label: 'Status',
+        name: 'status',
       },
       {
         label: 'Action',
@@ -97,4 +99,4 @@ class InspectionData extends Component {
   }
 }
 
-export default InspectionData;
+export default ActionData;

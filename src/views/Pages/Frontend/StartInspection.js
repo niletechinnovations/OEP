@@ -115,6 +115,7 @@ class StartInspection extends React.Component {
     let formData = new FormData();     
     formData.append('filename',fileInput);
     formData.append('questionId',fieldName);
+    formData.append('authId',this.state.authId);
     formData.append('inspectionId',this.state.inspectionId);
     
     commonService.postAPIWithAccessToken('inspection/media/'+this.state.inspectionId, formData)
@@ -143,7 +144,7 @@ class StartInspection extends React.Component {
 
   /*Update Action Data*/
   handleActionData(fieldName, actionFormData){
-      if(this.state.inspectionId == ""){
+      if(this.state.inspectionId === ""){
         toast.error("Something Went Wrong");
         return false;
       } 
@@ -151,10 +152,10 @@ class StartInspection extends React.Component {
       let actionInfoItem = actionInfo[fieldName] ?  actionInfo[fieldName] : {};      
       actionInfo[fieldName] = actionFormData;
       
-      let formData = {inspectionId: this.state.inspectionId, authId: this.state.authId, questionId: fieldName, description: actionFormData.description, employeeId: actionFormData.employeeId, priority: actionFormData.priority, dueDate: actionFormData.dueDate, type: 1};
+      let formData = {inspectionId: this.state.inspectionId, authId: this.state.authId, questionId: fieldName, description: actionFormData.description, employeeId: actionFormData.employeeId, priority: actionFormData.priority, dueDate: actionFormData.dueDate, type: 1, organizationId: this.state.organizationId};
       this.setState({actionData: actionInfo})
       
-      if(actionInfoItem._id != undefined ) {
+      if(actionInfoItem._id !== undefined ) {
         formData.actionId = actionInfoItem._id;
         this.setState( { loading: true, actionFormHide: false}, () => {
           commonService.putAPIWithAccessToken('action', formData)
@@ -213,7 +214,7 @@ class StartInspection extends React.Component {
 
   handleSubmitForm() {
     
-    if(this.state.inspectionId == ""){
+    if(this.state.inspectionId === ""){
       toast.error("Something Went Wrong");
       return false;
     }

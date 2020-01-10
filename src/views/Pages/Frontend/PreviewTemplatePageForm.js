@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Col, Row, Input, FormGroup, Label, CustomInput, Form, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {Col, Input, FormGroup, Label, CustomInput, Form, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast} from 'react-toastify';
-import { FormErrors } from '../../Formerrors/Formerrors';
+
 const yellow = 'ye';
 const blue = 'bl';
 const green = 'gr';
@@ -70,14 +70,14 @@ function FieldLayout(props) {
       className += props.formFieldRemarks[formFieldDetails.id] ? 'show' : 'hide';
       let remarkSection = '';
       let actionView = '';
-      if(props.actionValue != "")
+      if(props.actionValue !== "")
         actionView = <div className="action-content-section">
                         <Label className="remarks-label">Action</Label>
                         <p>{props.actionValue.description}</p>
                         <div className="date"><b>Due Date:</b> {props.actionValue.dueDate}</div>
                         <Button className="btn-bl btn-edit" onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                       </div>;
-      if(props.remarksValue != "" && !props.formFieldRemarks[formFieldDetails.id]) 
+      if(props.remarksValue !== "" && !props.formFieldRemarks[formFieldDetails.id]) 
         remarkSection = <div className="remarks-content-section">
                           <Label className="remarks-label">Remarks</Label>
                           <p>{props.remarksValue}</p><Button className="btn-bl btn-edit" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
@@ -86,7 +86,7 @@ function FieldLayout(props) {
         remarkSection = <div className={className}>
               <FormGroup>
                 <Label className="remarks-label">Remarks</Label>
-                <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks" value={props.remarksValue}  />
+                <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks"  />
               </FormGroup> 
               <Button color={green} onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
               <Button color={red} onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
@@ -170,7 +170,7 @@ class PreviewTemplatePageForm extends Component {
     let formFiled = {};
     let formErrors = {};
     this.setState({inspectionId: this.props.inspectionId});
-    for(const [i, formFieldDetails] of this.props.templateField.entries()){
+    for(const formFieldDetails of this.props.templateField.entries()){
       if(formFieldDetails.element === "Header" || formFieldDetails.element === "Paragraph" || formFieldDetails.element === "LineBreak" || formFieldDetails.element === "Label")
         continue;
       if(formFieldDetails.required)
@@ -192,7 +192,7 @@ class PreviewTemplatePageForm extends Component {
       toast.error("Images allowed only");
       return false;
     }
-    const targetFieldName = event.target.name;       
+    //const targetFieldName = event.target.name;       
     var reader = new FileReader();
     const objProps = this;
     let mediaFileData = this.state.mediaFileData;
@@ -217,7 +217,7 @@ class PreviewTemplatePageForm extends Component {
   }
 
   /*Show Remarks Form*/
-  remarkEventHandle = event => {   
+  remarkEventHandle = event => {     	
     let formFieldRemarks = this.state.formFieldRemarks;
     formFieldRemarks[event.target.dataset.inputid] = true;
     this.setState({formFieldRemarks: formFieldRemarks});
@@ -310,7 +310,7 @@ class PreviewTemplatePageForm extends Component {
           )}
       </div>
       <Modal isOpen={this.state.modal } toggle={this.toggle} className="category-modal-section">
-        <ModalHeader toggle={this.toggle}>Category</ModalHeader>
+        <ModalHeader toggle={this.toggle}>Action</ModalHeader>
         <Form onSubmit={this.submitHandler}>
           <ModalBody>
             
@@ -353,7 +353,7 @@ class PreviewTemplatePageForm extends Component {
 
 /*Display Browse Image*/
 function ImgTag(props){
-  return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" /> </div><i className="fa fa-times" onClick={props.deleteImageItem} data-inputid={props.dataid} data-currentindex={props.dataIndex}></i></div>)
+  return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" alt="" /> </div><i className="fa fa-times" onClick={props.deleteImageItem} data-inputid={props.dataid} data-currentindex={props.dataIndex}></i></div>)
 }
 /*Employee Dropdown List*/
 function SetEmployeeDropDownItem(props){

@@ -63,8 +63,13 @@ export default {
           name: 'View Inspection',
           url: '/admin/inspection',
           icon: 'icon-theme',     
-        }
+        }        
       ]    
+    },
+    {
+      name: 'Action',      
+      icon: 'icon-people', 
+      url: '/admin/action',  
     },
     {
       name: 'Reports',

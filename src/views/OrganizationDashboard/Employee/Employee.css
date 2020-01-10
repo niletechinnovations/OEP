@@ -1,8 +1,7 @@
 .full-width-modal-section.modal-dialog {
 	max-width: 700px;
 }
-.mainHeading{display: flex; align-items: center; right: 0;}
-.categoryAdd {position: absolute; right: 0; top: 0; background: #ffc107; color: #fff; font-size: 12px; box-shadow: none; }
+
 
 .MuiToolbar-gutters {padding: 0; }
 .MuiToolbar-regular {
