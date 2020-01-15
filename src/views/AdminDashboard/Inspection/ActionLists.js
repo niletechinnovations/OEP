@@ -101,70 +101,7 @@ class ActionLists extends Component {
     
   }
 
-  /*categoryList List API*/
-  categoryList() {   
-   
-    commonService.getAPIWithAccessToken('category')
-      .then( res => {
-        console.log(res);
-         
-        if ( undefined === res.data.data || !res.data.status ) {
-          this.setState( {  loading: false } );
-          toast.error(res.data.message);    
-          return;
-        }   
-
-        this.setState({categoryList: res.data.data});     
-       
-      } )
-      .catch( err => {         
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else           
-          toast.error(err.message);    
-        
-      } )
-    
-  }
-  /*Sub Category*/
-  getSubCategoryList(categoryId, hideSubcat = true) {
-    const filterItem = this.state.filterItem;
-    if(categoryId === "") {      
-      filterItem.subCategoryId = '';
-      this.setState({ filterItem: filterItem, subCategoryList: [] });
-      return;
-    }
-    this.setState( { loading: true}, () => { 
-      commonService.getAPIWithAccessToken('category/'+categoryId)
-      .then( res => {
-        console.log(res);
-         
-        if ( undefined === res.data.data || !res.data.status ) {
-          this.setState( {  loading: false } );
-          toast.error(res.data.message);    
-          return;
-        }   
-        if(hideSubcat)
-          filterItem.subCategoryId = '';
-        this.setState({subCategoryList: res.data.data, filterItem: filterItem, loading: false});     
-        
-      } )
-      .catch( err => {         
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else { 
-          this.setState( {  loading: false } );        
-          toast.error(err.message); 
-
-        }
-      } )
-    })
-
-  }
+ 
 
   /*get Employee List*/
   getEmployeeList(organizationId, hideEmployee = true) {
@@ -291,7 +228,7 @@ class ActionLists extends Component {
 
   render() {
 
-    const { inspectionList, loading, categoryList, subCategoryList, organizationList, templateList, employeeList} = this.state;     
+    const { inspectionList, loading, organizationList, templateList, employeeList} = this.state;     
     let loaderElement = '';
     if(loading)        
       loaderElement = <Loader />    
@@ -369,16 +306,6 @@ class ActionLists extends Component {
 function SetOrganizationDropDownItem (props) {
   const organizationInfo = props.organizationInfo;
   return (<option value={organizationInfo.authId} >{organizationInfo.organizationName}</option>)
-}
-
-function SetCategoryDropDownItem (props) {
-  const categoryItem = props.categoryItem;
-  return (<option value={categoryItem.categoryId} >{categoryItem.categoryName}</option>)
-}
-
-function SetSubCategoryDropDownItem (props) {
-  const subCategoryItem = props.subCategoryItem;
-  return (<option value={subCategoryItem.subCategoryId} >{subCategoryItem.subCategoryName}</option>)
 }
 
 function SetEmployeeDropDownItem(props){

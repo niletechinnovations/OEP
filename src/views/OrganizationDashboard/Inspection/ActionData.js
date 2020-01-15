@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  { Link } from 'react-router-dom';
+//import  { Link } from 'react-router-dom';
 import MUIDataTable from "mui-datatables";
 
   
@@ -31,11 +31,11 @@ class ActionData extends Component {
       
       let inspectionInfo = {
        description: inspection.description,
-       createdBy: inspection.AssignBy != undefined ? inspection.AssignBy.firstName + ' '+ inspection.AssignBy.lastName : '',
-       assignTo: inspection.AssignTo != undefined ? inspection.AssignTo.firstName + ' '+  inspection.AssignTo.lastName : '', 
+       createdBy: inspection.AssignBy !== undefined ? inspection.AssignBy.firstName + ' '+ inspection.AssignBy.lastName : '',
+       assignTo: inspection.AssignTo !== undefined ? inspection.AssignTo.firstName + ' '+  inspection.AssignTo.lastName : '', 
        dueDate: inspection.dueDate,   
-       priority: inspection.priority == 1 ? 'Low' : (inspection.priority == 2  ? 'Medium': 'High'),
-       status: inspection.status == 1 ? 'To Do' : (inspection.status == 2  ? 'In Process': 'Completed'), 
+       priority: inspection.priority === 1 ? 'Low' : (inspection.priority === 2  ? 'Medium': 'High'),
+       status: inspection.status === 1 ? 'To Do' : (inspection.status === 2  ? 'In Process': 'Completed'), 
        action: '' 
       }      
       rowsItem.push(inspectionInfo);

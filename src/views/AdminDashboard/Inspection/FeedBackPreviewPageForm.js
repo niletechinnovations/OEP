@@ -7,14 +7,14 @@ function FieldLayout(props) {
   switch(formFieldDetails.element) {
     case 'Header':
       return(
-        <Col lg={12}>
+        <Col md={12}>
           <h2>{formFieldDetails.content}</h2>
         </Col>
       );
       
     case 'TextInput':
       return(
-        <Col lg={12}>
+        <Col md={12}>
           <FormGroup>
             <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}   />
@@ -24,7 +24,7 @@ function FieldLayout(props) {
       
     case 'Checkboxes':
       return(
-        <Col lg={12}>
+        <Col md={12}>
           <FormGroup>
             <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
@@ -38,7 +38,7 @@ function FieldLayout(props) {
       
     case 'TextArea':
       return(
-        <Col lg={12}>
+        <Col md={12}>
           <FormGroup>
             <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}  />
@@ -48,7 +48,7 @@ function FieldLayout(props) {
       
     case 'Dropdown':
       return(
-        <Col lg={12}>
+        <Col md={12}>
           <FormGroup>
             <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} value={props.formValue} required={formFieldDetails.required ? true : false} >
@@ -63,7 +63,7 @@ function FieldLayout(props) {
       
     case 'RadioButtons':
       return(
-        <Col lg={12}>
+        <Col md={12}>
           <FormGroup>
             <Label>{formFieldDetails.label}</Label>
             <p>{props.formValue.input || ""}</p>
@@ -85,7 +85,7 @@ function FieldLayout(props) {
       
     case 'Paragraph':
       return(
-        <Col lg={12}>
+        <Col md={12}>
           <p>{formFieldDetails.content}</p>
         </Col>
       )
@@ -93,7 +93,7 @@ function FieldLayout(props) {
     case 'Camera':
       
       return(
-          <Col lg={12}>
+          <Col md={12}>
           <FormGroup>
             <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}  />
@@ -104,7 +104,7 @@ function FieldLayout(props) {
       
     default: 
       return (
-        <Col lg={12}>
+        <Col md={12}>
           <h2>{formFieldDetails.label}</h2>
         </Col>
       )

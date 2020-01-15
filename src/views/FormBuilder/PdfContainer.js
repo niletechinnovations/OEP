@@ -39,7 +39,7 @@ class PdfContainer extends Component {
               this.props.history.push('/organization/inspection');  
               return;
             }           
-            this.setState({modal:false, share_email: ""});     
+            this.setState({modal:false, share_email: "", loading: false});     
            
           } )
           .catch( err => {   

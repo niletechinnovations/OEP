@@ -73,7 +73,7 @@ class FeedBackPreviewPage extends React.Component {
        return (
           <div className="animated fadeIn">
             <Row>
-              <Col lg={12}>
+              <Col md={12}>
                 <Card>
                   <CardHeader className="mainHeading">
                     <strong>Preview Template</strong>
@@ -93,7 +93,7 @@ class FeedBackPreviewPage extends React.Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col lg={12}>
+          <Col md={12}>
             <Card>
               <CardHeader className="mainHeading">
                 <strong>Preview FeedBack Template </strong><Button color="" className="categoryAdd" type="button" onClick={this.backButtonPrevious}><i className="fa fa-arrow-left"></i> Back</Button>
@@ -110,43 +110,43 @@ class FeedBackPreviewPage extends React.Component {
                             <p>{feedBackInfo.inspectionName ? feedBackInfo.inspectionName : ''}</p>
                           </FormGroup>  
                         </Col>
-                        <Col lg={3}>
+                        <Col md={3}>
                           <FormGroup> 
                             <Label htmlFor="employeeId"><strong>Organization</strong> </Label>            
                             <p>{feedBackInfo.organizationName ? feedBackInfo.organizationName : ''}</p>
                           </FormGroup>
                         </Col>                     
-                        <Col lg={3}>
+                        <Col md={3}>
                           <FormGroup> 
                             <Label htmlFor="templateId"><strong>Employee</strong></Label>            
                             <p>{feedBackInfo.employeeName}</p>
                           </FormGroup>
                         </Col>
-                        <Col lg={3}>
+                        <Col md={3}>
                           <FormGroup> 
                             <Label htmlFor="templateId"><strong>Template</strong></Label>            
                             <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
                           </FormGroup>
                         </Col>  
-                        <Col lg={3}>
+                        <Col md={3}>
                           <FormGroup> 
                             <Label htmlFor="templateId"><strong>Template</strong></Label>            
                             <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
                           </FormGroup>
                         </Col>
-                        <Col lg={3}>
+                        <Col md={3}>
                           <FormGroup> 
                             <Label htmlFor="score"><strong>Score</strong></Label>            
                             <p>{feedBackInfo.score * 100 }%</p>
                           </FormGroup>
                         </Col> 
-                        <Col lg={3}>
+                        <Col md={3}>
                           <FormGroup> 
                             <Label htmlFor="score"><strong>Failed Item</strong></Label>            
                             <p>{feedBackInfo.failedItem}</p>
                           </FormGroup>
                         </Col> 
-                        <Col lg={6}>
+                        <Col md={6}>
                           <FormGroup> 
                             <Label htmlFor="score"><strong>Address</strong></Label>            
                             <p>{`${feedBackInfo.address} ${feedBackInfo.city} ${feedBackInfo.state} ${feedBackInfo.country}`}</p>
