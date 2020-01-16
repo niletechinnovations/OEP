@@ -100,61 +100,64 @@ class FeedBackPreviewPage extends React.Component {
               </CardHeader>
               <CardBody className="feedBackPreview">
                 {loaderElement}
-                <PdfContainer createPdf={this.createPdf}>  
+                <PdfContainer createPdf={this.createPdf}> 
+
+                <div className="card-Preview-info"> 
                   <Row>
                     <Col md={12}>
                       <Row>
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="organizationId"><strong>Inspection</strong></Label>  
+                            <Label htmlFor="organizationId">Inspection</Label>  
                             <p>{feedBackInfo.inspectionName ? feedBackInfo.inspectionName : ''}</p>
                           </FormGroup>  
                         </Col>
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="employeeId"><strong>Organization</strong> </Label>            
+                            <Label htmlFor="employeeId">Organization</Label>            
                             <p>{feedBackInfo.organizationName ? feedBackInfo.organizationName : ''}</p>
                           </FormGroup>
                         </Col>                     
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="templateId"><strong>Employee</strong></Label>            
+                            <Label htmlFor="templateId">Employee</Label>            
                             <p>{feedBackInfo.employeeName}</p>
                           </FormGroup>
                         </Col>
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="templateId"><strong>Template</strong></Label>            
+                            <Label htmlFor="templateId">Template</Label>            
                             <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
                           </FormGroup>
                         </Col>  
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="templateId"><strong>Template</strong></Label>            
+                            <Label htmlFor="templateId">Template</Label>            
                             <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
                           </FormGroup>
                         </Col>
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="score"><strong>Score</strong></Label>            
+                            <Label htmlFor="score">Score</Label>            
                             <p>{feedBackInfo.score * 100 }%</p>
                           </FormGroup>
                         </Col> 
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="score"><strong>Failed Item</strong></Label>            
+                            <Label htmlFor="score">Failed Item</Label>            
                             <p>{feedBackInfo.failedItem}</p>
                           </FormGroup>
                         </Col> 
                         <Col md={6}>
                           <FormGroup> 
-                            <Label htmlFor="score"><strong>Address</strong></Label>            
+                            <Label htmlFor="score">Address</Label>             
                             <p>{`${feedBackInfo.address} ${feedBackInfo.city} ${feedBackInfo.state} ${feedBackInfo.country}`}</p>
                           </FormGroup>
                         </Col>                  
                       </Row>  
                     </Col>                    
-                  </Row>             
+                  </Row>
+                  </div>             
                   <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} apiUrl={this.state.apiUrl}   /> 
                 </PdfContainer>
               </CardBody>

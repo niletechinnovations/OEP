@@ -64,22 +64,24 @@ function FieldLayout(props) {
     case 'RadioButtons':
       return(
         <Col md={12}>
-          <FormGroup>
-            <Label>{formFieldDetails.label}</Label>
+          <div className="card-Preview-item">
+            <h4>{formFieldDetails.label}</h4>
             <p>{props.formValue.input || ""}</p>
             <div className="notes-section">
-              <strong>Remarks</strong>
+              <h4>Remarks</h4>
               <p>{props.formValue.remarks || ""}</p>
             </div>
             <div className="photos-section">
-              <strong>Photo</strong>
+              <h4>Photo</h4>
+              <div className="photos-info">
               {
                 props.formValue.mediaFile.map((mediaInfo, mediaFileIndex) => 
                   <PreviewFileInput key={mediaFileIndex} filename={mediaInfo.mediaFile} apiUrl={props.apiUrl} />
                 )
               }
+              </div>
             </div>
-          </FormGroup>
+          </div>
         </Col>
       )
       
@@ -116,7 +118,7 @@ function PreviewFileInput (props) {
   
   if(props.filename !== "") {
     if(props.filename.toLowerCase().indexOf('.png') > -1 || props.filename.toLowerCase().indexOf('.jpeg') > -1 || props.filename.toLowerCase().indexOf('.jpg') > -1) 
-        return (<img src={`${props.apiUrl}feedback/${props.filename}`} width="200px" height="200px" alt="" />);        
+        return (<img src={`${props.apiUrl}feedback/${props.filename}`} alt="" />);        
     else 
        return(<a href={`${props.apiUrl}feedback/${props.filename}`} target="_blank"  rel="noopener noreferrer"><i className="fa fa-download"></i>Download</a>);  
   }
@@ -145,11 +147,13 @@ class FeedBackPreviewPageForm extends Component {
     const formFeildValue = this.props.feedBackData;
     
     return (
+      <div className="card-Preview-info">
       <Row>
          {formFeild.map((formFieldDetails, index) =>
             <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
           )}
       </Row>
+      </div>
     );
   }
 }

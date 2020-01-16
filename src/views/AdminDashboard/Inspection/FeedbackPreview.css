@@ -1,3 +1,66 @@
 .feedBackPreview .pdf-toolbar .categoryAdd {
 	right: 90px;
 }
+
+
+.card-Preview-info {
+    border: 1px solid #dae6f3;
+    padding: 10px;
+    margin-bottom: 20px;
+}.card-Preview-info .form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0;
+    padding: 0;
+    color: #001737;
+}
+
+.card-Preview-info .form-group p{
+	font-size: 13px;
+    margin-bottom: 0;
+    padding: 0;
+    color: #001737;}
+.card-Preview-info .form-control {
+    border: 1px solid #dae6f3;
+    height: auto;
+    font-size: 12px;
+    border-radius: 0;
+}
+
+.card-Preview-info h2 {
+    padding: 6px 0 6px 0;
+    font-size: 14px;
+    font-weight: 600 !important;
+    color: #001737;
+}
+.photos-info {
+    height: 80px;
+    width: 80px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    margin: 2px;
+}.photos-section p{font-size: 13px;
+    margin-bottom: 0;
+    padding: 0;
+    color: #001737;}
+.photos-info img {width: 100%; border-radius: 5px; }
+
+.card-Preview-item {
+    background: #f0f4f9;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.card-Preview-item h4{ font-size: 13px;
+    font-weight: 500 !important;
+    margin-bottom: 0;
+    padding: 0;
+    color: #001737;}
+
+.card-Preview-item p{font-size: 13px;
+    padding: 0;
+    color: #001737;}
