@@ -41,7 +41,7 @@ class ActionData extends Component {
        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editActionItem(i)}><i className="fa fa-pencil"></i> </button>
           <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteActionItem(i)}><i className="fa fa-trash"></i></button></p>
+          {if (window.confirm('Are you sure you wish to delete this action?')) this.deleteActionItem(i)}}><i className="fa fa-trash"></i></button></p>
       }      
       rowsItem.push(inspectionInfo);
     }

@@ -101,58 +101,60 @@ class FeedBackPreviewPage extends React.Component {
               <CardBody className="feedBackPreview">
                 {loaderElement}
                 <PdfContainer createPdf={this.createPdf}>  
-                  <Row>
+                  <Row className="card-Preview-info">
                     <Col md={12}>
                       <Row>
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="organizationId"><strong>Inspection</strong></Label>  
-                            <p>{feedBackInfo.inspectionName ? feedBackInfo.inspectionName : ''}</p>
-                          </FormGroup>  
+                        
+                            <Col md={3}>
+                              <FormGroup> 
+                                <Label htmlFor="organizationId"><strong>Inspection</strong></Label>  
+                                <p>{feedBackInfo.inspectionName ? feedBackInfo.inspectionName : ''}</p>
+                              </FormGroup>  
+                            </Col>
+                            <Col lg={3}>
+                              <FormGroup> 
+                                <Label htmlFor="employeeId"><strong>Organization</strong> </Label>            
+                                <p>{feedBackInfo.organizationName ? feedBackInfo.organizationName : ''}</p>
+                              </FormGroup>
+                            </Col>                     
+                            <Col lg={3}>
+                              <FormGroup> 
+                                <Label htmlFor="templateId"><strong>Employee</strong></Label>            
+                                <p>{feedBackInfo.employeeName}</p>
+                              </FormGroup>
+                            </Col>
+                            <Col lg={3}>
+                              <FormGroup> 
+                                <Label htmlFor="templateId"><strong>Template</strong></Label>            
+                                <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
+                              </FormGroup>
+                            </Col>  
+                            <Col lg={3}>
+                              <FormGroup> 
+                                <Label htmlFor="templateId"><strong>Template</strong></Label>            
+                                <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
+                              </FormGroup>
+                            </Col>
+                            <Col lg={3}>
+                              <FormGroup> 
+                                <Label htmlFor="score"><strong>Score</strong></Label>            
+                                <p>{feedBackInfo.score * 100 }%</p>
+                              </FormGroup>
+                            </Col> 
+                            <Col lg={3}>
+                              <FormGroup> 
+                                <Label htmlFor="score"><strong>Failed Item</strong></Label>            
+                                <p>{feedBackInfo.failedItem}</p>
+                              </FormGroup>
+                            </Col> 
+                            <Col lg={6}>
+                              <FormGroup> 
+                                <Label htmlFor="score"><strong>Address</strong></Label>            
+                                <p>{`${feedBackInfo.address} ${feedBackInfo.city} ${feedBackInfo.state} ${feedBackInfo.country}`}</p>
+                              </FormGroup>
+                              
                         </Col>
-                        <Col lg={3}>
-                          <FormGroup> 
-                            <Label htmlFor="employeeId"><strong>Organization</strong> </Label>            
-                            <p>{feedBackInfo.organizationName ? feedBackInfo.organizationName : ''}</p>
-                          </FormGroup>
-                        </Col>                     
-                        <Col lg={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId"><strong>Employee</strong></Label>            
-                            <p>{feedBackInfo.employeeName}</p>
-                          </FormGroup>
-                        </Col>
-                        <Col lg={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId"><strong>Template</strong></Label>            
-                            <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
-                          </FormGroup>
-                        </Col>  
-                        <Col lg={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId"><strong>Template</strong></Label>            
-                            <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
-                          </FormGroup>
-                        </Col>
-                        <Col lg={3}>
-                          <FormGroup> 
-                            <Label htmlFor="score"><strong>Score</strong></Label>            
-                            <p>{feedBackInfo.score * 100 }%</p>
-                          </FormGroup>
-                        </Col> 
-                        <Col lg={3}>
-                          <FormGroup> 
-                            <Label htmlFor="score"><strong>Failed Item</strong></Label>            
-                            <p>{feedBackInfo.failedItem}</p>
-                          </FormGroup>
-                        </Col> 
-                        <Col lg={6}>
-                          <FormGroup> 
-                            <Label htmlFor="score"><strong>Address</strong></Label>            
-                            <p>{`${feedBackInfo.address} ${feedBackInfo.city} ${feedBackInfo.state} ${feedBackInfo.country}`}</p>
-                          </FormGroup>
-                        </Col>                  
-                      </Row>  
+                      </Row>
                     </Col>                    
                   </Row>             
                   <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} apiUrl={this.state.apiUrl}   /> 

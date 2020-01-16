@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
 
@@ -55,6 +56,7 @@ class OrganizationLayout extends Component {
           <main className="main">
             <AppBreadcrumb appRoutes={organizationRoutes} router={router}/>
             <Container fluid>
+              <ToastContainer />
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {organizationRoutes.map((route, idx) => {

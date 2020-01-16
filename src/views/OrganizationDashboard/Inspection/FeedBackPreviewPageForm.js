@@ -63,23 +63,25 @@ function FieldLayout(props) {
       
     case 'RadioButtons':
       return(
-        <Col lg={12}>
-          <FormGroup>
-            <Label>{formFieldDetails.label}</Label>
+        <Col md={12}>
+          <div className="card-Preview-item">
+            <h4>{formFieldDetails.label}</h4>
             <p>{props.formValue.input || ""}</p>
             <div className="notes-section">
-              <strong>Remarks</strong>
+              <h4>Remarks</h4>
               <p>{props.formValue.remarks || ""}</p>
             </div>
             <div className="photos-section">
-              <strong>Photo</strong>
+              <h4>Photo</h4>
+              <div className="photos-info">
               {
                 props.formValue.mediaFile.map((mediaInfo, mediaFileIndex) => 
                   <PreviewFileInput key={mediaFileIndex} filename={mediaInfo.mediaFile} apiUrl={props.apiUrl} />
                 )
               }
+              </div>
             </div>
-          </FormGroup>
+          </div>
         </Col>
       )
       
@@ -145,11 +147,13 @@ class FeedBackPreviewPageForm extends Component {
     const formFeildValue = this.props.feedBackData;
     
     return (
-      <Row>
-         {formFeild.map((formFieldDetails, index) =>
-            <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
-          )}
-      </Row>
+      <div className="card-Preview-info">
+        <Row>
+           {formFeild.map((formFieldDetails, index) =>
+              <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
+            )}
+        </Row>
+      </div>
     );
   }
 }

@@ -18,6 +18,7 @@ class ActionLists extends Component {
       actionFormData: {},
       actionData: {},
       organizationId: "",
+      rowIndex: -1,
       filterItem: { organizationId: '', categoryId: '', subCategoryId: '', templateId: '', employeeId: ''},
 
     } 
@@ -56,7 +57,7 @@ class ActionLists extends Component {
             toast.error(res.data.message);
             return;
           }   
-          toast.success(res.data.message);
+         
           this.setState({loading:false, inspectionList: res.data.data});     
          
         } )
@@ -125,34 +126,9 @@ class ActionLists extends Component {
 
   /* Delete organization*/
   handleDeleteAction(rowIndex){
-    
-  }
-
-  /* Edit Action*/
-  handleEditAction(rowIndex){
     const actionInfo = this.state.inspectionList[rowIndex];
-    const formField = {
-      action_description: actionInfo.planId, 
-      plan_name: actionInfo.planName, 
-      amount: actionInfo.amount, 
-      plan_type: actionInfo.duration, 
-      number_employee: actionInfo.userAccess, 
-      number_template: actionInfo.templateAccess };
-    this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
-  }
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal,     
-    });
-  }
-
-  submitHandler (event) {
-    event.preventDefault();
-    let actionFormData = this.state.actionData;
-    actionFormData.priority_input = actionFormData.priority_input ? actionFormData.priority_input : 1;
-    let formData = {authId: this.state.organizationId, description: actionFormData.action_description, employeeId: actionFormData.employee_id, priority: actionFormData.priority_input, dueDate: actionFormData.due_date, organizationId: this.state.organizationId};
-    this.setState( { loading: true }, () => {
-      commonService.postAPIWithAccessToken('action', formData)
+    this.setState( { loading: true }, () => {      
+        commonService.deleteAPIWithAccessToken('action/'+actionInfo._id)
           .then( res => {        
             
             if ( undefined === res.data.data || !res.data.status ) { 
@@ -172,8 +148,90 @@ class ActionLists extends Component {
             else
               this.setState( { loading: false } );
               toast.error(err.message);
-          } )
-      });
+          } )        
+      
+    });
+  }
+
+  /* Edit Action*/
+  handleEditAction(rowIndex){
+    const actionInfo = this.state.inspectionList[rowIndex];    
+    const actionData = {
+      action_description: actionInfo.description, 
+      employee_id: actionInfo.employeeId, 
+      priority_input: actionInfo.priority,
+      due_date: actionInfo.dueDate };
+    this.setState({rowIndex: rowIndex, actionData: actionData, modal: true, formValid: true});
+    
+  }
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+      rowIndex: -1     
+    });
+  }
+
+  submitHandler (event) {
+    event.preventDefault();
+    let actionFormData = this.state.actionData;
+    actionFormData.priority_input = actionFormData.priority_input ? actionFormData.priority_input : 1;
+    let formData = {authId: this.state.organizationId, description: actionFormData.action_description, employeeId: actionFormData.employee_id, priority: actionFormData.priority_input, dueDate: actionFormData.due_date, organizationId: this.state.organizationId};
+    this.setState( { loading: true }, () => {
+      const rowIndex = this.state.rowIndex;
+      if(rowIndex > -1) {
+        const actionInfo = this.state.inspectionList[rowIndex];
+        formData.actionId = actionInfo._id;
+        
+        commonService.putAPIWithAccessToken('action', formData)
+        .then( res => {
+          
+           
+          if ( undefined === res.data.data || !res.data.status ) {
+           
+            this.setState( { formProccessing: false} );
+            toast.error(res.data.message);
+            return;
+          } 
+          
+          this.setState({ modal: false, formProccessing: false, loading: false});
+          toast.success(res.data.message);
+          this.inspectionList();
+         
+        } )
+        .catch( err => {         
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else
+            this.setState( { formProccessing: false } );
+            toast.error(err.message);
+        } )
+      }
+      else{
+        commonService.postAPIWithAccessToken('action', formData)
+            .then( res => {        
+              
+              if ( undefined === res.data.data || !res.data.status ) { 
+                this.setState( { loading: false} );
+                toast.error(res.data.message);
+                return;
+              }             
+              this.setState({ actionData: {}, loading: false, modal: false});
+              toast.success(res.data.message);
+              this.inspectionList();
+            } )
+            .catch( err => {         
+              if(err.response !== undefined && err.response.status === 401) {
+                localStorage.clear();
+                this.props.history.push('/login');
+              }
+              else
+                this.setState( { loading: false } );
+                toast.error(err.message);
+            } )        
+      }
+    });
   }
 
   handleActionInput = event => {
