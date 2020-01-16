@@ -15,6 +15,7 @@ import AssignInspection from './views/AdminDashboard/Inspection/AssignInspection
 import FeedBackPreviewPage from './views/AdminDashboard/Inspection/FeedBackPreviewPage';
 import Store from './views/AdminDashboard/Organization/Store/Store';
 import ActionLists from './views/AdminDashboard/Inspection/ActionLists';
+import Subscription from './views/AdminDashboard/Subscription/Subscription';
 
 
 
@@ -42,6 +43,7 @@ const adminRoutes = [
   { path: '/admin/inspection/:inspectionId', exact: true,  name: 'Inspection Feedback', component: InspectionFeedBack },
   { path: '/admin/inspection/feedback/:feedBackId', exact: true,  name: 'Feedback Preview', component: FeedBackPreviewPage },
   { path: '/admin/action', exact: true,  name: 'Action', component: ActionLists },
+  { path: '/admin/subscription', exact: true,  name: 'Subscription', component: Subscription },
 
 ];
 

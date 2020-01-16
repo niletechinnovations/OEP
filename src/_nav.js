@@ -72,6 +72,16 @@ export default {
       url: '/admin/action',  
     },
     {
+      name: 'Manage Subscription',      
+      icon: 'icon-people', 
+      children: [{
+          name: 'Subscription Plan',
+          url: '/admin/subscription',
+          icon: 'icon-theme',     
+        }       
+      ]    
+    },
+    {
       name: 'Reports',
       url: '#!',
       icon: 'icon-people',     

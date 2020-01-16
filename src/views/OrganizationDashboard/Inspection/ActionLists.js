@@ -14,11 +14,7 @@ class ActionLists extends Component {
       modal: false,      
       inspectionList: [],
       loading: true,
-      organizationList: [],
-      employeeList: [],
-      templateList: [],
-      subCategoryList: [],
-      categoryList: [], 
+      employeeList: [],     
       actionFormData: {},
       actionData: {},
       organizationId: "",
@@ -26,7 +22,8 @@ class ActionLists extends Component {
 
     } 
     
-    this.handleDeleteInspection = this.handleDeleteInspection.bind(this);
+    this.handleDeleteAction = this.handleDeleteAction.bind(this);
+    this.handleEditAction = this.handleEditAction.bind(this);
     this.filterInspectionList = this.filterInspectionList.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     
@@ -54,14 +51,12 @@ class ActionLists extends Component {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken(`action`+queryString)
         .then( res => {
-          debugger;
-           
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( { loading: false } );
             toast.error(res.data.message);
             return;
           }   
-
+          toast.success(res.data.message);
           this.setState({loading:false, inspectionList: res.data.data});     
          
         } )
@@ -114,72 +109,6 @@ class ActionLists extends Component {
 
   }
 
-  /*Get Template List*/
-  getTemplateList(categoryId, subCategoryId, hideSubcat = true){
-    const filterItem = this.state.filterItem;
-    if(categoryId === "" || subCategoryId === "") {      
-      filterItem.templateId = '';
-      this.setState({ filterItem: filterItem, templateList: [] });
-      return;
-    }
-    this.setState( { loading: true}, () => { 
-      commonService.getAPIWithAccessToken("template?categoryId="+categoryId+"&subCategoryId="+subCategoryId)
-      .then( res => {
-        console.log(res);
-         
-        if ( undefined === res.data.data || !res.data.status ) {
-          this.setState( {  loading: false } );
-          toast.error(res.data.message);    
-          return;
-        }   
-        if(hideSubcat)
-          filterItem.templateId = '';
-        this.setState({templateList: res.data.data, filterItem: filterItem, loading: false});     
-        
-      } )
-      .catch( err => {         
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else { 
-          this.setState( {  loading: false } );        
-          toast.error(err.message); 
-
-        }
-      } )
-    })
-  }
-  /*Handle catgeory Input Change and bind subcategory*/
-  changeCategoryHandle = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const filterItem = this.state.filterItem
-    filterItem[name] = value;
-    this.setState({ filterItem: filterItem });
-    this.getSubCategoryList(value);
-  }
-
-  /* Handle Subcategory Change*/
-  changeSubCategoryHandler = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const filterItem = this.state.filterItem
-    filterItem[name] = value;
-    this.setState({ filterItem: filterItem });
-    this.getTemplateList(filterItem.categoryId, value);
-  }
-
-  /*Handle Employee Change*/
-  changeOrganizationHandle = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const filterItem = this.state.filterItem
-    filterItem[name] = value;
-    this.setState({ filterItem: filterItem });
-    this.getEmployeeList(value);
-  }
-
   changeFilterHandler = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -195,8 +124,21 @@ class ActionLists extends Component {
 
 
   /* Delete organization*/
-  handleDeleteInspection(rowIndex){
+  handleDeleteAction(rowIndex){
     
+  }
+
+  /* Edit Action*/
+  handleEditAction(rowIndex){
+    const actionInfo = this.state.inspectionList[rowIndex];
+    const formField = {
+      action_description: actionInfo.planId, 
+      plan_name: actionInfo.planName, 
+      amount: actionInfo.amount, 
+      plan_type: actionInfo.duration, 
+      number_employee: actionInfo.userAccess, 
+      number_template: actionInfo.templateAccess };
+    this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
   }
   toggle = () => {
     this.setState({
@@ -218,7 +160,7 @@ class ActionLists extends Component {
               toast.error(res.data.message);
               return;
             }             
-            this.setState({ actionData: {}, loading: false});
+            this.setState({ actionData: {}, loading: false, modal: false});
             toast.success(res.data.message);
             this.inspectionList();
           } )
@@ -282,7 +224,7 @@ class ActionLists extends Component {
                     </Row>  
                   </Col>
                   <Col md={12}>
-                    <ActionData data={inspectionList} deleteInspectionAction={this.handleDeleteInspection} dataTableLoadingStatus = {this.state.loading} />
+                    <ActionData data={inspectionList} deleteAction={this.handleDeleteAction} editAction={this.handleEditAction} dataTableLoadingStatus = {this.state.loading} />
                   </Col>
                 </Row>
               </CardBody>

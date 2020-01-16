@@ -19,10 +19,12 @@ class ActionData extends Component {
    
   }
   
-  deleteInspectionItem(rowIndex){    
-    this.props.deleteInspectionAction(rowIndex);
+  deleteActionItem(rowIndex){    
+    this.props.deleteAction(rowIndex);
   }
-  
+  editActionItem(rowIndex) {
+    this.props.editAction(rowIndex);
+  }
   render() {
     
     let rowsItem = [];
@@ -36,7 +38,10 @@ class ActionData extends Component {
        dueDate: inspection.dueDate,   
        priority: inspection.priority === 1 ? 'Low' : (inspection.priority === 2  ? 'Medium': 'High'),
        status: inspection.status === 1 ? 'To Do' : (inspection.status === 2  ? 'In Process': 'Completed'), 
-       action: '' 
+       action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+          this.editActionItem(i)}><i className="fa fa-pencil"></i> </button>
+          <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+          this.deleteActionItem(i)}><i className="fa fa-trash"></i></button></p>
       }      
       rowsItem.push(inspectionInfo);
     }
