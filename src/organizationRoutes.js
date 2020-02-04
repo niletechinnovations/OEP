@@ -8,6 +8,11 @@ import AssignInspection from './views/OrganizationDashboard/Inspection/AssignIns
 import FeedBackPreviewPage from './views/OrganizationDashboard/Inspection/FeedBackPreviewPage';
 import Store from './views/OrganizationDashboard/Store/Store';
 import ActionLists from './views/OrganizationDashboard/Inspection/ActionLists';
+import TemplateList from './views/OrganizationDashboard/TemplateBuilder/Template';
+import TemplateBuilder from './views/OrganizationDashboard/TemplateBuilder/TemplateBuilderPage';
+import PreviewTemplatePage from './views/OrganizationDashboard/TemplateBuilder/PreviewTemplatePage';
+import Success from './views/OrganizationDashboard/Subscription/Success';
+import Cancel from './views/OrganizationDashboard/Subscription/Cancel';
 const oragnizationRoutes = [
   { path: '/organization/', exact: true, name: 'Home' },
   { path: '/organization/dashboard', name: 'Dashboard', component: Dashboard },  
@@ -21,6 +26,11 @@ const oragnizationRoutes = [
   { path: '/organization/inspection/:inspectionId', exact: true,  name: 'Inspection Feedback', component: InspectionFeedBack },
   { path: '/organization/inspection/feedback/:feedBackId', exact: true,  name: 'Feedback Preview', component: FeedBackPreviewPage },
   { path: '/organization/action', exact: true,  name: 'Action', component: ActionLists },
+  { path: '/organization/template', exact: true,  name: 'Template List', component: TemplateList },
+  { path: '/organization/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },
+  { path: '/organization/create-template/:templateId', exact: true,  name: 'Create Template', component: TemplateBuilder },
+  { path: '/organization/subscription/success', exact: true,  name: 'Payment Success', component: Success },
+  { path: '/organization/subscription/cancel', exact: true,  name: 'Payment Cancel', component: Cancel },
 ];
 
 export default oragnizationRoutes;

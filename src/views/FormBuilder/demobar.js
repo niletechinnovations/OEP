@@ -67,7 +67,7 @@ export default class Demobar extends React.Component {
 
   // eslint-disable-next-line no-unused-vars
   _onSubmit(data) {
-    debugger;
+    col-md-3
     return false;
     
   }

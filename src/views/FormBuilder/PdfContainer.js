@@ -2,7 +2,16 @@ import React , { Component } from 'react';
 import { Button, Form, Input, FormGroup, FormFeedback, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast } from 'react-toastify';
 import commonService from '../../core/services/commonService';
+import logo from '../../assets/img/brand/logo-black.svg';
 
+var pdf_header_logo = {
+  "width": "50%",
+  "margin": "0 auto",
+  "margin-bottom": "20px",
+}
+var pdf_header_logo_img = {
+  width: "100%",
+}
 class PdfContainer extends Component {
   
   constructor(props){
@@ -76,6 +85,9 @@ class PdfContainer extends Component {
 
         </section>
         <section className="pdf-body" style= {{padding: "20px"}} ref={this.bodyRef}>
+          <div className="pdf-header-logo" style = {pdf_header_logo}>
+              <img src={logo} alt="logo" style = {pdf_header_logo_img} />
+          </div>
           {this.props.children}
         </section>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="category-modal-section">

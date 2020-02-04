@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import './Login.css'
+
 class Login extends Component {
 
   constructor( props ){
@@ -61,7 +62,7 @@ class Login extends Component {
           
         } )
         .catch( err => {
-          debugger;
+          col-md-3
           toast.error(err.message);
           this.setState( { loading: false} );
         } )
@@ -117,6 +118,7 @@ class Login extends Component {
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
+                          
                         </Col>
                       </Row>
                     </Form>

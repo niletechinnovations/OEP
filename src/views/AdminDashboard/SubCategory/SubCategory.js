@@ -241,7 +241,7 @@ class SubCategory extends Component {
 
   /* Edit subCategory*/
   handleEditSubCategory(rowIndex){
-    debugger;
+    col-md-3
       const subCategoryItem = this.state.subCategoryList[rowIndex];
       
       this.setState({modal: true, subCategory_name: subCategoryItem.subCategoryName, rowIndex: rowIndex, categoryId:subCategoryItem.categoryId, formValid: true});

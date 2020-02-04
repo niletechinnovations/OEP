@@ -1,0 +1,71 @@
+.react-form-builder .react-form-builder-preview .Sortable .rfb-item .toolbar-header .label {
+	position: relative;
+}
+
+#templateBuilderPage .react-form-builder .react-form-builder-preview.is-editing .edit-form {   
+    left: 206px;
+    top: 61px;
+}
+#templateBuilderPage .form-place-holder {
+    min-height: 600px;
+}
+.react-form-builder-preview .Sortable + div[draggable="true"]{
+	min-height: 600px;
+}
+.show {
+	display: block;
+}
+.form-builder-preview { top: 100px; }
+.form-builder-preview .react-form-builder-form { padding: 0px 20px; }
+.pdf-toolbar .categoryAdd { right: 70px; }
+.modal-content.form-builder-preview { max-height: 580px; overflow-y: scroll;}
+.modal-content.form-builder-preview .modal-header { padding: 0rem 1rem; }
+.form-builder-preview .modal-header a { padding: 0.25rem 0.75rem; }
+
+.template-builder-tollbar {
+      position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  justify-content: flex-start;
+}
+
+.react-form-builder .react-form-builder-preview {
+    width: 100%;
+    min-height:inherit;
+}
+.previewButton {
+    width: 89%;
+}
+.preview-template .modal-header h4 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    padding: 10px 0;
+}
+
+.form-builder-preview {
+    max-height: 440px;
+    overflow-y: scroll;
+    background: #e8edf2;
+    padding: 10px 0;
+}
+.preview-template .rfb-item {
+    padding: 10px;
+    position: relative;
+    background: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.preview-template .rfb-item .form-label span{font-size: 12px;
+    font-weight: 600;}
+
+.preview-template .rfb-item h3.static {font-size: 15px; font-weight: bold; margin-bottom: 10px; }
+.preview-template {top: 5%; }
+.btn-bl {background-color: #2196F3 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-gr {background-color: #4caf50 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-re {background-color: #ff1100 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+.btn-ye {background-color: #ffc107 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
+section.pdf-toolbar {
+    padding: 0px 15px;
+}

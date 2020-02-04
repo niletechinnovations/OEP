@@ -20,8 +20,10 @@ import {
   Row,
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
-
+import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import commonService from '../../../core/services/commonService';
 
 
 //const brandPrimary = getStyle('--primary')
@@ -34,61 +36,65 @@ const brandDanger = getStyle('--danger')
 
 
 // Card Chart 2
-const cardChartData2 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: brandInfo,
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [1, 18, 9, 17, 34, 22, 11],
-    },
-  ],
+const cardChartData2 = (labels = [], data = []) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Inspection',
+        backgroundColor: brandInfo,
+        borderColor: 'rgba(255,255,255,.55)',
+        data: data,
+      },
+    ],
+  }
 };
 
-const cardChartOpts2 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent',
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        },
+const cardChartOpts2 = (data = []) => {
+ return {
+    tooltips: {
+      enabled: false,
+      custom: CustomTooltips
+    },
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
+    },
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+            color: 'transparent',
+            zeroLineColor: 'transparent',
+          },
+          ticks: {
+            fontSize: 2,
+            fontColor: 'transparent',
+          },
 
-      }],
-    yAxes: [
-      {
-        display: false,
-        ticks: {
+        }],
+      yAxes: [
+        {
           display: false,
-          min: Math.min.apply(Math, cardChartData2.datasets[0].data) - 5,
-          max: Math.max.apply(Math, cardChartData2.datasets[0].data) + 5,
-        },
-      }],
-  },
-  elements: {
-    line: {
-      tension: 0.00001,
-      borderWidth: 1,
+          ticks: {
+            display: false,
+            min: Math.min.apply(Math, data) - 5,
+            max: Math.max.apply(Math, data) + 5,
+          },
+        }],
     },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4,
+    elements: {
+      line: {
+        tension: 0.00001,
+        borderWidth: 1,
+      },
+      point: {
+        radius: 4,
+        hitRadius: 10,
+        hoverRadius: 4,
+      },
     },
-  },
+  }
 };
 
 // Card Chart 3
@@ -147,19 +153,22 @@ const cardChartData4 = {
     },
   ],
 };
-const cardChartData14 = {
-  labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-  datasets: [
-    {
-      label: 'Data',
-      data: [78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98,78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98],
-      backgroundColor: 'rgba(99, 154, 255, 0.73)',        
-    },
-  ],
+const cardChartData14 = (labels = [], data = []) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Inspection',
+        backgroundColor: 'rgba(99, 154, 255, 0.73)',
+        data: data,
+      },
+    ],
+  }
 };
 const cardChartOpts14 = {
  
 };
+
 
 const cardChartOpts4 = {
   tooltips: {
@@ -363,6 +372,13 @@ class Dashboard extends Component {
     this.state = {
       dropdownOpen: false,
       radioSelected: 2,
+      loading: false,
+      dashBoardStats: {organizationCount: 0, inspectionCount: 0},
+      inspectionLabels: [],
+      inspectionData: [],
+      organizationLables: [],
+      organizationData: [],
+      conductedInspection: {labels: [], data: []}
     };
   }
 
@@ -372,6 +388,42 @@ class Dashboard extends Component {
     });
   }
 
+  componentDidMount() { 
+    this.setState( { loading: true}, () => {
+      commonService.getAPIWithAccessToken('dashboard')
+        .then( res => {
+          col-md-3
+           
+          if ( undefined === res.data.data || !res.data.status ) {
+            this.setState( {  loading: false } );
+            toast.error(res.data.message);    
+            return;
+          }   
+          const responseData = res.data.data;
+          let conductedInspection = this.state.conductedInspection;
+          conductedInspection.labels =  responseData.inspectionConducted.labels;
+          conductedInspection.data =  responseData.inspectionConducted.data;
+          if(responseData.organizationSubscriptionPlan.status)
+            localStorage.setItem('isSubscribed', true);
+          else
+            localStorage.removeItem('isSubscribed');
+          this.setState({loading:false, dashBoardStats: res.data.data, 
+            inspectionData: responseData.inspectionGraphData.data, inspectionLabels: responseData.inspectionGraphData.labels,
+            organizationData: responseData.organizationGraphData.data, organizationLables: responseData.organizationGraphData.labels});     
+          
+        } )
+        .catch( err => {         
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else {
+            this.setState( { loading: false } );
+            toast.error(err.message);    
+          }
+        } )
+    } )
+  }
   onRadioBtnClick(radioSelected) {
     this.setState({
       radioSelected: radioSelected,
@@ -401,11 +453,11 @@ class Dashboard extends Component {
                     </DropdownMenu>
                   </ButtonDropdown>
                 </ButtonGroup>
-                <div className="text-value">1500</div>
+                <div className="text-value">{this.state.dashBoardStats.inspectionCount}</div>
                 <div>Total Inspections</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Line data={cardChartData2} options={cardChartOpts2} height={70} />
+                <Line data={cardChartData2(this.state.inspectionLabels, this.state.inspectionData)} options={cardChartOpts2(this.state.inspectionData)} height={70} />
               </div>
             </Card>
           </Col>
@@ -471,7 +523,7 @@ class Dashboard extends Component {
                   
                 </Row>
                 <div className="chart-wrapper" >
-                  <Bar data={cardChartData14} options={cardChartOpts14}  />
+                  <Bar data={cardChartData14(this.state.conductedInspection.labels, this.state.conductedInspection.data)} options={cardChartOpts14}  />
                 </div>
               </CardBody>              
             </Card>

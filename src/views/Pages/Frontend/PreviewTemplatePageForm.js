@@ -258,7 +258,7 @@ class PreviewTemplatePageForm extends Component {
 
   actionEventHandle = event => {
     let actionFormData = this.state.actionData;
-    debugger;
+    col-md-3
     let questionActionInfo = this.props.actionValue[event.target.dataset.inputid] ? this.props.actionValue[event.target.dataset.inputid] : {};
     actionFormData['questionId'] = event.target.dataset.inputid;
     actionFormData['action_description'] = questionActionInfo.description || "";

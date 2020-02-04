@@ -45,7 +45,7 @@ class FeedBackPreviewPage extends React.Component {
             return;
           } 
           const feedBackDetail = res.data.data;
-          debugger;        
+          col-md-3        
           this.setState({loading:false, feedBackInfo: feedBackDetail});     
          
         } )
@@ -100,7 +100,7 @@ class FeedBackPreviewPage extends React.Component {
               </CardHeader>
               <CardBody className="feedBackPreview">
                 {loaderElement}
-                <PdfContainer createPdf={this.createPdf}> 
+                <PdfContainer createPdf={this.createPdf} showLogo="false"> 
 
                 <div className="card-Preview-info"> 
                   <Row>

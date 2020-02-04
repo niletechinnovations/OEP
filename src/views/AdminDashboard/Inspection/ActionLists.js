@@ -50,7 +50,7 @@ class ActionLists extends Component {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken(`action`+queryString)
         .then( res => {
-          debugger;
+          col-md-3
            
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( { loading: false } );

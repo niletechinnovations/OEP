@@ -14,6 +14,21 @@ export default {
       name: 'Store',
       url: '/organization/store',
       icon: 'icon-people',     
+    }, 
+    {
+      name: 'Manage Template',
+      icon: 'icon-speedometer',
+      children: [{
+          name: 'Create Template',
+          url: '/organization/create-template',
+          icon: 'icon-theme',     
+        },
+        {
+          name: 'Template List',
+          url: '/organization/template',
+          icon: 'icon-theme',     
+        }
+      ]
     },    
     {
       name: 'Inspection',      

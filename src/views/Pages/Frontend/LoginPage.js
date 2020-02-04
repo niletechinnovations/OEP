@@ -193,6 +193,7 @@ class LoginPage extends React.Component {
                             <MDBCol md="5" className="d-flex justify-content-end">
                               <p className="Forgot-text pt-3">
                                 <a onClick={this.toggle} href="#!" className="ml-1">Forgot Password?</a>
+                                 
                             </p>
                             </MDBCol>
                           </MDBRow>
@@ -228,6 +229,7 @@ class LoginPage extends React.Component {
                         </MDBCol>
                         <MDBCol md="12" className="text-center">
                           <MDBBtn className="btn-account" type="submit">Forgot</MDBBtn>
+                         
                         </MDBCol>
                       </MDBRow>  
                   </MDBModalBody>

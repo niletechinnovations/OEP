@@ -34,6 +34,7 @@ class StoreData extends Component {
         city: Store.city || " ",      
         state: Store.state || " ",
         country: Store.country || " ",
+        storeLevelStatus: Store.storeLevelStatus ? (Store.storeLevelStatus == 1 ? "Silver" : Store.storeLevelStatus == 2 ? "Gold" : "Platinum") : 'Silver',
         status: Store.status ? 'Active' : 'Inactive',   
         action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editStoreItem(i)}><i className="fa fa-pencil"></i> </button>
@@ -55,6 +56,10 @@ class StoreData extends Component {
       {
         label: 'Phone Number',
         name: 'phoneNumber',
+      },
+      {
+        label: 'Store Level',
+        name: 'storeLevelStatus',
       },
       {
         label: 'Status',
