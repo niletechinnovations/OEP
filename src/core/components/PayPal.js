@@ -45,7 +45,7 @@ class PayPal extends Component {
   });
 }
    createOrder() {
-      col-md-3
+     
       var d = new Date(Date.now() + 1*60*1000);
     d.setSeconds(d.getSeconds() + 4);
     var isDate = d.toISOString();
@@ -106,7 +106,7 @@ class PayPal extends Component {
             }
         }
     ];
-    col-md-3
+   
     var billingAgreementAttributes = {
         "name": "Fast Speed Agreement",
         "description": "Agreement for Fast Speed Plan",
@@ -129,7 +129,7 @@ class PayPal extends Component {
 
 // Create the billing plan
     paypal.billingPlan.create(billingPlanAttributes, function (error, billingPlan) {
-      col-md-3
+     
         if (error) {
             console.log(error);
             throw error;
@@ -139,7 +139,7 @@ class PayPal extends Component {
 
             // Activate the plan by changing status to Active
             paypal.billingPlan.update(billingPlan.id, billingPlanUpdateAttributes, function (error, response) {
-               col-md-3
+              
                 if (error) {
                     console.log(error);
                     throw error;
@@ -181,21 +181,21 @@ class PayPal extends Component {
    render() {
 
       const onSuccess = payment => {
-         col-md-3
+        
          this.createOrder(payment);
       };
 
       const onCancel = data => {
-         col-md-3
+        
          console.log("The payment was cancelled!", data);
       };
 
       const onError = err => {
-        col-md-3
+       
       };
 
       const onAuthorize = function(data, action) {
-         col-md-3
+        
       }
 
       

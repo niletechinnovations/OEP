@@ -45,7 +45,7 @@ class FeedBackPreviewPage extends React.Component {
             return;
           } 
           const feedBackDetail = res.data.data;
-          col-md-3        
+              
           this.setState({loading:false, feedBackInfo: feedBackDetail});     
          
         } )

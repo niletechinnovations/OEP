@@ -81,7 +81,7 @@ class Profile extends Component {
           "postalCode": formInputField.postalCode, 
           "organizationName": formInputField.organization_name
         };
-        col-md-3
+        
         commonService.putAPIWithAccessToken('profile', formData)
           .then( res => {
             if ( undefined === res.data.data || !res.data.status ) {

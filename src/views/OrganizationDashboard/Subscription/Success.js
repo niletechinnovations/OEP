@@ -10,8 +10,7 @@ class Successs extends React.Component {
   constructor(props){
     super(props);
     this.state = {  
-      loading: false,
-      loading: false,      
+      loading: false,    
       planList: []
     }    
    
@@ -19,13 +18,13 @@ class Successs extends React.Component {
 
  
   componentDidMount() {    
-    col-md-3
+    
     const values = queryString.parse(this.props.location.search);
     if(values.token !== undefined && values.token !== "") {
       this.setState( { loading: true}, () => {
         commonService.postAPIWithAccessToken('subscription/verfiy', {token: values.token, isSandBox: true})
           .then( res => {
-            col-md-3
+            
              
             if ( undefined === res.data.data || !res.data.status ) {
               this.setState( {  loading: false } );
@@ -39,7 +38,7 @@ class Successs extends React.Component {
            
           } )
           .catch( err => {  
-          col-md-3       
+             
             if(err.response !== undefined && err.response.status === 401) {
               localStorage.clear();
               this.props.history.push('/login');
@@ -57,7 +56,6 @@ class Successs extends React.Component {
 
  
   render() {
-    const { loading} = this.state;
     
        return (
           <Row>

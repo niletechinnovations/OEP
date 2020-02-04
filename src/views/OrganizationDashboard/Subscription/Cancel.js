@@ -1,7 +1,5 @@
 import React from "react";
 import { Card, CardBody, CardHeader,CardText, CardTitle, Col, Row } from 'reactstrap';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import "./PaymentPage.css";
 
@@ -23,7 +21,7 @@ class Cancel extends React.Component {
 
  
   render() {
-    const { loading, planList, paymentProcess } = this.state;
+    
     
        return (
           <Row>

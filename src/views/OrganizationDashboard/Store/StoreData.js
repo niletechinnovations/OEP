@@ -34,7 +34,7 @@ class StoreData extends Component {
         city: Store.city || " ",      
         state: Store.state || " ",
         country: Store.country || " ",
-        storeLevelStatus: Store.storeLevelStatus ? (Store.storeLevelStatus == 1 ? "Silver" : Store.storeLevelStatus == 2 ? "Gold" : "Platinum") : 'Silver',
+        storeLevelStatus: Store.storeLevelStatus ? (Store.storeLevelStatus === 1 ? "Silver" : Store.storeLevelStatus === 2 ? "Gold" : "Platinum") : 'Silver',
         status: Store.status ? 'Active' : 'Inactive',   
         action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
           this.editStoreItem(i)}><i className="fa fa-pencil"></i> </button>

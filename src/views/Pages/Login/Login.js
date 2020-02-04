@@ -62,7 +62,7 @@ class Login extends Component {
           
         } )
         .catch( err => {
-          col-md-3
+          
           toast.error(err.message);
           this.setState( { loading: false} );
         } )

@@ -392,7 +392,7 @@ class Dashboard extends Component {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('dashboard')
         .then( res => {
-          col-md-3
+          
            
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
