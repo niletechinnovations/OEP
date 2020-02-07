@@ -251,7 +251,7 @@ class Subscription extends Component {
                 <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="amount">Amount</Label>            
-                    <Input type="text" placeholder="Amount *" id="amount" pattern="[0-9]*" name="amount" value={this.state.formField.amount} onChange={this.changeHandler} required />
+                    <Input type="text" placeholder="Amount *" id="amount"  name="amount" value={this.state.formField.amount} onChange={this.changeHandler} required />
                     <FormFeedback>{formErrors.amount}</FormFeedback>
                   </FormGroup>  
                 </Col>

@@ -169,7 +169,7 @@ class PreviewTemplatePageForm extends Component {
   componentDidMount() {   
     let formFiled = {};
     let formErrors = {};
-    this.setState({inspectionId: this.props.inspectionId});
+    this.setState({inspectionId: this.props.inspectionId, mediaFileData: this.props.previousUploadedFile});
     for(const formFieldDetails of this.props.templateField.entries()){
       if(formFieldDetails.element === "Header" || formFieldDetails.element === "Paragraph" || formFieldDetails.element === "LineBreak" || formFieldDetails.element === "Label")
         continue;
@@ -178,6 +178,7 @@ class PreviewTemplatePageForm extends Component {
       formFiled[formFieldDetails.id] = "";
     };
     this.props.createFormFieldName(formFiled, formErrors);
+    
   }
   /* Change Input Field*/
   changeHandle = event => {
@@ -202,9 +203,10 @@ class PreviewTemplatePageForm extends Component {
       mediaFileDataArray.push(e.target.result);      
       mediaFileData[inputFieldId] = mediaFileDataArray;
       objProps.setState({mediaFileData: mediaFileData});
+      objProps.props.updateMediaFile(inputFieldId, targetFile, e.target.result);
     }
     reader.readAsDataURL(targetFile);
-    objProps.props.updateMediaFile(inputFieldId, targetFile);
+    
   }
 
   /*Handle Remarks Data*/
@@ -213,6 +215,7 @@ class PreviewTemplatePageForm extends Component {
     let fieldName = event.target.name.split('remarks__');
     formFieldValueRemarks[fieldName[1]] = event.target.value;
     this.setState({formFieldValueRemarks: formFieldValueRemarks});
+    this.props.updateRemarks(fieldName[1], event.target.value);
     
   }
 
@@ -240,16 +243,19 @@ class PreviewTemplatePageForm extends Component {
     //let formFieldValueRemarks = this.state.formFieldValueRemarks;
     //formFieldValueRemarks[event.target.dataset.inputid] = "";
     this.setState({formFieldRemarks: formFieldRemarks});
+
     //this.props.updateRemarks(event.target.dataset.inputid, "");
   }
 
   deleteInspectionImage = event => {
+    
     let mediaFileData = this.state.mediaFileData;
     const inputFieldId = event.target.dataset.inputid;
     let mediaFileDataArray = mediaFileData[event.target.dataset.inputid] ? mediaFileData[event.target.dataset.inputid] : [];
     mediaFileDataArray.splice(parseInt(event.target.dataset.currentindex), 1);
     mediaFileData[inputFieldId] = mediaFileDataArray;
     this.setState({mediaFileData: mediaFileData});
+    this.props.handleRemoveMediaFile(event.target.dataset.inputid, parseInt(event.target.dataset.currentindex));
 
   }
 
@@ -295,14 +301,15 @@ class PreviewTemplatePageForm extends Component {
   }
   render() {
     const formFiled = this.props.templateField;
+
    
     return (
       <>
       <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
             <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} 
-            mediaFileData={this.state.mediaFileData[formFieldDetails.id] ? this.state.mediaFileData[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} 
-            remarksValue={this.state.formFieldValueRemarks[formFieldDetails.id] ? this.state.formFieldValueRemarks[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} 
+            mediaFileData={this.props.previousUploadedFile[formFieldDetails.id] ? this.props.previousUploadedFile[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} 
+            remarksValue={this.props.remarksValue[formFieldDetails.id] ? this.props.remarksValue[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} 
             onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} 
             remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} 
             formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} 
