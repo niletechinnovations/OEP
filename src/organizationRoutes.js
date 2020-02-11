@@ -10,7 +10,7 @@ import Store from './views/OrganizationDashboard/Store/Store';
 import ActionLists from './views/OrganizationDashboard/Inspection/ActionLists';
 import TemplateList from './views/OrganizationDashboard/TemplateBuilder/Template';
 import TemplateBuilder from './views/OrganizationDashboard/TemplateBuilder/TemplateBuilderPage';
-import PreviewTemplatePage from './views/OrganizationDashboard/TemplateBuilder/PreviewTemplatePage';
+//import PreviewTemplatePage from './views/OrganizationDashboard/TemplateBuilder/PreviewTemplatePage';
 import Success from './views/OrganizationDashboard/Subscription/Success';
 import CurrentSubscription from './views/OrganizationDashboard/Subscription/CurrentSubscription';
 import Cancel from './views/OrganizationDashboard/Subscription/Cancel';

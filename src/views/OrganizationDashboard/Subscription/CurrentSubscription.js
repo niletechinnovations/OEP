@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardHeader,CardText, CardTitle, Col, Row, Button } from 'reactstrap';
 import { toast } from 'react-toastify';
-import queryString from 'query-string'
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../Loader/Loader';
 import commonService from '../../../core/services/commonService';

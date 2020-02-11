@@ -27,8 +27,7 @@ class Subscription extends Component {
     
   }
   // Fetch the Plan List
-  componentDidMount() { 
-    const { match: { params } } = this.props;
+  componentDidMount() {     
     this.planList();
     
   }

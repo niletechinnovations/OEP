@@ -75,7 +75,7 @@ class StartInspection extends React.Component {
           formField.template_name = inspectionDetail.templateName;          
                
           let actionInfo = this.state.actionData;
-          let mediaFile = this.state.mediaFileInfo;
+          //let mediaFile = this.state.mediaFileInfo;
           if(inspectionDetail.actionList.length > 0 ) {
             for(let i =0; i < inspectionDetail.actionList.length; i++) {
               actionInfo[inspectionDetail.actionList[i].questionId] = inspectionDetail.actionList[i];
@@ -85,7 +85,7 @@ class StartInspection extends React.Component {
           let prevMediaFileInfo = {};
           if(inspectionDetail.inspectionMediaFile.length > 0 ) {
             for(let i =0; i < inspectionDetail.inspectionMediaFile.length; i++) {
-              if(mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] != undefined) {
+              if(mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] !== undefined) {
                 mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push({mediaFileId: inspectionDetail.inspectionMediaFile[i]._id, 'mediaFile': inspectionDetail.inspectionMediaFile[i].mediaFile});
                 prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'public/feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
               }
@@ -98,7 +98,7 @@ class StartInspection extends React.Component {
             }
           }
           let remarks = this.state.remarks;
-          if(inspectionDetail.feedbackDataId != "") {
+          if(inspectionDetail.feedbackDataId !== "") {
             for (var key in inspectionDetail.feedBackData) {
               formField[key] = inspectionDetail.feedBackData[key].input;
               remarks[key] = inspectionDetail.feedBackData[key].remarks

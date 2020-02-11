@@ -1,6 +1,6 @@
 import axios from 'axios';
-const API_BASE_URL = 'https://oep-project.herokuapp.com/v0.0/';
-const API_BASE_URL_WITH_OUT_VERSION = 'https://oep-project.herokuapp.com/';
+const API_BASE_URL = 'http://34.195.141.117:8083/v0.0/';
+const API_BASE_URL_WITH_OUT_VERSION = 'http://34.195.141.117:8083/';
 class ApiService {
 
     /*Get API*/

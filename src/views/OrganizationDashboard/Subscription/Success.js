@@ -31,7 +31,7 @@ class Successs extends React.Component {
               toast.error(res.data.message);             
               return;
             } 
-            const paymentInfo = res.data.data;
+            //const paymentInfo = res.data.data;
             
             this.setState( { loading: true} );
             localStorage.setItem('isSubscribed', true);
