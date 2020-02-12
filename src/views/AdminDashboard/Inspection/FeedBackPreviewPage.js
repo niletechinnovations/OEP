@@ -37,7 +37,7 @@ class FeedBackPreviewPage extends React.Component {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('inspection/feedback/detail/'+feedBackId)
         .then( res => {         
-           
+           debugger;
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);  
@@ -105,55 +105,63 @@ class FeedBackPreviewPage extends React.Component {
                 <div className="card-Preview-info"> 
                   <Row>
                     <Col md={12}>
-                      <Row>
+                      <Row>                        
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="organizationId">Inspection</Label>  
-                            <p>{feedBackInfo.inspectionName ? feedBackInfo.inspectionName : ''}</p>
-                          </FormGroup>  
-                        </Col>
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="employeeId">Organization</Label>            
-                            <p>{feedBackInfo.organizationName ? feedBackInfo.organizationName : ''}</p>
-                          </FormGroup>
-                        </Col>                     
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId">Employee</Label>            
-                            <p>{feedBackInfo.employeeName}</p>
-                          </FormGroup>
-                        </Col>
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId">Template</Label>            
-                            <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
+                            <Label htmlFor="employeeId">Store Name</Label>            
+                            <p>{feedBackInfo.storeName ? feedBackInfo.storeName : ''}</p>
                           </FormGroup>
                         </Col>  
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="templateId">Template</Label>            
-                            <p>{feedBackInfo.templateName ? feedBackInfo.templateName : ''}</p>
+                            <Label htmlFor="templateId">OEP Store Walk Tier</Label>            
+                            <p>{feedBackInfo.storeWalkLevel === 1 ? 'Silver' : feedBackInfo.storeWalkLevel === 2 ? 'Glod' : feedBackInfo.storeWalkLevel === 3 ? 'Platinum' : 'Silver'}</p>
                           </FormGroup>
                         </Col>
                         <Col md={3}>
                           <FormGroup> 
+                            <Label htmlFor="templateId"># Store Walk</Label>            
+                            <p>{feedBackInfo.storeRank}</p>
+                          </FormGroup>
+                        </Col>
+                        <Col md={3}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId">Started On</Label>            
+                            <p>{feedBackInfo.inspectionStartDate ? new Date (feedBackInfo.inspectionStartDate).toString() : ''}</p>
+                          </FormGroup>
+                        </Col>                   
+                        <Col md={3}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId">Prepared By</Label>            
+                            <p>{feedBackInfo.employeeName}</p>
+                          </FormGroup>
+                        </Col>
+                                           
+                        <Col md={6}>
+                          <FormGroup> 
+                            <Label htmlFor="score">Address</Label>             
+                            <p>{feedBackInfo.addressInfo ? `${feedBackInfo.addressInfo.formatted_address}` : ""}</p>
+                            <p>{feedBackInfo.addressInfo ? `(${feedBackInfo.addressInfo.latitude},${feedBackInfo.addressInfo.longitude})` : ""}</p>
+                          </FormGroup>
+                        </Col>
+                        <Col md={3}>
+                          <FormGroup> 
+                            <Label htmlFor="score">State</Label>             
+                            <p>{feedBackInfo.addressInfo ? `${feedBackInfo.addressInfo.state}` : ""}</p>
+                          </FormGroup>
+                        </Col>  
+                        <Col md={3}>
+                          <FormGroup> 
                             <Label htmlFor="score">Score</Label>            
-                            <p>{feedBackInfo.score * 100 }%</p>
+                            <p>{feedBackInfo.successItem}/{feedBackInfo.totalItem } - {feedBackInfo.score * 100 }%</p>
                           </FormGroup>
                         </Col> 
                         <Col md={3}>
                           <FormGroup> 
-                            <Label htmlFor="score">Failed Item</Label>            
-                            <p>{feedBackInfo.failedItem}</p>
+                            <Label htmlFor="templateId">Completed On</Label>            
+                            <p>{feedBackInfo.inspectionEndDate ? new Date (feedBackInfo.inspectionEndDate).toString() : ''}</p>
                           </FormGroup>
-                        </Col> 
-                        <Col md={6}>
-                          <FormGroup> 
-                            <Label htmlFor="score">Address</Label>             
-                            <p>{`${feedBackInfo.address} ${feedBackInfo.city} ${feedBackInfo.state} ${feedBackInfo.country}`}</p>
-                          </FormGroup>
-                        </Col>                  
+                        </Col>                 
                       </Row>  
                     </Col>                    
                   </Row>

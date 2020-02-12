@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Col, Row, Input, FormGroup, Label, CustomInput} from 'reactstrap';
+import {Col, Row} from 'reactstrap';
 
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
@@ -12,57 +12,8 @@ function FieldLayout(props) {
         </Col>
       );
       
-    case 'TextInput':
-      return(
-        <Col md={12}>
-          <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}   />
-          </FormGroup>
-        </Col>
-      );
-      
-    case 'Checkboxes':
-      return(
-        <Col md={12}>
-          <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <div>
-              {formFieldDetails.options.map((checkBoxOptions, index) =>              
-                <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} checked={props.formValue === checkBoxOptions.value ? true : false} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}  />
-              )}
-            </div>
-          </FormGroup>
-        </Col>
-      )
-      
-    case 'TextArea':
-      return(
-        <Col md={12}>
-          <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}  />
-          </FormGroup>
-        </Col>
-      )
-      
-    case 'Dropdown':
-      return(
-        <Col md={12}>
-          <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} value={props.formValue} required={formFieldDetails.required ? true : false} >
-
-              {formFieldDetails.options.map((dropOptions, index) =>              
-                <option value={dropOptions.value} key={index} >{dropOptions.text}</option>
-              )}
-            </Input>
-          </FormGroup>
-        </Col>
-      )
-      
     case 'RadioButtons':
-      const remarksClass = props.formValue.remarks != "" ? "notes-section show": "notes-section hide";
+      const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";
       return(
         <Col md={12}>
           <div className="card-Preview-item">
@@ -84,17 +35,7 @@ function FieldLayout(props) {
         </Col>
       )
       
-    case 'Camera':
-      
-      return(
-          <Col md={12}>
-          <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}  />
-            <PreviewFileInput formValue = {props.formValue} apiUrl={props.apiUrl} />
-          </FormGroup>
-        </Col> 
-      ) 
+    
       
     default: 
       return (

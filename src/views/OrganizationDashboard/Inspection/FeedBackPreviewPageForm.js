@@ -62,7 +62,7 @@ function FieldLayout(props) {
       )
       
     case 'RadioButtons':
-      const remarksClass = props.formValue.remarks != "" ? "notes-section show": "notes-section hide";
+      const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";
       return(
         <Col md={12}>
           <div className="card-Preview-item">

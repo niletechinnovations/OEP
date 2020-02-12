@@ -1,8 +1,10 @@
 import React from "react";
 import { MDBContainer, MDBCol, MDBRow, MDBCard,MDBCardBody, Button } from "mdbreact";
 import { ToastContainer, toast} from 'react-toastify';
+import { geolocated } from "react-geolocated";
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
+import GeoLocationData from '../../../core/google-map/GeoLocationData';
 import Loader from '../../Loader/Loader';
 import './StartInspection.css';
 
@@ -32,7 +34,11 @@ class StartInspection extends React.Component {
       feedbackDataId: "",
       previousFeedBackData: {},
       previousActionData: [],
-      previousUploadedFile: {}   
+      previousUploadedFile: {},
+      latitude: "",
+      longitude: "",
+      addressInfo: {},
+      locationEnabled: false   
     }    
     
     this.handleFormFieldName = this.handleFormFieldName.bind(this);
@@ -43,6 +49,7 @@ class StartInspection extends React.Component {
     this.handleActionData = this.handleActionData.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleRemoveMediaFile = this.handleRemoveMediaFile.bind(this);
+    this.updateGeoLocationAddress = this.updateGeoLocationAddress.bind(this);
     
   }
 
@@ -265,7 +272,7 @@ class StartInspection extends React.Component {
       toast.error("Something Went Wrong");
       return false;
     }
-    let formData = {inspectionId: this.state.inspectionId, saveAsDraft: saveAsDraft, authId: this.state.authId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, actionInfo: this.state.actionData, feedbackDataId: this.state.feedbackDataId};
+    let formData = {inspectionId: this.state.inspectionId, saveAsDraft: saveAsDraft, authId: this.state.authId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, actionInfo: this.state.actionData, feedbackDataId: this.state.feedbackDataId, addressInfo: this.state.addressInfo};
    
     this.setState( { loading: true}, () => {      
       commonService.postAPIWithAccessToken('inspection/feedback', formData)
@@ -294,6 +301,35 @@ class StartInspection extends React.Component {
     });
   }
 
+  updateGeoLocationAddress(coords) {
+    
+    if(coords.latitude && coords.longitude){
+      
+      this.setState({latitude: coords.latitude, longitude: coords.longitude, locationEnabled: true}, () => {
+          commonService.getExternalAPI("https://maps.googleapis.com/maps/api/geocode/json?latlng="+coords.latitude+","+coords.longitude+"&key="+commonService.getGoogleAPIKey())
+            .then( res => {  
+            
+            const googleMapData = res.data.results ? res.data.results[0] : [];
+            if(googleMapData.address_components !== undefined && googleMapData.address_components.length > 0 ) {
+              const getCountry = googleMapData.address_components.filter(function(item) { return item.types.indexOf('country') > -1;});
+              const getState = googleMapData.address_components.filter(function(item) { return item.types.indexOf('administrative_area_level_1') > -1;});
+              const getCity = googleMapData.address_components.filter(function(item) { return item.types.indexOf('administrative_area_level_2') > -1;});
+              const getPostalCode = googleMapData.address_components.filter(function(item) { return item.types.indexOf('postal_code') > -1;})
+              const formatted_address = googleMapData.formatted_address || "";
+              const addressInfo = {country: getCountry.length > 0 ? getCountry[0].long_name : "",
+              state: getState.length > 0 ? getState[0].long_name : "",
+              city: getCity.length > 0 ? getCity[0].long_name : "",
+              postal_code: getPostalCode.length > 0 ? getPostalCode[0].long_name : "",
+              formatted_address: formatted_address, latitude: coords.latitude, longitude: coords.longitude}; 
+              this.setState({addressInfo: addressInfo});
+            }
+          } )
+          .catch( err => {         
+            
+          } )
+      });
+    }
+  }
   handleRemoveMediaFile(inputFieldId, currentId){    
     let mediaFileInfo = this.state.mediaFileInfo;
     let previousUploadedFile = this.state.previousUploadedFile;
@@ -334,10 +370,18 @@ class StartInspection extends React.Component {
 
   }
   render() {
+    
     let loaderElement = '';
     let actionButton = '';
+    let geoLocationTags = '';
     if(this.state.loading)
       loaderElement = <Loader />
+    if(this.props.isGeolocationAvailable) {
+      if(this.props.isGeolocationEnabled) {
+        if(this.props.coords != null && !this.state.locationEnabled)
+            geoLocationTags = <GeoLocationData cords = {this.props.coords} updateAddress = {this.updateGeoLocationAddress} />
+      }
+    }
     if(this.state.loadingTemplate)
       actionButton = <>
         <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
@@ -351,6 +395,7 @@ class StartInspection extends React.Component {
             <section className="">
                 <MDBContainer>                   
                     {loaderElement}
+                    {geoLocationTags}
                     <ToastContainer />
                     <MDBRow className="">
                         <MDBCol lg="12" className="">
@@ -382,4 +427,9 @@ class StartInspection extends React.Component {
   }
 }
 
-export default StartInspection;
+export default geolocated({
+    positionOptions: {
+        enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+})(StartInspection);
