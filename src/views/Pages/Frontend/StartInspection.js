@@ -335,21 +335,16 @@ class StartInspection extends React.Component {
   }
   render() {
     let loaderElement = '';
+    let actionButton = '';
     if(this.state.loading)
       loaderElement = <Loader />
-    if(!this.state.loadingTemplate)
-      return (<>
-        <div className="main-content"> 
-            <section className="">
-                <MDBContainer>                   
-                    {loaderElement}
-                    <ToastContainer />
-                </MDBContainer>
-            </section>  
-        </div>
+    if(this.state.loadingTemplate)
+      actionButton = <>
+        <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
+        <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
             
-      </>);
-    
+      </>;
+
     return (
       <>
         <div className="main-content"> 
@@ -373,8 +368,7 @@ class StartInspection extends React.Component {
                                     actionFormHide={this.state.actionFormHide}
                                     previousUploadedFile = {this.state.previousUploadedFile}
                                     handleRemoveMediaFile = {this.handleRemoveMediaFile} /> 
-                                    <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
-                                    <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+                                    {actionButton}
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>
