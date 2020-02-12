@@ -7,7 +7,7 @@ import logo from '../../assets/img/brand/logo-black.svg';
 var pdf_header_logo = {
   "width": "50%",
   "margin": "0 auto",
-  "margin-bottom": "20px",
+  "marginBottom": "20px",
 }
 var pdf_header_logo_img = {
   width: "100%",

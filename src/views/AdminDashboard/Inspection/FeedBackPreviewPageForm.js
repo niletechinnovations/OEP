@@ -7,41 +7,40 @@ function FieldLayout(props) {
   switch(formFieldDetails.element) {
     case 'Header':
       return(
-        <Col md={12}>
-          <h2>{formFieldDetails.content}</h2>
-        </Col>
+         <tr>
+            <td colspan="3"><h2>{formFieldDetails.content}</h2></td>
+        </tr>
       );
       
     case 'RadioButtons':
       const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";
-      return(
-        <Col md={12}>
-          <div className="card-Preview-item">
-            <h4>{formFieldDetails.label}</h4>
-            <p>{props.formValue.input || ""}</p>
-            <div className={remarksClass} >
-              <h4>Comments</h4>
-              <p>{props.formValue.remarks || ""}</p>
-            </div>
-            {props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}
-          </div>
-        </Col>
+      return(<>
+          <tr>
+            <td>{formFieldDetails.label}</td>
+            <td>{props.formValue.input || ""}</td>
+            <td>{props.formValue.remarks || ""}</td>
+          </tr>
+          <tr>
+            <td colspan="3">{props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}</td>
+          </tr>
+        </>
+        
       )
       
     case 'Paragraph':
       return(
-        <Col md={12}>
-          <p>{formFieldDetails.content}</p>
-        </Col>
+       <tr>
+            <td colspan="3">{formFieldDetails.content}</td>
+        </tr>
       )
       
     
       
     default: 
       return (
-        <Col md={12}>
-          <h2>{formFieldDetails.label}</h2>
-        </Col>
+         <tr>
+            <td colspan="3">{formFieldDetails.label}</td>
+        </tr>
       )
       
 
@@ -60,7 +59,7 @@ function PreviewFileInput (props) {
 }
 function PreviewMediaSection(props) {
   return (<div className="photos-section">
-              <h4>Photo</h4>
+              
               <div className="photos-info">
               {
                 props.mediaFile.map((mediaInfo, mediaFileIndex) => 
@@ -85,19 +84,62 @@ class FeedBackPreviewPageForm extends Component {
   componentDidMount() {   
     
   }
-  
+  getFailedItem(formFeildValue, formFeild){
+    let failedItemId = [];
+    Object.keys(formFeildValue).forEach((key, value) => {       
+        if(formFeildValue[key].input != undefined && formFeildValue[key].input.toLowerCase() === "no")
+            failedItemId.push(key);
+        
+    });
+    const failedItemForm = formFeild.filter(function(item) { return failedItemId.indexOf(item.id) > -1 ;})
+    return failedItemForm;
+    
+  }
   render() {
     
     
     const formFeild = this.props.templateField;
     const formFeildValue = this.props.feedBackData;
-    
+    let failedItemView = '';
+    const getFailedItem = this.getFailedItem(formFeildValue, formFeild);
+
+    if(getFailedItem.length > 0 )
+      failedItemView = <Row>
+         <h2>Failed Responses</h2>  
+         <p>This section lists responses that were set as "failed responses" in this template used for this audit </p>          
+          <table className="feedBackPreviewTable">
+            <thead>
+              <tr>
+                  <th>Questions</th>
+                  <th>Response</th>
+                  <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+             {getFailedItem.map((formFieldDetails, index) =>
+                <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
+              )}
+            </tbody>
+          </table>
+      </Row>
     return (
       <div className="card-Preview-info">
+      {failedItemView}
       <Row>
-         {formFeild.map((formFieldDetails, index) =>
-            <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
-          )}
+          <table className="feedBackPreviewTable">
+            <thead>
+              <tr>
+                  <th>Questions</th>
+                  <th>Response</th>
+                  <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+             {formFeild.map((formFieldDetails, index) =>
+                <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
+              )}
+            </tbody>
+          </table>
       </Row>
       </div>
     );

@@ -48,7 +48,7 @@ class AdminLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+             <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
