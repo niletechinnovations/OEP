@@ -79,14 +79,14 @@ function FieldLayout(props) {
                       </div>;
       if(props.remarksValue !== "" && !props.formFieldRemarks[formFieldDetails.id]) 
         remarkSection = <div className="remarks-content-section">
-                          <Label className="remarks-label">Remarks</Label>
+                          <Label className="remarks-label">Comments</Label>
                           <p>{props.remarksValue}</p><Button className="btn-bl btn-edit" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                         </div>
       else
         remarkSection = <div className={className}>
               <FormGroup>
-                <Label className="remarks-label">Remarks</Label>
-                <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Remarks"  />
+                <Label className="remarks-label">Comments</Label>
+                <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Comments"  />
               </FormGroup> 
               <Button color={green} onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
               <Button color={red} onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
@@ -112,7 +112,7 @@ function FieldLayout(props) {
                 )} 
             </div>
             <div className="inspection-btn-section">              
-              <Button color={blue} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Remark</Button> 
+              <Button color={blue} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Comment</Button> 
               <Label className="btn btn-gr" for={`media__${formFieldDetails.id}`}>Photo </Label> 
               <Input name={`media__${formFieldDetails.id}`} type="file" accept="image/*" className="hide" data-inputid={formFieldDetails.id} id={`media__${formFieldDetails.id}`} onChange={props.onchangeFileEvent}  />
               <Button color={yellow} onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Action</Button> 
@@ -308,7 +308,8 @@ class PreviewTemplatePageForm extends Component {
       <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
             <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} 
-            mediaFileData={this.props.previousUploadedFile[formFieldDetails.id] ? this.props.previousUploadedFile[formFieldDetails.id] : []} formValue = {this.props.formField[formFieldDetails.id]} 
+            mediaFileData={this.props.previousUploadedFile[formFieldDetails.id] ? this.props.previousUploadedFile[formFieldDetails.id] : []} 
+            formValue = {this.props.formField[formFieldDetails.id]} 
             remarksValue={this.props.remarksValue[formFieldDetails.id] ? this.props.remarksValue[formFieldDetails.id] : ""} onchangeEvent={this.changeHandle} 
             onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} 
             remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} 

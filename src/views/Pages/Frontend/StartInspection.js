@@ -13,6 +13,7 @@ class StartInspection extends React.Component {
     super(props);
     this.state = {   
       loading: false, 
+      loadingTemplate: false,
       formField: {},
       remarks: {},
       mediaFileInfo: {},
@@ -42,6 +43,7 @@ class StartInspection extends React.Component {
     this.handleActionData = this.handleActionData.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleRemoveMediaFile = this.handleRemoveMediaFile.bind(this);
+    
   }
 
   // Fetch the subCategory List
@@ -63,7 +65,7 @@ class StartInspection extends React.Component {
           console.log(res);
            
           if ( undefined === res.data.data || !res.data.status ) {
-            this.setState( {  loading: false } );
+            this.setState( {  loading: false, loadingTemplate: true } );
             toast.error(res.data.message);  
             this.props.history.push('/');  
             return;
@@ -104,7 +106,7 @@ class StartInspection extends React.Component {
               remarks[key] = inspectionDetail.feedBackData[key].remarks
             }
           }
-          this.setState({loading:false, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
+          this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
           
         } )
         .catch( err => {
@@ -114,7 +116,7 @@ class StartInspection extends React.Component {
             this.props.history.push('/login');
           }
           else {
-            this.setState( { loading: false } );
+            this.setState( { loading: false, loadingTemplate: true } );
             toast.error(err.message);    
           }
         } )
@@ -257,15 +259,15 @@ class StartInspection extends React.Component {
 
   /*Submit Form Handler*/
 
-  handleSubmitForm() {
+  handleSubmitForm(saveAsDraft = false) {
     
     if(this.state.inspectionId === ""){
       toast.error("Something Went Wrong");
       return false;
     }
-    let formData = {inspectionId: this.state.inspectionId, authId: this.state.authId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, actionInfo: this.state.actionData};
+    let formData = {inspectionId: this.state.inspectionId, saveAsDraft: saveAsDraft, authId: this.state.authId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, actionInfo: this.state.actionData, feedbackDataId: this.state.feedbackDataId};
    
-    this.setState( { loading: true}, () => {
+    this.setState( { loading: true}, () => {      
       commonService.postAPIWithAccessToken('inspection/feedback', formData)
         .then( res => {        
           
@@ -288,6 +290,7 @@ class StartInspection extends React.Component {
             this.setState( { loading: false } );
             toast.error(err.message);
         } )
+      
     });
   }
 
@@ -334,6 +337,19 @@ class StartInspection extends React.Component {
     let loaderElement = '';
     if(this.state.loading)
       loaderElement = <Loader />
+    if(!this.state.loadingTemplate)
+      return (<>
+        <div className="main-content"> 
+            <section className="">
+                <MDBContainer>                   
+                    {loaderElement}
+                    <ToastContainer />
+                </MDBContainer>
+            </section>  
+        </div>
+            
+      </>);
+    
     return (
       <>
         <div className="main-content"> 
@@ -357,7 +373,8 @@ class StartInspection extends React.Component {
                                     actionFormHide={this.state.actionFormHide}
                                     previousUploadedFile = {this.state.previousUploadedFile}
                                     handleRemoveMediaFile = {this.handleRemoveMediaFile} /> 
-                                    <Button onClick={this.handleSubmitForm.bind(this)} className="btn-gr">Submit</Button>
+                                    <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
+                                    <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>

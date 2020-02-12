@@ -62,25 +62,17 @@ function FieldLayout(props) {
       )
       
     case 'RadioButtons':
+      const remarksClass = props.formValue.remarks != "" ? "notes-section show": "notes-section hide";
       return(
         <Col md={12}>
           <div className="card-Preview-item">
             <h4>{formFieldDetails.label}</h4>
             <p>{props.formValue.input || ""}</p>
-            <div className="notes-section">
-              <h4>Remarks</h4>
+            <div className={remarksClass} >
+              <h4>Comments</h4>
               <p>{props.formValue.remarks || ""}</p>
             </div>
-            <div className="photos-section">
-              <h4>Photo</h4>
-              <div className="photos-info">
-              {
-                props.formValue.mediaFile.map((mediaInfo, mediaFileIndex) => 
-                  <PreviewFileInput key={mediaFileIndex} filename={mediaInfo.mediaFile} apiUrl={props.apiUrl} />
-                )
-              }
-              </div>
-            </div>
+            {props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}
           </div>
         </Col>
       )
@@ -124,6 +116,19 @@ function PreviewFileInput (props) {
   }
   else
       return ('');
+}
+
+function PreviewMediaSection(props) {
+  return (<div className="photos-section">
+              <h4>Photo</h4>
+              <div className="photos-info">
+              {
+                props.mediaFile.map((mediaInfo, mediaFileIndex) => 
+                  <PreviewFileInput key={mediaFileIndex} filename={mediaInfo.mediaFile} apiUrl={props.apiUrl} />
+                )
+              }
+              </div>
+            </div>);
 }
 class FeedBackPreviewPageForm extends Component {
   
