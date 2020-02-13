@@ -64,3 +64,32 @@
 .card-Preview-item p{font-size: 13px;
     padding: 0;
     color: #001737;}
+
+table.feedBackPreviewTable {
+    border: 1px solid #213051;
+    width: 100%;
+}
+
+table.feedBackPreviewTable thead {
+    background:#d4d9e4;
+}
+
+
+table.feedBackPreviewTable thead th {
+    font-weight: 600;
+    font-size: 13px;
+    color: #213051;
+    padding: 8px 10px;
+    white-space: nowrap;
+    border-right: 1px solid #213051;
+    border-bottom: 1px solid #213051;
+}
+
+table.feedBackPreviewTable tbody td {
+    font-weight: 400;
+    font-size: 13px;
+    color: #213051;
+    padding: 8px 10px;
+    border-right: 1px solid #213051;
+    border-bottom: 1px solid #213051;
+}

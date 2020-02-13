@@ -14,15 +14,16 @@ function FieldLayout(props) {
       
     case 'RadioButtons':
       const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";
+      const mediaFile = props.formValue.mediaFile.length > 0 ? <tr>
+            <td colspan="3">{props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}</td>
+          </tr> : "";
       return(<>
           <tr>
             <td>{formFieldDetails.label}</td>
             <td>{props.formValue.input || ""}</td>
             <td>{props.formValue.remarks || ""}</td>
           </tr>
-          <tr>
-            <td colspan="3">{props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}</td>
-          </tr>
+          {mediaFile}
         </>
         
       )
@@ -104,7 +105,8 @@ class FeedBackPreviewPageForm extends Component {
     const getFailedItem = this.getFailedItem(formFeildValue, formFeild);
 
     if(getFailedItem.length > 0 )
-      failedItemView = <Row>
+      failedItemView = <div className="feedBack-body">
+         
          <h2>Failed Responses</h2>  
          <p>This section lists responses that were set as "failed responses" in this template used for this audit </p>          
           <table className="feedBackPreviewTable">
@@ -121,11 +123,11 @@ class FeedBackPreviewPageForm extends Component {
               )}
             </tbody>
           </table>
-      </Row>
+      </div>
     return (
       <div className="card-Preview-info">
       {failedItemView}
-      <Row>
+      <div className="feedBack-body">
           <table className="feedBackPreviewTable">
             <thead>
               <tr>
@@ -140,7 +142,7 @@ class FeedBackPreviewPageForm extends Component {
               )}
             </tbody>
           </table>
-      </Row>
+      </div>
       </div>
     );
   }

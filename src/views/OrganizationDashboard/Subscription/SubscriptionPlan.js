@@ -106,15 +106,14 @@ function SetPlanDetailsInfo (props) {
   else if(planInfo.duration === 4)
     planType = 'Yearly';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
-  return (<Col lg={4}>
-            <Card> 
-              <CardHeader>
-                <CardTitle>{planInfo.planName}</CardTitle>
-                <CardSubtitle>${`${planInfo.amount} / ${planType}`}</CardSubtitle>
-              </CardHeader>            
-              <CardBody>                
-                <CardText></CardText>
-                <Button onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess}>{buttonTxt}</Button>
+  return (<Col lg={3}>
+            <Card className="payment-card">
+              <CardTitle>{planInfo.planName}</CardTitle> 
+              <CardBody>
+                <CardSubtitle>${`${planInfo.amount} / ${planType}`}</CardSubtitle>                
+                <CardText>Number Of Templaate : 6</CardText>
+                <CardText>Number Of Employee : 6</CardText>
+                <a className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess}>{buttonTxt}</a>
               </CardBody>
             </Card>
           </Col>);
