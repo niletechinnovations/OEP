@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Col, Row, Input, FormGroup, Label, CustomInput} from 'reactstrap';
+import {Col, Row} from 'reactstrap';
 
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
@@ -7,100 +7,41 @@ function FieldLayout(props) {
   switch(formFieldDetails.element) {
     case 'Header':
       return(
-        <Col lg={12}>
-          <h2>{formFieldDetails.content}</h2>
-        </Col>
+         <tr>
+            <td colspan="3"><h2>{formFieldDetails.content}</h2></td>
+        </tr>
       );
-      
-    case 'TextInput':
-      return(
-        <Col lg={12}>
-          <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}   />
-          </FormGroup>
-        </Col>
-      );
-      
-    case 'Checkboxes':
-      return(
-        <Col lg={12}>
-          <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <div>
-              {formFieldDetails.options.map((checkBoxOptions, index) =>              
-                <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} checked={props.formValue === checkBoxOptions.value ? true : false} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}  />
-              )}
-            </div>
-          </FormGroup>
-        </Col>
-      )
-      
-    case 'TextArea':
-      return(
-        <Col lg={12}>
-          <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} value={props.formValue}  />
-          </FormGroup>
-        </Col>
-      )
-      
-    case 'Dropdown':
-      return(
-        <Col lg={12}>
-          <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} value={props.formValue} required={formFieldDetails.required ? true : false} >
-
-              {formFieldDetails.options.map((dropOptions, index) =>              
-                <option value={dropOptions.value} key={index} >{dropOptions.text}</option>
-              )}
-            </Input>
-          </FormGroup>
-        </Col>
-      )
       
     case 'RadioButtons':
       const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";
-      return(
-        <Col md={12}>
-          <div className="card-Preview-item">
-            <h4>{formFieldDetails.label}</h4>
-            <p>{props.formValue.input || ""}</p>
-            <div className={remarksClass} >
-              <h4>Comments</h4>
-              <p>{props.formValue.remarks || ""}</p>
-            </div>
-            {props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}
-          </div>
-        </Col>
+      const mediaFile = props.formValue.mediaFile.length > 0 ? <tr>
+            <td colspan="3">{props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}</td>
+          </tr> : "";
+      return(<>
+          <tr>
+            <td>{formFieldDetails.label}</td>
+            <td>{props.formValue.input || ""}</td>
+            <td>{props.formValue.remarks || ""}</td>
+          </tr>
+          {mediaFile}
+        </>
+        
       )
       
     case 'Paragraph':
       return(
-        <Col lg={12}>
-          <p>{formFieldDetails.content}</p>
-        </Col>
+       <tr>
+            <td colspan="3">{formFieldDetails.content}</td>
+        </tr>
       )
       
-    case 'Camera':
-      
-      return(
-          <Col lg={12}>
-          <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
-            <Input name={formFieldDetails.id} type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label}  />
-            <PreviewFileInput formValue = {props.formValue} apiUrl={props.apiUrl} />
-          </FormGroup>
-        </Col> 
-      ) 
+    
       
     default: 
       return (
-        <Col lg={12}>
-          <h2>{formFieldDetails.label}</h2>
-        </Col>
+         <tr>
+            <td colspan="3">{formFieldDetails.label}</td>
+        </tr>
       )
       
 
@@ -110,17 +51,16 @@ function PreviewFileInput (props) {
   
   if(props.filename !== "") {
     if(props.filename.toLowerCase().indexOf('.png') > -1 || props.filename.toLowerCase().indexOf('.jpeg') > -1 || props.filename.toLowerCase().indexOf('.jpg') > -1) 
-        return (<img src={`${props.apiUrl}feedback/${props.filename}`} width="200px" height="200px" alt="" />);        
+        return (<img src={`${props.apiUrl}feedback/${props.filename}`} alt="" />);        
     else 
        return(<a href={`${props.apiUrl}feedback/${props.filename}`} target="_blank"  rel="noopener noreferrer"><i className="fa fa-download"></i>Download</a>);  
   }
   else
       return ('');
 }
-
 function PreviewMediaSection(props) {
   return (<div className="photos-section">
-              <h4>Photo</h4>
+              
               <div className="photos-info">
               {
                 props.mediaFile.map((mediaInfo, mediaFileIndex) => 
@@ -130,6 +70,7 @@ function PreviewMediaSection(props) {
               </div>
             </div>);
 }
+
 class FeedBackPreviewPageForm extends Component {
   
   constructor(props){
@@ -144,20 +85,64 @@ class FeedBackPreviewPageForm extends Component {
   componentDidMount() {   
     
   }
-  
+  getFailedItem(formFeildValue, formFeild){
+    let failedItemId = [];
+    Object.keys(formFeildValue).forEach((key, value) => {       
+        if(formFeildValue[key].input != undefined && formFeildValue[key].input.toLowerCase() === "no")
+            failedItemId.push(key);
+        
+    });
+    const failedItemForm = formFeild.filter(function(item) { return failedItemId.indexOf(item.id) > -1 ;})
+    return failedItemForm;
+    
+  }
   render() {
     
     
     const formFeild = this.props.templateField;
     const formFeildValue = this.props.feedBackData;
-    
+    let failedItemView = '';
+    const getFailedItem = this.getFailedItem(formFeildValue, formFeild);
+
+    if(getFailedItem.length > 0 )
+      failedItemView = <div className="feedBack-body">
+         
+         <h2>Failed Responses</h2>  
+         <p>This section lists responses that were set as "failed responses" in this template used for this audit </p>          
+          <table className="feedBackPreviewTable">
+            <thead>
+              <tr>
+                  <th>Questions</th>
+                  <th>Response</th>
+                  <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+             {getFailedItem.map((formFieldDetails, index) =>
+                <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
+              )}
+            </tbody>
+          </table>
+      </div>
     return (
       <div className="card-Preview-info">
-        <Row>
-           {formFeild.map((formFieldDetails, index) =>
-              <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
-            )}
-        </Row>
+      {failedItemView}
+      <div className="feedBack-body">
+          <table className="feedBackPreviewTable">
+            <thead>
+              <tr>
+                  <th>Questions</th>
+                  <th>Response</th>
+                  <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+             {formFeild.map((formFieldDetails, index) =>
+                <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
+              )}
+            </tbody>
+          </table>
+      </div>
       </div>
     );
   }

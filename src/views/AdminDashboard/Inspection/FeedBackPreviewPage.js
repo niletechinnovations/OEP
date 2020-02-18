@@ -3,6 +3,7 @@ import { Card, CardBody, CardHeader, Col, Row, Button, FormGroup, Label} from 'r
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
+import commonFunction from '../../../core/functions/commonFunction';
 import Loader from '../../Loader/Loader';
 import FeedBackPreviewPageForm from './FeedBackPreviewPageForm';
 import Doc from '../../FormBuilder/DocService';
@@ -102,69 +103,69 @@ class FeedBackPreviewPage extends React.Component {
                 {loaderElement}
                 <PdfContainer createPdf={this.createPdf} showLogo="false"> 
 
-                <div className="card-Preview-info"> 
-                  <Row>
-                    <Col md={12}>
-                      <Row>                        
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="employeeId">Store Name</Label>            
-                            <p>{feedBackInfo.storeName ? feedBackInfo.storeName : ''}</p>
-                          </FormGroup>
-                        </Col>  
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId">OEP Store Walk Tier</Label>            
-                            <p>{feedBackInfo.storeWalkLevel === 1 ? 'Silver' : feedBackInfo.storeWalkLevel === 2 ? 'Glod' : feedBackInfo.storeWalkLevel === 3 ? 'Platinum' : 'Silver'}</p>
-                          </FormGroup>
-                        </Col>
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId"># Store Walk</Label>            
-                            <p>{feedBackInfo.storeRank}</p>
-                          </FormGroup>
-                        </Col>
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId">Started On</Label>            
-                            <p>{feedBackInfo.inspectionStartDate ? new Date (feedBackInfo.inspectionStartDate).toString() : ''}</p>
-                          </FormGroup>
-                        </Col>                   
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId">Prepared By</Label>            
-                            <p>{feedBackInfo.employeeName}</p>
-                          </FormGroup>
-                        </Col>
-                                           
-                        <Col md={6}>
-                          <FormGroup> 
-                            <Label htmlFor="score">Address</Label>             
-                            <p>{feedBackInfo.addressInfo ? `${feedBackInfo.addressInfo.formatted_address}` : ""}</p>
-                            <p>{feedBackInfo.addressInfo ? `(${feedBackInfo.addressInfo.latitude},${feedBackInfo.addressInfo.longitude})` : ""}</p>
-                          </FormGroup>
-                        </Col>
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="score">State</Label>             
-                            <p>{feedBackInfo.addressInfo ? `${feedBackInfo.addressInfo.state}` : ""}</p>
-                          </FormGroup>
-                        </Col>  
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="score">Score</Label>            
-                            <p>{feedBackInfo.successItem}/{feedBackInfo.totalItem } - {feedBackInfo.score * 100 }%</p>
-                          </FormGroup>
-                        </Col> 
-                        <Col md={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId">Completed On</Label>            
-                            <p>{feedBackInfo.inspectionEndDate ? new Date (feedBackInfo.inspectionEndDate).toString() : ''}</p>
-                          </FormGroup>
-                        </Col>                 
-                      </Row>  
-                    </Col>                    
-                  </Row>
+                  <div className="card-Preview-info"> 
+                    <Row>
+                      <Col md={12}>
+                        <Row>                        
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="employeeId">Store Name</Label>            
+                              <p>{feedBackInfo.storeName ? feedBackInfo.storeName : ''}</p>
+                            </FormGroup>
+                          </Col>  
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="templateId">OEP Store Walk Tier</Label>            
+                              <p>{feedBackInfo.storeWalkLevel === 1 ? 'Silver' : feedBackInfo.storeWalkLevel === 2 ? 'Glod' : feedBackInfo.storeWalkLevel === 3 ? 'Platinum' : 'Silver'}</p>
+                            </FormGroup>
+                          </Col>
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="templateId"># Store Walk</Label>            
+                              <p>{feedBackInfo.storeRank}</p>
+                            </FormGroup>
+                          </Col>
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="templateId">Started On</Label>            
+                              <p>{feedBackInfo.inspectionStartDate ? commonFunction.getDateTime(feedBackInfo.inspectionStartDate) : ''}</p>
+                            </FormGroup>
+                          </Col>                   
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="templateId">Prepared By</Label>            
+                              <p>{feedBackInfo.employeeName}</p>
+                            </FormGroup>
+                          </Col>
+                                             
+                          <Col md={6}>
+                            <FormGroup> 
+                              <Label htmlFor="score">Address</Label>             
+                              <p>{feedBackInfo.addressInfo ? `${feedBackInfo.addressInfo.formatted_address}` : ""}</p>
+                              <p>{feedBackInfo.addressInfo ? `(${feedBackInfo.addressInfo.latitude},${feedBackInfo.addressInfo.longitude})` : ""}</p>
+                            </FormGroup>
+                          </Col>
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="score">State</Label>             
+                              <p>{feedBackInfo.addressInfo ? `${feedBackInfo.addressInfo.state}` : ""}</p>
+                            </FormGroup>
+                          </Col>  
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="score">Score</Label>            
+                              <p>{feedBackInfo.successItem}/{feedBackInfo.totalItem } - {feedBackInfo.score * 100 }%</p>
+                            </FormGroup>
+                          </Col> 
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="templateId">Completed On</Label>            
+                              <p>{feedBackInfo.inspectionEndDate ? commonFunction.getDateTime(feedBackInfo.inspectionEndDate) : ''}</p>
+                            </FormGroup>
+                          </Col>                 
+                        </Row>  
+                      </Col>                    
+                    </Row>
                   </div>             
                   <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} apiUrl={this.state.apiUrl}   /> 
                 </PdfContainer>

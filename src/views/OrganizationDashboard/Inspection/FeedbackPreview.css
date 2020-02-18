@@ -1,19 +1,8 @@
 .feedBackPreview .pdf-toolbar .categoryAdd {
-	right: 90px;
+    right: 90px;
 }
 
-.btn-bl {background-color: #2196F3 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
-.btn-gr {background-color: #4caf50 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
-.btn-re {background-color: #ff1100 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
-.btn-ye {background-color: #ffc107 !important; padding: 8px 10px; color: #fff; font-size: 12px; border-radius: 3px; display: inline-block; font-weight: bold; border: none; box-shadow: none; }
-section.pdf-toolbar {
-    padding: 0px 15px;
-}
-.feedBackPreview .rfb-item .form-label span{font-size: 12px;
-    font-weight: 600;}
 
-.feedBackPreview .rfb-item h3.static {font-size: 15px; font-weight: bold; margin-bottom: 10px; }
-.feedBackPreview {top: 5%; }
 .card-Preview-info {
     border: 1px solid #dae6f3;
     padding: 10px;
@@ -27,7 +16,7 @@ section.pdf-toolbar {
 }
 
 .card-Preview-info .form-group p{
-	font-size: 13px;
+    font-size: 13px;
     margin-bottom: 0;
     padding: 0;
     color: #001737;}
@@ -75,3 +64,32 @@ section.pdf-toolbar {
 .card-Preview-item p{font-size: 13px;
     padding: 0;
     color: #001737;}
+
+table.feedBackPreviewTable {
+    border: 1px solid #213051;
+    width: 100%;
+}
+
+table.feedBackPreviewTable thead {
+    background:#d4d9e4;
+}
+
+
+table.feedBackPreviewTable thead th {
+    font-weight: 600;
+    font-size: 13px;
+    color: #213051;
+    padding: 8px 10px;
+    white-space: nowrap;
+    border-right: 1px solid #213051;
+    border-bottom: 1px solid #213051;
+}
+
+table.feedBackPreviewTable tbody td {
+    font-weight: 400;
+    font-size: 13px;
+    color: #213051;
+    padding: 8px 10px;
+    border-right: 1px solid #213051;
+    border-bottom: 1px solid #213051;
+}

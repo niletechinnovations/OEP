@@ -85,6 +85,23 @@ class FeedBackPreviewPageForm extends Component {
   componentDidMount() {   
     
   }
+
+  getAllMediaFile(userInputData){
+    
+    let finalMediaFile = [];
+    const mediaFile = [];
+    Object.keys(userInputData).forEach((key, value) => {
+      if(userInputData[key].mediaFile.length > 0 ) {
+        for(let i = 0; i < userInputData[key].mediaFile.length; i++ ) {
+          finalMediaFile.push(userInputData[key].mediaFile[i]);
+        }
+      }
+        
+    }); 
+   
+    return finalMediaFile;
+      
+  }
   getFailedItem(formFeildValue, formFeild){
     let failedItemId = [];
     Object.keys(formFeildValue).forEach((key, value) => {       
@@ -103,7 +120,25 @@ class FeedBackPreviewPageForm extends Component {
     const formFeildValue = this.props.feedBackData;
     let failedItemView = '';
     const getFailedItem = this.getFailedItem(formFeildValue, formFeild);
-
+    const allMediaFile = this.getAllMediaFile(formFeildValue);
+    let mediaFileView = '';
+    if(allMediaFile.length > 0 )
+      mediaFileView = <div className="feedBack-body">         
+         <h2>Failed Responses</h2>  
+         <p>This section lists responses that were set as "failed responses" in this template used for this audit </p>          
+          <table className="feedBackPreviewTable">
+            <thead>
+              <tr>
+                  <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            <td>
+            <PreviewMediaSection mediaFile={mediaFileView} apiUrl={this.props.apiUrl}  />
+             </td>
+            </tbody>
+          </table>
+      </div>
     if(getFailedItem.length > 0 )
       failedItemView = <div className="feedBack-body">
          
@@ -143,6 +178,7 @@ class FeedBackPreviewPageForm extends Component {
             </tbody>
           </table>
       </div>
+      {mediaFileView}
       </div>
     );
   }

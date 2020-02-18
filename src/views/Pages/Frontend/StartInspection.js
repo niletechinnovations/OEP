@@ -38,7 +38,8 @@ class StartInspection extends React.Component {
       latitude: "",
       longitude: "",
       addressInfo: {},
-      locationEnabled: false   
+      locationEnabled: false,
+      allowAllocationMessage: "Please allow location to access inspection"   
     }    
     
     this.handleFormFieldName = this.handleFormFieldName.bind(this);
@@ -50,6 +51,7 @@ class StartInspection extends React.Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleRemoveMediaFile = this.handleRemoveMediaFile.bind(this);
     this.updateGeoLocationAddress = this.updateGeoLocationAddress.bind(this);
+    
     
   }
 
@@ -64,7 +66,14 @@ class StartInspection extends React.Component {
     else
       toast.error("Invalid Request");
   }
-  
+  trackUserLocation(){
+    
+    if(this.state.latitude === "" || this.state.longitude === "") {
+      toast.error(this.state.allowAllocationMessage);
+      return false;
+    }
+   return true;
+  }
    getInspectionDetail(inspectionId) {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('inspection/web/'+inspectionId)
@@ -115,6 +124,7 @@ class StartInspection extends React.Component {
           }
           this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
           
+          setTimeout(this.trackUserLocation(), 6000);
         } )
         .catch( err => {
                    
@@ -140,16 +150,20 @@ class StartInspection extends React.Component {
     });
   }
 
-  handleFormFieldName(formFieldName, requiredFieldError) {   
+  handleFormFieldName(formFieldName, requiredFieldError) {     
     this.setState({formField: formFieldName, formErrors: requiredFieldError});    
   }
   handleUpdateFormFieldValue(fieldName, fieldValue) {
+    if(!this.trackUserLocation())
+      return false;
     let formField = this.state.formField;
     formField[fieldName] = fieldValue;
     this.setState({formField: formField});
   }
   /*Update Remarks*/
   handleUpdateRemarks(fieldName, fieldValue){
+    if(!this.trackUserLocation())
+      return false;
     let remarks = this.state.remarks;
     //fieldName = fieldName.split('remarks__');
     remarks[fieldName] = fieldValue;
@@ -158,6 +172,8 @@ class StartInspection extends React.Component {
 
   /*Update Media File Url*/
   handleUpdateMediaFile(fieldName, fileInput, rawInput){
+    if(!this.trackUserLocation())
+      return false;
     let mediaFile = this.state.mediaFileInfo;
     let fieldMedia = mediaFile[fieldName] ?  mediaFile[fieldName] : [];
     let prevmediaFile = this.state.previousUploadedFile;
@@ -198,6 +214,8 @@ class StartInspection extends React.Component {
 
   /*Update Action Data*/
   handleActionData(fieldName, actionFormData){
+      if(!this.trackUserLocation())
+        return false;
       if(this.state.inspectionId === ""){
         toast.error("Something Went Wrong");
         return false;
@@ -267,7 +285,8 @@ class StartInspection extends React.Component {
   /*Submit Form Handler*/
 
   handleSubmitForm(saveAsDraft = false) {
-    
+    if(!this.trackUserLocation())
+      return false;
     if(this.state.inspectionId === ""){
       toast.error("Something Went Wrong");
       return false;
@@ -330,7 +349,9 @@ class StartInspection extends React.Component {
       });
     }
   }
-  handleRemoveMediaFile(inputFieldId, currentId){    
+  handleRemoveMediaFile(inputFieldId, currentId){  
+    if(!this.trackUserLocation())
+      return false;  
     let mediaFileInfo = this.state.mediaFileInfo;
     let previousUploadedFile = this.state.previousUploadedFile;
     let imageInfo = previousUploadedFile[inputFieldId] ? previousUploadedFile[inputFieldId]: [];
@@ -382,6 +403,7 @@ class StartInspection extends React.Component {
             geoLocationTags = <GeoLocationData cords = {this.props.coords} updateAddress = {this.updateGeoLocationAddress} />
       }
     }
+    
     if(this.state.loadingTemplate)
       actionButton = <>
         <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>

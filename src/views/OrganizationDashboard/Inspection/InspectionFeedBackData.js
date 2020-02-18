@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  { Link } from 'react-router-dom';
 import MUIDataTable from "mui-datatables";
-
+import commonFunction from '../../../core/functions/commonFunction';
   
   
 class InspectionFeedBackData extends Component {
@@ -36,7 +36,7 @@ class InspectionFeedBackData extends Component {
         score: `${feedback.score * 100}%`,
         failedItem: feedback.wrongQuestion,
         templateName: inspectionInfo.templateName || " ",
-        date: feedback.createdAt || " ",
+        date: commonFunction.getDate(feedback.createdAt),
         action: <p><Link to={`/organization/inspection/feedback/${feedback._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
           <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing}><i className="fa fa-trash"></i></a></p>,       
       }      
