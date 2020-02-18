@@ -124,7 +124,7 @@ class StartInspection extends React.Component {
           }
           this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
           
-          setTimeout(this.trackUserLocation(), 6000);
+          setTimeout(this.trackUserLocation(), 1000000);
         } )
         .catch( err => {
                    
