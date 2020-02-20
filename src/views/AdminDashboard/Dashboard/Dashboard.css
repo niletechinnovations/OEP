@@ -1,0 +1,19 @@
+.btn-outline-secondary {
+    color: #e3ab36 !important;
+    background-color: transparent !important;
+    border: 2px solid #e3ab36 !important;
+}
+
+.btn-outline-secondary:not([disabled]):not(.disabled):active, 
+.btn-outline-secondary:not([disabled]):not(.disabled).active, .show>.btn-outline-secondary.dropdown-toggle {
+    background-color: transparent !important;
+    border-color: #e3ab36 !important;
+    color: #e3ab36 !important;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.btn-outline-secondary:hover, .btn-outline-secondary:focus, .btn-outline-secondary:active, .btn-outline-secondary:active:focus, .btn-outline-secondary.active {
+    color: #e3ab36 !important;
+    background-color: transparent !important;
+    border-color: #e3ab36 !important;
+}

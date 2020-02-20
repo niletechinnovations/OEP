@@ -72,11 +72,12 @@ class SubCategoryData extends Component {
         },
       },
       fixedHeaderOptions: { xAxis: false, yAxis: false }
+      
 
     };
     return (
       <MUIDataTable
-        title={"Category List"}
+        title={"Subcategory"}
         data={rowsItem}
         columns={columns}
         options={options}

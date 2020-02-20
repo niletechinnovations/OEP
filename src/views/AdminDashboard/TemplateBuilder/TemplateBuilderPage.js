@@ -50,7 +50,7 @@ class TemplateBuilderPage extends React.Component {
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);  
-            this.props.history.push('/template');  
+            this.props.history.push('/admin/manage-template/template');  
             return;
           } 
           const templateDetail = res.data.data;
@@ -230,7 +230,7 @@ class TemplateBuilderPage extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/admin/template');
+          this.props.history.push('/admin/manage-template/template');
          
         } )
         .catch( err => {         
@@ -255,7 +255,7 @@ class TemplateBuilderPage extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/admin/template');
+          this.props.history.push('/admin/manage-template/template');
          
         } )
         .catch( err => {         
@@ -274,7 +274,7 @@ class TemplateBuilderPage extends React.Component {
   };
 
   resetForm(){
-    this.props.history.push('/admin/template');
+    this.props.history.push('/admin/manage-template/template');
   }
 
   toggle = () => {
@@ -293,16 +293,17 @@ class TemplateBuilderPage extends React.Component {
       <div className="animated fadeIn">
         <Row>
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Create Template</strong>
-                <div className="previewButton"><DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange} fileName = {this.state.formField.template_name} ></DemoBar></div>
+                <div className="previewButton"><DemoBar className="categoryAdd" handleFormHandleChange = {this.handleUpdatedFormHandleChange} fileName = {this.state.formField.template_name} ></DemoBar></div>
               </CardHeader>
               <CardBody>
                 {loaderElement}                
                 <Form onSubmit={this.submitHandler} noValidate>
                   <FormErrors formErrors={this.state.formErrors} />
                   
+                  <div className="search-filter">
                   <Row>
                     <Col lg={3}>
                       <FormGroup> 
@@ -332,6 +333,9 @@ class TemplateBuilderPage extends React.Component {
                           <Input type="text" placeholder="Template Name *" value={this.state.formField.template_name} onChange={this.changeHandler} id="template_name" name="template_name" required />
                         </FormGroup>
                     </Col>
+                    </Row>
+                    </div>
+                    <Row>
                     <Col lg={12}>
                       <FormGroup>
                         <Label htmlFor="templateBuilderPage">Form Builder Area</Label>
@@ -341,8 +345,8 @@ class TemplateBuilderPage extends React.Component {
                         </div>
                       </FormGroup>
                     </Col>
-                    <Button color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
-                    <Button color="secondary" onClick={this.resetForm}>Cancel</Button>
+                    <Button color="" className="ye-btn" disabled={!this.state.formValid} type="submit">Save</Button>
+                    <Button color="" className="re-btn" onClick={this.resetForm}>Cancel</Button>
                   </Row>
                 </Form>
                 

@@ -61,7 +61,7 @@ class InspectionFeedBack extends Component {
     } )
   }
   backButtonPrevious(){
-    this.props.history.push('/admin/inspection/');
+    this.props.history.push('/admin/manage-inspection/inspection/');
   }
   render() {
 

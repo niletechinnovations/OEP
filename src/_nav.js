@@ -8,30 +8,31 @@ export default {
     {
       name: 'Manage Category',
       icon: 'icon-speedometer',
+      url: 'admin/manage-categories',
       children: [{
           name: 'Category',
-          url: '/admin/category',
+          url: '/admin/manage-categories/category',
           icon: 'icon-speedometer',     
         },
         {
           name: 'Subcategory',
-          url: '/admin/subcategory',
+          url: '/admin/manage-categories/subcategory',
           icon: 'icon-speedometer',     
         },
       ]
     },  
     {
       name: 'Manage Organization',
-      url: '/admin/organization',
+      url: '/admin/manage-organization',      
       icon: 'icon-people', 
       children: [{
           name: 'Organization List',
-          url: '/admin/organization',
+          url: '/admin/manage-organization/organization',
           icon: 'icon-people',     
         },
         {
           name: 'Employee List',
-          url: '/admin/organization/employee',
+          url: '/admin/manage-organization/employee',
           icon: 'icon-people',     
         },
       ]    
@@ -39,29 +40,31 @@ export default {
     {
       name: 'Manage Template',
       icon: 'icon-speedometer',
+      url: '/admin/manage-template',
       children: [{
           name: 'Create Template',
-          url: '/admin/create-template',
+          url: '/admin/manage-template/create-template',
           icon: 'icon-theme',     
         },
         {
           name: 'Template List',
-          url: '/admin/template',
+          url: '/admin/manage-template/template',
           icon: 'icon-theme',     
         }
       ]
     }, 
     {
       name: 'Inspection',      
-      icon: 'icon-people', 
+      icon: 'icon-people',
+      url: '/admin/manage-inspection', 
       children: [{
           name: 'Assign Inspection',
-          url: '/admin/inspection/assign-inspection',
+          url: '/admin/manage-inspection/assign-inspection',
           icon: 'icon-theme',     
         },
         {
           name: 'View Inspection',
-          url: '/admin/inspection',
+          url: '/admin/manage-inspection/inspection',
           icon: 'icon-theme',     
         }        
       ]    
@@ -74,6 +77,7 @@ export default {
     {
       name: 'Manage Subscription',      
       icon: 'icon-people', 
+      url: '/admin/subscription', 
       children: [{
           name: 'Subscription Plan',
           url: '/admin/subscription',

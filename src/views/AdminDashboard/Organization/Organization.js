@@ -276,13 +276,16 @@ class Organization extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
-                <strong>Organization List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Organization List</strong> 
+                <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
+                
                 <Row>
                   <Col md={12}>
+                    <div className="search-filter">
                     <Row>                      
                       <Col md={"3"}>
                         <FormGroup> 
@@ -304,16 +307,18 @@ class Organization extends Component {
                       </Col>
                       <Col md={"3"}>
                         <FormGroup className="filter-button-section"> 
-                          <Label htmlFor="filter_organization_id">&nbsp;</Label> 
-                          <Button color="success" type="button" onClick={this.filterOragnizationList}>Search</Button> 
+                          <Button className="search-btn" type="button" onClick={this.filterOragnizationList}>Search</Button> 
                         </FormGroup>             
                       </Col>
-                    </Row>  
+                    </Row>
+                     </div>  
                   </Col>
+
                   <Col lg={12}>
                     <OrganizationData data={organizationList} editOrganizationAction={this.handleEditOrganization} deleteOrganizationAction={this.handleDeleteOrganization} dataTableLoadingStatus = {this.state.loading} />
                   </Col>  
                 </Row>
+               
               </CardBody>
             </Card>
           </Col>

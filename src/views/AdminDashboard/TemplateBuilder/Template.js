@@ -190,7 +190,7 @@ class Template extends Component {
          
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Template List</strong> 
               </CardHeader>
@@ -198,6 +198,7 @@ class Template extends Component {
                
                 <Row>
                   <Col md={12}>
+                    <div className="search-filter">
                     <Row>
                       <Col md={"3"}>
                         <FormGroup> 
@@ -235,10 +236,11 @@ class Template extends Component {
                       <Col md={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
-                          <Button color="success" id="searchButton" type="button" onClick={this.filterTemplateList}>Search</Button> 
+                          <Button className="search-btn" id="searchButton" type="button" onClick={this.filterTemplateList}>Search</Button> 
                         </FormGroup>             
                       </Col>
-                    </Row>  
+                    </Row>
+                    </div>  
                   </Col>
                   <Col md={12}>
                     <TemplateData data={templateList} dataTableLoadingStatus = {this.state.loading} />

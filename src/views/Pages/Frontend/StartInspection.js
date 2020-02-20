@@ -60,8 +60,11 @@ class StartInspection extends React.Component {
     
     const { match: { params } } = this.props;
     if(params.inspectionId !== undefined && params.inspectionId !=="" && params.authId !== undefined && params.authId !=="") {
-      this.setState({authId: params.authId});
+      let latitude = (params.latitude != undefined) ? params.latitude: "28.576191";
+      let longitude = (params.longitude != undefined) ? params.longitude: "77.345787";
+      this.setState({authId: params.authId, latitude: latitude, longitude: longitude});
       this.getInspectionDetail(params.inspectionId);
+      this.updateGeoLocationAddress({latitude: latitude, longitude: longitude});
     }
     else
       toast.error("Invalid Request");

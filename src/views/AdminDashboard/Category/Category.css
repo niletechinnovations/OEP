@@ -1,6 +1,10 @@
 .mainHeading{display: flex; align-items: center; right: 0;}
-.categoryAdd {position: absolute; right: 0; top: 0; background: #ffc107; color: #fff; font-size: 12px; box-shadow: none; }
-
+.categoryAdd {
+    background: #ffc107;
+    color: #fff;
+    font-size: 12px;
+    box-shadow: none;
+}
 .MuiToolbar-gutters {padding: 0; }
 .MuiToolbar-regular {
     min-height: 32px;
@@ -11,3 +15,7 @@ h6.MuiTypography-root {font-size: 14px; color: #000; }
 .MuiTableCell-root {padding:10px 15px !important; }
 .MuiTableRow-root.MuiTableRow-hover:hover {background-color: #ffffff !important; }
 
+.oep-card .MuiToolbar-regular{    min-height: auto;}
+
+.oep-card .MuiTableCell-body p{margin-bottom: 0;} 
+h6.MuiTypography-root {font-size: 16px; color: #000; font-weight: bold !important; }

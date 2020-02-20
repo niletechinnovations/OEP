@@ -247,12 +247,10 @@ class Category extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card>
-              <CardHeader className="mainHeading">
-                <strong>Category</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
-              </CardHeader>
+            <Card className="categoryList">
+            
               <CardBody>                
-                <CategoryData data={categoryList} editCategoryAction={this.handleEditCategory} deleteCategoryAction={this.handleDeleteCategory} dataTableLoadingStatus = {this.state.loading} />
+                <CategoryData data={categoryList} toggle={this.toggle} editCategoryAction={this.handleEditCategory} deleteCategoryAction={this.handleDeleteCategory} dataTableLoadingStatus = {this.state.loading} />
                   
               </CardBody>
             </Card>

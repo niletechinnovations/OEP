@@ -32,17 +32,18 @@ a.profileDropDownLink {
 .card-header {background: #fff; border-bottom: 1px solid #e8edf2; }
 .sidebar{background: #ffffff; box-shadow: 0 0 30px #E0E0E4;}
 .sidebar .nav-link.active,
-.sidebar ul li a.nav-link:hover{color:#FFC107; background: #ffffff;}
+.sidebar ul li a.nav-link:hover{color:#FFC107; background:transparent;}
 .sidebar .nav-link.active {color: #FFC107; background: none; }
 .sidebar .nav-link.active .nav-icon,
 .sidebar .nav-link:hover .nav-icon{ color: #FFC107;}
-.sidebar .nav-dropdown.open {background: #d5e2ef; }
+.sidebar .nav-dropdown.open {background: #f7f7f7; }
 .sidebar .nav-dropdown.open .nav-link {color: #1e222b;}
-.sidebar .nav-dropdown.open .nav-link:hover{color:#FFC107; background: #ffffff;}
-.sidebar .nav-dropdown.open a.nav-link.active {color: #FFC107; background: #fff; }
+.sidebar .nav-dropdown.open .nav-link:hover{color:#FFC107;}
+.sidebar .nav-dropdown.open a.nav-link.active {color: #FFC107; }
 .sidebar .sidebar-minimizer,
 .sidebar .sidebar-minimizer:hover{background:#ffc107}
 .sidebar-minimized .sidebar .sidebar-minimizer{background:#ffc107}
+.nav-dropdown-items .nav-link{    padding: 0.25rem 1.75rem;}
 .breadcrumb{border: none;}
 .breadcrumb li.breadcrumb-item {color: #797d80; font-size: 10px; }
 

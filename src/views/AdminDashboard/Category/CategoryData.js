@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 import MUIDataTable from "mui-datatables";
 class CategoryData extends Component {
   
@@ -55,6 +56,7 @@ class CategoryData extends Component {
       filter: false,
       searchOpen: false,
       print: false,
+      viewColumns: true,
       download: false,
       responsive: 'stacked',
       selectableRows: 'none',
@@ -65,14 +67,19 @@ class CategoryData extends Component {
           columnHeaderTooltip: column => `Sort for ${column.label}`
         },
       },
-      fixedHeaderOptions: { xAxis: false, yAxis: false }
+      fixedHeaderOptions: { xAxis: false, yAxis: false },
+       customToolbar: () => {
+        return (
+          <Button color="" className="categoryAdd" type="button" onClick={this.props.toggle}><i className="fa fa-plus"></i> Add New</Button>
+        );
+      }
 
     };
     
     return (
       <MUIDataTable
-        title={"Category List"}
-        data={rowsItem}
+        title={"Category"}
+        data={rowsItem}        
         columns={columns}
         options={options}
       />

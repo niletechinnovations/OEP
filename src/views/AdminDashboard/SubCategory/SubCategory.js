@@ -289,7 +289,7 @@ class SubCategory extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col lg={12}>
-            <Card>
+            <Card className="categoryList">
               <CardHeader className="mainHeading">
                 <strong>Subcategory</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>

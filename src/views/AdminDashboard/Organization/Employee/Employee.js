@@ -312,14 +312,15 @@ class Employee extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
-                <strong>Employee List</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Employee List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
               <CardBody>
                 
                 <Row>
                   <Col md={12}>
+                    <div className="search-filter">
                     <Row>
                       <Col md={"2"}>
                         <FormGroup> 
@@ -353,10 +354,11 @@ class Employee extends Component {
                       <Col md={"2"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="filter_organization_id">&nbsp;</Label> 
-                          <Button color="success" type="button" onClick={this.filterEmployeeList}>Search</Button> 
+                          <Button className="search-btn"  type="button" onClick={this.filterEmployeeList}>Search</Button> 
                         </FormGroup>             
                       </Col>
-                    </Row>  
+                    </Row>
+                    </div>  
                   </Col>
                   <Col md={12}>
                     <EmployeeData data={EmployeeList} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} dataTableLoadingStatus = {this.state.loading} />

@@ -63,7 +63,7 @@ class Template extends Component {
         <Row>     
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader>
                 <strong>User Template List</strong> 
               </CardHeader>
