@@ -38,10 +38,10 @@ class EmployeeData extends Component {
         state: employee.state || " ",
         country: employee.country || " ",
         status: employee.status || true,   
-        action: <p><a href="#!" className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </a>
-          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteEmployeeItem(i)}><i className="fa fa-trash"></i></a></p>,       
+        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+          this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </button>
+          <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+          this.deleteEmployeeItem(i)}><i className="fa fa-trash"></i></button></p>,       
       }      
       rowsItem.push(orgInfo);
     }      

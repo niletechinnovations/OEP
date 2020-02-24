@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 import MUIDataTable from "mui-datatables";
 
 class SubCategoryData extends Component {
@@ -71,7 +72,12 @@ class SubCategoryData extends Component {
           columnHeaderTooltip: column => `Sort for ${column.label}`
         },
       },
-      fixedHeaderOptions: { xAxis: false, yAxis: false }
+      fixedHeaderOptions: { xAxis: false, yAxis: false },
+       customToolbar: () => {
+        return (
+          <Button color="" className="categoryAdd" type="button" onClick={this.props.toggle}><i className="fa fa-plus"></i> Add New</Button>
+        );
+      }
       
 
     };

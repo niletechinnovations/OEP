@@ -25,7 +25,7 @@ class InspectionFeedBack extends Component {
       this.inspectionFeedbackList(params.inspectionId);
     else {
       toast.error("Some thing went wrong!");
-      this.props.history.push('/organization/inspection');
+      this.props.history.push('/organization/manage-inspection/inspection');
     }
   }
   /*Inspection Feedback List API*/
@@ -61,7 +61,7 @@ class InspectionFeedBack extends Component {
     } )
   }
   backButtonPrevious(){
-    this.props.history.push('/organization/inspection/');
+    this.props.history.push('/organization/manage-inspection/inspection/');
   }
   render() {
 

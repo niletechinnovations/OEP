@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE_URL = 'http://34.195.141.117:8083/v0.0/';
+const API_BASE_URL = "http://localhost:8082/v0.0/";//'http://34.195.141.117:8083/v0.0/';
 const API_BASE_URL_WITH_OUT_VERSION = 'http://34.195.141.117:8083/';
 const googleAPIKey = 'AIzaSyBaq7mc_lts3Xensjk7JvnUU1q8dNG0avo';
 class ApiService {
@@ -49,13 +49,13 @@ class ApiService {
     } 
 
     /*Delete API With Authentication header and Without parameter */
-    deleteAPIWithAccessToken(urlSegment){
+    deleteAPIWithAccessToken(urlSegment, formdata = {}){
         const accessToken = localStorage.getItem("accessToken");
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'JWT '+accessToken
         }
-        return axios.delete(API_BASE_URL+urlSegment, {headers: headers});
+        return axios.delete(API_BASE_URL+urlSegment, {headers: headers, data: formdata});
     } 
     /* Check user logged in or not */
     getAuth(){

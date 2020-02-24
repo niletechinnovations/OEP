@@ -26,7 +26,7 @@ class TemplateData extends Component {
         status: template.status ? 'Active' : 'Inactive',
         categoryName: template.categoryName || " ",
         subCategoryName: template.subCategoryName || " ",
-        action: <Link to={`/admin/create-template/${template.templateId}`} className="btn-view"><i className="fa fa-eye"></i> </Link>,       
+        action: <Link to={`/organization/manage-template/create-template/${template.templateId}`} className="btn-view"><i className="fa fa-eye"></i> </Link>,       
       }      
       rowsItem.push(templateInfo);
     }

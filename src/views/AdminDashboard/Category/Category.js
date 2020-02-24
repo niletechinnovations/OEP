@@ -200,7 +200,7 @@ class Category extends Component {
   handleEditCategory(rowIndex){
    
       const categoryItem = this.state.categoryList[rowIndex];
-      
+
       this.setState({modal: true, category_name: categoryItem.categoryName, rowIndex: rowIndex, formValid: true});
   }
   /* Add category */

@@ -20,7 +20,7 @@ class Employee extends Component {
       loading: true,
       formProccessing: false,
       rowIndex: -1,
-      formField: { organizationId: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
+      formField: { organizationId: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
       formErrors: { email: '', employee_name: '', role: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
@@ -130,6 +130,7 @@ class Employee extends Component {
         "postalCode": formInputField.postalCode, 
         "employeeName": formInputField.first_name,
         "organizationAuthId": formInputField.organizationId,
+        "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)
       };
       const rowIndex = this.state.rowIndex;
       if(rowIndex > -1) {
@@ -254,6 +255,7 @@ class Employee extends Component {
   /* Edit Employee*/
   handleEditEmployee(rowIndex){
       const employeeInfo = this.state.EmployeeList[rowIndex];
+      let status = (employeeInfo.status) ? "Active": "Inactive";
       const formField = {
         organizationId: employeeInfo.organizationAuthId,        
         email: employeeInfo.email, 
@@ -264,7 +266,8 @@ class Employee extends Component {
         state: employeeInfo.state, 
         country: employeeInfo.country, 
         postalCode: employeeInfo.postalCode, 
-        role: employeeInfo.roleName };
+        role: employeeInfo.roleName,
+        status: status };
       this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
   }
   /* Delete Employee*/
@@ -439,6 +442,16 @@ class Employee extends Component {
                     <Label htmlFor="postalCode">Postal Code</Label>            
                     <Input type="text" placeholder="Postal Code" id="postalCode" name="postalCode" value={this.state.formField.postalCode} onChange={this.changeHandler}  />
                   </FormGroup>
+                </Col>
+                <Col lg={6}>
+                    <FormGroup>
+                      <Label htmlFor="template_status">Status</Label>            
+                      <Input type="select" placeholder="Status *" id="status" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
+                        <option value="">Select Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                      </Input>
+                    </FormGroup>
                 </Col>
               </Row>
             </ModalBody>

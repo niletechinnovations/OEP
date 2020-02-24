@@ -50,7 +50,7 @@ class TemplateBuilderPage extends React.Component {
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);  
-            this.props.history.push('/template');  
+            this.props.history.push('/organization/manage-template/template');  
             return;
           } 
           const templateDetail = res.data.data;
@@ -230,7 +230,7 @@ class TemplateBuilderPage extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/organization/template');
+          this.props.history.push('/organization/manage-template/template');
          
         } )
         .catch( err => {         
@@ -255,7 +255,7 @@ class TemplateBuilderPage extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/organization/template');
+          this.props.history.push('/organization/manage-template/template');
          
         } )
         .catch( err => {         
@@ -274,7 +274,7 @@ class TemplateBuilderPage extends React.Component {
   };
 
   resetForm(){
-    this.props.history.push('/organization/template');
+    this.props.history.push('/organization/manage-template/template');
   }
 
   toggle = () => {

@@ -37,8 +37,8 @@ class InspectionFeedBackData extends Component {
         failedItem: feedback.wrongQuestion,
         templateName: inspectionInfo.templateName || " ",
         date: commonFunction.getDate(feedback.createdAt),
-        action: <p><Link to={`/organization/inspection/feedback/${feedback._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
-          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing}><i className="fa fa-trash"></i></a></p>,       
+        action: <p><Link to={`/organization/manage-inspection/inspection/feedback/${feedback._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
+          <button className="btn-delete" disabled={this.state.buttonProcessing}><i className="fa fa-trash"></i></button></p>,       
       }      
       rowsItem.push(feedbackInfo);
     }

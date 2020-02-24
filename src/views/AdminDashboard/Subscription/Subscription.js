@@ -76,7 +76,8 @@ class Subscription extends Component {
         "amount": Number(formInputField.amount), 
         "duration": Number(formInputField.plan_type), 
         "userAccess": Number(formInputField.number_employee), 
-        "templateAccess": Number(formInputField.number_template)       
+        "templateAccess": Number(formInputField.number_template),
+        "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)       
       };
       const rowIndex = this.state.rowIndex;
       if(rowIndex > -1) {
@@ -182,20 +183,22 @@ class Subscription extends Component {
       modal: !this.state.modal,
       rowIndex: -1,
       formValid: true,
-      formField: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0},
+      formField: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0, status: ""},
       formErrors: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', error: ''},
     });
   }
   /* Edit Employee*/
   handleEditSubscription(rowIndex){
       const planInfo = this.state.planList[rowIndex];
+      let status = (planInfo.status) ? "Active": "Inactive";
       const formField = {
         planId: planInfo.planId, 
         plan_name: planInfo.planName, 
         amount: planInfo.amount, 
         plan_type: planInfo.duration, 
         number_employee: planInfo.userAccess, 
-        number_template: planInfo.templateAccess };
+        number_template: planInfo.templateAccess,
+        status: status };
       this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
   }
   /* Delete Employee*/
@@ -281,7 +284,17 @@ class Subscription extends Component {
                     <FormFeedback>{formErrors.number_template}</FormFeedback>
                   </FormGroup>  
                 </Col>
-                
+                <Col md={"6"}>
+                  <FormGroup> 
+                    <Label htmlFor="plan_type">Status</Label>            
+                    <Input type="select" placeholder="Status " id="plan_type" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
+                      <option value="">Select Status</option>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </Input>
+                   
+                  </FormGroup>  
+                </Col>
               </Row>
             </ModalBody>
             <ModalFooter>

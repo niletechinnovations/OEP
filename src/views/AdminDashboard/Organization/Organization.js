@@ -19,7 +19,7 @@ class Organization extends Component {
       loading: true,
       rowIndex: -1,
       formProccessing: false,
-      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
+      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
@@ -87,7 +87,8 @@ class Organization extends Component {
         "state": formInputField.state, 
         "country": formInputField.country, 
         "postalCode": formInputField.postalCode, 
-        "organizationName": formInputField.organization_name
+        "organizationName": formInputField.organization_name,
+        "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)
       };
       const rowIndex = this.state.rowIndex;
       if(rowIndex > -1) {
@@ -207,6 +208,7 @@ class Organization extends Component {
   /* Edit organization*/
   handleEditOrganization(rowIndex){
       const organizationInfo = this.state.organizationList[rowIndex];
+      let status = (organizationInfo.status) ? "Active": "Inactive";
       const formField = {
         organization_name: organizationInfo.organizationName, 
         email: organizationInfo.email, 
@@ -217,13 +219,40 @@ class Organization extends Component {
         state: organizationInfo.state, 
         country: organizationInfo.country, 
         postalCode: organizationInfo.postalCode, 
-        role: organizationInfo.roleName };
+        role: organizationInfo.roleName,
+        status: status };
       this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
   }
   /* Delete organization*/
   handleDeleteOrganization(rowIndex){
-   
-    
+    const organizationInfo = this.state.organizationList[rowIndex];
+    this.setState( { loading : true}, () => {   
+      commonService.deleteAPIWithAccessToken('organization', {organizationId: organizationInfo.organizationId})
+      .then( res => {
+        
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+         
+          this.setState( { loading : false} );
+          toast.error(res.data.message);
+          return;
+        } 
+        
+        this.setState({ modal: false, loading : false});
+        toast.success(res.data.message);
+        this.organizationList();
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else
+          this.setState( { loading : false } );
+          toast.error(err.message);
+      } )
+    } );
    
     
   }
@@ -389,6 +418,16 @@ class Organization extends Component {
                     <Label htmlFor="postalCode">Postal Code</Label>            
                     <Input type="text" placeholder="Postal Code" id="postalCode" name="postalCode" value={this.state.formField.postalCode} onChange={this.changeHandler}  />
                   </FormGroup>
+                </Col>
+                <Col lg={6}>
+                    <FormGroup>
+                      <Label htmlFor="template_status">Status</Label>            
+                      <Input type="select" placeholder="Status *" id="status" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
+                        <option value="">Select Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                      </Input>
+                    </FormGroup>
                 </Col>
               </Row>           
             </ModalBody>

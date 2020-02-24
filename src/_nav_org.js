@@ -18,14 +18,15 @@ export default {
     {
       name: 'Manage Template',
       icon: 'icon-speedometer',
+      url: 'organization/manage-template',
       children: [{
           name: 'Create Template',
-          url: '/organization/create-template',
+          url: '/organization/manage-template/create-template',
           icon: 'icon-theme',     
         },
         {
           name: 'Template List',
-          url: '/organization/template',
+          url: '/organization/manage-template/template',
           icon: 'icon-theme',     
         }
       ]
@@ -33,14 +34,15 @@ export default {
     {
       name: 'Inspection',      
       icon: 'icon-people', 
+      url: 'organization/manage-inspection',
       children: [{
           name: 'Assign Inspection',
-          url: '/organization/inspection/assign-inspection',
+          url: '/organization/manage-inspection/assign-inspection',
           icon: 'icon-theme',     
         },
         {
           name: 'View Inspection',
-          url: '/organization/inspection',
+          url: '/organization/manage-inspection/inspection',
           icon: 'icon-theme',     
         }
       ]    

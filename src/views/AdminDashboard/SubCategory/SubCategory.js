@@ -290,13 +290,11 @@ class SubCategory extends Component {
         <Row>
           <Col lg={12}>
             <Card className="categoryList">
-              <CardHeader className="mainHeading">
-                <strong>Subcategory</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
-              </CardHeader>
+              
               <CardBody>
                
                 {loaderElement}
-                <SubCategoryData data={subCategoryList} editSubCategoryAction={this.handleEditSubCategory} deleteSubCategoryAction={this.handleDeleteSubCategory} dataTableLoadingStatus = {this.state.loading} />
+                <SubCategoryData data={subCategoryList} toggle={this.toggle} editSubCategoryAction={this.handleEditSubCategory} deleteSubCategoryAction={this.handleDeleteSubCategory} dataTableLoadingStatus = {this.state.loading} />
             
               </CardBody>
             </Card>
