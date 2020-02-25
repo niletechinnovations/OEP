@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
-import {
+/*import {
   Badge,
   Button,
-  ButtonDropdown,
+  
   ButtonGroup,
   ButtonToolbar,
   Card,
@@ -18,19 +18,27 @@ import {
   DropdownToggle,
   Progress,
   Row,
+} from 'reactstrap';*/
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Col,  
+  Row,
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
+import { getStyle } from '@coreui/coreui/dist/js/coreui-utilities'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import './Dashboard.css';
 
 const brandPrimary = getStyle('--primary')
-const brandSuccess = getStyle('--success')
-const brandInfo = getStyle('--info')
+/*const brandSuccess = getStyle('--success')
 const brandWarning = getStyle('--warning')
-const brandDanger = getStyle('--danger')
+const brandDanger = getStyle('--danger')*/
+const brandInfo = getStyle('--info')
+
 
 // Card Chart 1
 const cardChartData1 = (labels = [], data = []) =>  {
@@ -264,7 +272,7 @@ const cardChartOpts4 = {
 
 
 // sparkline charts
-const sparkLineChartData = [
+/*const sparkLineChartData = [
   {
     data: [35, 23, 56, 22, 97, 23, 64],
     label: 'New Audits',
@@ -338,7 +346,7 @@ const sparklineChartOpts = {
   legend: {
     display: false,
   },
-};
+};*/
 
 // Main Chart
 
@@ -358,7 +366,7 @@ for (var i = 0; i <= elements; i++) {
   data3.push(65);
 }
 
-const mainChart = {
+/*const mainChart = {
   labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
   datasets: [
     {
@@ -431,7 +439,7 @@ const mainChartOpts = {
       hoverBorderWidth: 3,
     },
   },
-};
+};*/
 
 class Dashboard extends Component {
   constructor(props) {
@@ -507,17 +515,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
-                  <ButtonDropdown id='card1' isOpen={this.state.card1} toggle={() => { this.setState({ card1: !this.state.card1 }); }}>
-                    
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem disabled>Disabled action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </ButtonGroup>
+                
                 <div className="text-value">{this.state.dashBoardStats.inspectionCount}</div>
                 <div>Total Inspections</div>
               </CardBody>
@@ -530,16 +528,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-primary">
               <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
-                  <Dropdown id='card2' isOpen={this.state.card2} toggle={() => { this.setState({ card2: !this.state.card2 }); }}>
-                    
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                </ButtonGroup>
+                
                 <div className="text-value">{this.state.dashBoardStats.organizationCount}</div>
                 <div>Total Organizations</div>
               </CardBody>
@@ -552,16 +541,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-warning">
               <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
-                  <Dropdown id='card3' isOpen={this.state.card3} toggle={() => { this.setState({ card3: !this.state.card3 }); }}>
-                   
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                </ButtonGroup>
+                
                 <div className="text-value">85%</div>
                 <div>Rankings</div>
               </CardBody>
@@ -574,16 +554,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-danger">
               <CardBody className="pb-0">
-                <ButtonGroup className="float-right">
-                  <ButtonDropdown id='card4' isOpen={this.state.card4} toggle={() => { this.setState({ card4: !this.state.card4 }); }}>
-                   
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </ButtonGroup>
+                
                 <div className="text-value">823</div>
                 <div>Store Walk</div>
               </CardBody>
@@ -610,7 +581,7 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-        <Row>
+        { /* <Row>
           <Col>
             <Card>
               <CardBody>
@@ -784,7 +755,7 @@ class Dashboard extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        </Row> */ }
       </div>
     );
   }

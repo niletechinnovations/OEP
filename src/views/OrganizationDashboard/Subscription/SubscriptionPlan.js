@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardHeader, CardTitle, CardSubtitle, CardText, Col, Row, Button} from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, CardText, Col, Row} from 'reactstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
@@ -113,7 +113,7 @@ function SetPlanDetailsInfo (props) {
                 <CardSubtitle>${`${planInfo.amount} / ${planType}`}</CardSubtitle>                
                 <CardText>Number Of Templaate : 6</CardText>
                 <CardText>Number Of Employee : 6</CardText>
-                <a className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess}>{buttonTxt}</a>
+                <button className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess}>{buttonTxt}</button>
               </CardBody>
             </Card>
           </Col>);
