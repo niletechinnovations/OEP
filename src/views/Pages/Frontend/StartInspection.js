@@ -423,7 +423,7 @@ class StartInspection extends React.Component {
                     {geoLocationTags}
                     <ToastContainer />
                     <MDBRow className="">
-                        <MDBCol lg="12" className="">
+                        <MDBCol lg="12" className="card-info-box">
                             <MDBCard>
                                 <MDBCardBody>
                                     <PreviewTemplatePageForm inspectionId={this.state.inspectionId} templateField = {this.state.templatePreviewData} 
