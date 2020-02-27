@@ -86,7 +86,7 @@ class TemplatePreview extends React.Component {
                     {loaderElement}
                     <ToastContainer />
                     <MDBRow className="">
-                        <MDBCol lg="12" className="">
+                        <MDBCol lg="12" className="card-info-box">
                             <MDBCard>
                                 <MDBCardBody>
                                     <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} answers={this.state.userAnswer} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue}  /> 

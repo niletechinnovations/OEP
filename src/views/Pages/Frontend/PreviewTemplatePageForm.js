@@ -13,7 +13,11 @@ function FieldLayout(props) {
   switch(formFieldDetails.element) {
     case 'Header':
       return(
-        <h2>{formFieldDetails.content}</h2>
+        <div className="inspection-form-card">
+            <FormGroup>
+              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.content}</Label>
+            </FormGroup>
+        </div>
       )
      
     case 'TextInput':
@@ -122,9 +126,11 @@ function FieldLayout(props) {
      
     case 'Paragraph':
       return(
-        <Col lg={12}>
-          <p>{formFieldDetails.content}</p>
-        </Col>
+        <div className="inspection-form-card">
+            <FormGroup>
+              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.content}</Label>
+            </FormGroup>  
+        </div>
       )
      
     case 'Camera':
@@ -139,9 +145,12 @@ function FieldLayout(props) {
      
     default: 
       return (
-        <Col lg={12}>
-          <h2>{formFieldDetails.label}</h2>
-        </Col>
+
+        <div className="inspection-form-card">
+            <FormGroup>
+              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.content || ""}</Label>
+            </FormGroup>  
+        </div>
       )
      
 

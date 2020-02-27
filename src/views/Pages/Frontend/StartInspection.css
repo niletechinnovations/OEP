@@ -79,3 +79,52 @@ textarea.remarks-form-group.form-control {border: 1px solid #d9e0e3; font-size: 
     height: auto;
     font-size: 13px;
 }
+
+
+/*responsive*/
+
+@media only screen and (min-width : 480px) {}
+
+@media only screen and (min-width : 768px) {}
+
+
+@media only screen and (min-width : 992px) {}
+
+@media only screen and (min-width : 1200px) {}
+
+
+
+
+@media only screen and (max-width : 1199px) {
+}
+
+@media only screen and (max-width : 991px) {
+}
+
+@media only screen and (max-width : 767px) {
+.btn-bl, .btn-gr, .btn-ye, .btn-re{padding: 5px 10px;font-size: 11px;}
+.inspection-check .radioInput{ padding: 5px 10px 5px 30px;font-size: 12px;}
+label.inspection-title{ font-size: 12px;padding: 5px;}
+.inspection-form-card,
+.inspection-form-section{padding: 10px; box-shadow: none;margin-bottom:10px;}
+.action-content-section label, .remarks-content-section label{font-size: 13px;}
+.action-content-section p{font-size: 12px;}
+.card-info-box .card-body{padding: 0;}
+
+
+}
+
+@media only screen and (max-width: 576px) {
+}
+
+@media only screen and (max-width : 480px) {
+}
+
+@media only screen and (max-width : 320px) {
+
+}
+
+
+
+
+
