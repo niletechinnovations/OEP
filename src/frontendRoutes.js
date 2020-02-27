@@ -5,11 +5,13 @@ import BlogPage from './views/Pages/Frontend/BlogPage';
 import LoginPage from './views/Pages/Frontend/LoginPage';
 import ResetPassword from './views/Pages/Frontend/ResetPassword';
 import RegisterPage from './views/Pages/Frontend/RegisterPage';
+import PrivacyPolicy from './views/Pages/Frontend/PrivacyPolicy';
 
 
 const frontendRoutes = [
   { path: '/', exact: true, name: 'Home', component: HomePage },
   { path: '/home', name: 'Home', component: HomePage },  
+  { path: '/privacy-policy', name: 'Privacy Policy', component:PrivacyPolicy  },  
   { path: '/about-us', exact: true,  name: 'About us', component: AboutPage },
   { path: '/contact-us', exact: true,  name: 'Contact us', component: ContactPage },
   { path: '/blog', exact: true,  name: 'Blog', component: BlogPage },
