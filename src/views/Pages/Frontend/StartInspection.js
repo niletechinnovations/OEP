@@ -38,6 +38,9 @@ class StartInspection extends React.Component {
       latitude: "",
       longitude: "",
       addressInfo: {},
+      state:"",
+      city:"",
+      locality:"",
       locationEnabled: false,
       allowAllocationMessage: "Please allow location to access inspection"   
     }    
@@ -127,7 +130,7 @@ class StartInspection extends React.Component {
           }
           this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
           
-          setTimeout(this.trackUserLocation(), 1000000);
+          
         } )
         .catch( err => {
                    
@@ -294,7 +297,9 @@ class StartInspection extends React.Component {
       toast.error("Something Went Wrong");
       return false;
     }
-    let formData = {inspectionId: this.state.inspectionId, saveAsDraft: saveAsDraft, authId: this.state.authId, feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, actionInfo: this.state.actionData, feedbackDataId: this.state.feedbackDataId, addressInfo: this.state.addressInfo};
+    let formData = {inspectionId: this.state.inspectionId, saveAsDraft: saveAsDraft, authId: this.state.authId,
+       feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, 
+       state:this.state.state,city:this.state.city,locality:this.state.locality, actionInfo: this.state.actionData, feedbackDataId: this.state.feedbackDataId, addressInfo: this.state.addressInfo};
    
     this.setState( { loading: true}, () => {      
       commonService.postAPIWithAccessToken('inspection/feedback', formData)
@@ -330,20 +335,22 @@ class StartInspection extends React.Component {
       this.setState({latitude: coords.latitude, longitude: coords.longitude, locationEnabled: true}, () => {
           commonService.getExternalAPI("https://maps.googleapis.com/maps/api/geocode/json?latlng="+coords.latitude+","+coords.longitude+"&key="+commonService.getGoogleAPIKey())
             .then( res => {  
-            
+           
             const googleMapData = res.data.results ? res.data.results[0] : [];
+           
             if(googleMapData.address_components !== undefined && googleMapData.address_components.length > 0 ) {
               const getCountry = googleMapData.address_components.filter(function(item) { return item.types.indexOf('country') > -1;});
               const getState = googleMapData.address_components.filter(function(item) { return item.types.indexOf('administrative_area_level_1') > -1;});
               const getCity = googleMapData.address_components.filter(function(item) { return item.types.indexOf('administrative_area_level_2') > -1;});
               const getPostalCode = googleMapData.address_components.filter(function(item) { return item.types.indexOf('postal_code') > -1;})
               const formatted_address = googleMapData.formatted_address || "";
+              const getLocality = googleMapData.address_components.filter(function(item){ return item.types.indexOf('locality')> -1 ;})
               const addressInfo = {country: getCountry.length > 0 ? getCountry[0].long_name : "",
               state: getState.length > 0 ? getState[0].long_name : "",
               city: getCity.length > 0 ? getCity[0].long_name : "",
               postal_code: getPostalCode.length > 0 ? getPostalCode[0].long_name : "",
               formatted_address: formatted_address, latitude: coords.latitude, longitude: coords.longitude}; 
-              this.setState({addressInfo: addressInfo});
+              this.setState({ addressInfo: addressInfo,  state:addressInfo.state, city:addressInfo.city,locality:getLocality[0].long_name });
             }
           } )
           .catch( err => {         
