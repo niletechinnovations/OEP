@@ -314,7 +314,7 @@ class PreviewTemplatePageForm extends Component {
   }
   render() {
     const formFiled = this.props.templateField;
-    let countQuestion = 0;
+    
    
     return (
       <>
