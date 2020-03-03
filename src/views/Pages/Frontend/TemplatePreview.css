@@ -1,3 +1,4 @@
+.template-card {padding: 15px; }
 .formField-item {border: 1px solid #d3dee8; margin-bottom: 5px; position: relative; padding: 10px; border-radius: 5px; }
 h2.form-heading-title {color: #445056; line-height: 24px; font-size: 16px; font-weight: bold !important; }
 .formField-item .form-group label.formField-label {font-size: 13px; font-weight: 600; color: #445056; }
