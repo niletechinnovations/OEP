@@ -148,6 +148,7 @@ class PreviewTemplatePageForm extends Component {
     return (
       <Row>
          {formFiled.map((formFieldDetails, index) =>
+          formFieldDetails === null || formFieldDetails === undefined ? "" : 
             <FieldLayout key={index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} formFieldVal = {this.props.updateFormFieldValue} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} />
           )}
       </Row>

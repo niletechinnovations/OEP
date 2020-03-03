@@ -141,6 +141,7 @@ class FeedBackPreviewPageForm extends Component {
             </thead>
             <tbody>
              {formFeild.map((formFieldDetails, index) =>
+              formFieldDetails === null || formFieldDetails === undefined ? "" : 
                 <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
               )}
             </tbody>

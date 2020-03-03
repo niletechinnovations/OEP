@@ -320,6 +320,7 @@ class PreviewTemplatePageForm extends Component {
       <>
       <div className="inspection-form-section">
          {formFiled.map((formFieldDetails, index) =>
+            formFieldDetails === null || formFieldDetails === undefined ? "" : 
             <FieldLayout key={index} indexItem = {index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} 
             mediaFileData={this.props.previousUploadedFile[formFieldDetails.id] ? this.props.previousUploadedFile[formFieldDetails.id] : []} 
             formValue = {this.props.formField[formFieldDetails.id]} 
