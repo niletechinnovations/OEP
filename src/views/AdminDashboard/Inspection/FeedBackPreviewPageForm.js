@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
+  if(formFieldDetails === null || formFieldDetails === undefined) {
+    return "";
+  }
   //props.formFieldName(formFieldDetails.id);
   switch(formFieldDetails.element) {
     case 'Header':

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Col, Input, FormGroup, Label, CustomInput, Form, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast} from 'react-toastify';
-
+let countQuestion = 0;
 const yellow = 'ye';
 const blue = 'bl';
 const green = 'gr';
@@ -9,13 +9,16 @@ const red = 're';
 
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
+  if(formFieldDetails === null || formFieldDetails === undefined) {
+    return "";
+  }
   //props.formFieldName(formFieldDetails.id);
   switch(formFieldDetails.element) {
     case 'Header':
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.content}</Label>
+              <Label className="inspection-title">{formFieldDetails.content}</Label>
             </FormGroup>
         </div>
       )
@@ -74,6 +77,7 @@ function FieldLayout(props) {
       className += props.formFieldRemarks[formFieldDetails.id] ? 'show' : 'hide';
       let remarkSection = '';
       let actionView = '';
+      countQuestion++;
       if(props.actionValue !== "")
         actionView = <div className="action-content-section">
                         <Label className="remarks-label">Action</Label>
@@ -101,7 +105,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+              <Label className="inspection-title"><span className="inspection-no-value">{countQuestion}</span>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
               <div className="inspection-check">
                 {formFieldDetails.options.map((radioButtonOptions, index) =>              
                   <CustomInput key={index} name={formFieldDetails.id} type="radio" checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
@@ -128,7 +132,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.content}</Label>
+              <Label className="inspection-title">{formFieldDetails.content}</Label>
             </FormGroup>  
         </div>
       )
@@ -148,7 +152,7 @@ function FieldLayout(props) {
 
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title"><span className="inspection-no-value">{props.indexItem}</span>{formFieldDetails.content || ""}</Label>
+              <Label className="inspection-title">{formFieldDetails.content || ""}</Label>
             </FormGroup>  
         </div>
       )
@@ -310,7 +314,7 @@ class PreviewTemplatePageForm extends Component {
   }
   render() {
     const formFiled = this.props.templateField;
-
+    let countQuestion = 0;
    
     return (
       <>

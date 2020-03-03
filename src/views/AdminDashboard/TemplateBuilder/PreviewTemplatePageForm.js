@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import {Col, Row, Input, FormGroup, Label, CustomInput} from 'reactstrap';
 import './TemplatePreviewPageForm.css';
+let countQuestion = 0;
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
   //props.formFieldName(formFieldDetails.id);
+  if(formFieldDetails === null || formFieldDetails === undefined) {
+    return "";
+  }
   switch(formFieldDetails.element) {
     case 'Header':
       return(
@@ -60,10 +64,11 @@ function FieldLayout(props) {
       )
      
     case 'RadioButtons':
+      countQuestion++;
       return(
         <div className="formField-item">
           <FormGroup>
-            <Label className="formField-label">{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label"><span className="inspection-no-value">{countQuestion}</span>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((radioButtonOptions, index) =>              
                 <CustomInput key={index} name={formFieldDetails.id} type="radio" disabled className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
@@ -72,6 +77,7 @@ function FieldLayout(props) {
           </FormGroup>
         </div>
       )
+
      
     case 'Paragraph':
       return(
@@ -107,7 +113,7 @@ class PreviewTemplatePageForm extends Component {
     super(props);   
     this.state = {
       buttonProcessing: false,
-      rowIndex: '',
+      rowIndex: '',     
       dataTableItem: []
     };
     
@@ -137,15 +143,15 @@ class PreviewTemplatePageForm extends Component {
     }
     reader.readAsDataURL(targetFile);
   }
+
   render() {
     const formFiled = this.props.templateField;
-    
     return (
       <div className="template-card">
       <Row>
         <Col lg={12}>
          {formFiled.map((formFieldDetails, index) =>
-            <FieldLayout key={index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} formFieldVal = {this.props.updateFormFieldValue} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} />
+            <FieldLayout key={index}  formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} formFieldVal = {this.props.updateFormFieldValue} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} />
           )}
          </Col>
       </Row>
