@@ -81,7 +81,7 @@ export default class Demobar extends React.Component {
 
     return (
         <div className="templatePreview1">
-          <a className="btn btn-bl pull-right" style={{ marginRight: '10px'}} href="#!" onClick={this.showPreview.bind(this)}>Preview Form</a>       
+          <button className="btn btn-bl pull-right" style={{ marginRight: '10px'}}  onClick={this.showPreview.bind(this)}>Preview Form</button>       
 
           { this.state.previewVisible &&
             <div className={modalClass}>
@@ -89,7 +89,7 @@ export default class Demobar extends React.Component {
                 <div className="modal-content">
                   <div className="modal-header">                    
                     <h4 className="modal-title">Preview Template </h4>
-                    <a href="#!" className=" btn-re pull-right" data-dismiss="modal" onClick={this.closePreview.bind(this)}>&times;</a>
+                    <button className=" btn-re pull-right" data-dismiss="modal" onClick={this.closePreview.bind(this)}>&times;</button>
                   </div>
                   <div className="form-builder-body form-builder-preview">
 
