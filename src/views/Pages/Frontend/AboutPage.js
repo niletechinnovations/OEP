@@ -13,17 +13,15 @@ class AboutPage extends React.Component {
                 <MDBRow>
                     <MDBCol md="12">
                         <h2 className="h2-responsive font-weight-bold mt-5 mb-4">
-                        About OEP
+                        About Us
                         </h2>
                         <p className="lead grey-text mb-3">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            RetailOEP is the premier retail inspection app that does it all. We make itsuper easy to inspect what you expect from your daily professionallives. We all have many things we need to review and inspect dailyand Retail OEP allows you to do it from the palm of your hand. RetailOEP is the Operational Excellence Platform for all your retail needsand much more. The platform is 20 plus years in the making fromactual retail walks and processes. Built by an operational retailerfor retailers just like you. Retail OEP gives you the power to simplyrun a better business with your teams.
                         </p>
                         <p className="lead grey-text mb-3">
-                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                          Ourmission is simple: to make your life easier and much more processdriven, which in turn will improve your sales, profits and teamengagement. With millions of users around the globe and many newinspections every day, we're just getting started.
                         </p>
-                        <p className="lead grey-text mb-3">
-                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                        </p>
+                        
                     </MDBCol>
                 </MDBRow>
               </MDBContainer>
