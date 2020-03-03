@@ -14,7 +14,13 @@ function FieldLayout(props) {
       
     case 'RadioButtons':
       /*const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";*/
-      const mediaFile = props.formValue.mediaFile.length > 0 ? <tr>
+      if(props.formValue == undefined)
+        return (<><tr>
+            <td>{formFieldDetails.label}</td>
+            <td></td>
+            <td></td>
+          </tr></>);
+      const mediaFile = props.formValue.mediaFile !== undefined && props.formValue.mediaFile.length > 0 ? <tr>
             <td colspan="3">{props.formValue.mediaFile.length > 0 ? <PreviewMediaSection mediaFile = {props.formValue.mediaFile} apiUrl = {props.apiUrl} /> : null}</td>
           </tr> : "";
       return(<>

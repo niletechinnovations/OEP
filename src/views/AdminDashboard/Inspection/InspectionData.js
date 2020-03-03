@@ -35,6 +35,7 @@ class InspectionData extends Component {
         templateName: inspection.templateName || " ",
         categoryName: inspection.categoryName || " ",
         subCategoryName: inspection.subCategoryName || " ",
+        status: inspection.currentStatus == 1 ? "Pending" : inspection.currentStatus == 2 ? "Proccessing" : "Completed",
         action: <p><Link to={`/admin/manage-inspection/assign-inspection/${inspection.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link> <Link to={`/admin/manage-inspection/inspection/${inspection.inspectionId}`} title="View Feedback" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link> 
           <button className="btn-delete" color="warning" disabled={this.state.buttonProcessing} onClick={() => 
           this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></button></p>,       
@@ -65,6 +66,10 @@ class InspectionData extends Component {
       {
         label: 'Subcategory',
         name: 'subCategoryName',
+      },
+      {
+        label: 'Status',
+        name: 'status',
       },
       {
         label: 'Action',
