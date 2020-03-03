@@ -4,7 +4,7 @@ import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import Loader from '../../Loader/Loader';
-
+import './TemplatePreview.css'
 import PreviewTemplatePageForm from '../../AdminDashboard/TemplateBuilder/PreviewTemplatePageForm'
 class TemplatePreview extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);

@@ -1,56 +1,54 @@
 import React, { Component } from 'react';
 import {Col, Row, Input, FormGroup, Label, CustomInput} from 'reactstrap';
-
+import './TemplatePreviewPageForm.css';
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
   //props.formFieldName(formFieldDetails.id);
   switch(formFieldDetails.element) {
     case 'Header':
       return(
-        <Col lg={12}>
-          <h2>{formFieldDetails.content}</h2>
-        </Col>
+          <h2 className="form-heading-title">{formFieldDetails.content}</h2>
       )
      
     case 'TextInput':
       return(
-        <Col lg={12}>
+        <div className="formField-item">
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label" htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
-        </Col>
+        </div>
       )
      
     case 'Checkboxes':
       return(
-        <Col lg={12}>
+        <div className="formField-item">
           <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label">{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((checkBoxOptions, index) =>              
                 <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent} />
               )}
             </div>
           </FormGroup>
-        </Col>
+        </div>
       )
      
     case 'TextArea':
       return(
-        <Col lg={12}>
+        <div className="formField-item">
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label" htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
-        </Col>
+        </div>
       )
      
     case 'Dropdown':
       return(
-        <Col lg={12}>
+        <div className="formField-item">
           <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label">{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} onChange={props.onchangeEvent}>
 
               {formFieldDetails.options.map((dropOptions, index) =>              
@@ -58,45 +56,45 @@ function FieldLayout(props) {
               )}
             </Input>
           </FormGroup>
-        </Col>
+        </div>
       )
      
     case 'RadioButtons':
       return(
-        <Col lg={12}>
+        <div className="formField-item">
           <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label">{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((radioButtonOptions, index) =>              
-                <CustomInput key={index} name={formFieldDetails.id} type="radio" className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
+                <CustomInput key={index} name={formFieldDetails.id} type="radio" disabled className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
               )}
             </div>
           </FormGroup>
-        </Col>
+        </div>
       )
      
     case 'Paragraph':
       return(
-        <Col lg={12}>
+        <div className="formField-item">
           <p>{formFieldDetails.content}</p>
-        </Col>
+        </div>
       )
      
     case 'Camera':
       return(
-          <Col lg={12}>
+          <div className="formField-item">
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label" htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} disabled type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeFileEvent}  />
           </FormGroup>
-        </Col> 
+        </div> 
       ) 
      
     default: 
       return (
-        <Col lg={12}>
+        <div className="formField-item">
           <h2>{formFieldDetails.label}</h2>
-        </Col>
+        </div>
       )
      
 
@@ -143,11 +141,15 @@ class PreviewTemplatePageForm extends Component {
     const formFiled = this.props.templateField;
     
     return (
+      <div className="template-card">
       <Row>
+        <Col lg={12}>
          {formFiled.map((formFieldDetails, index) =>
             <FieldLayout key={index} formFieldDetails={formFieldDetails} formFieldName = {this.props.createFormFieldName} formFieldVal = {this.props.updateFormFieldValue} onchangeEvent={this.changeHandle} onchangeFileEvent={this.changeFileHandle} />
           )}
+         </Col>
       </Row>
+      </div>
     );
   }
 }
