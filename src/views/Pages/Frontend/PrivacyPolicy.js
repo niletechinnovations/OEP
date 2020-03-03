@@ -121,7 +121,7 @@ export default class PrivacyPolicy extends Component {
                                         <li>
                                             <p>At the Direction of the Branded Company. Retail OEP may share yourinformation with the Branded Company or with third parties at thedirection of the Branded Company. For example, when you use theServices to place orders, Retail OEP will transmit your informationto the Branded Company location you designate, or to the BrandedCompany’s third-party services providers or partners, asdirected by the Branded Company, to facilitate your order. Other thanas described in this Privacy Policy in connection with the Services,this Privacy Policy does not apply to the processing of yourinformation by the Branded Company or third parties with whom RetailOEP shares information at the Branded Company’s direction.</p>
                                         </li>
-                                        <p>BECAUSEOLO DOES NOT CONTROL THE PRIVACY PRACTICES OF THE BRANDED COMPANY,YOU SHOULD READ AND UNDERSTAND THE BRANDED COMPANY’S PRIVACY POLICIES.</p>
+                                        <p>BECAUSE RetailOEP DOES NOT CONTROL THE PRIVACY PRACTICES OF THE BRANDED COMPANY,YOU SHOULD READ AND UNDERSTAND THE BRANDED COMPANY’S PRIVACY POLICIES.</p>
                                         <li> 
                                             <p>hird Party Service Providers. Retail OEP may share your personal information with third party service providers that perform servicesfor or on behalf of Retail OEP, for the purposes described in thisPrivacy Policy, including: to provide you with the Services; toconduct quality assurance testing; to facilitate the creation ofAccounts; to optimize the performance of the Services; to provide technical support; and/or to provide other services to Retail OEP.</p>
                                         </li>
@@ -225,7 +225,7 @@ export default class PrivacyPolicy extends Component {
                                         <p>To request access to or deletion of personal information, visit the Branded Company’s website.</p>
                                     </li>
                                     <li>
-                                        <p>To learns how to limit tracking visit Online Tracking Opt-out Guide.</p>
+                                        <p>To learns how to limit tracking visit <a href="" >Online Tracking Opt-out Guide.</a></p>
                                     </li> 
                                     <li>
                                         <p>Identity verification. CCPA requires verification of the identity of the individual submitting the request. For identity verification requirements, visit the Branded Company’s website. </p>
@@ -234,7 +234,7 @@ export default class PrivacyPolicy extends Component {
                                         <p>Authorized agents. California residents can empower an "authorized agent" to submit requests on their behalf.</p>
                                     </li>
                                 </ul>
-                                <p>Close</p>
+                                
                             </div>
                             </MDBCol>
                         </MDBRow>
