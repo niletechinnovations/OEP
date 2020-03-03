@@ -312,9 +312,10 @@ class PreviewTemplatePageForm extends Component {
     actionFormData[event.target.name] = event.target.value;
     this.setState({actionData: actionFormData});
   }
+  
   render() {
     const formFiled = this.props.templateField;
-    
+    countQuestion = this.props.countQuestion;
    
     return (
       <>
@@ -330,6 +331,7 @@ class PreviewTemplatePageForm extends Component {
             formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} 
             deleteImage= {this.deleteInspectionImage.bind(this)} actionEvent={this.actionEventHandle} actionValue={this.props.actionValue[formFieldDetails.id] ? this.props.actionValue[formFieldDetails.id] : ""}  />
           )}
+          
       </div>
       <Modal isOpen={this.state.modal } toggle={this.toggle} className="category-modal-section">
         <ModalHeader toggle={this.toggle}>Action</ModalHeader>

@@ -42,6 +42,8 @@ class StartInspection extends React.Component {
       city:"",
       locality:"",
       locationEnabled: false,
+      currentQuestionPosition: 1,
+      countQuestion: 0,
       allowAllocationMessage: "Please allow location to access inspection"   
     }    
     
@@ -54,7 +56,8 @@ class StartInspection extends React.Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleRemoveMediaFile = this.handleRemoveMediaFile.bind(this);
     this.updateGeoLocationAddress = this.updateGeoLocationAddress.bind(this);
-    
+    this.handleNextStepForm = this.handleNextStepForm.bind(this);
+    this.handlePrevStepForm = this.handlePrevStepForm.bind(this);
     
   }
 
@@ -174,8 +177,23 @@ class StartInspection extends React.Component {
     //fieldName = fieldName.split('remarks__');
     remarks[fieldName] = fieldValue;
     this.setState({remarks: remarks});
-  }
 
+  }
+  handlePrevStepForm() {
+    let currentQuestionPosition = this.state.currentQuestionPosition;
+    if(currentQuestionPosition < 20 )
+      return ;
+    currentQuestionPosition = currentQuestionPosition - 20;
+    this.setState({currentQuestionPosition: currentQuestionPosition}); 
+  }
+  handleNextStepForm() {
+    debugger;
+    let currentQuestionPosition = this.state.currentQuestionPosition;
+    if(currentQuestionPosition >= this.state.templatePreviewData.length )
+      return ;
+    currentQuestionPosition = currentQuestionPosition + 20;
+    this.setState({currentQuestionPosition: currentQuestionPosition}); 
+  }
   /*Update Media File Url*/
   handleUpdateMediaFile(fieldName, fileInput, rawInput){
     if(!this.trackUserLocation())
@@ -414,13 +432,39 @@ class StartInspection extends React.Component {
       }
     }
     
-    if(this.state.loadingTemplate)
-      actionButton = <>
-        <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
-        <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
-            
-      </>;
-
+    if(this.state.loadingTemplate){
+      if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition == 1) {
+        actionButton = <>
+          <Button onClick={this.handleNextStepForm} className="btn-gr">Next</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+              
+        </>;
+      }
+      else if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition >= 20 && this.state.templatePreviewData.length > this.state.currentQuestionPosition + 19) {
+        actionButton = <>
+          <Button onClick={this.handlePrevStepForm} className="btn-gr">Prev</Button>
+          <Button onClick={this.handleNextStepForm} className="btn-gr">Next</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+              
+        </>;
+      }
+      else if(this.state.templatePreviewData.length > 20){
+        actionButton = <>
+          <Button onClick={this.handlePrevStepForm} className="btn-gr">Prev</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+              
+        </>;
+      }
+      else
+        actionButton = <>
+          <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+              
+        </>;
+    }
+    
+    const formFieldItem = this.state.templatePreviewData.length > 20 ? ((this.state.templatePreviewData.length + 20 >= this.state.currentQuestionPosition) ? this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.currentQuestionPosition + 19 ) :this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.templatePreviewData.length -1)) : this.state.templatePreviewData;
     return (
       <>
         <div className="main-content"> 
@@ -433,11 +477,11 @@ class StartInspection extends React.Component {
                         <MDBCol lg="12" className="card-info-box">
                             <MDBCard>
                                 <MDBCardBody>
-                                    <PreviewTemplatePageForm inspectionId={this.state.inspectionId} templateField = {this.state.templatePreviewData} 
+                                    <PreviewTemplatePageForm inspectionId={this.state.inspectionId} templateField = {formFieldItem} 
                                     formField={this.state.formField} 
                                     createFormFieldName={this.handleFormFieldName} 
                                     updateFormFieldValue={this.handleUpdateFormFieldValue} 
-                                    
+                                    countQuestion = {this.state.countQuestion}
                                     updateRemarks={this.handleUpdateRemarks} 
                                     remarksValue={this.state.remarks} 
                                     updateMediaFile={this.handleUpdateMediaFile} employeeList={this.state.employeeList} 
