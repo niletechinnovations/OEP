@@ -67,7 +67,7 @@ class SubCategoryData extends Component {
       selectableRows: 'none',
       textLabels: {
         body: {
-          noMatch: this.props.dataTableLoadingStatus ? "Proccessing........" : "Sorry, no matching records found",
+          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "Sorry, no matching records found",
           toolTip: "Sort",
           columnHeaderTooltip: column => `Sort for ${column.label}`
         },
