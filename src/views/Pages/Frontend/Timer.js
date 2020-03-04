@@ -68,9 +68,10 @@ export default class Timer extends Component {
     render() {
         debugger;
         return (
-            <div>
-                <p>Timer:- {this.state.hours}: {this.state.minuts}: {this.state.second} </p>
-                <p><Button onClick={this.startTimer}>Start</Button><Button onClick={this.stopTimer}>Pause</Button></p>
+            <div className="startTimer-info">
+                <h2>Timer:-</h2>
+                <div className="timerRow"> <div className="timeCount timeHours">{this.state.hours} </div>: <div className="timeCount timeMinutes">{this.state.minuts} </div>: <div className="timeCount timeSeconds">{this.state.second}</div> </div>
+                <p><Button onClick={this.startTimer} className="btn-gr">Start</Button><Button onClick={this.stopTimer} className="btn-ye">Pause</Button></p>
             </div>
         )
     }
