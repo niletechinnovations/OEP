@@ -7,39 +7,35 @@ export default {
     },
     {
       name: 'Manage Category',
-      icon: 'icon-speedometer',
+      icon: 'icon-grid',
       url: 'admin/manage-categories',
       children: [{
           name: 'Category',
           url: '/admin/manage-categories/category',
-          icon: 'icon-speedometer',     
         },
         {
           name: 'Subcategory',
           url: '/admin/manage-categories/subcategory',
-          icon: 'icon-speedometer',     
         },
       ]
     },  
     {
       name: 'Manage Organization',
       url: '/admin/manage-organization',      
-      icon: 'icon-people', 
+      icon: 'icon-organization', 
       children: [{
           name: 'Organization List',
           url: '/admin/manage-organization/organization',
-          icon: 'icon-people',     
         },
         {
           name: 'Employee List',
           url: '/admin/manage-organization/employee',
-          icon: 'icon-people',     
         },
       ]    
     },
     {
       name: 'Manage Template',
-      icon: 'icon-speedometer',
+      icon: 'icon-docs',
       url: '/admin/manage-template',
       children: [{
           name: 'Create Template',
@@ -55,28 +51,26 @@ export default {
     }, 
     {
       name: 'Inspection',      
-      icon: 'icon-people',
+      icon: 'icon-check',
       url: '/admin/manage-inspection', 
       children: [{
           name: 'Assign Inspection',
           url: '/admin/manage-inspection/assign-inspection',
-          icon: 'icon-theme',     
         },
         {
           name: 'View Inspection',
           url: '/admin/manage-inspection/inspection',
-          icon: 'icon-theme',     
         }        
       ]    
     },
     {
       name: 'Action',      
-      icon: 'icon-people', 
+      icon: 'icon-note', 
       url: '/admin/action',  
     },
     {
       name: 'Manage Subscription',      
-      icon: 'icon-people', 
+      icon: 'icon-badge', 
       url: '/admin/subscription', 
       children: [{
           name: 'Subscription Plan',
@@ -88,12 +82,12 @@ export default {
     {
       name: 'Reports',
       url: '#!',
-      icon: 'icon-people',     
+      icon: 'icon-doc',     
     },
     {
       name: 'Logout',
       url: '#!',
-      icon: 'icon-people',     
+      icon: 'icon-logout',     
     }
   ],
 };
