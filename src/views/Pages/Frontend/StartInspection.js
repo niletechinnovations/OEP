@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBCol, MDBRow, MDBCard,MDBCardBody, Button } from "mdbreact";
+import { MDBContainer, MDBCol, MDBRow, MDBCard,MDBCardBody, Button,  } from "mdbreact";
 import { ToastContainer, toast} from 'react-toastify';
 import { geolocated } from "react-geolocated";
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,7 +8,10 @@ import GeoLocationData from '../../../core/google-map/GeoLocationData';
 import Loader from '../../Loader/Loader';
 import './StartInspection.css';
 
-import PreviewTemplatePageForm from './PreviewTemplatePageForm'
+import PreviewTemplatePageForm from './PreviewTemplatePageForm';
+import Timer from "./Timer";
+var currentQuestionNumber = 0;
+var questionsecondLevalQuestionArray = [];
 class StartInspection extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
   constructor(props){
@@ -44,6 +47,12 @@ class StartInspection extends React.Component {
       locationEnabled: false,
       currentQuestionPosition: 1,
       countQuestion: 0,
+      currentQuestionNumber: 0,
+      prevQuestionNumber: 0,
+      timerHistoryId: "",
+      isTimerStart: false,
+      totalFormFillingTime: 0,
+      warningMessage: "Please start timer first before start submitting from",
       allowAllocationMessage: "Please allow location to access inspection"   
     }    
     
@@ -58,6 +67,7 @@ class StartInspection extends React.Component {
     this.updateGeoLocationAddress = this.updateGeoLocationAddress.bind(this);
     this.handleNextStepForm = this.handleNextStepForm.bind(this);
     this.handlePrevStepForm = this.handlePrevStepForm.bind(this);
+    this.updateQuestionCountval = this.updateQuestionCountval.bind(this);
     
   }
 
@@ -83,7 +93,7 @@ class StartInspection extends React.Component {
     }
    return true;
   }
-   getInspectionDetail(inspectionId) {
+  getInspectionDetail(inspectionId) {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('inspection/web/'+inspectionId)
         .then( res => {
@@ -131,7 +141,7 @@ class StartInspection extends React.Component {
               remarks[key] = inspectionDetail.feedBackData[key].remarks
             }
           }
-          this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
+          this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, totalFormFillingTime: inspectionDetail.totalFormFillingTime, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
           
           
         } )
@@ -165,6 +175,10 @@ class StartInspection extends React.Component {
   handleUpdateFormFieldValue(fieldName, fieldValue) {
     if(!this.trackUserLocation())
       return false;
+    if(!this.state.isTimerStart) {
+      toast.error(this.state.warningMessage);
+      return false;
+    }
     let formField = this.state.formField;
     formField[fieldName] = fieldValue;
     this.setState({formField: formField});
@@ -173,6 +187,10 @@ class StartInspection extends React.Component {
   handleUpdateRemarks(fieldName, fieldValue){
     if(!this.trackUserLocation())
       return false;
+    if(!this.state.isTimerStart) {
+      toast.error(this.state.warningMessage);
+      return false;
+    }
     let remarks = this.state.remarks;
     //fieldName = fieldName.split('remarks__');
     remarks[fieldName] = fieldValue;
@@ -184,20 +202,34 @@ class StartInspection extends React.Component {
     if(currentQuestionPosition < 20 )
       return ;
     currentQuestionPosition = currentQuestionPosition - 20;
-    this.setState({currentQuestionPosition: currentQuestionPosition}); 
+    questionsecondLevalQuestionArray.pop()
+    currentQuestionNumber = (questionsecondLevalQuestionArray.length > 0 ) ? questionsecondLevalQuestionArray[questionsecondLevalQuestionArray.length -1]: 0;
+    
+    this.setState({currentQuestionPosition: currentQuestionPosition, countQuestion: currentQuestionNumber}); 
+  }
+  updateQuestionCountval(currentQuestionNumberVal) {
+   
+
+    currentQuestionNumber = currentQuestionNumberVal;
   }
   handleNextStepForm() {
-    debugger;
     let currentQuestionPosition = this.state.currentQuestionPosition;
     if(currentQuestionPosition >= this.state.templatePreviewData.length )
       return ;
     currentQuestionPosition = currentQuestionPosition + 20;
-    this.setState({currentQuestionPosition: currentQuestionPosition}); 
+    if(questionsecondLevalQuestionArray.indexOf(currentQuestionNumber) < 0 )
+      questionsecondLevalQuestionArray.push(currentQuestionNumber);
+    
+    this.setState({currentQuestionPosition: currentQuestionPosition, countQuestion: currentQuestionNumber}); 
   }
   /*Update Media File Url*/
   handleUpdateMediaFile(fieldName, fileInput, rawInput){
     if(!this.trackUserLocation())
       return false;
+    if(!this.state.isTimerStart) {
+      toast.error(this.state.warningMessage);
+      return false;
+    }
     let mediaFile = this.state.mediaFileInfo;
     let fieldMedia = mediaFile[fieldName] ?  mediaFile[fieldName] : [];
     let prevmediaFile = this.state.previousUploadedFile;
@@ -240,6 +272,10 @@ class StartInspection extends React.Component {
   handleActionData(fieldName, actionFormData){
       if(!this.trackUserLocation())
         return false;
+      if(!this.state.isTimerStart) {
+        toast.error(this.state.warningMessage);
+        return false;
+      }
       if(this.state.inspectionId === ""){
         toast.error("Something Went Wrong");
         return false;
@@ -311,6 +347,10 @@ class StartInspection extends React.Component {
   handleSubmitForm(saveAsDraft = false) {
     if(!this.trackUserLocation())
       return false;
+    if(!this.state.isTimerStart) {
+      toast.error(this.state.warningMessage);
+      return false;
+    }
     if(this.state.inspectionId === ""){
       toast.error("Something Went Wrong");
       return false;
@@ -379,7 +419,11 @@ class StartInspection extends React.Component {
   }
   handleRemoveMediaFile(inputFieldId, currentId){  
     if(!this.trackUserLocation())
-      return false;  
+      return false;
+    if(!this.state.isTimerStart) {
+      toast.error(this.state.warningMessage);
+      return false;
+    }  
     let mediaFileInfo = this.state.mediaFileInfo;
     let previousUploadedFile = this.state.previousUploadedFile;
     let imageInfo = previousUploadedFile[inputFieldId] ? previousUploadedFile[inputFieldId]: [];
@@ -418,11 +462,49 @@ class StartInspection extends React.Component {
    
 
   }
+
+  /* start time */
+  updateStartTime=(seconds)=>{
+    
+    let formData ={startTime:seconds};
+    commonService.putAPIWithAccessToken('inspection/update-start-time/'+this.state.inspectionId, formData)
+        .then( res => { 
+          console.log(res.data);
+          })
+          .catch( err => {         
+            if(err.response !== undefined && err.response.status === 401) {
+              localStorage.clear();
+              this.props.history.push('/login');
+            }
+            else
+              this.setState( { loading: false } );
+              toast.error(err.message);
+          } );
+  }
+  
+  updateEndTime=(seconds)=>{
+    
+    let formData ={stopTime:seconds};
+    commonService.putAPIWithAccessToken('inspection/update-stop-time/'+this.state.inspectionId, formData)
+        .then( res => { 
+          console.log(res.data);
+          })
+          .catch( err => {         
+            if(err.response !== undefined && err.response.status === 401) {
+              localStorage.clear();
+              this.props.history.push('/login');
+            }
+            else
+              this.setState( { loading: false } );
+              toast.error(err.message);
+          } );
+  }
   render() {
     
     let loaderElement = '';
     let actionButton = '';
     let geoLocationTags = '';
+    let timerSection = "";
     if(this.state.loading)
       loaderElement = <Loader />
     if(this.props.isGeolocationAvailable) {
@@ -462,6 +544,7 @@ class StartInspection extends React.Component {
           <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
               
         </>;
+        timerSection = <Timer updateStartTime= {this.updateStartTime} updateEndTime= {this.updateEndTime} totalFormFillingTime = {this.state.totalFormFillingTime}/>
     }
     
     const formFieldItem = this.state.templatePreviewData.length > 20 ? ((this.state.templatePreviewData.length + 20 >= this.state.currentQuestionPosition) ? this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.currentQuestionPosition + 19 ) :this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.templatePreviewData.length -1)) : this.state.templatePreviewData;
@@ -474,21 +557,26 @@ class StartInspection extends React.Component {
                     {geoLocationTags}
                     <ToastContainer />
                     <MDBRow className="">
+
                         <MDBCol lg="12" className="card-info-box">
                             <MDBCard>
                                 <MDBCardBody>
+                                    <div className="timer-section">
+                                        {timerSection}
+                                    </div>
                                     <PreviewTemplatePageForm inspectionId={this.state.inspectionId} templateField = {formFieldItem} 
                                     formField={this.state.formField} 
                                     createFormFieldName={this.handleFormFieldName} 
                                     updateFormFieldValue={this.handleUpdateFormFieldValue} 
-                                    countQuestion = {this.state.countQuestion}
+                                    countQuestion = {this.state.countQuestion}                                
                                     updateRemarks={this.handleUpdateRemarks} 
                                     remarksValue={this.state.remarks} 
                                     updateMediaFile={this.handleUpdateMediaFile} employeeList={this.state.employeeList} 
                                     updateAction={this.handleActionData} actionValue={this.state.actionData} 
                                     actionFormHide={this.state.actionFormHide}
                                     previousUploadedFile = {this.state.previousUploadedFile}
-                                    handleRemoveMediaFile = {this.handleRemoveMediaFile} /> 
+                                    handleRemoveMediaFile = {this.handleRemoveMediaFile}
+                                    updateQuestionCountval = {this.updateQuestionCountval} /> 
                                     {actionButton}
                                 </MDBCardBody>
                             </MDBCard>

@@ -193,6 +193,12 @@ class PreviewTemplatePageForm extends Component {
     this.props.createFormFieldName(formFiled, formErrors);
     
   }
+
+  /* Update Counter On Each */
+  componentDidUpdate(){
+    
+    this.props.updateQuestionCountval(countQuestion);
+  }
   /* Change Input Field*/
   changeHandle = event => {
     this.props.updateFormFieldValue(event.target.name, event.target.value);

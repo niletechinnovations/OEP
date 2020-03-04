@@ -143,7 +143,7 @@ class FeedBackPreviewPageForm extends Component {
             </thead>
             <tbody>
             <td>
-            <PreviewMediaSection mediaFile={mediaFileView} apiUrl={this.props.apiUrl}  />
+            <PreviewMediaSection mediaFile={allMediaFile} apiUrl={this.props.apiUrl}  />
              </td>
             </tbody>
           </table>
