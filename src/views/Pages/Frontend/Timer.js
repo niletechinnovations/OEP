@@ -35,6 +35,7 @@ export default class Timer extends Component {
           second:s,          
           seconds: Number(state.seconds) + 1
         }));
+        this.props.updateTime(this.state.seconds);
       }
     
       componentDidMount() {
