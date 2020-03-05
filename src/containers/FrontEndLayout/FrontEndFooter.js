@@ -34,13 +34,7 @@ const frontEndFooter = () => {
                 </nav>
               </MDBCol>
 
-              <MDBCol md="2">
-                <nav className="flex-column foot-nav">
-                  <a href="#!" className="py-2 text-contrast nav-link">Templates</a>
-                  <a href="#!" className="py-2 text-contrast nav-link">Resources</a>
-                  <a href="#!" className="py-2 text-contrast nav-link">Integrations</a>
-                </nav>
-              </MDBCol>
+              
               <MDBCol md="2">
                   <h2 className="fot-title">Follow us</h2>
                   <ul className="social-links">

@@ -67,7 +67,7 @@ export default class Timer extends Component {
     }
     
     render() {
-        debugger;
+        
         return (
             <div className="startTimer-info">
                 <h2>Timer:-</h2>

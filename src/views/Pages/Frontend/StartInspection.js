@@ -361,6 +361,7 @@ class StartInspection extends React.Component {
       toast.error("Something Went Wrong");
       return false;
     }
+    debugger;
     let formData = {inspectionId: this.state.inspectionId, totalTimeCalculated: this.state.totalTimeCalculated, 
       saveAsDraft: saveAsDraft, authId: this.state.authId,
        feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, 
