@@ -1,7 +1,7 @@
 import axios from 'axios';
-const API_BASE_URL = 'http://34.195.141.117:8083/v0.0/';
+const API_BASE_URL = 'https://api.retailoep.com/v0.0/';
 //const API_BASE_URL = 'http://localhost:8082/v0.0/';
-const API_BASE_URL_WITH_OUT_VERSION = 'http://34.195.141.117:8083/';
+const API_BASE_URL_WITH_OUT_VERSION = 'https://api.retailoep.com/';
 const googleAPIKey = 'AIzaSyBaq7mc_lts3Xensjk7JvnUU1q8dNG0avo';
 class ApiService {
 
