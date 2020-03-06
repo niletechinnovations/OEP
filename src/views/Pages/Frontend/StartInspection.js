@@ -127,12 +127,12 @@ class StartInspection extends React.Component {
             for(let i =0; i < inspectionDetail.inspectionMediaFile.length; i++) {
               if(mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] !== undefined) {
                 mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push({mediaFileId: inspectionDetail.inspectionMediaFile[i]._id, 'mediaFile': inspectionDetail.inspectionMediaFile[i].mediaFile});
-                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'public/feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
+                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
               }
               else {
                 mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] = [];
                 prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] = [];
-                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'public/feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
+                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
                 mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push({mediaFileId: inspectionDetail.inspectionMediaFile[i]._id, 'mediaFile': inspectionDetail.inspectionMediaFile[i].mediaFile});
               }
             }
