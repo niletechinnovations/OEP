@@ -28,7 +28,7 @@ class InspectionFeedBackData extends Component {
     let rowsItem = [];
     const inspectionInfo = this.props.inspectionInfo;
     for(const [i, feedback] of this.props.data.entries()){
-      
+      console.log(i);
       let feedbackInfo = {
         inspectionName: inspectionInfo.inspectionName,
         organizationName: inspectionInfo.organizationName,  
@@ -37,8 +37,7 @@ class InspectionFeedBackData extends Component {
         failedItem: feedback.wrongQuestion,
         templateName: inspectionInfo.templateName || " ",
         date: commonFunction.getDate(feedback.createdAt),
-        action: <p><Link to={`/admin/manage-inspection/inspection/feedback/${feedback._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
-          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing}><i className="fa fa-trash"></i></a></p>,       
+        action: "",       
       }      
       rowsItem.push(feedbackInfo);
     }
@@ -66,6 +65,17 @@ class InspectionFeedBackData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+            let rowInfo = this.props.data[i];
+            return (
+             <p><Link to={`/admin/manage-inspection/inspection/feedback/${rowInfo._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
+              <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing}><i className="fa fa-trash"></i></a></p>
+            );
+          },
+        }
       },
     ];
     const options = {

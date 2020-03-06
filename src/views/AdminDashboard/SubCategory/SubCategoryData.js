@@ -28,14 +28,12 @@ class SubCategoryData extends Component {
     
     let rowsItem = [];    
     for(const [i, cat] of this.props.data.entries()){
+      console.log(i);
       let catInfo = {
         name: cat.subCategoryName,
         parentCategory: cat.categoryName,
         status: cat.status ? "Active" : "Inactive" ,       
-        action: <p><a href="#!"className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editSubCategoryItem(i)}><i className="fa fa-pencil"></i> </a>
-          <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteSubCategoryItem(i)}><i className="fa fa-trash"></i></a></p>,       
+        action: "",       
       }      
       rowsItem.push(catInfo);
     }    
@@ -55,6 +53,19 @@ class SubCategoryData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+           
+            return (
+             <p><a href="#!"className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+              this.editSubCategoryItem(i)}><i className="fa fa-pencil"></i> </a>
+              <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+              this.deleteSubCategoryItem(i)}><i className="fa fa-trash"></i></a></p>
+            );
+          },
+        }
       },
     ];
     const options = {

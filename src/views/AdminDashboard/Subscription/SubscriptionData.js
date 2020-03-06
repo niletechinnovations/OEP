@@ -37,6 +37,7 @@ class SubscriptionData extends Component {
     
     let rowsItem = [];
     for(const [i, plan] of this.props.data.entries()){
+      console.log(i);
       let orgInfo = {   
         planId: plan.planId,      
         planName: plan.planName,        
@@ -45,10 +46,7 @@ class SubscriptionData extends Component {
         userAccess: plan.userAccess || " ",      
         templateAccess: plan.templateAccess || " ",
         status: plan.status ? 'Active' : 'Inactive',   
-        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editSubscriptionItem(i)}><i className="fa fa-pencil"></i> </button>
-          <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteSubscriptionItem(i)}><i className="fa fa-trash"></i></button></p>,       
+        action: "",       
       }      
       rowsItem.push(orgInfo);
     }      
@@ -82,6 +80,19 @@ class SubscriptionData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+           
+            return (
+               <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+                this.editSubscriptionItem(i)}><i className="fa fa-pencil"></i> </button>
+                <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+                this.deleteSubscriptionItem(i)}><i className="fa fa-trash"></i></button></p>
+            );
+          },
+        }
       },
     ];
     const options = {

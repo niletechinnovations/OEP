@@ -68,6 +68,7 @@ class ActionData extends Component {
       {
         label: 'Action',
         name: 'action',
+        
       },
     ];
     const options = {

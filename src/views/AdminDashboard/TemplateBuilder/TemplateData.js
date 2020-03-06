@@ -20,13 +20,14 @@ class TemplateData extends Component {
     let rowsItem = [];
     
     for(const [i, template] of this.props.data.entries()){
+      console.log(i);
       let templateInfo = {
         templateName: template.templateName,  
         type: template.type === 'free' ? 'Default' : 'Paid',
         status: template.status ? 'Active' : 'Inactive',
         categoryName: template.categoryName || " ",
         subCategoryName: template.subCategoryName || " ",
-        action: <Link to={`/admin/manage-template/create-template/${template.templateId}`} className="btn-view"><i className="fa fa-eye"></i> </Link>,       
+        action: "",       
       }      
       rowsItem.push(templateInfo);
     }
@@ -50,6 +51,16 @@ class TemplateData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+            let rowInfo = this.props.data[i];
+            return (
+             <Link to={`/admin/manage-template/create-template/${rowInfo.templateId}`} className="btn-view"><i className="fa fa-eye"></i> </Link>
+            );
+          },
+        }
       },
     ];
     const options = {

@@ -65,7 +65,7 @@ class SubscriberData extends Component {
       filter: false,
       searchOpen: false,
       print: false,
-      download: false,
+      download: true,
       responsive: 'stacked',
       selectableRows: 'none',
       textLabels: {
