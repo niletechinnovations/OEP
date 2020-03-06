@@ -527,7 +527,7 @@ class StartInspection extends React.Component {
     }
     
     if(this.state.loadingTemplate){
-      if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition == 1) {
+      if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition === 1) {
         actionButton = <>
           <Button onClick={this.handleNextStepForm} className="btn-gr">Next</Button>
           <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>

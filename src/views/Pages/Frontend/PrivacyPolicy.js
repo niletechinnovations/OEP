@@ -225,7 +225,7 @@ export default class PrivacyPolicy extends Component {
                                         <p>To request access to or deletion of personal information, visit the Branded Company’s website.</p>
                                     </li>
                                     <li>
-                                        <p>To learns how to limit tracking visit <a href="" >Online Tracking Opt-out Guide.</a></p>
+                                        <p>To learns how to limit tracking visit <a href="/" >Online Tracking Opt-out Guide.</a></p>
                                     </li> 
                                     <li>
                                         <p>Identity verification. CCPA requires verification of the identity of the individual submitting the request. For identity verification requirements, visit the Branded Company’s website. </p>

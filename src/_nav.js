@@ -81,8 +81,17 @@ export default {
     },
     {
       name: 'Reports',
-      url: '#!',
-      icon: 'icon-doc',     
+      icon: 'icon-doc', 
+      url: '/admin/reports', 
+      children: [{
+          name: 'Subscriber List',
+          url: '/admin/reports/subscriber-list',
+        },
+        {
+          name: 'Leaderboard',
+          url: '/admin/reports/leaderboard',
+        }      
+      ]    
     },
     {
       name: 'Logout',

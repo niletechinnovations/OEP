@@ -28,7 +28,7 @@ class ActionData extends Component {
     let rowsItem = [];
     
     for(const [i, inspection] of this.props.data.entries()){
-      
+      console.log(i);
       let inspectionInfo = {
        description: inspection.description,
        createdBy: inspection.AssignBy !== undefined ? inspection.AssignBy.firstName + ' '+ inspection.AssignBy.lastName : '',

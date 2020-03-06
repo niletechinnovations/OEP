@@ -99,14 +99,13 @@ class ContactPage extends React.Component {
                                     <MDBIcon icon="phone" />
                                 </MDBBtn>
                                 <p>+ 01 234 567 89</p>
-                                <p className="mb-md-0">Mon - Fri, 8:00-22:00</p>
+                                
                                 </MDBCol>
                                 <MDBCol md="4">
                                 <MDBBtn tag="a" floating  className="bg-grey-oep">
                                     <MDBIcon icon="envelope" />
                                 </MDBBtn>
-                                <p>info@gmail.com</p>
-                                <p className="mb-md-0">sales@gmail.com</p>
+                                <p><a href="mailto:support@retailoep.com">support@retailoep.com</a></p>
                                 </MDBCol>
                             </MDBRow>
 

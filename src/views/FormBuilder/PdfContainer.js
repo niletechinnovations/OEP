@@ -37,7 +37,8 @@ class PdfContainer extends Component {
     event.preventDefault();
     event.target.className += " was-validated";
     if(this.state.share_email !== '') {
-      if((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.share_email))){
+      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);  
+      if((pattern.test(this.state.share_email))){
         const formdata = {email: this.state.share_email, body_content: this.bodyRef.current.innerHTML };
         this.setState( { loading: true}, () => {
           commonService.postAPIWithAccessToken('template/share-template', formdata)
