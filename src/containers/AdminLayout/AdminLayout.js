@@ -28,10 +28,10 @@ import DefaultHeader from './DefaultHeader';
 
 class AdminLayout extends Component {
 
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     //this.asideTogglerRef = React.createRef();
-  }
+  }*/
 
   /*componentDidMount() {
     ReactDOM.findDOMNode(this.asideTogglerRef.current).addEventListener('click', this.handleClick.bind(this));

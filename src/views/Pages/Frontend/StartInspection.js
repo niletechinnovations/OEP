@@ -53,7 +53,7 @@ class StartInspection extends React.Component {
       isTimerStart: false,
       totalFormFillingTime: 0,
       totalTimeCalculated: 0,
-      warningMessage: "Please start timer first before start submitting from",
+      warningMessage: "Please start the timer first before submitting form",
       allowAllocationMessage: "Please allow location to access inspection"   
     }    
     
