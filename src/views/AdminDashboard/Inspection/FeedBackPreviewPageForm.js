@@ -17,7 +17,7 @@ function FieldLayout(props) {
       
     case 'RadioButtons':
       /*const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";*/
-      if(props.formValue == undefined)
+      if(props.formValue === undefined)
         return (<><tr>
             <td>{formFieldDetails.label}</td>
             <td></td>

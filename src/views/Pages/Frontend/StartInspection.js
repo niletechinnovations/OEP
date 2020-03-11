@@ -53,7 +53,7 @@ class StartInspection extends React.Component {
       isTimerStart: false,
       totalFormFillingTime: 0,
       totalTimeCalculated: 0,
-      warningMessage: "Please start timer first before start submitting from",
+      warningMessage: "Please start the timer first before submitting form",
       allowAllocationMessage: "Please allow location to access inspection"   
     }    
     
@@ -127,12 +127,12 @@ class StartInspection extends React.Component {
             for(let i =0; i < inspectionDetail.inspectionMediaFile.length; i++) {
               if(mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] !== undefined) {
                 mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push({mediaFileId: inspectionDetail.inspectionMediaFile[i]._id, 'mediaFile': inspectionDetail.inspectionMediaFile[i].mediaFile});
-                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'public/feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
+                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
               }
               else {
                 mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] = [];
                 prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId] = [];
-                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'public/feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
+                prevMediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push(commonService.getAPIUrl()+'feedback/'+inspectionDetail.inspectionMediaFile[i].mediaFile);
                 mediaFileInfo[inspectionDetail.inspectionMediaFile[i].questionId].push({mediaFileId: inspectionDetail.inspectionMediaFile[i]._id, 'mediaFile': inspectionDetail.inspectionMediaFile[i].mediaFile});
               }
             }
@@ -527,7 +527,7 @@ class StartInspection extends React.Component {
     }
     
     if(this.state.loadingTemplate){
-      if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition == 1) {
+      if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition === 1) {
         actionButton = <>
           <Button onClick={this.handleNextStepForm} className="btn-gr">Next</Button>
           <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>

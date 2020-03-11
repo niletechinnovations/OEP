@@ -1,4 +1,5 @@
 import React, { Component, Suspense } from 'react';
+//import ReactDOM from 'react-dom';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import * as router from 'react-router-dom';
@@ -27,6 +28,27 @@ import DefaultHeader from './DefaultHeader';
 
 class AdminLayout extends Component {
 
+  /*constructor(props) {
+    super(props);
+    //this.asideTogglerRef = React.createRef();
+  }*/
+
+  /*componentDidMount() {
+    ReactDOM.findDOMNode(this.asideTogglerRef.current).addEventListener('click', this.handleClick.bind(this));
+  }
+ 
+
+  // removeEventListener
+  componentWillUnmount() {
+    ReactDOM.findDOMNode(this.asideTogglerRef.current).removeEventListener('click', this.handleClick.bind(this));
+  }
+
+
+  handleClick() {
+    console.log('Click')
+  }*/
+
+
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
@@ -48,7 +70,7 @@ class AdminLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-             <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+             <AppSidebarNav navConfig={navigation} {...this.props} router={router} ref={this.asideTogglerRef}/>
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />

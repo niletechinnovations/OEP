@@ -16,8 +16,8 @@ import FeedBackPreviewPage from './views/AdminDashboard/Inspection/FeedBackPrevi
 import Store from './views/AdminDashboard/Organization/Store/Store';
 import ActionLists from './views/AdminDashboard/Inspection/ActionLists';
 import Subscription from './views/AdminDashboard/Subscription/Subscription';
-
-
+import SubscriberList from './views/AdminDashboard/Reports/Subscriber';
+import LeaderBoard from './views/AdminDashboard/Reports/LeaderBoard';
 
 const adminRoutes = [
   { path: '/admin/', exact: true, name: 'Home' },
@@ -44,6 +44,8 @@ const adminRoutes = [
   { path: '/admin/manage-inspection/inspection/feedback/:feedBackId', exact: true,  name: 'Feedback Preview', component: FeedBackPreviewPage },
   { path: '/admin/action', exact: true,  name: 'Action', component: ActionLists },
   { path: '/admin/subscription', exact: true,  name: 'Subscription', component: Subscription },
+  { path: '/admin/reports/subscriber-list', exact: true,  name: 'Subscriber List', component: SubscriberList },
+  { path: '/admin/reports/leaderboard', exact: true,  name: 'LeaderBoard', component: LeaderBoard },
 
 ];
 

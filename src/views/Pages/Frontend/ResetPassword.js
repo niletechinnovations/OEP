@@ -78,6 +78,7 @@ class ResetPassword extends React.Component {
   
 
   render() {
+    debugger;
     const { newPassword, confirmPassword, loading } = this.state;
      
     let loaderElement = '';

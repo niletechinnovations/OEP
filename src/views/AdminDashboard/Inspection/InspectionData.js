@@ -28,6 +28,7 @@ class InspectionData extends Component {
     let rowsItem = [];
     
     for(const [i, inspection] of this.props.data.entries()){
+      console.log(i);
       let inspectionInfo = {
         organizationName: inspection.organizationName,  
         inspectionName: inspection.inspectionName,
@@ -35,10 +36,8 @@ class InspectionData extends Component {
         templateName: inspection.templateName || " ",
         categoryName: inspection.categoryName || " ",
         subCategoryName: inspection.subCategoryName || " ",
-        status: inspection.currentStatus == 1 ? "Pending" : inspection.currentStatus == 2 ? "Proccessing" : "Completed",
-        action: <p><Link to={`/admin/manage-inspection/assign-inspection/${inspection.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link> <Link to={`/admin/manage-inspection/inspection/${inspection.inspectionId}`} title="View Feedback" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link> 
-          <button className="btn-delete" color="warning" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></button></p>,       
+        status: inspection.currentStatus === 1 ? "Pending" : inspection.currentStatus === 2 ? "Proccessing" : "Completed",
+        action: "",       
       }      
       rowsItem.push(inspectionInfo);
     }
@@ -74,6 +73,18 @@ class InspectionData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+            let rowInfo = this.props.data[i];
+            return (
+             <p><Link to={`/admin/manage-inspection/assign-inspection/${rowInfo.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link> <Link to={`/admin/manage-inspection/inspection/${rowInfo.inspectionId}`} title="View Feedback" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link> 
+              <button className="btn-delete" color="warning" disabled={this.state.buttonProcessing} onClick={() => 
+              this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></button></p>
+            );
+          },
+        }
       },
     ];
     const options = {

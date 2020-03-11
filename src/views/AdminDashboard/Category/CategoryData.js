@@ -36,18 +36,29 @@ class CategoryData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+           
+            return (
+             <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+              this.editCategoryItem(i)}><i className="fa fa-pencil"></i> </button>
+              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+              this.deleteCategoryItem(i)}><i className="fa fa-trash"></i></button></p>
+            );
+          },
+        }
       },
     ];
 
     let rowsItem = [];    
     for(const [i, cat] of this.props.data.entries()){
+      console.log(i);
       let catInfo = {
         name: cat.categoryName,
         status: cat.status ? "Active" : "Inactive" ,       
-        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editCategoryItem(i)}><i className="fa fa-pencil"></i> </button>
-          <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteCategoryItem(i)}><i className="fa fa-trash"></i></button></p>,       
+        action: "",       
       }      
       rowsItem.push(catInfo);
     }

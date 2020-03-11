@@ -8,6 +8,7 @@ class commonFunction {
             getDay = (getDay < 10) ? '0' + getDay : getDay;
             let getYear = newDate.getFullYear();            
             let getMonth = newDate.getMonth();
+            getMonth = getMonth + 1;
             getMonth = (getMonth < 10) ? '0' + getMonth : getMonth;
             let getHour = newDate.getHours();
             getHour = (getHour < 10) ? '0' + getHour : getHour;
@@ -35,13 +36,9 @@ class commonFunction {
             getDay = (getDay < 10) ? '0' + getDay : getDay;
             let getYear = newDate.getFullYear();            
             let getMonth = newDate.getMonth();
+            getMonth = getMonth + 1;
             getMonth = (getMonth < 10) ? '0' + getMonth : getMonth;
-            /*let getHour = newDate.getHours();
-            getHour = (getHour < 10) ? '0' + getHour : getHour;
-            let getMinutes = newDate.getMinutes();
-            getMinutes = (getMinutes < 10) ? '0' + getMinutes : getMinutes;
-            let getSeconds = newDate.getSeconds();
-            getSeconds = (getSeconds < 10) ? '0' + getSeconds : getSeconds;*/
+           
             if($format === 'YYYY-MM-DD')
                 convertedDate = getYear+'-'+getMonth+'-'+getDay;
             else if($format === 'YYYY/MM/DD')

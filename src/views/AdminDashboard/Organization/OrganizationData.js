@@ -29,6 +29,7 @@ class OrganizationData extends Component {
     
     let rowsItem = [];    
     for(const [i, orgnization] of this.props.data.entries()){
+      console.log(i);
       let orgInfo = {
         organizationName: orgnization.organizationName,  
         firstName: orgnization.firstName,
@@ -40,12 +41,9 @@ class OrganizationData extends Component {
         state: orgnization.state || " ",
         country: orgnization.country || " ",
         status: orgnization.status ? "Active" : "Inactive",   
-        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editOrganizationItem(i)}><i className="fa fa-pencil"></i> </button>
-          <Link className="btn-view" to={`/admin/manage-organization/employee/${orgnization.authId}`}><i className="fa fa-user"></i> </Link>
-          <Link className="btn-view" to={`/admin/manage-organization/store/${orgnization.authId}`}><i className="fa fa-venus"></i> </Link>
-          <button className="btn-delete" color="warning" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteOrganizationItem(i)}><i className="fa fa-trash"></i></button></p>,       
+        action: "",
+        organizationAuthId: orgnization.authId
+
       }      
       rowsItem.push(orgInfo);
     }      
@@ -73,6 +71,22 @@ class OrganizationData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+            let rowInfo = this.props.data[i];
+            let authId = rowInfo.authId;
+            return (
+             <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+          this.editOrganizationItem(i)}><i className="fa fa-pencil"></i> </button>
+          <Link className="btn-view" to={`/admin/manage-organization/employee/${authId}`}><i className="fa fa-user"></i> </Link>
+          <Link className="btn-view" to={`/admin/manage-organization/store/${authId}`}><i className="fa fa-venus"></i> </Link>
+          <button className="btn-delete" color="warning" disabled={this.state.buttonProcessing} onClick={() => 
+          this.deleteOrganizationItem(i)}><i className="fa fa-trash"></i></button></p>
+            );
+          },
+        }
       },
     ];
     const options = {
@@ -80,7 +94,7 @@ class OrganizationData extends Component {
       filter: false,
       searchOpen: false,
       print: false,
-      download: false,
+      download: true,
       responsive: 'stacked',
       selectableRows: 'none',
       textLabels: {

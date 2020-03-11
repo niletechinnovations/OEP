@@ -27,6 +27,7 @@ class EmployeeData extends Component {
     
     let rowsItem = [];    
     for(const [i, employee] of this.props.data.entries()){
+      console.log(i);
       let orgInfo = {   
         organizationName: employee.organizationName,      
         firstName: employee.firstName,
@@ -38,10 +39,7 @@ class EmployeeData extends Component {
         state: employee.state || " ",
         country: employee.country || " ",
         status: employee.status || true,   
-        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </button>
-          <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteEmployeeItem(i)}><i className="fa fa-trash"></i></button></p>,       
+        action: "",       
       }      
       rowsItem.push(orgInfo);
     }      
@@ -71,6 +69,19 @@ class EmployeeData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+           
+            return (
+             <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+              this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </button>
+              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+              this.deleteEmployeeItem(i)}><i className="fa fa-trash"></i></button></p>
+            );
+          },
+        }
       },
     ];
     const options = {
@@ -78,7 +89,7 @@ class EmployeeData extends Component {
       filter: false,
       searchOpen: false,
       print: false,
-      download: false,
+      download: true,
       responsive: 'stacked',
       selectableRows: 'none',
       textLabels: {

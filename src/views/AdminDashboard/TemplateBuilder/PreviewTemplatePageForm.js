@@ -122,6 +122,7 @@ class PreviewTemplatePageForm extends Component {
     let formFiled = {};
     let formErrors = {};
     for(const [i, formFieldDetails] of this.props.templateField.entries()){
+      console.log(i);
       if(formFieldDetails.element === "Header" || formFieldDetails.element === "Paragraph" || formFieldDetails.element === "LineBreak" || formFieldDetails.element === "Label")
         continue;
       if(formFieldDetails.required)

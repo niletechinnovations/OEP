@@ -6,8 +6,9 @@ const yellow = 'ye';
 const blue = 'bl';
 const green = 'gr';
 const red = 're';
-
+const renderHTML = (rawHTML: string) => React.createElement("customlabel", { dangerouslySetInnerHTML: { __html: rawHTML } });
 function FieldLayout(props) {
+
   const formFieldDetails = props.formFieldDetails;
   if(formFieldDetails === null || formFieldDetails === undefined) {
     return "";
@@ -18,7 +19,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title">{formFieldDetails.content}</Label>
+              <Label className="inspection-title">{ renderHTML(formFieldDetails.content)}</Label>
             </FormGroup>
         </div>
       )
@@ -27,7 +28,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
         </Col>
@@ -37,7 +38,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((checkBoxOptions, index) =>              
                 <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent} />
@@ -51,7 +52,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
         </Col>
@@ -61,7 +62,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} onChange={props.onchangeEvent}>
 
               {formFieldDetails.options.map((dropOptions, index) =>              
@@ -81,14 +82,14 @@ function FieldLayout(props) {
       if(props.actionValue !== "")
         actionView = <div className="action-content-section">
                         <Label className="remarks-label">Action</Label>
-                        <p>{props.actionValue.description}</p>
+                        <p>{ renderHTML(props.actionValue.description)}</p>
                         <div className="date"><b>Due Date:</b> {props.actionValue.dueDate}</div>
                         <Button className="btn-bl btn-edit" onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                       </div>;
       if(props.remarksValue !== "" && !props.formFieldRemarks[formFieldDetails.id]) 
         remarkSection = <div className="remarks-content-section">
                           <Label className="remarks-label">Comments</Label>
-                          <p>{props.remarksValue}</p><Button className="btn-bl btn-edit" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                          <p>{ renderHTML(props.remarksValue)}</p><Button className="btn-bl btn-edit" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                         </div>
       else
         remarkSection = <div className={className}>
@@ -105,7 +106,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title"><span className="inspection-no-value">{countQuestion}</span>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+              <Label className="inspection-title"><span className="inspection-no-value">{countQuestion}</span>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
               <div className="inspection-check">
                 {formFieldDetails.options.map((radioButtonOptions, index) =>              
                   <CustomInput key={index} name={formFieldDetails.id} type="radio" checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
@@ -132,7 +133,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title">{formFieldDetails.content}</Label>
+              <Label className="inspection-title">{ renderHTML(formFieldDetails.content)}</Label>
             </FormGroup>  
         </div>
       )
@@ -141,7 +142,7 @@ function FieldLayout(props) {
       return(
           <Col lg={12}>
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} disabled type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeFileEvent}  />
           </FormGroup>
         </Col> 
@@ -152,7 +153,7 @@ function FieldLayout(props) {
 
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title">{formFieldDetails.content || ""}</Label>
+              <Label className="inspection-title">{ renderHTML(formFieldDetails.content || "")}</Label>
             </FormGroup>  
         </div>
       )
