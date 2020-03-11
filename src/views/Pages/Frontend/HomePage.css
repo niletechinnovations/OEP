@@ -30,7 +30,8 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .homepage-search-bar{ position: absolute; top: 10%; left: 10%; z-index: 9;}
 .search_form .col-md-3, .search_form .col-md-1{ padding-left: 10px; padding-right: 10px; }
 .search-box-bg{ background:  rgba(0, 0, 0, 0.5) }
-.view.home-bg{background-image: url(/images/architecture-bg.jpg); background-repeat: no-repeat; background-position: top center; background-size: cover; min-height: 650px; } .view .gradient {background: rgba(39, 39, 41, 0.54); }
+/*.view.home-bg{background-image: url(/images/architecture-bg.jpg); background-repeat: no-repeat; background-position: top center; background-size: cover; min-height: 650px; } */
+.view .gradient {background: rgba(39, 39, 41, 0.44); }
 .btn-Started{margin-bottom: 0; margin-right:10px;font-size: 12px;padding: 10px 15px;border-radius: 5px;background: transparent;text-transform:uppercase;font-weight: 600;position: relative;z-index: 1;color: #fbdc85 !important;border: 1px solid #fbdc85;display: inline-block;} 
 .btn-Started:after {position: absolute; right: 0; top: 0; width: 0%; height: 100%; content: ""; background-color: #fbdc85; z-index: -1; border-radius: 1px; -webkit-transition: .5s; -o-transition: .5s; transition: .5s; }
 .btn-Started:hover{color: #ffffff !important  }
@@ -299,7 +300,7 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 @media (max-width: 767px) {
   .homepage-search-bar {
     position: relative;
-    margin-top: -40%;
+    margin-top: 4%;
     left: 0;
     z-index: 99;
   }
@@ -321,3 +322,5 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 
 .cardContent{min-height: 260px; height: 220px; position: relative;}
 .btn-Started.btnKeyFeatures{position: absolute; bottom: 0px; left: 0; right: 0; width: 50%; margin: 0 auto; }
+
+.btn-section{margin-bottom: 50px;}
