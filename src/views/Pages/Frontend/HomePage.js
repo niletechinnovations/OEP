@@ -38,7 +38,7 @@ class HomePage extends React.Component {
             
               <MDBContainer>
                 <MDBRow>
-                <MDBCol className="col-md-6 mt-xl-5 mb-5">
+                <MDBCol className="col-lg-6 col-md-6 mt-xl-5">
                   <div className="main-slider-content">
                       <h1 className="">
                       OEP will be the platform to help you inspect what you expect{" "}
@@ -56,7 +56,7 @@ class HomePage extends React.Component {
                       </div>
                     </div>    
                 </MDBCol>
-                <MDBCol md="6" xl="5" className="mt-xl-5">
+                <MDBCol lg="6" md="6" xl="5" className="mt-xl-5">
                   <img src="/images/admin-new.png" alt="" className="img-fluid" />
                 </MDBCol>
               </MDBRow>

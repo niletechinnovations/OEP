@@ -87,14 +87,14 @@ class ContactPage extends React.Component {
                             </div>
                             <br />
                             <MDBRow className="text-center">
-                                <MDBCol md="4">
+                                <MDBCol md="4" className="containerBd">
                                 <MDBBtn tag="a" floating className="bg-grey-oep">
                                     <MDBIcon icon="map-marker" />
                                 </MDBBtn>
                                 <p>New York, 94126</p>
                                 <p className="mb-md-0">United States</p>
                                 </MDBCol>
-                                <MDBCol md="4">
+                                <MDBCol md="4" className="containerBd">
                                 <MDBBtn floating tag="a" className="bg-grey-oep">
                                     <MDBIcon icon="phone" />
                                 </MDBBtn>

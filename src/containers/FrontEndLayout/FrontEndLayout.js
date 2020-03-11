@@ -7,7 +7,7 @@ import frontendRoutes from '../../frontendRoutes.js';
 
 import FrontEndHeader from './FrontEndHeader';
 import FrontEndFooter from './FrontEndFooter';
-
+import './FrontEndResponsive.css'
 class FrontEndLayout extends Component {
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>

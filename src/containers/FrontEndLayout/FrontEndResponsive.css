@@ -1,0 +1,76 @@
+@media only screen and (min-width : 480px) {
+}
+@media only screen and (min-width : 768px) {
+
+}
+@media only screen and (min-width : 992px) {
+}
+
+@media only screen and (min-width : 1200px) {
+    
+}
+@media only screen and (max-width : 1199px) {
+.page-footer.footer-section .container .row{ 
+    margin-right: 15px; 
+    margin-left: 15px;
+}
+}
+
+@media only screen and (max-width : 1024px) {
+
+}
+
+@media only screen and (max-width : 991px) {
+.navbar-toggler {
+    background: #9092c5;
+}
+.navbar-toggler-icon:before {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f0c9";
+    line-height: 30px;
+    color: #fff; }
+#mainNavbarCollapse{padding: 16px 10px;}
+.main-slider-content h1{font-size: 20px;}
+.main-slider-content p{font-size: 12px;}    
+.btn-section .btn-Download{margin-top: 10px;}
+.btn-section{margin-bottom: 0px;}
+.nav-link.Ripple-parent.btn-Get{margin-top: 10px;}
+
+}
+
+@media all and (max-width: 992px) and (min-width: 768px) {
+   	
+      
+}
+
+
+@media only screen and (max-width : 767px) { 
+.main-slider-content h1{font-size: 28px;}
+.home-slider{max-height: inherit;}
+.containerBd{border-bottom: 1px solid #e6e6e6; margin-bottom: 10px;}
+.loginForm{margin-top:2.5rem;}
+.account-content {margin-top: 6rem;}
+/*#loginPage .view{height: auto;}*/
+.view .mask{height: min-content;}
+.view{overflow: auto;}
+}
+
+@media only screen and (max-width: 576px) {
+	
+
+
+}
+
+@media only screen and (max-width : 480px) {
+	
+}
+
+@media only screen and (max-width: 320px) {
+
+    
+}
