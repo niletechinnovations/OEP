@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../Loader/Loader';
 import commenService from '../../../core/services/commonService';
+import './ContactPage.css';
 class ContactPage extends React.Component {
    constructor( props ){
     super( props );
