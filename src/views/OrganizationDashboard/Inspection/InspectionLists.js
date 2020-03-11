@@ -268,7 +268,7 @@ class InspectionLists extends Component {
                 <Row>
                   <Col md={12}>
                     <Row>                     
-                      <Col lg={2}>
+                      <Col md={"3"} lg={"2"}>
                         <FormGroup> 
                           <Label htmlFor="employeeId">Employee </Label>            
                           <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.filterItem.employeeId} onChange={this.changeFilterHandler}  >
@@ -279,7 +279,7 @@ class InspectionLists extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col lg={2}>
+                      <Col md={"3"} lg={"2"}>
                         <FormGroup> 
                           <Label htmlFor="categoryId">Category</Label>            
                           <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.filterItem.categoryId} onChange={this.changeCategoryHandle}  >
@@ -290,7 +290,7 @@ class InspectionLists extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col lg={2}>
+                      <Col md={"3"} lg={"2"}>
                         <FormGroup> 
                           <Label htmlFor="subCategoryId">Subcategory</Label>            
                           <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.filterItem.subCategoryId} onChange={this.changeSubCategoryHandler}  >
@@ -301,7 +301,7 @@ class InspectionLists extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col lg={2}>
+                      <Col md={"3"} lg={"2"}>
                         <FormGroup> 
                           <Label htmlFor="templateId">Template</Label>            
                           <Input type="select" placeholder="Template Name *" id="templateId" name="templateId" value={this.state.filterItem.templateId} onChange={this.changeFilterHandler}  >
@@ -312,7 +312,7 @@ class InspectionLists extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col md={2}>
+                      <Col md={"6"} lg={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
                           <Button color="success" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 

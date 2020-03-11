@@ -1,0 +1,58 @@
+
+
+
+
+@media only screen and (min-width : 480px) {
+}
+@media only screen and (min-width : 768px) {
+
+}
+@media only screen and (min-width : 992px) {
+}
+
+@media only screen and (min-width : 1200px) {
+    
+}
+@media only screen and (max-width : 1199px) {
+.labelHeadIpn{font-size: 12px !important;}
+
+}
+
+@media only screen and (max-width : 1024px) {
+}
+
+@media only screen and (max-width : 991px) {
+.MuiTableCell-root{ width: calc(58% - 70px) !important; height: auto !important; white-space: normal!important; font-size: 13px !important; border:none !important; }
+.filter-button-section{padding-top: 0px; }
+.filter-button-section button{margin: 0px;}
+.filter-button-section .btnSearchMargin{margin-top: 28px;}
+}
+
+@media all and (max-width: 992px) and (min-width: 768px) {
+    
+      
+}
+
+
+@media only screen and (max-width : 767px) { 
+.btnFont-size.btnRemove{margin: 2px 0 10px 0px;}
+.filter-button-section .btnSearchMargin{margin: 10px 0 10px 0;}
+
+}
+
+
+@media only screen and (max-width: 576px) {
+    
+
+
+}
+
+@media only screen and (max-width : 480px) {
+.MuiTableCell-root{ width: calc(50% - 0px) !important;}
+    
+}
+
+@media only screen and (max-width: 320px) {
+
+    
+}

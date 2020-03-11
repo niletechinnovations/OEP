@@ -285,25 +285,25 @@ class Employee extends Component {
                 <Row>
                   <Col md={12}>
                     <Row>
-                      <Col md={"3"}>
+                      <Col md={"4"} lg={"3"}>
                         <FormGroup> 
-                          <Label htmlFor="filter_organization_id">Country</Label>            
+                          <Label className="labelHeadIpn" htmlFor="filter_organization_id">Country</Label>            
                           <CountryDropdown id="filterCountry" priorityOptions={priorityCountry} name="filterCountry" className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
                         </FormGroup>  
                       </Col>
-                      <Col md={"3"}>
+                      <Col md={"4"} lg={"3"}>
                         <FormGroup> 
-                          <Label htmlFor="filter_organization_id">State</Label>            
+                          <Label className="labelHeadIpn" htmlFor="filter_organization_id">State</Label>            
                           <RegionDropdown  id="filterState" name="filterState" className="form-control" country={this.state.filterItem.country} defaultOptionLabel="Select State" blankOptionLabel="Select State"   value={this.state.filterItem.state}  onChange={(val) => this.selectFilterRegion(val)} /> 
                         </FormGroup>  
                       </Col>
-                      <Col md={"3"}>
+                      <Col md={"4"} lg={"3"}>
                         <FormGroup> 
-                          <Label htmlFor="filter_organization_id">Search By Email/ Name</Label>            
+                          <Label className="labelHeadIpn" htmlFor="filter_organization_id">Search By Email/ Name</Label>            
                           <Input type="text" placeholder="Search By Email/ Name" id="custom_search" name="custom_search" value={this.state.formField.custom_search} onChange={this.changeFilterHandler} />
                         </FormGroup>  
                       </Col>
-                      <Col md={"2"}>
+                      <Col md={"6"} lg={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="filter_organization_id">&nbsp;</Label> 
                           <Button color="success" type="button" onClick={this.filterEmployeeList}>Search</Button> 

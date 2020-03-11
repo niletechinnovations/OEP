@@ -24,6 +24,17 @@ a.payment-Button {
     display: inline-block;
 }
 
+.payment-Button {
+    background: #e3ab37;
+    padding: 8px 20px;
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 30px;
+    margin-top: 25px;
+    display: inline-block;
+    border:none;
+}
 .payment-card .card-subtitle{font-size: 14px;
     font-weight: bold;margin-bottom: 15px;}
 

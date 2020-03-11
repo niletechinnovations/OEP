@@ -171,7 +171,7 @@ class Template extends Component {
                 <Row>
                   <Col md={12}>
                     <Row>
-                      <Col lg={3}>
+                      <Col md={"6"} lg={"4"}>
                         <FormGroup> 
                           <Label htmlFor="categoryId">Category</Label>            
                           <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.filterItem.categoryId} onChange={this.changeCategoryHandle}  >
@@ -182,7 +182,7 @@ class Template extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col lg={3}>
+                      <Col md={"6"} lg={"4"}>
                         <FormGroup> 
                           <Label htmlFor="subCategoryId">Subcategory</Label>            
                           <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.filterItem.subCategoryId} onChange={this.changeFilterHandler}  >
@@ -193,10 +193,10 @@ class Template extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col md={"3"}>
+                      <Col md={"6"} lg={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
-                          <Button color="success" id="searchButton" type="button" onClick={this.filterTemplateList}>Search</Button> 
+                          <Button color="success" id="searchButton" type="button" onClick={this.filterTemplateList}> Search</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>  

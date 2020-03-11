@@ -261,7 +261,7 @@ class ActionLists extends Component {
                 <Row>
                   <Col md={12}>
                     <Row>                      
-                      <Col lg={6}>
+                      <Col md={"5"} lg={"5"}>
                         <FormGroup> 
                           <Label htmlFor="employeeId">Employee </Label>            
                           <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.filterItem.employeeId} onChange={this.changeFilterHandler}  >
@@ -273,10 +273,10 @@ class ActionLists extends Component {
                         </FormGroup>
                       </Col>                      
                       
-                      <Col md={2}>
+                      <Col md={"4"} lg={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
-                          <Button color="success" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
+                          <Button className="btnSearchMargin" color="success" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>  

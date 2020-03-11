@@ -477,10 +477,10 @@ class AssignInspection extends React.Component {
                 <Form onSubmit={this.submitHandler} noValidate>
                   <FormErrors formErrors={this.state.formErrors} />
                   <Row>                   
-                    <Col md={isMulti ? 10 : 12}>                     
+                    <Col md={isMulti ? 12 : 12}>                     
                         {this.state.selectedEmployeList.map((selectedEmployeItem, index) =>
                             <Row key={index}>
-                              <Col md={isMulti ? 5 : 6}> 
+                              <Col md={isMulti ? 4 : 6}> 
                                 <FormGroup>
                                   <Label htmlFor="employee">Employee</Label>
                                    <Input type="select" placeholder={selectedEmployeItem.employeeId} key={index} name={`employeeId_${index}`} value={selectedEmployeItem.employeeId} onChange={this.changeEmployeeHandler} required = { index === 0 ? true : false } >
@@ -491,7 +491,7 @@ class AssignInspection extends React.Component {
                                   </Input>
                                 </FormGroup>
                               </Col>
-                              <Col md={isMulti ? 5 : 6}>
+                              <Col md={isMulti ? 4 : 6}>
                                 <FormGroup> 
                                   <Label htmlFor="storeId">Store <span className="mandatory">*</span></Label>            
                                   <Input type="select" placeholder={index} key={index} name={`storeId_${index}`} value={selectedEmployeItem.storeId} onChange={this.changeEmployeeHandler} required = { index === 0 ? true : false } >
@@ -502,16 +502,16 @@ class AssignInspection extends React.Component {
                                   </Input>
                                 </FormGroup>
                               </Col>
-                              <Col md={2} className={!isMulti ? 'hide' : ''}>
-                                <Button color="danger" type="button" id={index} key={index}  onClick={this.removeOptions.bind(this)}><i className="fa fa-times"></i>Remove</Button>
+                              <Col md={4} className={!isMulti ? 'hide' : ''}>
+                                <Button color="danger" type="button" className="btnFont-size btnRemove" id={index} key={index}  onClick={this.removeOptions.bind(this)}><i className="fa fa-times"></i> Remove</Button>
                               </Col>
                             </Row>
                           )}                        
                     </Col>
-                    <Col md={2} className={!isMulti ? 'hide' : ''}>
-                        <Button color="success" type="button" onClick={this.addMoreOption.bind(this)} disabled={this.state.selectedEmployeList.length === employeeList.length || employeeList.length === 0 ? true : false}><i className="fa fa-plus"></i>Add More</Button>
+                    <Col md={12} className={!isMulti ? 'hide' : ''}>
+                        <Button color="success" type="button" className="btnFont-size" onClick={this.addMoreOption.bind(this)} disabled={this.state.selectedEmployeList.length === employeeList.length || employeeList.length === 0 ? true : false}><i className="fa fa-plus"></i> Add More</Button>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <FormGroup> 
                         <Label htmlFor="categoryId">Category <span className="mandatory">*</span></Label>            
                         <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.formField.categoryId} onChange={this.changeCategoryHandle} required >
@@ -522,7 +522,7 @@ class AssignInspection extends React.Component {
                         </Input>
                       </FormGroup>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <FormGroup> 
                         <Label htmlFor="subCategoryId">Subcategory <span className="mandatory">*</span></Label>            
                         <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.formField.subCategoryId} onChange={this.changeSubCategoryHandler} required >
@@ -533,7 +533,7 @@ class AssignInspection extends React.Component {
                         </Input>
                       </FormGroup>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={6} md={6}>
                       <FormGroup> 
                         <Label htmlFor="templateId">Template <span className="mandatory">*</span></Label>            
                         <Input type="select" placeholder="Subcategory Name *" id="templateId" name="templateId" value={this.state.formField.templateId} onChange={this.changeHandler} required >
@@ -552,7 +552,7 @@ class AssignInspection extends React.Component {
                     </Col>
                     
                     <Button color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
-                    <Button color="secondary" onClick={this.resetForm}>Cancel</Button>
+                    <Button className="btnCancel" color="secondary" onClick={this.resetForm}>Cancel</Button>
                   </Row>
                 </Form>
                 

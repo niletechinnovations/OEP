@@ -300,9 +300,10 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 @media (max-width: 767px) {
   .homepage-search-bar {
     position: relative;
-    margin-top: 4%;
+    /*margin-top: 4%;*/
     left: 0;
     z-index: 99;
+    background: rgba(39, 39, 41, 0.44);
   }
   .ageToLabel{ display: none;}
   .search-box-bg{ background: rgba(0, 0, 0, 1)}

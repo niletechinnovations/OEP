@@ -122,7 +122,7 @@ class HomePage extends React.Component {
             </MDBContainer>
           </section>  
         </div>
-        <section className="my-5 pt-5 pb-2 ">
+        <section className="my-4 pb-2 ">
           <MDBContainer>
             <MDBRow>
               <MDBCol md="4" className="md-0 mb-5">
@@ -174,7 +174,7 @@ class HomePage extends React.Component {
         </section>
         
         
-      <section className="text-center features-section my-5 pb-5">
+      <section className="text-center features-section my-5 pb-5 exploreMargin-adjust">
         <MDBContainer>
           <div className="heading-title">
             <h2 className="my-3">

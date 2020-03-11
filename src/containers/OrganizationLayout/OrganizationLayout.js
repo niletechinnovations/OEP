@@ -24,7 +24,7 @@ import './OrganizationLayout.css';
 import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
-
+import './DashboardResponsive.css'
 class OrganizationLayout extends Component {
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>

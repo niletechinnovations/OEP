@@ -14,6 +14,7 @@
     margin-right: 15px; 
     margin-left: 15px;
 }
+.download-app-img{ margin-top: -17px;}
 }
 
 @media only screen and (max-width : 1024px) {
@@ -22,7 +23,7 @@
 
 @media only screen and (max-width : 991px) {
 .navbar-toggler {
-    background: #9092c5;
+    background: #fbbe3f;
 }
 .navbar-toggler-icon:before {
     display: inline-block;
@@ -40,6 +41,7 @@
 .btn-section .btn-Download{margin-top: 10px;}
 .btn-section{margin-bottom: 0px;}
 .nav-link.Ripple-parent.btn-Get{margin-top: 10px;}
+.app-header .navbar-toggler-icon{display: none;}
 
 }
 
@@ -58,6 +60,9 @@
 /*#loginPage .view{height: auto;}*/
 .view .mask{height: min-content;}
 .view{overflow: auto;}
+.main-slider-content{margin-top: 5%;}
+.exploreMargin-adjust{margin-top: 1rem !important; }
+.counter-card{margin-bottom: 20px;}
 }
 
 @media only screen and (max-width: 576px) {
