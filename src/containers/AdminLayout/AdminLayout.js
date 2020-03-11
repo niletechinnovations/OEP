@@ -25,7 +25,7 @@ import './AdminLayout.css';
 import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
 import DefaultHeader from './DefaultHeader';
-
+import '../OrganizationLayout/DashboardResponsive.css'
 class AdminLayout extends Component {
 
   /*constructor(props) {

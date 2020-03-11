@@ -38,7 +38,7 @@ class EmployeeData extends Component {
         city: employee.city || " ",      
         state: employee.state || " ",
         country: employee.country || " ",
-        status: employee.status || true,   
+        status: employee.status ? "Active" : "Inactive",   
         action: "",       
       }      
       rowsItem.push(orgInfo);

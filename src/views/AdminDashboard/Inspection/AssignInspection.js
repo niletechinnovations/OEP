@@ -24,7 +24,7 @@ class AssignInspection extends React.Component {
       templateData: [],
       storeList: [],
       inspectionId: "",     
-      selectedEmployeList: [{employeeId: "", storeId: ""}],
+      selectedEmployeList: [{employeeId: "", storeId: []}],
       formValid: false,
       templatePreviewData : [],
       formProccessing: false,
@@ -206,7 +206,7 @@ class AssignInspection extends React.Component {
         let selectedEmployeList = this.state.selectedEmployeList;
         if(hideEmployee){
           formField.employeeId = '';
-          selectedEmployeList = [{employeeId: "", storeId: ""}];
+          selectedEmployeList = [{employeeId: "", storeId: []}];
         }
         this.setState({employeeList: res.data.data, selectedEmployeList: selectedEmployeList, formField: formField, loading: false});     
         
@@ -309,8 +309,7 @@ class AssignInspection extends React.Component {
     this.setState({ formField: formField }, () => { this.validateField(name, value) });
   };
   /* Change Employee handler*/
-  changeEmployeeHandler = event => { 
-    
+  changeEmployeeHandler = event => {    
     let selectedEmployeList = this.state.selectedEmployeList;
     const inputName = event.target.name.split('_');
     const currentEmployee = selectedEmployeList.map(i => i.employeeId);
@@ -324,6 +323,20 @@ class AssignInspection extends React.Component {
     }
     else
       selectedEmployeList[inputName[1]].storeId = event.target.value;
+    this.setState({selectedEmployeList: selectedEmployeList});
+   
+  }
+  changeStoreHandler = event => {    
+    
+    let selectedEmployeList = this.state.selectedEmployeList;
+    let inputName = event.target.name.split('_');
+    inputName = inputName[1].split('[]');   
+    let storeIds = [];
+    event.target.selectedOptions.forEach(function(data, index) {
+      console.log(index);
+      storeIds.push(data.value); 
+    });
+    selectedEmployeList[inputName[0]].storeId = storeIds;
     this.setState({selectedEmployeList: selectedEmployeList});
    
   }
@@ -411,7 +424,7 @@ class AssignInspection extends React.Component {
 
     this.setState( { loading: true}, () => {
       let selectedEmployeList = this.state.selectedEmployeList;
-      selectedEmployeList = selectedEmployeList.filter(i => i.employeeId !=="" && i.storeId);
+      selectedEmployeList = selectedEmployeList.filter(i => i.employeeId !=="" && i.storeId.length > 0 );
       if(selectedEmployeList.length === 0) {
         toast.error("Please select atleast one employee and store");
         this.setState( { loading: false});
@@ -429,10 +442,9 @@ class AssignInspection extends React.Component {
       
       if(this.state.inspectionId !== ""){
         formData.employeeId = selectedEmployeList[0].employeeId;
-        formData.storeId = selectedEmployeList[0].storeId;
+        formData.storeId = selectedEmployeList[0].storeId[0];
       }
-      
-      
+     
       if(this.state.inspectionId !== "" ) {
         formData.inspectionId = this.state.inspectionId;
         commonService.putAPIWithAccessToken('inspection', formData)
@@ -496,7 +508,7 @@ class AssignInspection extends React.Component {
   addMoreOption() {
     let selectedEmployeList = this.state.selectedEmployeList;   
     if(selectedEmployeList.length < this.state.employeeList.length) {
-      selectedEmployeList.push({"employeeId" : "", "storeId": ""});
+      selectedEmployeList.push({"employeeId" : "", "storeId": []});
       this.setState({selectedEmployeList: selectedEmployeList});
     }
   }
@@ -505,7 +517,7 @@ class AssignInspection extends React.Component {
     let selectedEmployeList = this.state.selectedEmployeList;    
     selectedEmployeList.splice(event.target.id, 1);
     if(selectedEmployeList.length === 0){
-      selectedEmployeList.push({"employeeId" : "", "storeId": ""});
+      selectedEmployeList.push({"employeeId" : "", "storeId": []});
       toast.error("Please select atleast one employee and store");
     }
     this.setState({selectedEmployeList: selectedEmployeList});
@@ -542,10 +554,10 @@ class AssignInspection extends React.Component {
                         </Input>
                       </FormGroup>  
                     </Col>
-                    <Col md={isMulti ? 10 : 12}>                     
+                    <Col md={12}>                     
                         {this.state.selectedEmployeList.map((selectedEmployeItem, index) =>
                             <Row key={index}>
-                              <Col md={isMulti ? 5 : 6}> 
+                              <Col md={isMulti ? 4 : 6}> 
                                 <FormGroup>
                                   <Label htmlFor="employee">Employee</Label>
                                    <Input type="select" placeholder={selectedEmployeItem.employeeId} key={index} name={`employeeId_${index}`} value={selectedEmployeItem.employeeId} onChange={this.changeEmployeeHandler} required = { index === 0 ? true : false } >
@@ -556,10 +568,10 @@ class AssignInspection extends React.Component {
                                   </Input>
                                 </FormGroup>
                               </Col>
-                              <Col md={isMulti ? 5 : 6}>
+                              <Col md={isMulti ? 4 : 6}>
                                 <FormGroup> 
                                   <Label htmlFor="storeId">Store <span className="mandatory">*</span></Label>            
-                                  <Input type="select" placeholder={index} key={index} name={`storeId_${index}`} value={selectedEmployeItem.storeId} onChange={this.changeEmployeeHandler} required = { index === 0 ? true : false } >
+                                  <Input type="select" multiple={isMulti} placeholder={index} key={index} name={`storeId_${index}[]`} value={selectedEmployeItem.storeId} onChange={this.changeStoreHandler} required = { index === 0 ? true : false } >
                                     <option value="">Select Store</option>
                                     {storeList.map((storeItem, storeIndex) =>
                                       <SetStoreDropDownItem key={storeIndex} storeItem={storeItem} selectedCategory={this.state.formField.storeId} />
@@ -567,15 +579,16 @@ class AssignInspection extends React.Component {
                                   </Input>
                                 </FormGroup>
                               </Col>
-                              <Col md={2} className={!isMulti ? 'hide' : ''}>
-                                <Button color="danger" type="button" id={index} key={index}  onClick={this.removeOptions.bind(this)}><i className="fa fa-times"></i>Remove</Button>
+                              <Col md={4} className={!isMulti ? 'hide' : ''}>
+                                <Button color="danger" type="button" className="btnFont-size btnRemove" id={index} key={index}  onClick={this.removeOptions.bind(this)}><i className="fa fa-times"></i> Remove</Button>
                               </Col>
                             </Row>
                           )}                        
                     </Col>
-                    <Col md={2} className={!isMulti ? 'hide' : ''}>
-                        <Button color="success" type="button" onClick={this.addMoreOption.bind(this)} disabled={this.state.selectedEmployeList.length === employeeList.length || employeeList.length === 0 ? true : false}><i className="fa fa-plus"></i>Add More</Button>
+                     <Col md={12} className={!isMulti ? 'hide' : ''}>
+                        <Button color="success" type="button" className="btnFont-size" onClick={this.addMoreOption.bind(this)} disabled={this.state.selectedEmployeList.length === employeeList.length || employeeList.length === 0 ? true : false}><i className="fa fa-plus"></i> Add More</Button>
                     </Col>
+                    
                     <Col lg={6}>
                       <FormGroup> 
                         <Label htmlFor="categoryId">Category <span className="mandatory">*</span></Label>            
