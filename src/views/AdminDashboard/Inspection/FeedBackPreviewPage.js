@@ -121,7 +121,7 @@ class FeedBackPreviewPage extends React.Component {
                           </Col>
                           <Col md={3}>
                             <FormGroup> 
-                              <Label htmlFor="templateId"># Store Walk</Label>            
+                              <Label htmlFor="templateId"># Store Rank</Label>            
                               <p>{feedBackInfo.storeRank}</p>
                             </FormGroup>
                           </Col>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 /*import {Col, Row} from 'reactstrap';*/
-
+const renderHTML = (rawHTML: string) => React.createElement("customlabel", { dangerouslySetInnerHTML: { __html: rawHTML } });
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
   if(formFieldDetails === null || formFieldDetails === undefined) {
@@ -11,7 +11,7 @@ function FieldLayout(props) {
     case 'Header':
       return(
          <tr>
-            <td colspan="3"><h2>{formFieldDetails.content}</h2></td>
+            <td colspan="3"><h2>{renderHTML(formFieldDetails.content)}</h2></td>
         </tr>
       );
       
@@ -19,7 +19,7 @@ function FieldLayout(props) {
       /*const remarksClass = props.formValue.remarks !== "" ? "notes-section show": "notes-section hide";*/
       if(props.formValue === undefined)
         return (<><tr>
-            <td>{formFieldDetails.label}</td>
+            <td>{renderHTML(formFieldDetails.label)}</td>
             <td></td>
             <td></td>
           </tr></>);
@@ -28,9 +28,9 @@ function FieldLayout(props) {
           </tr> : "";
       return(<>
           <tr>
-            <td>{formFieldDetails.label}</td>
+            <td>{renderHTML(formFieldDetails.label)}</td>
             <td>{props.formValue.input || ""}</td>
-            <td>{props.formValue.remarks || ""}</td>
+            <td>{renderHTML(props.formValue.remarks || "")}</td>
           </tr>
           {mediaFile}
         </>
@@ -40,7 +40,7 @@ function FieldLayout(props) {
     case 'Paragraph':
       return(
        <tr>
-            <td colspan="3">{formFieldDetails.content}</td>
+            <td colspan="3">{renderHTML(formFieldDetails.content)}</td>
         </tr>
       )
       
@@ -49,7 +49,7 @@ function FieldLayout(props) {
     default: 
       return (
          <tr>
-            <td colspan="3">{formFieldDetails.label}</td>
+            <td colspan="3">{renderHTML(formFieldDetails.label)}</td>
         </tr>
       )
       
@@ -113,12 +113,15 @@ class FeedBackPreviewPageForm extends Component {
   }
   getFailedItem(formFeildValue, formFeild){
     let failedItemId = [];
-    Object.keys(formFeildValue).forEach((key, value) => {       
+    Object.keys(formFeildValue).forEach((key, value) => {
+      
+      if(formFeildValue[key].input !== null) {      
         if(formFeildValue[key].input !== undefined && formFeildValue[key].input.toLowerCase() === "no")
             failedItemId.push(key);
+      }
         
     });
-    const failedItemForm = formFeild.filter(function(item) { return failedItemId.indexOf(item.id) > -1 ;})
+    const failedItemForm = formFeild.filter(function(item) { return item !== null && failedItemId.indexOf(item.id) > -1 ;})
     return failedItemForm;
     
   }

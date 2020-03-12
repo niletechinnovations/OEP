@@ -12,6 +12,7 @@ class SubscriptionPlan extends React.Component {
     this.state = {  
       loading: false,
       paymentProcess: false,      
+      planId: "",
       planList: []
     }    
     this.buySubscription = this.buySubscription.bind(this);  
@@ -53,7 +54,7 @@ class SubscriptionPlan extends React.Component {
   }
   buySubscription(planId) {
     
-    this.setState( { paymentProcess: true}, () => {
+    this.setState( { paymentProcess: true, planId: planId}, () => {
       commonService.postAPIWithAccessToken('subscription/buy', {planId: planId})
         .then( res => {
           
@@ -89,7 +90,7 @@ class SubscriptionPlan extends React.Component {
        return (
           <Row>
             {planList.map((planInfo, index) =>
-              <SetPlanDetailsInfo key={index} planInfo={planInfo} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
+              <SetPlanDetailsInfo key={index} planInfo={planInfo} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
             )}
           </Row>
                  
@@ -111,9 +112,9 @@ function SetPlanDetailsInfo (props) {
               <CardTitle>{planInfo.planName}</CardTitle> 
               <CardBody>
                 <CardSubtitle>${`${planInfo.amount} / ${planType}`}</CardSubtitle>                
-                <CardText>Number Of Templaate : 6</CardText>
-                <CardText>Number Of Employee : 6</CardText>
-                <button className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess}>{buttonTxt}</button>
+                <CardText>Number Of Template : {planInfo.templateAccess}</CardText>
+                <CardText>Number Of Employee : {planInfo.userAccess}</CardText>
+                <button className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess }>{props.paymentProcess && props.planId == planInfo.planId ? buttonTxt: 'Buy Now'}</button>
               </CardBody>
             </Card>
           </Col>);
