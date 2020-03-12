@@ -1,4 +1,5 @@
 import axios from 'axios';
+var CryptoJS = require("crypto-js");
 const API_BASE_URL = 'https://api.retailoep.com/v0.0/';
 //const API_BASE_URL = 'http://localhost:8082/v0.0/';
 const API_BASE_URL_WITH_OUT_VERSION = 'https://api.retailoep.com/';
@@ -14,9 +15,17 @@ class ApiService {
     getAPI(urlSegment) {
         return axios.get(API_BASE_URL+urlSegment);
     }
+    /*Get AccessToken*/
+    getAccessToken() {
+        let accessToken = localStorage.getItem("accessToken");        
+        if(accessToken === '' || accessToken === null)
+          return "";
+        else
+          return CryptoJS.AES.decrypt(localStorage.getItem("accessToken"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8)
+    }
     /*Get API With Authentication header */
     getAPIWithAccessToken(urlSegment) {
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = this.getAccessToken();
         const headers = {
             'Authorization': 'JWT '+accessToken
         }
@@ -31,7 +40,7 @@ class ApiService {
     }
     /*Post API With Authentication header */
     postAPIWithAccessToken(urlSegment, formdata){
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = this.getAccessToken();
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'JWT '+accessToken
@@ -41,7 +50,7 @@ class ApiService {
 
     /*PUt API With Authentication header */
     putAPIWithAccessToken(urlSegment, formdata){
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = this.getAccessToken();
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'JWT '+accessToken
@@ -51,7 +60,7 @@ class ApiService {
 
     /*Delete API With Authentication header and Without parameter */
     deleteAPIWithAccessToken(urlSegment, formdata = {}){
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = this.getAccessToken();
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'JWT '+accessToken

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import './Login.css'
+var CryptoJS = require("crypto-js");
 
 class Login extends Component {
 
@@ -50,7 +51,7 @@ class Login extends Component {
           }
           localStorage.setItem( 'accessToken', loggedInfo.data.accessToken );
           localStorage.setItem( 'refreshToken', loggedInfo.data.refreshToken );
-          localStorage.setItem( 'role', loggedInfo.data.role );
+          localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
           localStorage.setItem( 'userName', loggedInfo.data.firstName );
   
           this.setState( {

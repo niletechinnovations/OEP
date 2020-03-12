@@ -165,61 +165,67 @@ const cardChartOpts2 = (data = []) => {
 };
 
 // Card Chart 3
-const cardChartData3 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [78, 81, 80, 45, 34, 12, 40],
-    },
-  ],
-};
+const cardChartData3 = (labels = [], data = []) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Subscriber',
+        backgroundColor: 'rgba(255,255,255,.2)',
+        borderColor: 'rgba(255,255,255,.55)',
+        data: data,
+      },
+    ],
+  };
+}
 
-const cardChartOpts3 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-  elements: {
-    line: {
-      borderWidth: 2,
+const cardChartOpts3 = (data = []) => {
+ return {
+    tooltips: {
+      enabled: false,
+      custom: CustomTooltips
     },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
     },
-  },
-};
+    scales: {
+      xAxes: [
+        {
+          display: false,
+        }],
+      yAxes: [
+        {
+          display: false,
+        }],
+    },
+    elements: {
+      line: {
+        borderWidth: 2,
+      },
+      point: {
+        radius: 0,
+        hitRadius: 10,
+        hoverRadius: 4,
+      },
+    },
+  };
+}
 
 // Card Chart 4
-const cardChartData4 = {
-  labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderColor: 'transparent',
-      data: [78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98],
-    },
-  ],
-};
+const cardChartData4 =  (labels = [], data = []) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Store Walk',
+        backgroundColor: 'rgba(255,255,255,.3)',
+        borderColor: 'transparent',
+        data: data,
+      },
+    ],
+  };
+}
 /*const cardChartData14 = {
   labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
   datasets: [
@@ -247,27 +253,29 @@ const cardChartOpts14 = {
  
 };
 
-const cardChartOpts4 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false,
-        barPercentage: 0.6,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-};
+const cardChartOpts4  = (data = []) => {
+ return {
+    tooltips: {
+      enabled: false,
+      custom: CustomTooltips
+    },
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
+    },
+    scales: {
+      xAxes: [
+        {
+          display: false,
+          barPercentage: 0.6,
+        }],
+      yAxes: [
+        {
+          display: false,
+        }],
+    },
+  };
+}
 
 
 
@@ -457,6 +465,12 @@ class Dashboard extends Component {
       inspectionData: [],
       organizationLables: [],
       organizationData: [],
+      totalStoreWalk: 0,
+      storeWalkLables: [],
+      storeWalkData: [],
+      totalActiveSubscriber: 0,
+      subscriberGraphData: [],
+      subscriberGraphLables: [],
       conductedInspection: {labels: [], data: []}
     };
   }
@@ -473,9 +487,7 @@ class Dashboard extends Component {
             return;
           }   
           const responseData = res.data.data;
-          let conductedInspection = this.state.conductedInspection;
-          conductedInspection.labels =  responseData.inspectionConducted.labels;
-          conductedInspection.data =  responseData.inspectionConducted.data;
+         
           this.setState({loading:false, dashBoardStats: res.data.data, 
             inspectionData: responseData.inspectionGraphData.data, inspectionLabels: responseData.inspectionGraphData.labels,
             organizationData: responseData.organizationGraphData.data, organizationLables: responseData.organizationGraphData.labels});     
@@ -492,7 +504,94 @@ class Dashboard extends Component {
           }
         } )
     } )
+    this.getConductedGraph();
+    this.storeWalkGraph();
+    this.subscriptionGraph();
   }
+
+  getConductedGraph() {
+    commonService.getAPIWithAccessToken('dashboard/conducted-inspection')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        const responseData = res.data.data;
+        let conductedInspection = this.state.conductedInspection;
+        conductedInspection.labels =  responseData.inspectionConducted.labels;
+        conductedInspection.data =  responseData.inspectionConducted.data;
+        this.setState({conductedInspection: conductedInspection});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+
+  storeWalkGraph() {
+    commonService.getAPIWithAccessToken('dashboard/store-walk-graph')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        const responseData = res.data.data;
+        
+        this.setState({totalStoreWalk: responseData.totalConductedInspection, storeWalkData: responseData.storeWalkStats.data, storeWalkLables: responseData.storeWalkStats.labels});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+
+  subscriptionGraph() {
+    commonService.getAPIWithAccessToken('dashboard/subscription-graph')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        const responseData = res.data.data;
+        
+        this.setState({totalActiveSubscriber: responseData.totalActiveSubscriber, subscriberGraphData: responseData.subscriptionData.data, subscriberGraphLables: responseData.subscriptionData.labels});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
@@ -542,11 +641,11 @@ class Dashboard extends Component {
             <Card className="text-white bg-warning">
               <CardBody className="pb-0">
                 
-                <div className="text-value">85%</div>
-                <div>Rankings</div>
+                <div className="text-value">{this.state.totalActiveSubscriber}</div>
+                <div>Active Subscriber</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
-                <Line data={cardChartData3} options={cardChartOpts3} height={70} />
+                <Line data={cardChartData3(this.state.subscriberGraphLables, this.state.subscriberGraphData)} options={cardChartOpts3(this.state.subscriberGraphData)} height={70} />
               </div>
             </Card>
           </Col>
@@ -555,11 +654,11 @@ class Dashboard extends Component {
             <Card className="text-white bg-danger">
               <CardBody className="pb-0">
                 
-                <div className="text-value">823</div>
+                <div className="text-value">{this.state.totalStoreWalk}</div>
                 <div>Store Walk</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Bar data={cardChartData4} options={cardChartOpts4} height={70} />
+                <Bar data={cardChartData4(this.state.storeWalkLables, this.state.storeWalkData)} options={cardChartOpts4(this.state.storeWalkData)} height={70} />
               </div>
             </Card>
           </Col>

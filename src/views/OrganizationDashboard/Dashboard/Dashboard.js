@@ -130,17 +130,19 @@ const cardChartOpts3 = {
 };
 
 // Card Chart 4
-const cardChartData4 = {
-  labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderColor: 'transparent',
-      data: [78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98],
-    },
-  ],
-};
+const cardChartData4 =  (labels = [], data = []) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Store Walk',
+        backgroundColor: 'rgba(255,255,255,.3)',
+        borderColor: 'transparent',
+        data: data,
+      },
+    ],
+  };
+}
 const cardChartData14 = (labels = [], data = []) =>  {
   return {
     labels: labels,
@@ -158,27 +160,29 @@ const cardChartOpts14 = {
 };
 
 
-const cardChartOpts4 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false,
-        barPercentage: 0.6,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-};
+const cardChartOpts4  = (data = []) => {
+ return {
+    tooltips: {
+      enabled: false,
+      custom: CustomTooltips
+    },
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
+    },
+    scales: {
+      xAxes: [
+        {
+          display: false,
+          barPercentage: 0.6,
+        }],
+      yAxes: [
+        {
+          display: false,
+        }],
+    },
+  };
+}
 
 // sparkline charts
 /*const sparkLineChartData = [
@@ -366,7 +370,10 @@ class Dashboard extends Component {
       inspectionData: [],
       organizationLables: [],
       organizationData: [],
-      conductedInspection: {labels: [], data: []}
+      conductedInspection: {labels: [], data: []},
+      totalStoreWalk: 0,
+      storeWalkLables: [],
+      storeWalkData: []
     };
   }
 
@@ -388,9 +395,7 @@ class Dashboard extends Component {
             return;
           }   
           const responseData = res.data.data;
-          let conductedInspection = this.state.conductedInspection;
-          conductedInspection.labels =  responseData.inspectionConducted.labels;
-          conductedInspection.data =  responseData.inspectionConducted.data;
+         
           if(responseData.organizationSubscriptionPlan.status)
             localStorage.setItem('isSubscribed', true);
           else
@@ -411,7 +416,66 @@ class Dashboard extends Component {
           }
         } )
     } )
+    this.getConductedGraph();
+    this.storeWalkGraph();
   }
+
+  getConductedGraph() {
+    commonService.getAPIWithAccessToken('dashboard/conducted-inspection')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        const responseData = res.data.data;
+        let conductedInspection = this.state.conductedInspection;
+        conductedInspection.labels =  responseData.inspectionConducted.labels;
+        conductedInspection.data =  responseData.inspectionConducted.data;
+        this.setState({conductedInspection: conductedInspection});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+
+  storeWalkGraph() {
+    commonService.getAPIWithAccessToken('dashboard/store-walk-graph')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        const responseData = res.data.data;
+        
+        this.setState({totalStoreWalk: responseData.totalConductedInspection, storeWalkData: responseData.storeWalkStats.data, storeWalkLables: responseData.storeWalkStats.labels});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+  
   onRadioBtnClick(radioSelected) {
     this.setState({
       radioSelected: radioSelected,
@@ -453,15 +517,15 @@ class Dashboard extends Component {
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="4">
+          <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-danger">
               <CardBody className="pb-0">
                 
-                <div className="text-value">823</div>
+                <div className="text-value">{this.state.totalStoreWalk}</div>
                 <div>Store Walk</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Bar data={cardChartData4} options={cardChartOpts4} height={70} />
+                <Bar data={cardChartData4(this.state.storeWalkLables, this.state.storeWalkData)} options={cardChartOpts4(this.state.storeWalkData)} height={70} />
               </div>
             </Card>
           </Col>

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import './App.scss';
 /*Common Service*/
 import commonService from './core/services/commonService';
-
+var CryptoJS = require("crypto-js");
 // Containers
 const AdminLayout = React.lazy(() => import('./containers/AdminLayout'));
 const OrganizationLayout = React.lazy(() => import('./containers/OrganizationLayout'));
@@ -35,7 +35,8 @@ class App extends Component {
 const PrivateRoute = ({ component, ...rest }) => {
   return (
     <Route {...rest} render={routeProps => {
-      return commonService.getAuth() && localStorage.getItem("role") === "admin" ? (
+
+      return commonService.getAuth() && CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin" ? (
         renderMergedProps(component, routeProps, rest)
       ) : (
         <Redirect to={{
@@ -48,8 +49,8 @@ const PrivateRoute = ({ component, ...rest }) => {
 };
 const OrganizationRoute = ({ component, ...rest }) => {
   return (
-    <Route {...rest} render={routeProps => {
-      return commonService.getAuth() && localStorage.getItem("role") === "organization" ? (
+    <Route {...rest} render={routeProps => {     
+      return commonService.getAuth() && CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "organization" ? (
         renderMergedProps(component, routeProps, rest)
       ) : (
         <Redirect to={{

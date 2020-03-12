@@ -21,6 +21,7 @@ import {
   MDBIcon
 } from "mdbreact";
 import "./LoginPage.css";
+var CryptoJS = require("crypto-js");
 
 class LoginPage extends React.Component {
   constructor( props ){
@@ -59,9 +60,9 @@ class LoginPage extends React.Component {
   
           const loggedInfo = res.data;
           
-          localStorage.setItem( 'accessToken', loggedInfo.data.accessToken );
-          localStorage.setItem( 'refreshToken', loggedInfo.data.refreshToken );
-          localStorage.setItem( 'role', loggedInfo.data.role );
+          localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
+          localStorage.setItem( 'refreshToken', CryptoJS.AES.encrypt(loggedInfo.data.refreshToken, 'OEPENCRYPTION@12345').toString());
+          localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
           localStorage.setItem( 'userName', loggedInfo.data.firstName );
   
           this.setState( {
@@ -135,9 +136,9 @@ class LoginPage extends React.Component {
     const { email, password, loggedIn, loading, forgotPasswordEmail} = this.state;
 
     if ( loggedIn || localStorage.getItem( 'accessToken' ) ) {
-      if(localStorage.getItem( 'role' ).toLowerCase() === "admin")
+      if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
 			  return ( <Redirect to={`/admin/dashboard`} noThrow /> )
-      else if(localStorage.getItem( 'role' ).toLowerCase() === "organization")
+      else if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "organization")
         return ( <Redirect to={`/organization/dashboard`} noThrow /> )
       else
         return ( <Redirect to={`/`} noThrow /> )
