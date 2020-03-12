@@ -84,12 +84,12 @@ function FieldLayout(props) {
                         <Label className="remarks-label">Action</Label>
                         <p>{ renderHTML(props.actionValue.description)}</p>
                         <div className="date"><b>Due Date:</b> {props.actionValue.dueDate}</div>
-                        <Button className="btn-bl btn-edit" onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                        <Button className="btn-bl btn-edit" onClick={props.actionEvent} disabled={props.disabledModule} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                       </div>;
       if(props.remarksValue !== "" && !props.formFieldRemarks[formFieldDetails.id]) 
         remarkSection = <div className="remarks-content-section">
                           <Label className="remarks-label">Comments</Label>
-                          <p>{ renderHTML(props.remarksValue)}</p><Button className="btn-bl btn-edit" onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                          <p>{ renderHTML(props.remarksValue)}</p><Button className="btn-bl btn-edit" disabled={props.disabledModule} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                         </div>
       else
         remarkSection = <div className={className}>
@@ -97,8 +97,8 @@ function FieldLayout(props) {
                 <Label className="remarks-label">Comments</Label>
                 <Input className="remarks-form-group" name={`remarks__${formFieldDetails.id}`} value={props.remarksValue} onChange={props.remarkChangeEvent} type="textarea" placeholder="Comments"  />
               </FormGroup> 
-              <Button color={green} onClick={props.remarkSaveEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
-              <Button color={red} onClick={props.cancelRemarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
+              <Button color={green} onClick={props.remarkSaveEvent} disabled={props.disabledModule} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Save</Button> 
+              <Button color={red} onClick={props.cancelRemarkEvent} disabled={props.disabledModule} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Cancel</Button> 
             </div> ;
       let mediaClassName = 'media-section';
       
@@ -109,7 +109,7 @@ function FieldLayout(props) {
               <Label className="inspection-title"><span className="inspection-no-value">{countQuestion}</span>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
               <div className="inspection-check">
                 {formFieldDetails.options.map((radioButtonOptions, index) =>              
-                  <CustomInput key={index} name={formFieldDetails.id} type="radio" checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
+                  <CustomInput key={index} name={formFieldDetails.id} type="radio" disabled={props.disabledModule} checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
                 )}
               </div>
             </FormGroup>
@@ -117,14 +117,14 @@ function FieldLayout(props) {
             {actionView}
             <div className={mediaClassName}>
                 {props.mediaFileData.map((mediaData, mediaindex) => 
-                    <ImgTag src={mediaData} key={mediaindex} deleteImageItem= {props.deleteImage} dataIndex={mediaindex} dataid={formFieldDetails.id} />
+                    <ImgTag src={mediaData} disabledModule={props.disabledModule} key={mediaindex} deleteImageItem= {props.deleteImage} dataIndex={mediaindex} dataid={formFieldDetails.id} />
                 )} 
             </div>
             <div className="inspection-btn-section">              
-              <Button color={blue} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Comment</Button> 
+              <Button color={blue} onClick={props.remarkEvent} disabled={props.disabledModule} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Comment</Button> 
               <Label className="btn btn-gr" for={`media__${formFieldDetails.id}`}>Photo </Label> 
-              <Input name={`media__${formFieldDetails.id}`} type="file" accept="image/*" className="hide" data-inputid={formFieldDetails.id} id={`media__${formFieldDetails.id}`} onChange={props.onchangeFileEvent}  />
-              <Button color={yellow} onClick={props.actionEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Action</Button> 
+              <Input name={`media__${formFieldDetails.id}`} type="file" accept="image/*" disabled={props.disabledModule} className="hide" data-inputid={formFieldDetails.id} id={`media__${formFieldDetails.id}`} onChange={props.onchangeFileEvent}  />
+              <Button color={yellow} onClick={props.actionEvent} disabled={props.disabledModule} data-id ={props.indexItem} data-inputid={formFieldDetails.id}>Action</Button> 
             </div>       
         </div>
       )
@@ -336,7 +336,7 @@ class PreviewTemplatePageForm extends Component {
             onchangeFileEvent={this.changeFileHandle} remarkSaveEvent={this.remarkSaveEventHandle} 
             remarkChangeEvent={this.remarkChangeEventHandle} remarkEvent={this.remarkEventHandle} 
             formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} 
-            deleteImage= {this.deleteInspectionImage.bind(this)} actionEvent={this.actionEventHandle} actionValue={this.props.actionValue[formFieldDetails.id] ? this.props.actionValue[formFieldDetails.id] : ""}  />
+            deleteImage= {this.deleteInspectionImage.bind(this)} disabledModule={this.props.disabledModule} actionEvent={this.actionEventHandle} actionValue={this.props.actionValue[formFieldDetails.id] ? this.props.actionValue[formFieldDetails.id] : ""}  />
           )}
           
       </div>
@@ -384,7 +384,7 @@ class PreviewTemplatePageForm extends Component {
 
 /*Display Browse Image*/
 function ImgTag(props){
-  return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" alt="" /> </div><i className="fa fa-times" onClick={props.deleteImageItem} data-inputid={props.dataid} data-currentindex={props.dataIndex}></i></div>)
+  return (<div className="inspection-media-card"><div className="inspection-media"><img src={props.src} width="100px" height="100px" alt="" /> </div><i className="fa fa-times" onClick={props.deleteImageItem} disabled={props.disabledModule} data-inputid={props.dataid} data-currentindex={props.dataIndex}></i></div>)
 }
 /*Employee Dropdown List*/
 function SetEmployeeDropDownItem(props){

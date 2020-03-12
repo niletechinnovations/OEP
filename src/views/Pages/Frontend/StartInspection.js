@@ -10,6 +10,7 @@ import './StartInspection.css';
 
 import PreviewTemplatePageForm from './PreviewTemplatePageForm';
 import Timer from "./Timer";
+const queryString = require('query-string');
 var currentQuestionNumber = 0;
 var questionsecondLevalQuestionArray = [];
 class StartInspection extends React.Component {
@@ -53,6 +54,7 @@ class StartInspection extends React.Component {
       isTimerStart: false,
       totalFormFillingTime: 0,
       totalTimeCalculated: 0,
+      isDisabled: false,
       warningMessage: "Please start the timer first before submitting form",
       allowAllocationMessage: "Please allow location to access inspection"   
     }    
@@ -72,16 +74,20 @@ class StartInspection extends React.Component {
     this.updateTime = this.updateTime.bind(this);
     this.updateStartTime = this.updateStartTime.bind(this);
     this.updateEndTime = this.updateEndTime.bind(this);
+
   }
 
   // Fetch the subCategory List
   componentDidMount() {
     
     const { match: { params } } = this.props;
+    
     if(params.inspectionId !== undefined && params.inspectionId !=="" && params.authId !== undefined && params.authId !=="") {
-      let latitude = (params.latitude !== undefined) ? params.latitude: "28.576191";
-      let longitude = (params.longitude !== undefined) ? params.longitude: "77.345787";
-      this.setState({authId: params.authId, latitude: latitude, longitude: longitude});
+      const queryParams = queryString.parse(this.props.location.search)
+      let latitude = (queryParams.latitude !== undefined) ? queryParams.latitude: "28.576191";
+      let longitude = (queryParams.longitude !== undefined) ? queryParams.longitude: "77.345787";
+      let isDisabled = (queryParams.authId !== undefined && queryParams.authId !== params.authId) ? true : false
+      this.setState({authId: params.authId, latitude: latitude, longitude: longitude, isDisabled: isDisabled});
       this.getInspectionDetail(params.inspectionId);
       this.updateGeoLocationAddress({latitude: latitude, longitude: longitude});
     }
@@ -361,7 +367,7 @@ class StartInspection extends React.Component {
       toast.error("Something Went Wrong");
       return false;
     }
-    debugger;
+    
     let formData = {inspectionId: this.state.inspectionId, totalTimeCalculated: this.state.totalTimeCalculated, 
       saveAsDraft: saveAsDraft, authId: this.state.authId,
        feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, 
@@ -529,34 +535,34 @@ class StartInspection extends React.Component {
     if(this.state.loadingTemplate){
       if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition === 1) {
         actionButton = <>
-          <Button onClick={this.handleNextStepForm} className="btn-gr">Next</Button>
-          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+          <Button onClick={this.handleNextStepForm} className="btn-gr" disabled={this.state.isDisabled}>Next</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye" disabled={this.state.isDisabled}>Save as Draft</Button>
               
         </>;
       }
       else if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition >= 20 && this.state.templatePreviewData.length > this.state.currentQuestionPosition + 19) {
         actionButton = <>
-          <Button onClick={this.handlePrevStepForm} className="btn-gr">Prev</Button>
-          <Button onClick={this.handleNextStepForm} className="btn-gr">Next</Button>
-          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+          <Button onClick={this.handlePrevStepForm} className="btn-gr" disabled={this.state.isDisabled}>Prev</Button>
+          <Button onClick={this.handleNextStepForm} className="btn-gr" disabled={this.state.isDisabled}>Next</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye" disabled={this.state.isDisabled}>Save as Draft</Button>
               
         </>;
       }
       else if(this.state.templatePreviewData.length > 20){
         actionButton = <>
           <Button onClick={this.handlePrevStepForm} className="btn-gr">Prev</Button>
-          <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
-          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr" disabled={this.state.isDisabled}>Submit</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye" disabled={this.state.isDisabled}>Save as Draft</Button>
               
         </>;
       }
       else
         actionButton = <>
-          <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr">Submit</Button>
-          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye">Save as Draft</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr" disabled={this.state.isDisabled}>Submit</Button>
+          <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye" disabled={this.state.isDisabled}>Save as Draft</Button>
               
         </>;
-        timerSection = <Timer updateStartTime= {this.updateStartTime} updateEndTime= {this.updateEndTime} updateTime={this.updateTime} totalFormFillingTime = {this.state.totalFormFillingTime}/>
+        timerSection = <Timer updateStartTime= {this.updateStartTime} updateEndTime= {this.updateEndTime} updateTime={this.updateTime} totalFormFillingTime = {this.state.totalFormFillingTime} disabledModule={this.state.isDisabled}/>
     }
     
     const formFieldItem = this.state.templatePreviewData.length > 20 ? ((this.state.templatePreviewData.length + 20 >= this.state.currentQuestionPosition) ? this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.currentQuestionPosition + 19 ) :this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.templatePreviewData.length -1)) : this.state.templatePreviewData;
@@ -588,7 +594,9 @@ class StartInspection extends React.Component {
                                     actionFormHide={this.state.actionFormHide}
                                     previousUploadedFile = {this.state.previousUploadedFile}
                                     handleRemoveMediaFile = {this.handleRemoveMediaFile}
-                                    updateQuestionCountval = {this.updateQuestionCountval} /> 
+                                    updateQuestionCountval = {this.updateQuestionCountval}
+                                    disabledModule={this.state.isDisabled}
+                                     /> 
                                     {actionButton}
                                 </MDBCardBody>
                             </MDBCard>
