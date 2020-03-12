@@ -55,6 +55,7 @@ class StartInspection extends React.Component {
       totalFormFillingTime: 0,
       totalTimeCalculated: 0,
       isDisabled: false,
+      disabledFormMessage: "You can not access to makes changes in this inspection ",
       warningMessage: "Please start the timer first before submitting form",
       allowAllocationMessage: "Please allow location to access inspection"   
     }    
@@ -190,6 +191,10 @@ class StartInspection extends React.Component {
       toast.error(this.state.warningMessage);
       return false;
     }
+    if(this.state.isDisabled) {
+      toast.error(this.state.disabledFormMessage);
+      return false;
+    }
     let formField = this.state.formField;
     formField[fieldName] = fieldValue;
     this.setState({formField: formField});
@@ -200,6 +205,10 @@ class StartInspection extends React.Component {
       return false;
     if(!this.state.isTimerStart) {
       toast.error(this.state.warningMessage);
+      return false;
+    }
+    if(this.state.isDisabled) {
+      toast.error(this.state.disabledFormMessage);
       return false;
     }
     let remarks = this.state.remarks;
@@ -239,6 +248,10 @@ class StartInspection extends React.Component {
       return false;
     if(!this.state.isTimerStart) {
       toast.error(this.state.warningMessage);
+      return false;
+    }
+    if(this.state.isDisabled) {
+      toast.error(this.state.disabledFormMessage);
       return false;
     }
     let mediaFile = this.state.mediaFileInfo;
@@ -363,6 +376,10 @@ class StartInspection extends React.Component {
       toast.error(this.state.warningMessage);
       return false;
     }
+    if(this.state.isDisabled) {
+      toast.error(this.state.disabledFormMessage);
+      return false;
+    }
     if(this.state.inspectionId === ""){
       toast.error("Something Went Wrong");
       return false;
@@ -436,6 +453,10 @@ class StartInspection extends React.Component {
       return false;
     if(!this.state.isTimerStart) {
       toast.error(this.state.warningMessage);
+      return false;
+    }
+    if(this.state.isDisabled) {
+      toast.error(this.state.disabledFormMessage);
       return false;
     }  
     let mediaFileInfo = this.state.mediaFileInfo;
