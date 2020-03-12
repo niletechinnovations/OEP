@@ -114,7 +114,7 @@ function SetPlanDetailsInfo (props) {
                 <CardSubtitle>${`${planInfo.amount} / ${planType}`}</CardSubtitle>                
                 <CardText>Number Of Template : {planInfo.templateAccess}</CardText>
                 <CardText>Number Of Employee : {planInfo.userAccess}</CardText>
-                <button className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess }>{props.paymentProcess && props.planId == planInfo.planId ? buttonTxt: 'Buy Now'}</button>
+                <button className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess }>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
               </CardBody>
             </Card>
           </Col>);

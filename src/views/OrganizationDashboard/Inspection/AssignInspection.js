@@ -23,7 +23,7 @@ class AssignInspection extends React.Component {
       templateData: [],
       storeList: [],
       inspectionId: "",
-      selectedEmployeList: [{employeeId: "", storeId: ""}],
+      selectedEmployeList: [{employeeId: "", storeId: []}],
       formValid: false,
       templatePreviewData : [],
       formProccessing: false,
@@ -339,7 +339,7 @@ class AssignInspection extends React.Component {
     this.setState( { loading: true}, () => {
       
       let selectedEmployeList = this.state.selectedEmployeList;
-      selectedEmployeList = selectedEmployeList.filter(i => i.employeeId !=="" && i.storeId);
+      selectedEmployeList = selectedEmployeList.filter(i => i.employeeId !=="" && i.storeId.length > 0 );
       if(selectedEmployeList.length === 0) {
         toast.error("Please select atleast one employee and store");
         this.setState( { loading: false});
@@ -356,7 +356,7 @@ class AssignInspection extends React.Component {
       
       if(this.state.inspectionId !== ""){
         formData.employeeId = selectedEmployeList[0].employeeId;
-        formData.storeId = selectedEmployeList[0].storeId;
+        formData.storeId = selectedEmployeList[0].storeId[0];
       }
       if(this.state.inspectionId !== "" ) {
         formData.inspectionId = this.state.inspectionId;
@@ -422,7 +422,7 @@ class AssignInspection extends React.Component {
   addMoreOption() {
     let selectedEmployeList = this.state.selectedEmployeList;   
     if(selectedEmployeList.length < this.state.employeeList.length) {
-      selectedEmployeList.push({"employeeId" : "", "storeId": ""});
+      selectedEmployeList.push({"employeeId" : "", "storeId": []});
       this.setState({selectedEmployeList: selectedEmployeList});
     }
   }
@@ -431,14 +431,13 @@ class AssignInspection extends React.Component {
     let selectedEmployeList = this.state.selectedEmployeList;    
     selectedEmployeList.splice(event.target.id, 1);
     if(selectedEmployeList.length === 0){
-      selectedEmployeList.push({"employeeId" : "", "storeId": ""});
+      selectedEmployeList.push({"employeeId" : "", "storeId": []});
       toast.error("Please select atleast one employee and store");
     }
     this.setState({selectedEmployeList: selectedEmployeList});
   }
   /* Change Employee handler*/
-  changeEmployeeHandler = event => { 
-    
+  changeEmployeeHandler = event => {    
     let selectedEmployeList = this.state.selectedEmployeList;
     const inputName = event.target.name.split('_');
     const currentEmployee = selectedEmployeList.map(i => i.employeeId);
@@ -452,6 +451,20 @@ class AssignInspection extends React.Component {
     }
     else
       selectedEmployeList[inputName[1]].storeId = event.target.value;
+    this.setState({selectedEmployeList: selectedEmployeList});
+   
+  }
+  changeStoreHandler = event => {    
+    
+    let selectedEmployeList = this.state.selectedEmployeList;
+    let inputName = event.target.name.split('_');
+    inputName = inputName[1].split('[]');   
+    let storeIds = [];
+    event.target.selectedOptions.forEach(function(data, index) {
+      console.log(index);
+      storeIds.push(data.value); 
+    });
+    selectedEmployeList[inputName[0]].storeId = storeIds;
     this.setState({selectedEmployeList: selectedEmployeList});
    
   }
@@ -494,7 +507,7 @@ class AssignInspection extends React.Component {
                               <Col md={isMulti ? 4 : 6}>
                                 <FormGroup> 
                                   <Label htmlFor="storeId">Store <span className="mandatory">*</span></Label>            
-                                  <Input type="select" placeholder={index} key={index} name={`storeId_${index}`} value={selectedEmployeItem.storeId} onChange={this.changeEmployeeHandler} required = { index === 0 ? true : false } >
+                                  <Input type="select" multiple={isMulti} placeholder={index} key={index} name={`storeId_${index}[]`} value={selectedEmployeItem.storeId} onChange={this.changeStoreHandler} required = { index === 0 ? true : false } >
                                     <option value="">Select Store</option>
                                     {storeList.map((storeItem, storeIndex) =>
                                       <SetStoreDropDownItem key={storeIndex} storeItem={storeItem} selectedCategory={this.state.formField.storeId} />
