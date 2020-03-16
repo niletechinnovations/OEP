@@ -100,11 +100,11 @@ export default class DynamicOptionList extends React.Component {
                 <li className="clearfix" key={this_key}>
                   <div className="row">
                     <div className="col-sm-6">
-                      <input tabIndex={index + 1} className="form-control" style={{ width: '100%' }} type="text" name={`text_${index}`} placeholder="Option text" value={option.text} onBlur={this.updateOption.bind(this)} onChange={this.editOption.bind(this, index)} />
+                      <input tabIndex={index + 1} className="form-control" readOnly="true" style={{ width: '100%' }} type="text" name={`text_${index}`} placeholder="Option text" value={option.text} onBlur={this.updateOption.bind(this)} onChange={this.editOption.bind(this, index)} />
                     </div>
                     { this.props.canHaveOptionValue &&
                     <div className="col-sm-2">
-                      <input className="form-control" type="text" name={`value_${index}`} value={val} onChange={this.editValue.bind(this, index)} />
+                      <input className="form-control" type="text" name={`value_${index}`} readOnly="true" value={val} onChange={this.editValue.bind(this, index)} />
                     </div> }
                     { this.props.canHaveOptionValue && this.props.canHaveOptionCorrect &&
                     <div className="col-sm-1">
