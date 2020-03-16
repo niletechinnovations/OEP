@@ -18,7 +18,7 @@ class DefaultHeader extends Component {
 
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-
+    const profileImage = (localStorage.getItem('profilePic') !== undefined &&  localStorage.getItem('profilePic') !== "" && localStorage.getItem('profilePic') !== null) ? localStorage.getItem('profilePic') : '../../assets/img/avatars/6.jpg';
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -38,7 +38,7 @@ class DefaultHeader extends Component {
           </NavItem>          
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
-              <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="organization@abc.com" />
+              <img src={profileImage} className="img-avatar" alt="organization@abc.com" />
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>

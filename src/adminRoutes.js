@@ -18,11 +18,13 @@ import ActionLists from './views/AdminDashboard/Inspection/ActionLists';
 import Subscription from './views/AdminDashboard/Subscription/Subscription';
 import SubscriberList from './views/AdminDashboard/Reports/Subscriber';
 import LeaderBoard from './views/AdminDashboard/Reports/LeaderBoard';
+import Profile from './views/AdminDashboard/Profile/Profile';
 
 const adminRoutes = [
   { path: '/admin/', exact: true, name: 'Home' },
   { path: '/admin/dashboard', name: 'Dashboard', component: Dashboard },  
   { path: '/admin/users', exact: true,  name: 'Users', component: Users },  
+  { path: '/admin/profile', exact: true,  name: 'Profile', component: Profile }, 
   { path: '/admin/users/:profileId', exact: true, name: 'User Details', component: User },
   { path: '/admin/manage-categories/category', exact: true,  name: 'Category', component: Category },
   { path: '/admin/manage-categories/subcategory', exact: true,  name: 'Subcategory', component: SubCategory },

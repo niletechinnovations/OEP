@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
 
 // routes config
 import frontendRoutes from '../../frontendRoutes.js';
@@ -23,7 +23,8 @@ class FrontEndLayout extends Component {
       <div className="app">
         <div className="flyout">
             <FrontEndHeader />
-            <main>                
+            <main>      
+              <ToastContainer />          
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {frontendRoutes.map((route, idx) => {

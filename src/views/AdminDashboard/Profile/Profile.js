@@ -11,10 +11,10 @@ class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', profilePic: '' },
-      formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
+      formField: { email: '', first_name: '',last_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', profilePic:"" },
+      formErrors: {email: '', contact_person: '', role: '', error: ''},
       formValid: true,
-      organizationId: "",
+      profileId: "",
       loading: true
 
     };
@@ -37,9 +37,10 @@ class Profile extends Component {
           }
           const organizationInfo = res.data.data;
           const formField = {
-            organization_name: organizationInfo.organizationName, 
+           
             email: organizationInfo.email, 
-            first_name: organizationInfo.firstName, 
+            first_name: organizationInfo.firstName,
+            last_name: organizationInfo.lastName, 
             phoneNumber: organizationInfo.phoneNumber, 
             address: organizationInfo.address, 
             city: organizationInfo.city, 
@@ -47,9 +48,10 @@ class Profile extends Component {
             country: organizationInfo.country, 
             postalCode: organizationInfo.postalCode, 
             role: organizationInfo.roleName,
-            profilePic: organizationInfo.profilePic };  
+            profilePic: organizationInfo.profilePic
+             };  
 
-          this.setState({loading:false, formField: formField, formValid: true, organizationId: organizationInfo.organizationId});     
+          this.setState({loading:false, formField: formField, formValid: true, profileId: organizationInfo.profileId});     
          
         } )
         .catch( err => {         
@@ -63,6 +65,7 @@ class Profile extends Component {
         } )
     } )
   }
+
   changeFileHandle = event => {
     const targetFile = event.target.files[0];
     if(targetFile.type !== "image/png" && targetFile.type !== "image/jpeg" && targetFile.type !== "image/jpg" && targetFile.type !== "image/svg") {
@@ -75,7 +78,7 @@ class Profile extends Component {
     
     
     formData.append('profileImage', targetFile); 
-    formData.append('profileId', this.state.organizationId); 
+    formData.append('profileId', this.state.profileId); 
    
     this.setState( { loading: true}, () => {
       commonService.putAPIWithAccessToken('profile/picture', formData)
@@ -87,12 +90,12 @@ class Profile extends Component {
             toast.error(res.data.message);
             return;
           }
-          localStorage.setItem('profilePic', res.data.data.profilePic);    
-          let formField = this.state.formField;       
+          localStorage.setItem('profilePic', res.data.data.profilePic); 
+          let formField = this.state.formField;
           formField.profilePic = res.data.data.profilePic;          
           this.setState({ loading: false, formField: formField});
           toast.success(res.data.message);
-          this.props.history.push('/oraganization/profile');
+          this.props.history.push('/admin/profile');
          
         } )
         .catch( err => {         
@@ -115,16 +118,16 @@ class Profile extends Component {
         const formInputField = this.state.formField;
         const formData = {
           "email": formInputField.email,
-          "profileId": this.state.organizationId,
+          "profileId": this.state.profileId,
           "firstName": formInputField.first_name, 
+          "lastName": formInputField.last_name, 
           "phoneNumber": formInputField.phoneNumber, 
           "address": formInputField.address, 
           "roleName": formInputField.role, 
           "city": formInputField.city, 
           "state": formInputField.state, 
           "country": formInputField.country, 
-          "postalCode": formInputField.postalCode, 
-          "organizationName": formInputField.organization_name
+          "postalCode": formInputField.postalCode
         };
         
         commonService.putAPIWithAccessToken('profile', formData)
@@ -168,15 +171,11 @@ class Profile extends Component {
       fieldValidationErrors.error = '';
      
       switch(fieldName) {         
-        case 'organization_name':        
-          fieldValidationErrors.organization_name = (value !== '') ? '' : ' is required';
-          break;
+       
         case 'first_name':        
           fieldValidationErrors.contact_person = (value !== '') ? '' : ' is required';
           break;
-        case 'role':        
-          fieldValidationErrors.role = (value !== '') ? '' : ' is required';
-          break;               
+        
         default:
           break;
       }
@@ -188,7 +187,7 @@ class Profile extends Component {
       const formErrors = this.state.formErrors;
       const formField = this.state.formField;
       this.setState({formValid: 
-        (formErrors.organization_name === ""  && formErrors.contact_person === "" && formErrors.role === "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" ) 
+        (formErrors.contact_person === "" &&  formField.first_name !== "" ) 
         ? true : false});
     }
     /* Set Error Class*/
@@ -206,7 +205,6 @@ class Profile extends Component {
       loaderElement = <Loader />
     if(this.state.formField.profilePic !== "")
       prevImg = <img src={this.state.formField.profilePic} alt="Profile" className="prevProfileImage" />
-
     return (
       <div className="animated fadeIn">
         <Row>
@@ -221,19 +219,7 @@ class Profile extends Component {
                 <Form onSubmit={this.submitHandler} noValidate>
                   <Row>
                     <FormErrors formErrors={this.state.formErrors} />
-                    <Col md={6}>
-                      <FormGroup> 
-                        <Label htmlFor="organization_name">Organization Name</Label>            
-                        <Input type="text" placeholder="Organization Name *" id="organization_name" name="organization_name" value={this.state.formField.organization_name} onChange={this.changeHandler} required />
-                      </FormGroup>  
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup> 
-                        <Label htmlFor="email">Email</Label>            
-                        <Input type="text" placeholder="Email *" id="email" name="email" value={this.state.formField.email} onChange={this.changeHandler} required />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
+                     <Col md={6}>
                       <FormGroup> 
                         <Label htmlFor="first_name">Contact Person</Label>            
                         <Input type="text" placeholder="Contact Person *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
@@ -241,10 +227,18 @@ class Profile extends Component {
                     </Col>
                     <Col md={6}>
                       <FormGroup> 
-                        <Label htmlFor="role">Role</Label>            
-                        <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler} required />
+                        <Label htmlFor="last_name">Last Name</Label>            
+                        <Input type="text" placeholder="Last Name " id="last_name" name="last_name" value={this.state.formField.last_name} onChange={this.changeHandler} />
+                      </FormGroup>  
+                    </Col>
+                    <Col md={6}>
+                      <FormGroup> 
+                        <Label htmlFor="email">Email</Label>            
+                        <Input type="text" placeholder="Email *" readOnly="true" id="email" name="email" value={this.state.formField.email} onChange={this.changeHandler} required />
                       </FormGroup>
                     </Col>
+                   
+                    
                     <Col md={6}>
                       <FormGroup> 
                         <Label htmlFor="phoneNumber">Contact Number</Label>            
@@ -288,7 +282,6 @@ class Profile extends Component {
                         {prevImg}
                       </FormGroup>
                     </Col>
-                    <Col md={6}></Col>
                     <Button color="primary" disabled={!this.state.formValid} type="submit">Update</Button>
                   </Row>
                 </Form>

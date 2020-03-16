@@ -93,10 +93,10 @@ export default {
         }      
       ]    
     },
-    {
+    /*{
       name: 'Logout',
       url: '#!',
       icon: 'icon-logout',     
-    }
+    }*/
   ],
 };
