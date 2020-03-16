@@ -52,6 +52,7 @@ class StartInspection extends React.Component {
       prevQuestionNumber: 0,
       timerHistoryId: "",
       isTimerStart: false,
+      autoTimerStart: false,
       totalFormFillingTime: 0,
       totalTimeCalculated: 0,
       isDisabled: false,
@@ -151,7 +152,13 @@ class StartInspection extends React.Component {
               remarks[key] = inspectionDetail.feedBackData[key].remarks
             }
           }
-          this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, totalFormFillingTime: inspectionDetail.totalFormFillingTime, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
+          let isDisabled = this.state.isDisabled;
+          let autoTimerStart = this.state.autoTimerStart;
+          if(inspectionDetail.currentStatus === 3)
+            isDisabled = true;
+          if(!isDisabled)
+            autoTimerStart = true;
+          this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, totalFormFillingTime: inspectionDetail.totalFormFillingTime, autoTimerStart: autoTimerStart, isDisabled: isDisabled, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
           
           
         } )
@@ -522,7 +529,7 @@ class StartInspection extends React.Component {
   updateEndTime=(seconds)=>{
     
     let formData ={stopTime:seconds};
-    this.setState({isTimerStart: false}, () => {
+    this.setState({isTimerStart: false, autoTimerStart: false}, () => {
       commonService.putAPIWithAccessToken('inspection/update-stop-time/'+this.state.inspectionId, formData)
         .then( res => { 
           console.log(res.data);
@@ -583,7 +590,7 @@ class StartInspection extends React.Component {
           <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye" disabled={this.state.isDisabled}>Save as Draft</Button>
               
         </>;
-        timerSection = <Timer updateStartTime= {this.updateStartTime} updateEndTime= {this.updateEndTime} updateTime={this.updateTime} totalFormFillingTime = {this.state.totalFormFillingTime} disabledModule={this.state.isDisabled}/>
+        timerSection = <Timer updateStartTime= {this.updateStartTime} updateEndTime= {this.updateEndTime} updateTime={this.updateTime} totalFormFillingTime = {this.state.totalFormFillingTime} disabledModule={this.state.isDisabled} autoTimerStart = {this.state.autoTimerStart}/>
     }
     
     const formFieldItem = this.state.templatePreviewData.length > 20 ? ((this.state.templatePreviewData.length + 20 >= this.state.currentQuestionPosition) ? this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.currentQuestionPosition + 19 ) :this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.templatePreviewData.length -1)) : this.state.templatePreviewData;

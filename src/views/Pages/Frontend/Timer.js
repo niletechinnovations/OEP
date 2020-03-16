@@ -67,12 +67,13 @@ export default class Timer extends Component {
     }
     
     render() {
-        
+        if(this.props.autoTimerStart)
+          this.startTimer();
         return (
             <div className="startTimer-info">
                 <h2>Timer:-</h2>
                 <div className="timerRow"> <div className="timeCount timeHours">{this.state.hours} </div>: <div className="timeCount timeMinutes">{this.state.minuts} </div>: <div className="timeCount timeSeconds">{this.state.second}</div> </div>
-                <p><Button onClick={this.startTimer} className="btn-gr" disabled={this.props.disabledModule}>Start</Button><Button onClick={this.stopTimer} className="btn-ye" disabled={this.props.disabledModule}>Pause</Button></p>
+                
             </div>
         )
     }
