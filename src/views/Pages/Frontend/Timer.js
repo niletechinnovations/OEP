@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Button } from 'reactstrap';
 
 export default class Timer extends Component {
     constructor(props) {

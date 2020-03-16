@@ -39,30 +39,58 @@ class PdfContainer extends Component {
     if(this.state.share_email !== '') {
       var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);  
       if((pattern.test(this.state.share_email))){
-        const formdata = {email: this.state.share_email, body_content: this.bodyRef.current.innerHTML };
+        
         this.setState( { loading: true}, () => {
-          commonService.postAPIWithAccessToken('template/share-template', formdata)
-          .then( res => {   
-            if ( undefined === res.data.data || !res.data.status ) {
-              this.setState( {  loading: false } );
-              toast.error(res.data.message);  
-              this.props.history.push('/organization/inspection');  
-              return;
-            }           
-            this.setState({modal:false, share_email: "", loading: false});     
-           
-          } )
-          .catch( err => {   
-                      
-            if(err.response !== undefined && err.response.status === 401) {
-              localStorage.clear();
-              this.props.history.push('/login');
-            }
-            else {
-              this.setState( { loading: false } );
-              toast.error(err.message);    
-            }
-          } )
+          if(this.props.templateType === "inspection") {
+            const formdataShare = {email: this.state.share_email, inspectionId: this.props.inspectionId };
+            commonService.postAPIWithAccessToken('inspection/share-inspection', formdataShare)
+            .then( res => {   
+              if ( undefined === res.data.data || !res.data.status ) {
+                this.setState( {  loading: false } );
+                toast.error(res.data.message);  
+                this.props.history.push('/manage-organization/inspection');  
+                return;
+              }           
+              this.setState({modal:false, share_email: "", loading: false});     
+             
+            } )
+            .catch( err => {   
+                        
+              if(err.response !== undefined && err.response.status === 401) {
+                localStorage.clear();
+                this.props.history.push('/login');
+              }
+              else {
+                this.setState( { loading: false } );
+                toast.error(err.message);    
+              }
+            } )
+          }
+          else {
+            const formdata = {email: this.state.share_email, body_content: this.bodyRef.current.innerHTML };            
+            commonService.postAPIWithAccessToken('template/share-template', formdata)
+            .then( res => {   
+              if ( undefined === res.data.data || !res.data.status ) {
+                this.setState( {  loading: false } );
+                toast.error(res.data.message);  
+                this.props.history.push('/manage-template/template');  
+                return;
+              }           
+              this.setState({modal:false, share_email: "", loading: false});     
+             
+            } )
+            .catch( err => {   
+                        
+              if(err.response !== undefined && err.response.status === 401) {
+                localStorage.clear();
+                this.props.history.push('/login');
+              }
+              else {
+                this.setState( { loading: false } );
+                toast.error(err.message);    
+              }
+            } )
+          }
         })
       }
     }    

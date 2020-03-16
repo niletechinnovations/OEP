@@ -93,7 +93,7 @@ export default class Demobar extends React.Component {
                   </div>
                   <div className="form-builder-body form-builder-preview">
 
-                    <PdfContainer createPdf={this.createPdf}>                    
+                    <PdfContainer createPdf={this.createPdf} templateType = "template">                    
                         <ReactFormGenerator
                           download_path=""
                           back_action="/"
