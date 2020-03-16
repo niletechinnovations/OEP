@@ -6,6 +6,7 @@ import LoginPage from './views/Pages/Frontend/LoginPage';
 import ResetPassword from './views/Pages/Frontend/ResetPassword';
 import RegisterPage from './views/Pages/Frontend/RegisterPage';
 import PrivacyPolicy from './views/Pages/Frontend/PrivacyPolicy';
+import VerifyEmail from './views/Pages/Frontend/VerifyEmail';
 
 
 const frontendRoutes = [
@@ -18,6 +19,7 @@ const frontendRoutes = [
   { path: '/login', exact: true, name: 'Login', component: LoginPage },
   { path: '/register', exact: true,  name: 'Register', component: RegisterPage },
   { path: '/reset-password/:token', exact: true,  name: 'Reset Password', component: ResetPassword },
+  { path: '/verify-email/:token', exact: true,  name: 'Verify Email', component: VerifyEmail },
 ];
 
 export default frontendRoutes;
