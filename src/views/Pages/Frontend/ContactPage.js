@@ -132,9 +132,7 @@ class ContactPage extends React.Component {
                                     <MDBIcon icon="envelope" /> Write to us:
                                     </h3>
                                 </div>
-                                <p className="dark-grey-text">
-                                    We'll write rarely, but only the best content.
-                                </p>
+                                
                                 <form className="grey-textneeds-validation" onSubmit={this.submitEnquiryForm} noValidate>
 	                                <div className="md-form">
 	                                    <MDBInput
@@ -212,7 +210,7 @@ class ContactPage extends React.Component {
                             </div>
                             <br />
                             <MDBRow className="text-center">
-                                <MDBCol md="4" className="containerBd">
+                                {/*<MDBCol md="4" className="containerBd">
                                 <MDBBtn tag="a" floating className="bg-grey-oep">
                                     <MDBIcon icon="map-marker" />
                                 </MDBBtn>
@@ -225,7 +223,7 @@ class ContactPage extends React.Component {
                                 </MDBBtn>
                                 <p>+ 01 234 567 89</p>
                                 
-                                </MDBCol>
+                                </MDBCol>*/}
                                 <MDBCol md="4">
                                 <MDBBtn tag="a" floating  className="bg-grey-oep">
                                     <MDBIcon icon="envelope" />

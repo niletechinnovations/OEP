@@ -43,9 +43,9 @@ class HomePage extends React.Component {
                       <h1 className="">
                       OEP will be the platform to help you inspect what you expect{" "}
                       </h1>
-                      <p className="">
+                      {/*<p className="">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                      </p>
+                      </p>*/}
                       <div className="btn-section">
                         <Link className="btn-Started" to="/register">
                         Get Started for FREE
@@ -192,10 +192,9 @@ class HomePage extends React.Component {
                 </a>
               </MDBView>
               <MDBCardBody className="pb-0 features-card cardContent">
-                <h4>No more paper or endless filing in a dusty cabinet or binder that no one ever reviews.</h4>
+                <h4>Make your office a smart office</h4>
                 <p>
-                  Temporibus autem quibusdam et aut officiis debitis aut rerum
-                  necessitatibus saepe eveniet ut et voluptates repudiandae.
+                  No more paper or endless filing in a dusty cabinet or binder that no one ever reviews.
                 </p>
                 <Link className="btn-Started btnKeyFeatures" to="/">
                   Learn more

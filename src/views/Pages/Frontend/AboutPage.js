@@ -16,10 +16,10 @@ class AboutPage extends React.Component {
                         About Us
                         </h2>
                         <p className="lead grey-text mb-3">
-                            RetailOEP is the premier retail inspection app that does it all. We make itsuper easy to inspect what you expect from your daily professionallives. We all have many things we need to review and inspect dailyand Retail OEP allows you to do it from the palm of your hand. RetailOEP is the Operational Excellence Platform for all your retail needsand much more. The platform is 20 plus years in the making fromactual retail walks and processes. Built by an operational retailerfor retailers just like you. Retail OEP gives you the power to simplyrun a better business with your teams.
+                            RetailOEP is the premier retail inspection app that does it all. We make it super easy to inspect what you expect from your daily professional lives. We all have many things we need to review and inspect daily and RetailOEP allows you to do it from the palm of your hand. RetailOEP is the Operational Excellence Platform for all your retail needs and much more. The platform is 20 plus years in the making from actual retail walks and processes. Built by an operational retailer for retailers just like you. Retail OEP gives you the power to simply run a better business with your teams.
                         </p>
                         <p className="lead grey-text mb-3">
-                          Ourmission is simple: to make your life easier and much more processdriven, which in turn will improve your sales, profits and teamengagement. With millions of users around the globe and many newinspections every day, we're just getting started.
+                          Our mission is simple: to make your life easier and much more process driven, which in turn will improve your sales, profits and team engagement. With millions of users around the globe and many new inspections every day, we're just getting started.
                         </p>
                         
                     </MDBCol>

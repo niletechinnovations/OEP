@@ -21,15 +21,15 @@ const frontEndFooter = () => {
               </MDBCol>
               <MDBCol md="2">
                 <nav className="flex-column foot-nav">
-                  <Link to="/about-us" className="py-2 text-contrast nav-link">About</Link>
+                  <Link to="/about-us" className="py-2 text-contrast nav-link">About us</Link>
                   <Link to="/contact-us" className="py-2 text-contrast nav-link">Contact us</Link>
                 </nav>
               </MDBCol>
               <MDBCol md="2">
                 <nav className="flex-column foot-nav">
                   <Link to="/privacy-policy" className="py-2 text-contrast nav-link">Privacy Policy</Link>
-                  <a href="/" className="py-2 text-contrast nav-link">Terms & Conditions</a>
-                  <a href="#!" className="py-2 text-contrast nav-link">FAQ's</a>
+                  {/*<a href="/" className="py-2 text-contrast nav-link">Terms & Conditions</a>
+                  <a href="#!" className="py-2 text-contrast nav-link">FAQ's</a>*/}
                 </nav>
               </MDBCol>
 
