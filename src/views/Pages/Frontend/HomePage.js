@@ -279,7 +279,7 @@ class HomePage extends React.Component {
             </MDBRow>
           </MDBContainer>
         </div>
-        <section className="product-counter-section py-5">
+        {/*<section className="product-counter-section py-5">
           <div className="product-counter-wrap">
             <MDBContainer>
                 <MDBRow>
@@ -315,7 +315,7 @@ class HomePage extends React.Component {
               </MDBRow>
             </MDBContainer>
           </div>
-        </section>
+        </section>*/}
 
       </>
     );

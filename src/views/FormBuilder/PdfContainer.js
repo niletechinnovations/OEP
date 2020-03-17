@@ -48,7 +48,7 @@ class PdfContainer extends Component {
               if ( undefined === res.data.data || !res.data.status ) {
                 this.setState( {  loading: false } );
                 toast.error(res.data.message);  
-                this.props.history.push('/manage-organization/inspection');  
+                this.props.history.push('/login');  
                 return;
               }           
               this.setState({modal:false, share_email: "", loading: false});     
@@ -73,7 +73,7 @@ class PdfContainer extends Component {
               if ( undefined === res.data.data || !res.data.status ) {
                 this.setState( {  loading: false } );
                 toast.error(res.data.message);  
-                this.props.history.push('/manage-template/template');  
+                this.props.history.push('/login');  
                 return;
               }           
               this.setState({modal:false, share_email: "", loading: false});     
@@ -105,12 +105,14 @@ class PdfContainer extends Component {
   };
   createPdf = () => this.props.createPdf(this.bodyRef.current);   
   render() {
-    
+    let shareButton = <button className="btn-re pull-right" onClick={this.showShareOption}>Share</button>;
+    if(this.props.hideShareButton != undefined && this.props.hideShareButton)
+      shareButton = "";
     return (
       <section className="pdf-container">
         <section className="pdf-toolbar">
           <button onClick={this.createPdf} className=" btn btn-ye"><i className="fa fa-download"></i> Export PDF</button>
-           <button className="btn-re pull-right" onClick={this.showShareOption}>Share</button>
+          {shareButton}
 
         </section>
         <section className="pdf-body" style= {{padding: "20px"}} ref={this.bodyRef}>
