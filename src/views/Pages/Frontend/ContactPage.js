@@ -116,9 +116,7 @@ class ContactPage extends React.Component {
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol md="12">
-                            <h2 className="h2-responsive font-weight-bold mt-5 mb-4">
-                            Contact Us
-                            </h2>
+                            
                         </MDBCol>
                     </MDBRow>
                     {loaderElement}
@@ -128,23 +126,19 @@ class ContactPage extends React.Component {
                       <p>Please fill out the form below to inquire about our services.</p>
                     </div>
                     <MDBRow className="align-items-center">
-                        <MDBCol md="4" lg="4">
-                          <div className="contact-image">
-                            <img src="/images/contact-banner.svg" alt="" />
-                          </div>
-                        </MDBCol>
-                        <MDBCol md="8" lg="8">
+                        
+                        <MDBCol md="5" lg="6">
                           <div className="contact-form">
                             <form className="grey-textneeds-validation" id="contactForm" onSubmit={this.submitEnquiryForm} noValidate>
                               <MDBRow>
-                                <MDBCol md="12" lg="6">
+                                <MDBCol md="12" lg="12">
                                   <div className="form-group">
                                     <input className="form-control" name="contactPerson" placeholder="Name" required="" invalid={errors['contactPerson'] !== undefined && errors['contactPerson'] !== ""} value={contactPerson} onChange={this.changeHandler} type="text" />
                                     <p className="error">{errors['contactPerson']}</p>
                                   </div>
                                 </MDBCol>
 
-                                <MDBCol md="12" lg="6">
+                                <MDBCol md="12" lg="12">
                                   <div  className="form-group">
                                     <input className="form-control" name="email" placeholder="Email" required="" type="email" invalid={errors['email'] !== undefined && errors['email'] !== ""} value={email} onChange={this.changeHandler} />
                                     <p className="error">{errors['email']}</p>
@@ -153,14 +147,14 @@ class ContactPage extends React.Component {
 
                                 
 
-                                <MDBCol md="12" lg="6">
+                                <MDBCol md="12" lg="12">
                                   <div  className="form-group">
                                     <input className="form-control" name="subject" placeholder="Subject" required="" type="text" invalid={errors['subject'] !== undefined && errors['subject'] !== ""} value={subject} onChange={this.changeHandler} />
                                     <p className="error">{errors['subject']}</p>
                                   </div>
                                 </MDBCol>
 
-                                <MDBCol md="12" lg="6">
+                                <MDBCol md="12" lg="12">
                                   <div  className="form-group">
                                     <textarea className="form-control" cols="30" name="message" placeholder="Your Message" required="" rows="5" invalid={errors['message'] !== undefined && errors['message'] !== ""} value={message} onChange={this.changeHandler}></textarea>
                                     <p className="error">{errors['message']}</p>
@@ -171,15 +165,20 @@ class ContactPage extends React.Component {
                                   <div className="form-group">
                                     <button  className="Send-btn" type="submit">Send Message</button>
                                   </div>
-                                </MDBCol>
+                                </MDBCol>{/*
                                 <MDBCol md="12" lg="6">
                                   <div className="form-group">
                                      <a href="mailto:support@retailoep.com" className="pull-right">
                                         <MDBIcon icon="envelope" /> &nbsp; support@retailoep.com</a>
                                   </div>
-                                </MDBCol>
+                                </MDBCol>*/}
                               </MDBRow>
                             </form>
+                          </div>
+                        </MDBCol>
+                        <MDBCol md="7" lg="6">
+                          <div className="contact-image">
+                            <img src="/images/contact-us.png" alt="" />
                           </div>
                         </MDBCol>
                       </MDBRow>
