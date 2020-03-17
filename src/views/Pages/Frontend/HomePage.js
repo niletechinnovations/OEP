@@ -263,7 +263,7 @@ class HomePage extends React.Component {
               <MDBCol md="7">
                 <div className="download-app-text">
                   <h3>Get the app today!</h3>
-                  <p>Seamlessly transform timely e-commerce for diverse leadership skills. Conveniently reconceptualize go forward expertise without extensible applications.Phosfluorescently.</p>
+                  <p>Super easy to inspect what you expect from your daily professional lives. RetailOEP allows you to do it from the palm of your hand, with the Retail OEP app.</p>
                   <div className="download-app-button">
                     <a href="https://apps.apple.com/us/app/retail-oep/id1501693671?ls=1" className="download-btn" target="_blank"  rel="noopener noreferrer">
                       <MDBIcon fab icon="apple" />
