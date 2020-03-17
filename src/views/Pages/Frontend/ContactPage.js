@@ -26,7 +26,7 @@ class ContactPage extends React.Component {
   }
   submitEnquiryForm(e) {
     e.preventDefault();
-    e.target.className += " was-validated";
+    e.target.className += " ";
       if (this.validateForm()) {
         const enquiryData = {
           contactPerson: this.state.contactPerson,
@@ -123,117 +123,65 @@ class ContactPage extends React.Component {
                     </MDBRow>
                     {loaderElement}
                     <ToastContainer />
-                    <MDBRow className="my-5">
-                        <MDBCol lg="5" className="lg-0 mb-4">
-                            <MDBCard>
-                                <MDBCardBody>
-                                <div className="form-header bg-grey-oep">
-                                    <h3 className="mt-2">
-                                    <MDBIcon icon="envelope" /> Write to us:
-                                    </h3>
-                                </div>
-                                
-                                <form className="grey-textneeds-validation" onSubmit={this.submitEnquiryForm} noValidate>
-	                                <div className="md-form">
-	                                    <MDBInput
-	                                    icon="user"
-	                                    label="Your name *"
-	                                    iconClass="grey-text"
-	                                    type="text"
-	                                    name="contactPerson"
-	                                    invalid={errors['contactPerson'] !== undefined && errors['contactPerson'] !== ""} value={contactPerson} onChange={this.changeHandler}
-	                                    id="form-name"
-	                                    required
-	                                    />
-	                                    <p className="error">{errors['contactPerson']}</p>
-	                                </div>
-	                                <div className="md-form">
-	                                    <MDBInput
-	                                    icon="envelope"
-	                                    label="Your email *"
-	                                    iconClass="grey-text"
-	                                    type="email"
-	                                    name="email"
-	                                    id="form-email"
-	                                    invalid={errors['email'] !== undefined && errors['email'] !== ""} value={email} onChange={this.changeHandler}
-	                                    required
-	                                    />
-	                                    <p className="error">{errors['email']}</p>
-	                                </div>
-	                                <div className="md-form">
-	                                    <MDBInput
-	                                    icon="tag"
-	                                    label="Subject *"
-	                                    iconClass="grey-text"
-	                                    type="text"
-	                                    id="form-subject"
-	                                    name="subject"
-	                                    invalid={errors['subject'] !== undefined && errors['subject'] !== ""} value={subject} onChange={this.changeHandler}
-	                                    required
-	                                    />
-	                                    <p className="error">{errors['subject']}</p>
-	                                </div>
-	                                <div className="md-form">
-	                                    <MDBInput
-	                                    icon="pencil"
-	                                    label="Message *"
-	                                    iconClass="grey-text"
-	                                    type="textarea"
-	                                    name="message"
-	                                    invalid={errors['message'] !== undefined && errors['message'] !== ""} value={message} onChange={this.changeHandler}
-	                                    id="form-text"
-	                                    required
-	                                    />
-	                                    <p className="error">{errors['message']}</p>
-	                                </div>
-	                                <div className="text-center">
-	                                    <MDBBtn color="light-blue" className="btn-account" type="submit">Send Now</MDBBtn>
-	                                </div>
-	                           	</form>
-                                </MDBCardBody>
-                            </MDBCard>
-                            </MDBCol>
-                            <MDBCol lg="7">
-                            <div
-                                id="map-container"
-                                className="rounded z-depth-1-half map-container"
-                                style={{ height: "350px" }}
-                            >
-                                <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d76765.98321148289!2d-73.96694563267306!3d40.751663750099084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1525939514494"
-                                title="This is a unique title"
-                                width="100%"
-                                height="100%"
-                                frameBorder="0"
-                                style={{ border: 0 }}
-                                />
-                            </div>
-                            <br />
-                            <MDBRow className="text-center">
-                                {/*<MDBCol md="4" className="containerBd">
-                                <MDBBtn tag="a" floating className="bg-grey-oep">
-                                    <MDBIcon icon="map-marker" />
-                                </MDBBtn>
-                                <p>New York, 94126</p>
-                                <p className="mb-md-0">United States</p>
+                    <div className="heading-title">
+                      <h2>We would love to hear from you!</h2>
+                      <p>Please fill out the form below to inquire about our services.</p>
+                    </div>
+                    <MDBRow className="align-items-center">
+                        <MDBCol md="4" lg="4">
+                          <div className="contact-image">
+                            <img src="/images/contact-banner.svg" alt="" />
+                          </div>
+                        </MDBCol>
+                        <MDBCol md="8" lg="8">
+                          <div className="contact-form">
+                            <form className="grey-textneeds-validation" id="contactForm" onSubmit={this.submitEnquiryForm} noValidate>
+                              <MDBRow>
+                                <MDBCol md="12" lg="6">
+                                  <div className="form-group">
+                                    <input className="form-control" name="contactPerson" placeholder="Name" required="" invalid={errors['contactPerson'] !== undefined && errors['contactPerson'] !== ""} value={contactPerson} onChange={this.changeHandler} type="text" />
+                                    <p className="error">{errors['contactPerson']}</p>
+                                  </div>
                                 </MDBCol>
-                                <MDBCol md="4" className="containerBd">
-                                <MDBBtn floating tag="a" className="bg-grey-oep">
-                                    <MDBIcon icon="phone" />
-                                </MDBBtn>
-                                <p>+ 01 234 567 89</p>
-                                
-                                </MDBCol>*/}
-                                <MDBCol md="4">
-                                <MDBBtn tag="a" floating  className="bg-grey-oep">
-                                    <MDBIcon icon="envelope" />
-                                </MDBBtn>
-                                <p><a href="mailto:support@retailoep.com">support@retailoep.com</a></p>
-                                </MDBCol>
-                            </MDBRow>
 
-                            </MDBCol>
-                        </MDBRow>
+                                <MDBCol md="12" lg="6">
+                                  <div  className="form-group">
+                                    <input className="form-control" name="email" placeholder="Email" required="" type="email" invalid={errors['email'] !== undefined && errors['email'] !== ""} value={email} onChange={this.changeHandler} />
+                                    <p className="error">{errors['email']}</p>
+                                  </div>
+                                </MDBCol>
+
+                                
+
+                                <MDBCol md="12" lg="6">
+                                  <div  className="form-group">
+                                    <input className="form-control" name="subject" placeholder="Subject" required="" type="text" invalid={errors['subject'] !== undefined && errors['subject'] !== ""} value={subject} onChange={this.changeHandler} />
+                                    <p className="error">{errors['subject']}</p>
+                                  </div>
+                                </MDBCol>
+
+                                <MDBCol md="12" lg="6">
+                                  <div  className="form-group">
+                                    <textarea className="form-control" cols="30" name="message" placeholder="Your Message" required="" rows="5" invalid={errors['message'] !== undefined && errors['message'] !== ""} value={message} onChange={this.changeHandler}></textarea>
+                                    <p className="error">{errors['message']}</p>
+                                  </div>
+                                </MDBCol>
+
+                                <MDBCol md="12" lg="6">
+                                  <div className="form-group">
+                                    <button  className="Send-btn" type="submit">Send Message</button>
+                                  </div>
+                                </MDBCol>
+                                <MDBCol md="12" lg="6">
+                                  <div className="form-group">
+                                    <a href="mailto:support@retailoep.com" className="pull-right">support@retailoep.com</a>
+                                  </div>
+                                </MDBCol>
+                              </MDBRow>
+                            </form>
+                          </div>
+                        </MDBCol>
+                      </MDBRow>
                 </MDBContainer>
             </section>  
         </div>

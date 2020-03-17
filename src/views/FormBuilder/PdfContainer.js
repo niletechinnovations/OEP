@@ -106,7 +106,7 @@ class PdfContainer extends Component {
   createPdf = () => this.props.createPdf(this.bodyRef.current);   
   render() {
     let shareButton = <button className="btn-re pull-right" onClick={this.showShareOption}>Share</button>;
-    if(this.props.hideShareButton != undefined && this.props.hideShareButton)
+    if(this.props.hideShareButton !== undefined && this.props.hideShareButton)
       shareButton = "";
     return (
       <section className="pdf-container">

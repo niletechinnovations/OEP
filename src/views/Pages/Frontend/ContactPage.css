@@ -1,1 +1,15 @@
 p.error { color: red; }
+section.contact-section {background: #f7faff; padding: 3rem 0; position: relative; }
+.contact-form {margin-bottom: 20px;border-radius: 5px;position: relative;background-color: #ffffff; padding: 20px;}
+.contact-form .form-control {border: 1px solid #cfd2de;border-radius: 3px;padding: 10px 16px;height: auto;outline: none;background-color: #ffffff;color: #434b4e;font-size: 13px;}
+.contact-form .form-control:focus {box-shadow: none; border: 1px solid #002164; }
+.Send-btn {background: #002164;border: none;font-size: 13px;font-weight: bold;color: #fff;padding: 8px 15px;border-radius: 4px;display: inline-block;outline: none;cursor: pointer;}
+.heading-title{text-align: center;max-width: 600px;margin-left: auto;margin-right: auto;margin-top: 55px;margin-bottom: 55px;}
+.heading-title h2 {font-size: 24px;color: #002164;text-align: center;font-weight: bold;}
+.heading-title p {margin-top: 12px; margin-bottom: 0; font-size: 16px; line-height: 1.8; color: #737b9a; }
+.contact-image img {width: 100%; }
+.contact-info-card {background: #fff;margin-bottom: 20px;border-radius: 5px;position: relative;padding: 20px;min-height: 250px;display: flex;align-items: center;flex-direction: column;}
+.contact-info-content h2 {font-size: 16px; color: #002164; text-align: center; font-weight: bold; }
+.contact-info-content p {margin-bottom: 0;font-size: 13px;color: #737b9a;text-align: center;}
+.contact-info-content a {margin-bottom: 0;font-size: 13px;color: #737b9a;text-align: center;}
+.contact-info-icon {background: #002164;width: 80px;height: 80px;margin: 0 auto;border-radius: 50%;border: 5px solid #d1d8e2;margin-bottom: 20px;text-align: center;padding: 14px;}
