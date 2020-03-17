@@ -20,6 +20,7 @@ class Template extends Component {
       filterItem: { organizationId: '', categoryId: '', subCategoryId: ''},
     } 
     this.filterTemplateList = this.filterTemplateList.bind(this);
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
   }
   componentDidMount() { 
     this.templateList();
@@ -35,8 +36,10 @@ class Template extends Component {
       queryString += (queryString === "") ? "?categoryId="+filterItem.categoryId : "&categoryId="+filterItem.categoryId;
     if(filterItem.subCategoryId !== undefined && filterItem.subCategoryId !== "")
       queryString += (queryString === "") ? "?subCategoryId="+filterItem.subCategoryId : "&subCategoryId="+filterItem.subCategoryId;
-    if(filterItem.organizationId !== undefined && filterItem.organizationId !== "")
+    if(filterItem.organizationId !== undefined && filterItem.organizationId !== ""){
       queryString += (queryString === "") ? "?organizationId="+filterItem.organizationId : "&organizationId="+filterItem.organizationId;
+      queryString += "&owntemplate=yes";
+    }
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken(`template`+queryString)
         .then( res => {
@@ -176,7 +179,10 @@ class Template extends Component {
     const filterItem = this.state.filterItem;
     this.templateList(filterItem);
   }
-
+  resetSearchFilter() {
+    this.setState({filterItem: { organizationId: '', categoryId: '', subCategoryId: ''}});
+    this.templateList();
+  }
   render() {
 
     const { templateList, loading, categoryList, subCategoryList, organizationList } = this.state; 
@@ -237,8 +243,10 @@ class Template extends Component {
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
                           <Button className="search-btn" id="searchButton" type="button" onClick={this.filterTemplateList}>Search</Button> 
+                           <Button className="search-btn" id="searchButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                         </FormGroup>             
                       </Col>
+                      
                     </Row>
                     </div>  
                   </Col>

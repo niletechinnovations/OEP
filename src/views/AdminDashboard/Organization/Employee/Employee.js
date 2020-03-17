@@ -29,24 +29,25 @@ class Employee extends Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.handleDeleteEmployee = this.handleDeleteEmployee.bind(this);
     this.filterEmployeeList = this.filterEmployeeList.bind(this);
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
     
   }
+  
   // Fetch the Employee List
   componentDidMount() { 
     const { match: { params } } = this.props;
-    let organizationId = "";
-    if(params.organizationId !== undefined) {
-      organizationId = params.organizationId;
+   
+    if(params.organizationId !== undefined) {     
       let filterItem = this.state.filterItem;
       filterItem.filter_organization_id = params.organizationId;
       this.setState({filterItem: filterItem});
     }
-    this.EmployeeList(organizationId);
+    this.EmployeeList(this.state.filterItem);
     this.organizationList();
     
   }
   /*Employee List API*/
-  EmployeeList(filterItem) {
+  EmployeeList(filterItem={}) {
     let stroreWalkQuery = "";
     if(filterItem.filter_organization_id !== undefined && filterItem.filter_organization_id !== "" ) 
       stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&organizationId="+filterItem.filter_organization_id: "?organizationId="+filterItem.filter_organization_id;
@@ -149,7 +150,7 @@ class Employee extends Component {
           
           this.setState({ modal: false, formProccessing: false});
           toast.success(res.data.message);
-          this.EmployeeList();
+          this.EmployeeList(this.state.filterItem);
          
         } )
         .catch( err => {         
@@ -174,7 +175,7 @@ class Employee extends Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.EmployeeList();
+          this.EmployeeList(this.state.filterItem);
          
         } )
         .catch( err => {         
@@ -301,6 +302,10 @@ class Employee extends Component {
     filterItem.state = val
     this.setState({ filterItem: filterItem });
   }
+  resetSearchFilter() {
+    this.setState({filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''}});
+    this.EmployeeList();
+  }
   render() {
 
     const { EmployeeList, loading, modal, formProccessing, organizationList } = this.state;     
@@ -359,6 +364,7 @@ class Employee extends Component {
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="filter_organization_id">&nbsp;</Label> 
                           <Button className="search-btn"  type="button" onClick={this.filterEmployeeList}>Search</Button> 
+                          <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>

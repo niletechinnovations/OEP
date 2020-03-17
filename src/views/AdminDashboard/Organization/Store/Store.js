@@ -29,6 +29,7 @@ class Store extends Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.handleDeleteStore = this.handleDeleteStore.bind(this);
     this.filterStoreList = this.filterStoreList.bind(this);
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
     
   }
   // Fetch the Employee List
@@ -288,6 +289,12 @@ class Store extends Component {
     filterItem.state = val
     this.setState({ filterItem: filterItem });
   }
+
+  resetSearchFilter() {
+    this.setState({filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''}});
+    this.storeList();
+  }
+
   render() {
 
     const { storeList, loading, modal, formProccessing, organizationList } = this.state;     
@@ -345,6 +352,7 @@ class Store extends Component {
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="filter_organization_id">&nbsp;</Label> 
                           <Button color="success" type="button" onClick={this.filterStoreList}>Search</Button> 
+                          <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>  

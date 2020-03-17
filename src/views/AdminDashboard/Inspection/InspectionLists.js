@@ -25,8 +25,9 @@ class InspectionLists extends Component {
     
     this.handleDeleteInspection = this.handleDeleteInspection.bind(this);
     this.filterInspectionList = this.filterInspectionList.bind(this);
-    
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
   }
+
   // Fetch the organization List
   componentDidMount() { 
     this.inspectionList();
@@ -315,6 +316,11 @@ class InspectionLists extends Component {
     } )
   }
 
+  resetSearchFilter() {
+    this.setState({filterItem: { organizationId: '', categoryId: '', subCategoryId: '', templateId: '', employeeId: ''}});
+    this.inspectionList();
+  }
+
   render() {
 
     const { inspectionList, loading, categoryList, subCategoryList, organizationList, templateList, employeeList} = this.state;     
@@ -395,6 +401,7 @@ class InspectionLists extends Component {
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
                           <Button color="success" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
+                          <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>  

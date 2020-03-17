@@ -205,7 +205,7 @@ class Profile extends Component {
     if(loading)
       loaderElement = <Loader />
     if(this.state.formField.profilePic !== "")
-      prevImg = <img src={this.state.formField.profilePic} alt="Profile" className="prevProfileImage" />
+      prevImg = <div className="prevProfileImageArea"><img src={this.state.formField.profilePic} alt="Profile" className="prevProfileImage" /></div>
 
     return (
       <div className="animated fadeIn">

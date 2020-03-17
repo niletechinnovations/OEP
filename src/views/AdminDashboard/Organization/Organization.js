@@ -29,6 +29,7 @@ class Organization extends Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.handleDeleteOrganization = this.handleDeleteOrganization.bind(this);
     this.filterOragnizationList = this.filterOragnizationList.bind(this);
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
     
   }
   // Fetch the organization List
@@ -130,7 +131,7 @@ class Organization extends Component {
             return;
           } 
           
-          this.setState({ modal: false});
+          this.setState({ modal: false, formProccessing: false});
           toast.success(res.data.message);
           this.organizationList();
          
@@ -202,6 +203,7 @@ class Organization extends Component {
       modal: !this.state.modal,
       rowIndex: -1,
       formValid: false,
+      formProccessing : false,
       formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''}
     });
@@ -222,7 +224,7 @@ class Organization extends Component {
         postalCode: organizationInfo.postalCode, 
         role: organizationInfo.roleName,
         status: status };
-      this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
+      this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true, formProccessing: false});
   }
   /* Delete organization*/
   handleDeleteOrganization(rowIndex){
@@ -291,7 +293,10 @@ class Organization extends Component {
     filterItem[name] = value;
     this.setState({ filterItem: filterItem });
   };
-
+  resetSearchFilter() {
+    this.setState({filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''}});
+    this.organizationList();
+  }
   render() {
 
     const { organizationList, loading, modal, formProccessing } = this.state;     
@@ -338,6 +343,7 @@ class Organization extends Component {
                       <Col md={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Button className="search-btn" type="button" onClick={this.filterOragnizationList}>Search</Button> 
+                          <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>
