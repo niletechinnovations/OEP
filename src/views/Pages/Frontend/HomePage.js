@@ -50,9 +50,9 @@ class HomePage extends React.Component {
                         <Link className="btn-Started" to="/register">
                         Get Started for FREE
                         </Link>
-                        <Link className="btn-Download">
+                        <a className="btn-Download" href="https://apps.apple.com/us/app/retail-oep/id1501693671?ls=1" target="_blank"  rel="noopener noreferrer">
                           Download APP
-                        </Link>
+                        </a>
                       </div>
                     </div>    
                 </MDBCol>
@@ -261,11 +261,11 @@ class HomePage extends React.Component {
                   <h3>Get the app today!</h3>
                   <p>Seamlessly transform timely e-commerce for diverse leadership skills. Conveniently reconceptualize go forward expertise without extensible applications.Phosfluorescently.</p>
                   <div className="download-app-button">
-                    <a href="#!" className="download-btn">
+                    <a href="https://apps.apple.com/us/app/retail-oep/id1501693671?ls=1" className="download-btn" target="_blank"  rel="noopener noreferrer">
                       <MDBIcon fab icon="apple" />
                       <p><small>Download On</small><br /> App Store</p>
                     </a>
-                    <a href="#!" className="download-btn hover-active">
+                    <a href="https://play.google.com/store/apps/details?id=com.oep&hl=en" target="_blank"  rel="noopener noreferrer" className="download-btn hover-active">
                       <MDBIcon fab icon="google-play" />
                       <p><small>Get It On</small><br /> Google Play</p>
                     </a>
