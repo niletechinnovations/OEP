@@ -174,7 +174,9 @@ class ContactPage extends React.Component {
                                 </MDBCol>
                                 <MDBCol md="12" lg="6">
                                   <div className="form-group">
-                                    <a href="mailto:support@retailoep.com" className="pull-right">support@retailoep.com</a>
+                                     <a href="mailto:support@retailoep.com" className="pull-right">
+                                        <MDBIcon icon="envelope" /> &nbsp;
+                                    support@retailoep.com</a>
                                   </div>
                                 </MDBCol>
                               </MDBRow>
