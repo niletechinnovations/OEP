@@ -14,6 +14,11 @@ import {
 import "./HomePage.css";
 
 class HomePage extends React.Component {
+  constructor(props) {
+      super(props)
+      this.downloadAPP = React.createRef()  
+  }
+  scrollToDownloadAPPSection = () =>  window.scrollTo(0, this.downloadAPP.current.offsetTop);
   scrollToTop = () => window.scrollTo(0, 0);
   render() {
     return (
@@ -50,9 +55,9 @@ class HomePage extends React.Component {
                         <Link className="btn-Started" to="/register">
                         Get Started for FREE
                         </Link>
-                        <a className="btn-Download" href="https://apps.apple.com/us/app/retail-oep/id1501693671?ls=1" target="_blank"  rel="noopener noreferrer">
+                        <button className="btn-Download" onClick={this.scrollToDownloadAPPSection}>
                           Download APP
-                        </a>
+                        </button>
                       </div>
                     </div>    
                 </MDBCol>
@@ -247,7 +252,7 @@ class HomePage extends React.Component {
           </MDBContainer>
         </section>
 
-        <div className="streak streak-md download-section">
+        <div className="streak streak-md download-section" ref={this.downloadAPP}>
           <MDBContainer>
             <MDBRow>
               <MDBCol md="5">

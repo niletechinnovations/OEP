@@ -1,6 +1,6 @@
 import React from "react";
 import  { Redirect, Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commenService from '../../../core/services/commonService';
 import Loader from '../../Loader/Loader';
@@ -172,7 +172,7 @@ class LoginPage extends React.Component {
                           <h4 className="text-heading"><strong>Log in to your account</strong></h4>
                         </div>
                         {loaderElement} 
-                        <ToastContainer />                       
+                                        
                         <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
                           
                           <MDBInput icon="envelope" group type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Your email" required>

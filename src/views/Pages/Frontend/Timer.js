@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 export default class Timer extends Component {
     constructor(props) {
@@ -68,12 +68,12 @@ export default class Timer extends Component {
     render() {
         if(this.props.autoTimerStart)
           this.startTimer();
-        return (
-            <div className="startTimer-info">
-                <h2>Timer:-</h2>
-                <div className="timerRow"> <div className="timeCount timeHours">{this.state.hours} </div>: <div className="timeCount timeMinutes">{this.state.minuts} </div>: <div className="timeCount timeSeconds">{this.state.second}</div> </div>
-                
-            </div>
+        return (""
         )
     }
 }
+/* <div className="startTimer-info">
+                <h2>Timer:-</h2>
+                <div className="timerRow"> <div className="timeCount timeHours">{this.state.hours} </div>: <div className="timeCount timeMinutes">{this.state.minuts} </div>: <div className="timeCount timeSeconds">{this.state.second}</div> </div>
+                
+            </div> */
