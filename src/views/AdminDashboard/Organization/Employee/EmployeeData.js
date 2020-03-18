@@ -77,8 +77,8 @@ class EmployeeData extends Component {
             return (
              <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
               this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </button>
-              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-              this.deleteEmployeeItem(i)}><i className="fa fa-trash"></i></button></p>
+              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => {if( window.confirm('Are you sure you wish to delete this employee?'))
+              this.deleteEmployeeItem(i)}}><i className="fa fa-trash"></i></button></p>
             );
           },
         }

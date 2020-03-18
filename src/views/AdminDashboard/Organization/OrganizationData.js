@@ -82,8 +82,8 @@ class OrganizationData extends Component {
           this.editOrganizationItem(i)}><i className="fa fa-pencil"></i> </button>
           <Link className="btn-view" to={`/admin/manage-organization/employee/${authId}`}><i className="fa fa-user"></i> </Link>
           <Link className="btn-view" to={`/admin/manage-organization/store/${authId}`}><i className="fa fa-venus"></i> </Link>
-          <button className="btn-delete" color="warning" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteOrganizationItem(i)}><i className="fa fa-trash"></i></button></p>
+          <button className="btn-delete" color="warning" disabled={this.state.buttonProcessing} onClick={() => {if( window.confirm('Are you sure you wish to delete this organization?'))
+          this.deleteOrganizationItem(i)}}><i className="fa fa-trash"></i></button></p>
             );
           },
         }
