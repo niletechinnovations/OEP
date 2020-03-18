@@ -27,6 +27,7 @@ class ActionLists extends Component {
     this.handleEditAction = this.handleEditAction.bind(this);
     this.filterInspectionList = this.filterInspectionList.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
     
   }
   // Fetch the organization List
@@ -240,6 +241,10 @@ class ActionLists extends Component {
     this.setState({actionData: actionFormData});
   }
 
+  resetSearchFilter() {
+    this.setState({filterItem: { organizationId: '', categoryId: '', subCategoryId: '', templateId: '', employeeId: ''},});
+    this.inspectionList();
+  }
   render() {
 
     const { inspectionList, loading, employeeList} = this.state;     
@@ -260,26 +265,30 @@ class ActionLists extends Component {
               <CardBody>
                 <Row>
                   <Col md={12}>
-                    <Row>                      
-                      <Col md={"5"} lg={"5"}>
-                        <FormGroup> 
-                          <Label htmlFor="employeeId">Employee </Label>            
-                          <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.filterItem.employeeId} onChange={this.changeFilterHandler}  >
-                            <option value="">Select Employee</option>
-                            {employeeList.map((employeeInfo, index) =>
-                              <SetEmployeeDropDownItem key={index} employeeInfo={employeeInfo} selectedCategory={this.state.filterItem.employeeId} />
-                            )}
-                          </Input>
-                        </FormGroup>
-                      </Col>                      
-                      
-                      <Col md={"4"} lg={"3"}>
-                        <FormGroup className="filter-button-section"> 
-                          <Label htmlFor="searchButton">&nbsp;</Label> 
-                          <Button className="btnSearchMargin" color="success" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
-                        </FormGroup>             
-                      </Col>
-                    </Row>  
+                    <div className="search-filter">
+                      <Row>                      
+                        <Col md={"5"} lg={"5"}>
+                          <FormGroup> 
+                            <Label htmlFor="employeeId">Employee </Label>            
+                            <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.filterItem.employeeId} onChange={this.changeFilterHandler}  >
+                              <option value="">Select Employee</option>
+                              {employeeList.map((employeeInfo, index) =>
+                                <SetEmployeeDropDownItem key={index} employeeInfo={employeeInfo} selectedCategory={this.state.filterItem.employeeId} />
+                              )}
+                            </Input>
+                          </FormGroup>
+                        </Col>                      
+                        
+                        <Col md={"4"} lg={"3"}>
+                          <FormGroup className="filter-button-section"> 
+                            <Label htmlFor="searchButton">&nbsp;</Label> 
+                            <Button className="search-btn" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
+                            <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                          </FormGroup>
+                                    
+                        </Col>
+                      </Row> 
+                    </div> 
                   </Col>
                   <Col md={12}>
                     <ActionData data={inspectionList} deleteAction={this.handleDeleteAction} editAction={this.handleEditAction} dataTableLoadingStatus = {this.state.loading} />

@@ -28,6 +28,7 @@ class Store extends Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.handleDeleteStore = this.handleDeleteStore.bind(this);
     this.filterStoreList = this.filterStoreList.bind(this);
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
     
   }
   // Fetch the Employee List
@@ -252,6 +253,10 @@ class Store extends Component {
     filterItem.state = val
     this.setState({ filterItem: filterItem });
   }
+  resetSearchFilter() {
+    this.setState({filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''}});
+    this.storeList();
+  }
   render() {
 
     const { storeList, loading, modal, formProccessing } = this.state;     
@@ -275,32 +280,36 @@ class Store extends Component {
                 
                 <Row>
                   <Col md={12}>
-                    <Row>                     
-                      <Col md={"4"} lg={"3"}>
-                        <FormGroup> 
-                          <Label htmlFor="filter_organization_id">Country</Label>            
-                          <CountryDropdown id="filterCountry" name="filterCountry" priorityOptions={priorityCountry} className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
-                        </FormGroup>  
-                      </Col>
-                      <Col md={"4"} lg={"3"}>
-                        <FormGroup> 
-                          <Label htmlFor="filter_organization_id">State</Label>            
-                          <RegionDropdown  id="filterState" name="filterState" className="form-control" country={this.state.filterItem.country} defaultOptionLabel="Select State" blankOptionLabel="Select State"   value={this.state.filterItem.state}  onChange={(val) => this.selectFilterRegion(val)} /> 
-                        </FormGroup>  
-                      </Col>
-                      <Col md={"4"} lg={"3"}>
-                        <FormGroup> 
-                          <Label htmlFor="filter_organization_id">Search By Store/ City</Label>            
-                          <Input type="text" placeholder="Search By Store/ City" id="custom_search" name="custom_search" value={this.state.formField.custom_search} onChange={this.changeFilterHandler} />
-                        </FormGroup>  
-                      </Col>
-                      <Col md={"6"} lg={"3"}>
-                        <FormGroup className="filter-button-section"> 
-                          <Label htmlFor="filter_organization_id">&nbsp;</Label> 
-                          <Button color="success" type="button" onClick={this.filterStoreList}> Search</Button> 
-                        </FormGroup>             
-                      </Col>
-                    </Row>  
+                    <div className="search-filter">
+                      <Row>                     
+                        <Col md={"4"} lg={"3"}>
+                          <FormGroup> 
+                            <Label htmlFor="filter_organization_id">Country</Label>            
+                            <CountryDropdown id="filterCountry" name="filterCountry" priorityOptions={priorityCountry} className="form-control" value={this.state.filterItem.country}  onChange={(val) => this.selectFilterCountry(val)} />
+                          </FormGroup>  
+                        </Col>
+                        <Col md={"4"} lg={"3"}>
+                          <FormGroup> 
+                            <Label htmlFor="filter_organization_id">State</Label>            
+                            <RegionDropdown  id="filterState" name="filterState" className="form-control" country={this.state.filterItem.country} defaultOptionLabel="Select State" blankOptionLabel="Select State"   value={this.state.filterItem.state}  onChange={(val) => this.selectFilterRegion(val)} /> 
+                          </FormGroup>  
+                        </Col>
+                        <Col md={"4"} lg={"3"}>
+                          <FormGroup> 
+                            <Label htmlFor="filter_organization_id">Search By Store/ City</Label>            
+                            <Input type="text" placeholder="Search By Store/ City" id="custom_search" name="custom_search" value={this.state.formField.custom_search} onChange={this.changeFilterHandler} />
+                          </FormGroup>  
+                        </Col>
+                        <Col md={"6"} lg={"3"}>
+                          <FormGroup className="filter-button-section"> 
+                            <Label htmlFor="filter_organization_id">&nbsp;</Label> 
+                            <Button className="search-btn"  type="button" onClick={this.filterStoreList}>Search</Button> 
+                            <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                          </FormGroup>   
+                                  
+                        </Col>
+                      </Row>  
+                    </div>
                   </Col>
                   <Col md={12}>
                     <StoreData data={storeList} editStoreAction={this.handleEditStore} deleteStoreAction={this.handleDeleteStore} dataTableLoadingStatus = {this.state.loading} />

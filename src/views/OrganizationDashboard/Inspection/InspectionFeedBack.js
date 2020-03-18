@@ -83,26 +83,28 @@ class InspectionFeedBack extends Component {
               <CardBody>
                 <Row>
                   <Col md={12}>
-                    <Row>
-                      <Col md={4}>
-                        <FormGroup> 
-                          <Label htmlFor="organizationId"><strong>Inspection</strong></Label>  
-                          <p>{inspectionInfo.inspectionName ? inspectionInfo.inspectionName : ''}</p>
-                        </FormGroup>  
-                      </Col>                                          
-                      <Col lg={4}>
-                        <FormGroup> 
-                          <Label htmlFor="templateId"><strong>Employee</strong></Label>            
-                          <p>{inspectionInfo.employeeFirstName ? inspectionInfo.employeeFirstName : ''} {inspectionInfo.employeeLastName ? inspectionInfo.employeeLastName : ''}</p>
-                        </FormGroup>
-                      </Col>
-                      <Col lg={4}>
-                        <FormGroup> 
-                          <Label htmlFor="templateId"><strong>Template</strong></Label>            
-                          <p>{inspectionInfo.templateName ? inspectionInfo.templateName : ''}</p>
-                        </FormGroup>
-                      </Col>                      
-                    </Row>  
+                    <div className="search-filter">
+                      <Row>
+                        <Col md={4}>
+                          <FormGroup> 
+                            <Label htmlFor="organizationId"><strong>Inspection</strong></Label>  
+                            <p>{inspectionInfo.inspectionName ? inspectionInfo.inspectionName : ''}</p>
+                          </FormGroup>  
+                        </Col>                                          
+                        <Col lg={4}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId"><strong>Employee</strong></Label>            
+                            <p>{inspectionInfo.employeeFirstName ? inspectionInfo.employeeFirstName : ''} {inspectionInfo.employeeLastName ? inspectionInfo.employeeLastName : ''}</p>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={4}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId"><strong>Template</strong></Label>            
+                            <p>{inspectionInfo.templateName ? inspectionInfo.templateName : ''}</p>
+                          </FormGroup>
+                        </Col>                      
+                      </Row>
+                    </div>  
                   </Col>
                   <Col md={12}>
                     <InspectionFeedBackData data={inspectionFeedbackList} inspectionInfo= {inspectionInfo} dataTableLoadingStatus = {this.state.loading} />

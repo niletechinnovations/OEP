@@ -341,70 +341,72 @@ class InspectionLists extends Component {
               <CardBody>
                 <Row>
                   <Col md={12}>
-                    <Row>
-                      <Col md={2}>
-                        <FormGroup> 
-                          <Label htmlFor="organizationId">Organization</Label>            
-                          <Input type="select" placeholder="Organization *" id="organizationId" name="organizationId" value={this.state.filterItem.organizationId} onChange={this.changeOrganizationHandle} >
-                            <option value="">Select Organization</option>
-                            {organizationList.map((organizationInfo, index) =>
-                              <SetOrganizationDropDownItem key={index} organizationInfo={organizationInfo} />
-                            )}
-                          </Input>
-                        </FormGroup>  
-                      </Col>
-                      <Col lg={2}>
-                        <FormGroup> 
-                          <Label htmlFor="employeeId">Employee </Label>            
-                          <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.filterItem.employeeId} onChange={this.changeFilterHandler}  >
-                            <option value="">Select Employee</option>
-                            {employeeList.map((employeeInfo, index) =>
-                              <SetEmployeeDropDownItem key={index} employeeInfo={employeeInfo} selectedCategory={this.state.filterItem.employeeId} />
-                            )}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col lg={2}>
-                        <FormGroup> 
-                          <Label htmlFor="categoryId">Category</Label>            
-                          <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.filterItem.categoryId} onChange={this.changeCategoryHandle}  >
-                            <option value="">Select Category</option>
-                            {categoryList.map((categoryItem, index) =>
-                              <SetCategoryDropDownItem key={index} categoryItem={categoryItem} selectedCategory={this.state.filterItem.categoryId} />
-                            )}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col lg={2}>
-                        <FormGroup> 
-                          <Label htmlFor="subCategoryId">Subcategory</Label>            
-                          <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.filterItem.subCategoryId} onChange={this.changeSubCategoryHandler}  >
-                            <option value="">Select Subcategory</option>
-                            {subCategoryList.map((subCategoryItem, index) =>
-                              <SetSubCategoryDropDownItem key={index} subCategoryItem={subCategoryItem} selectedCategory={this.state.filterItem.subCategoryId} />
-                            )}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col lg={2}>
-                        <FormGroup> 
-                          <Label htmlFor="templateId">Template</Label>            
-                          <Input type="select" placeholder="Template Name *" id="templateId" name="templateId" value={this.state.filterItem.templateId} onChange={this.changeFilterHandler}  >
-                            <option value="">Select Template</option>
-                            {templateList.map((templateItem, index) =>
-                              <SetTemplateDropDownItem key={index} templateItem={templateItem} selectedCategory={this.state.filterItem.templateId} />
-                            )}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col md={2}>
-                        <FormGroup className="filter-button-section"> 
-                          <Label htmlFor="searchButton">&nbsp;</Label> 
-                          <Button color="success" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
-                          <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
-                        </FormGroup>             
-                      </Col>
-                    </Row>  
+                    <div className="search-filter">
+                      <Row>
+                        <Col md={2}>
+                          <FormGroup> 
+                            <Label htmlFor="organizationId">Organization</Label>            
+                            <Input type="select" placeholder="Organization *" id="organizationId" name="organizationId" value={this.state.filterItem.organizationId} onChange={this.changeOrganizationHandle} >
+                              <option value="">Select Organization</option>
+                              {organizationList.map((organizationInfo, index) =>
+                                <SetOrganizationDropDownItem key={index} organizationInfo={organizationInfo} />
+                              )}
+                            </Input>
+                          </FormGroup>  
+                        </Col>
+                        <Col lg={2}>
+                          <FormGroup> 
+                            <Label htmlFor="employeeId">Employee </Label>            
+                            <Input type="select" placeholder="Employee Name *" id="employeeId" name="employeeId" value={this.state.filterItem.employeeId} onChange={this.changeFilterHandler}  >
+                              <option value="">Select Employee</option>
+                              {employeeList.map((employeeInfo, index) =>
+                                <SetEmployeeDropDownItem key={index} employeeInfo={employeeInfo} selectedCategory={this.state.filterItem.employeeId} />
+                              )}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={2}>
+                          <FormGroup> 
+                            <Label htmlFor="categoryId">Category</Label>            
+                            <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.filterItem.categoryId} onChange={this.changeCategoryHandle}  >
+                              <option value="">Select Category</option>
+                              {categoryList.map((categoryItem, index) =>
+                                <SetCategoryDropDownItem key={index} categoryItem={categoryItem} selectedCategory={this.state.filterItem.categoryId} />
+                              )}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={2}>
+                          <FormGroup> 
+                            <Label htmlFor="subCategoryId">Subcategory</Label>            
+                            <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.filterItem.subCategoryId} onChange={this.changeSubCategoryHandler}  >
+                              <option value="">Select Subcategory</option>
+                              {subCategoryList.map((subCategoryItem, index) =>
+                                <SetSubCategoryDropDownItem key={index} subCategoryItem={subCategoryItem} selectedCategory={this.state.filterItem.subCategoryId} />
+                              )}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={2}>
+                          <FormGroup> 
+                            <Label htmlFor="templateId">Template</Label>            
+                            <Input type="select" placeholder="Template Name *" id="templateId" name="templateId" value={this.state.filterItem.templateId} onChange={this.changeFilterHandler}  >
+                              <option value="">Select Template</option>
+                              {templateList.map((templateItem, index) =>
+                                <SetTemplateDropDownItem key={index} templateItem={templateItem} selectedCategory={this.state.filterItem.templateId} />
+                              )}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col md={2}>
+                          <FormGroup className="filter-button-section"> 
+                            <Label htmlFor="searchButton">&nbsp;</Label> 
+                            <Button className="search-btn" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
+                            <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                          </FormGroup>             
+                        </Col>
+                      </Row> 
+                    </div> 
                   </Col>
                   <Col md={12}>
                     <InspectionData data={inspectionList} deleteInspectionAction={this.handleDeleteInspection} dataTableLoadingStatus = {this.state.loading} />
