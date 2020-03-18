@@ -222,7 +222,8 @@ class SubCategory extends Component {
       subCategory_name: "",
       categoryId: "",
       rowIndex: -1,
-      formValid: false
+      formValid: false,
+      subCategoryImageUrl: ""
     });
   }
   /* File changes handler*/
@@ -244,7 +245,7 @@ class SubCategory extends Component {
     
       const subCategoryItem = this.state.subCategoryList[rowIndex];
       
-      this.setState({modal: true, subCategory_name: subCategoryItem.subCategoryName, rowIndex: rowIndex, categoryId:subCategoryItem.categoryId, formValid: true});
+      this.setState({modal: true, subCategory_name: subCategoryItem.subCategoryName, rowIndex: rowIndex, categoryId:subCategoryItem.categoryId, subCategoryImageUrl:subCategoryItem.imagUrl, formValid: true});
   }
   /* Add subCategory */
   handleDeleteSubCategory(rowIndex){
@@ -283,6 +284,9 @@ class SubCategory extends Component {
     let loaderElement ='';
     if(loading)
       loaderElement = <Loader />
+    let categoryImagePreview = '';
+    if(this.state.subCategoryImageUrl !== "")
+      categoryImagePreview = <div className="imagePreview"><img src={this.state.subCategoryImageUrl} alt="" /></div>
     const processingBtnText = <>Submit <i className="fa fa-spinner"></i></>;
 
     return (
@@ -321,7 +325,8 @@ class SubCategory extends Component {
               <FormGroup>      
                 <Label htmlFor="subCategoryImage">Upload Image</Label>            
                 <Input type="file" id="subCategoryImage" name="subCategoryImage" onChange={this.changeFileHandler} accept=".png,.jpg,.jpeg,.svg"/>
-              </FormGroup> 
+              </FormGroup>
+              {categoryImagePreview} 
             </ModalBody>
             <ModalFooter>
               <Button color="primary" disabled={!this.state.formValid || formProccessing} type="submit">{formProccessing ? processingBtnText : 'Submit' }</Button>

@@ -26,6 +26,18 @@ class CategoryData extends Component {
   render() {
     const columns = [
       {
+        label: 'Image',
+        name: 'image',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+             <p className="imagePreview"><img src={value} alt="" /></p>
+            );
+          },
+        }
+      },
+      {
         label: 'Name',
         name: 'name',
       },
@@ -57,6 +69,7 @@ class CategoryData extends Component {
       console.log(i);
       let catInfo = {
         name: cat.categoryName,
+        image: cat.imagUrl,
         status: cat.status ? "Active" : "Inactive" ,       
         action: "",       
       }      

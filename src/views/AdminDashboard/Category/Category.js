@@ -179,7 +179,8 @@ class Category extends Component {
       modal: !this.state.modal,
       category_name: "",
       rowIndex: -1,
-      formValid: false
+      formValid: false,
+      categoryImageUrl: ""
     });
   }
   /* File changes handler*/
@@ -201,7 +202,7 @@ class Category extends Component {
    
       const categoryItem = this.state.categoryList[rowIndex];
 
-      this.setState({modal: true, category_name: categoryItem.categoryName, rowIndex: rowIndex, formValid: true});
+      this.setState({modal: true, category_name: categoryItem.categoryName, rowIndex: rowIndex, formValid: true, categoryImageUrl: categoryItem.imagUrl});
   }
   /* Add category */
   handleDeleteCategory(rowIndex){
@@ -238,8 +239,12 @@ class Category extends Component {
 
     const { categoryList, loading, modal  } = this.state;     
     let loaderElement ='';
+    
     if(loading)
       loaderElement = <Loader />
+    let categoryImagePreview = '';
+    if(this.state.categoryImageUrl !== "")
+      categoryImagePreview = <div className="imagePreview"><img src={this.state.categoryImageUrl} alt="" /></div>
 
     return (
       <div className="animated fadeIn">
@@ -269,6 +274,7 @@ class Category extends Component {
                 <Label htmlFor="categoryImage">Upload Image</Label>            
                 <Input type="file" placeholder="File *" id="categoryImage" name="categoryImage" onChange={this.changeFileHandler} accept=".png,.jpg,.jpeg,.svg"/>
               </FormGroup> 
+              {categoryImagePreview}
             </ModalBody>
             <ModalFooter>
               <Button color="primary" disabled={!this.state.formValid} type="submit">Submit</Button>

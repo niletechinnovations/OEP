@@ -250,6 +250,7 @@ class Employee extends Component {
       modal: !this.state.modal,
       rowIndex: -1,
       formValid: false,
+      formProccessing : false,
       formField: {email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
       formErrors: {email: '', employee_name: '', role: '', error: ''}
     });
@@ -270,7 +271,7 @@ class Employee extends Component {
         postalCode: employeeInfo.postalCode, 
         role: employeeInfo.roleName,
         status: status };
-      this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
+      this.setState({rowIndex: rowIndex, formField: formField, formProccessing : false, modal: true, formValid: true});
   }
   /* Delete Employee*/
   handleDeleteEmployee(rowIndex){

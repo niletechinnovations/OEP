@@ -18,7 +18,7 @@ class TemplateBuilderPage extends React.Component {
       subCategoryList: [],      
       loading: false,      
       categoryList: [], 
-      formField: { categoryId: '', subCategoryId: '', template_name: ''},
+      formField: { categoryId: '', subCategoryId: '', template_name: '',status: ''},
       formErrors: {category: '', subcategory: '', template_form: '', template_name: '', error: ''},
       templateData: [],
       templateId: "",
@@ -59,6 +59,7 @@ class TemplateBuilderPage extends React.Component {
           formField.categoryId = templateDetail.categoryId;
           formField.subCategoryId = templateDetail.subCategoryId;
           formField.template_name = templateDetail.templateName;
+          formField.status = (templateDetail.status) ? "Active": "Inactive";
           this.getSubCategoryList(templateDetail.categoryId, false);
           this.setState({loading:false, formField: formField, formValid: true, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
          
@@ -214,7 +215,8 @@ class TemplateBuilderPage extends React.Component {
         "categoryId": formInputField.categoryId,
         "subCategoryId": formInputField.subCategoryId, 
         "templateName": formInputField.template_name, 
-        "formField": this.state.templateData
+        "formField": this.state.templateData,
+        "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)
       };
       
       if(this.state.templateId !== "" ) {
@@ -348,11 +350,21 @@ class TemplateBuilderPage extends React.Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col lg={6}>
+                      <Col lg={4}>
                           <FormGroup>
                             <Label htmlFor="template_name">Template Name</Label>            
                             <Input type="text" placeholder="Template Name *" value={this.state.formField.template_name} onChange={this.changeHandler} id="template_name" name="template_name" required />
                           </FormGroup>
+                      </Col>
+                      <Col lg={2}>
+                        <FormGroup>
+                          <Label htmlFor="template_status">Status</Label>            
+                          <Input type="select" placeholder="Status *" id="status" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
+                            <option value="">Select Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                          </Input>
+                        </FormGroup>
                       </Col>
                       <Col lg={12}>
                         <FormGroup>

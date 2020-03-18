@@ -31,6 +31,7 @@ class SubCategoryData extends Component {
       console.log(i);
       let catInfo = {
         name: cat.subCategoryName,
+        image: cat.imagUrl,
         parentCategory: cat.categoryName,
         status: cat.status ? "Active" : "Inactive" ,       
         action: "",       
@@ -38,6 +39,18 @@ class SubCategoryData extends Component {
       rowsItem.push(catInfo);
     }    
     const columns = [
+       {
+        label: 'Image',
+        name: 'image',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+             <p className="imagePreview"><img src={value} alt="" /></p>
+            );
+          },
+        }
+      },
       {
         label: 'Name',
         name: 'name',

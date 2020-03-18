@@ -182,6 +182,7 @@ class Subscription extends Component {
     this.setState({
       modal: !this.state.modal,
       rowIndex: -1,
+      formProccessing : false,
       formValid: true,
       formField: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0, status: ""},
       formErrors: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', error: ''},
@@ -199,7 +200,7 @@ class Subscription extends Component {
         number_employee: planInfo.userAccess, 
         number_template: planInfo.templateAccess,
         status: status };
-      this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
+      this.setState({rowIndex: rowIndex, formField: formField, formProccessing : false, modal: true, formValid: true});
   }
   /* Delete Employee*/
   handleDeleteSubscription(rowIndex){

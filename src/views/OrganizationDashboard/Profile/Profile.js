@@ -92,7 +92,7 @@ class Profile extends Component {
           formField.profilePic = res.data.data.profilePic;          
           this.setState({ loading: false, formField: formField});
           toast.success(res.data.message);
-          this.props.history.push('/oraganization/profile');
+          this.props.history.push('/organization/profile');
          
         } )
         .catch( err => {         

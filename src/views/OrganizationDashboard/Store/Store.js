@@ -202,6 +202,7 @@ class Store extends Component {
   toggle = () => {
     this.setState({
       modal: !this.state.modal,
+      formProccessing : false,
       rowIndex: -1,
       formValid: false,
       formField: { store_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '' },
@@ -219,7 +220,7 @@ class Store extends Component {
         state: storeInfo.state, 
         country: storeInfo.country, 
         postalCode: storeInfo.postalCode };
-      this.setState({rowIndex: rowIndex, formField: formField, modal: true, formValid: true});
+      this.setState({rowIndex: rowIndex, formField: formField, formProccessing : false, modal: true, formValid: true});
   }
   /* Delete Employee*/
   handleDeleteStore(rowIndex){
