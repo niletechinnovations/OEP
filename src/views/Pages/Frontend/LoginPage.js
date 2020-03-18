@@ -35,6 +35,7 @@ class LoginPage extends React.Component {
       modal: false,
       loggedIn: false,
       loading: false,
+      isExpanded: false
     };
     
   }
@@ -133,6 +134,12 @@ class LoginPage extends React.Component {
     });
   }
 
+  toggleLearnMore = () => {
+    this.setState({
+      isExpanded: !this.state.isExpanded,
+    });
+  }
+
   render() {
     const { email, password, loggedIn, loading, forgotPasswordEmail} = this.state;
 
@@ -146,6 +153,9 @@ class LoginPage extends React.Component {
 
 		} else {
     let loaderElement = '';
+    let moreContent = '';
+    if(this.state.isExpanded)
+      moreContent = <p>We will have templates ready for you and continue to add more and more templates weekly, but not all retail is the same. Therefore, we allow you to customize and create your own template for your daily needs.  The templates can be created on your website access and immediately available on your app customized and ready for you.  This can all be done for the same low price monthly and no hidden fees or EVER!!</p>
     if(loading)
       loaderElement = <Loader />
       return (
@@ -160,8 +170,9 @@ class LoginPage extends React.Component {
                       <h1 className="">Customize your Template</h1>
                       <p>We provide the basic templates for the world to get you started in the right direction. If you need more details in your business, you can also develop the template for your precise needs, we will help you do this.
                       </p>
+                      {moreContent}
                       <div className="btn-section">
-                        <a className="btn-Started" href="#!">Learn More</a>
+                        <button className="btn-Started" onClick={this.toggleLearnMore}>{this.state.isExpanded ? 'Hide':'Read More'}</button>
                       </div>
                     </div>
                   </MDBCol>

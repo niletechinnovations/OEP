@@ -191,7 +191,50 @@ class HomePage extends React.Component {
                     <SetWHYRETAILOEP key={index} showPopup={this.showModalPopup} contentInfo={contentInfo}  />
                 )
               }
-              
+              <MDBCol md="4" className="md-0 mb-5">
+                <div className="single-featured-box">
+                    <div className="icon">
+                        <img
+                          src="/images/actions.svg"
+                          alt=""
+                          height="70"
+                        />
+                    </div>
+                    <h3>Take Action</h3>
+                    <p>The most important step is to start and take action on how to improve on a daily basis. OEP retail will help you begin and allow you the flexibility to gradually increase your focus.</p>
+                    <a className="read-more-btn" href="#!">Read More</a>
+                </div>
+              </MDBCol>
+
+              <MDBCol md="4" className="md-0 mb-5">
+                <div className="single-featured-box">
+                    <div className="icon">
+                        <img
+                          src="/images/Inspections.svg"
+                          alt=""
+                          height="70"
+                        />
+                    </div>
+                    <h3>Daily Walks</h3>
+                    <p>Daily walks are inspections incorporated into your normal daily routine, but these walks are now recorded and can be shared as needed with OEP retail.</p>
+                    <a className="read-more-btn" href="#!">Read More</a>
+                </div>
+              </MDBCol>
+
+              <MDBCol md="4" className="md-0 mb-5">
+                <div className="single-featured-box">
+                    <div className="icon">
+                        <img
+                          src="/images/team.svg"
+                          alt=""
+                          height="70"
+                        />
+                    </div>
+                    <h3>Team Oriented</h3>
+                    <p>OEP Retail allows you to include your internal team in the walks/inspections and your external leaders with the simple features of emailing, texting or sharing the information.</p>
+                    <a className="read-more-btn" href="#!">Read More</a>
+                </div>
+              </MDBCol>
             </MDBRow>
           </MDBContainer>
         </section>
@@ -210,7 +253,67 @@ class HomePage extends React.Component {
                   <SETFEATURESVIEW key={index} showPopup={this.showModalPopup} contentInfo={contentInfo}  />
               )
             }
-           
+            <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
+              <MDBView className="overlay rounded z-depth-1" waves>
+                <img
+                  src="/images/endless-paper.jpg" alt="" className="img-fluid"
+                />
+                <a href="#!">
+                  <MDBMask overlay="white-slight" />
+                </a>
+              </MDBView>
+              <MDBCardBody className="pb-0 features-card cardContent">
+                <h4>Make your office a smart office</h4>
+                <p>
+                  No more paper or endless filing in a dusty cabinet or binder that no one ever reviews.
+                </p>
+                <Link className="btn-Started btnKeyFeatures" to="/">
+                  Learn more
+                </Link>
+              </MDBCardBody>
+            </MDBCol>
+            <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
+              <MDBView className="overlay rounded z-depth-1" waves>
+                <img
+                  src="https://mdbootstrap.com/img/Photos/Others/project4.jpg"
+                  alt=""
+                  className="img-fluid"
+                />
+                <a href="#!">
+                  <MDBMask overlay="white-slight" />
+                </a>
+              </MDBView>
+              <MDBCardBody className="pb-0 features-card cardContent">
+                <h4>Generate instant, professional reports</h4>
+                <p>
+                  Real time reports to make quick and effective decisions for you and your teams.
+                </p>
+                <Link className="btn-Started btnKeyFeatures" to="/">
+                  Learn more
+                </Link>
+              </MDBCardBody>
+            </MDBCol>
+            <MDBCol lg="4" md="12" className="mb-lg-0 mb-4">
+              <MDBView className="overlay rounded z-depth-1" waves>
+                <img
+                  src="/images/58.jpg"
+                  alt=""
+                  className="img-fluid"
+                />
+                <a href="#!">
+                  <MDBMask overlay="white-slight" />
+                </a>
+              </MDBView>
+              <MDBCardBody className="pb-0 features-card cardContent">
+                <h4>Get a bird’s eye view with analytics</h4>
+                <p>
+                  Use data analytics along with your experience to improve your business quickly and effectively.
+                </p>
+                <Link className="btn-Started btnKeyFeatures" to="/">
+                  Learn more
+                </Link>
+              </MDBCardBody>
+            </MDBCol>
           </MDBRow>
           </MDBContainer>
         </section>

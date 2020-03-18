@@ -325,3 +325,5 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .btn-Started.btnKeyFeatures{position: absolute; bottom: 0px; left: 0; right: 0; width: 50%; margin: 0 auto; }
 
 .btn-section{margin-bottom: 50px;}
+.modal-image-section { width: 50%; height: 200px; margin: 0 auto; }
+.modal-image-section img { width: 100%; }
