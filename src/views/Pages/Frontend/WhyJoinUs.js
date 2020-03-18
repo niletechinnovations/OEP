@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBCol, MDBRow } from "mdbreact";
-
+import "./Aboutpage.css";
 class WhyJoinUs extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
   render() {
@@ -21,7 +21,7 @@ class WhyJoinUs extends React.Component {
                         <p >
                           <b>Our mission is simple:</b> To make your life easier and much more process driven, which in turn will improve your sales, profits and team engagement. With millions of users around the globe and many new inspections every day, we're just getting started.
                         </p>
-                        <h3>Retail OEP Slogan: Inspect what you Expect!</h3>
+                        <h4>Inspect what you Expect!</h4>
                         
                     </MDBCol>
                 </MDBRow>

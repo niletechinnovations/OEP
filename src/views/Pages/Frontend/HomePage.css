@@ -196,7 +196,7 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .single-featured-box p {transition: .4s; margin-bottom: 0; color: #607D8B; font-size: 14px; padding: 0; line-height: 24px; }
 .single-featured-box:hover h3, 
 .single-featured-box:hover p {transform: translateY(-20px); }
-.read-more-btn {display: inline-block; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); opacity: 0; visibility: hidden; transition: .6; font-size: 13px; font-weight: 500; color: #f0bc5e; border: 1px solid; padding: 5px 15px; }
+.read-more-btn {background: none; display: inline-block; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); opacity: 0; visibility: hidden; transition: .6; font-size: 13px; font-weight: 500; color: #f0bc5e; border: 1px solid; padding: 5px 15px; }
 .read-more-btn::before {content: ""; position: absolute; left: 0; bottom: 1px; width: 0; transition: .5s; height: 1px; background: #03A9F4; }
 .single-featured-box:hover .read-more-btn {opacity: 1; visibility: visible; bottom: 23px; }
 
@@ -205,15 +205,8 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .features-section .heading-title h2{color: #607D8B; font-weight: bold;  text-align:center;font-size: 30px;}
 .featured-section .heading-title p{color: #607D8B;font-size: 14px; text-align:center;padding: 0; line-height: 24px;}
 
-.features-card h4{color: #607D8B;
-    line-height: 24px;
-    font-size: 18px;}
-.features-card p {
-    color: #607D8B;
-    font-size: 14px;
-    padding: 0;
-    line-height: 24px;
-}
+.features-card h4{color: #607D8B; line-height: 24px; font-size: 18px; min-height: 50px; width: 90%; margin: auto;}
+.features-card p {color: #607D8B; font-size: 14px; padding: 0; line-height: 24px; }
 
  /*==================================
         10. COUNTER SECTION CSS
@@ -325,5 +318,10 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .btn-Started.btnKeyFeatures{position: absolute; bottom: 0px; left: 0; right: 0; width: 50%; margin: 0 auto; }
 
 .btn-section{margin-bottom: 50px;}
-.modal-image-section { width: 50%; height: 200px; margin: 0 auto; }
+.modal-image-section { width: 20%; margin: 20px auto; }
 .modal-image-section img { width: 100%; }
+.download-app-button a{text-decoration: none;}
+.modal-dialog .modal-content{border: 2px solid #c8ced3;}
+.modal-header-font .modal-title{font-size:1.09375rem;}
+.modal-dialog .modal-content .modal-header{background: #f6f6f6;}
+.modal-header .close{ padding: 1.2rem 1rem; border-left: 1px solid #a9aeb2; }

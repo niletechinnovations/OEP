@@ -132,3 +132,5 @@
 .account-content {display: flex;  justify-content: center; flex-direction: column; height: 100%; }
 .account-content h1 {color: #fff; font-size: 35px; font-weight: 600; padding: 0;}
 .account-content p{color: #fff; font-size: 14px; padding: 0; line-height: 24px;}
+
+.md-form>input[type]:-webkit-autofill:not(.browser-default):not([type="search"])+label, .md-form>input[type="time"]:not(.browser-default)+label{    transform: translateY(-16px);}

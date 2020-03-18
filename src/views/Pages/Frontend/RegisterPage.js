@@ -97,7 +97,7 @@ class RegisterPage extends React.Component {
                     <p>OEP Retail will enhance and help you maintain the fundamentals of your business along with allowing you the flexibility to share your findings with your team in real time.  This action will move you and your business quicker and much more effectively.
                     </p>
                     <div className="btn-section">
-                    <a className="btn-Started" href="#!">Learn More</a>
+                    <Link className="btn-Started" to="/why-join-us">Read More</Link>
                     </div>
                   </div>
                 </MDBCol>

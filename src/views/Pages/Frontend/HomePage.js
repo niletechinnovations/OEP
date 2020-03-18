@@ -38,7 +38,7 @@ const contentData = {
     "shortPara": "No more paper or endless filing in a dusty cabinet or binder that no one ever reviews.",
     "learmoreContent":"No more paper and looking through pages and page of notes. Everything is at your fingertips with Retail OEP."
   },{
-    "img": "https://mdbootstrap.com/img/Photos/Others/project4.jpg",
+    "img": "/images/project4.jpg",
     "heading": "Generate instant, professional reports",
     "shortPara": "Real time reports to make quick and effective decisions for you and your teams.",
     "learmoreContent":"Generate instant reports to send and share with your team, boss or on social media to share your accomplishments."
@@ -140,7 +140,7 @@ class HomePage extends React.Component {
                 <MDBCol lg="5" className="text-center text-lg-left">
                   <img
                     className="img-fluid"
-                    src="https://mdbootstrap.com/img/Photos/Others/screens-section.jpg"
+                    src="/images/screens-section.png"
                     alt=""
                   />
                 </MDBCol>
@@ -234,7 +234,7 @@ class HomePage extends React.Component {
                     </a>
                     <a href="https://play.google.com/store/apps/details?id=com.oep&hl=en" target="_blank"  rel="noopener noreferrer" className="download-btn hover-active">
                       <MDBIcon fab icon="google-play" />
-                      <p><small>Get It On</small><br /> Google Play</p>
+                      <p><small>Download On</small><br /> Google Play</p>
                     </a>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ class HomePage extends React.Component {
           </div>
         </section>*/}
         <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-          <MDBModalHeader toggle={this.toggle}>{this.state.modalContent.heading}</MDBModalHeader>
+          <MDBModalHeader className="modal-header-font" toggle={this.toggle}>{this.state.modalContent.heading}</MDBModalHeader>
           <MDBModalBody>
             <div className="modal-image-section">
               <img src={this.state.modalContent.img} alt="" className="modalImg" /> 
