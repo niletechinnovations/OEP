@@ -212,10 +212,11 @@ class HomePage extends React.Component {
             }
            
           </MDBRow>
+          <div ref={this.downloadAPP}></div>
           </MDBContainer>
         </section>
-
-        <div className="streak streak-md download-section" ref={this.downloadAPP}>
+        
+        <div className="streak streak-md download-section" >
           <MDBContainer>
             <MDBRow>
               <MDBCol md="5">
