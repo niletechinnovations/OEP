@@ -11,6 +11,8 @@ import { MDBNavbar,
 
 import commonService from '../../core/services/commonService';
 import './FrontEndHeader.css';
+var CryptoJS = require("crypto-js");
+
 
 class FrontEndHeader extends React.Component {
     constructor(props){
@@ -42,11 +44,18 @@ class FrontEndHeader extends React.Component {
       //const { collapseID } = this.state;
        let  headerItem = '';
         if(commonService.getAuth()) {
-          headerItem =<MDBNavItem>
-            <MDBNavLink className="btn-header-white" to= "/" onClick={() => this.logoutUser()}>
-              Logout
-            </MDBNavLink>
-          </MDBNavItem>
+          headerItem =<>
+            <MDBNavItem>
+              <MDBNavLink className="btn-header-white" to= {CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin" ? "/admin/dashboard": "/organization/dashboard" }>
+                Dashboard
+              </MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink className="btn-header-white" to= "/" onClick={() => this.logoutUser()}>
+                Logout
+              </MDBNavLink>
+            </MDBNavItem>
+          </>
          }
          else {
           headerItem = <>
