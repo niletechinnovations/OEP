@@ -175,9 +175,7 @@ class Organization extends Component {
       case 'first_name':        
         fieldValidationErrors.contact_person = (value !== '') ? '' : ' is required';
         break;
-      case 'role':        
-        fieldValidationErrors.role = (value !== '') ? '' : ' is required';
-        break;               
+                   
       default:
         break;
     }
@@ -190,7 +188,7 @@ class Organization extends Component {
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     this.setState({formValid: 
-      (formErrors.organization_name === ""  && formErrors.email === "" && formErrors.contact_person === "" && formErrors.role === "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" && formField.email !== "") 
+      (formErrors.organization_name === ""  && formErrors.email === "" && formErrors.contact_person === "" && formField.organization_name !== "" && formField.first_name !== "" && formField.email !== "") 
       ? true : false});
   }
   /* Set Error Class*/
@@ -386,7 +384,7 @@ class Organization extends Component {
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="role">Role</Label>            
-                    <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler} required />
+                    <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler}  />
                   </FormGroup>
                 </Col>
                 <Col md={"6"}>  

@@ -180,9 +180,7 @@ class Employee extends Component {
       case 'first_name':        
         fieldValidationErrors.employee_name = (value !== '') ? '' : ' is required';
         break;
-      case 'role':        
-        fieldValidationErrors.role = (value !== '') ? '' : ' is required';
-        break;               
+                   
       default:
         break;
     }
@@ -195,7 +193,7 @@ class Employee extends Component {
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     this.setState({formValid: 
-      (formErrors.email === "" && formErrors.employee_name === "" && formErrors.role === ""  && formField.role !== "" && formField.first_name !== "" && formField.email !== "") 
+      (formErrors.email === "" && formErrors.employee_name === "" && formField.first_name !== "" && formField.email !== "") 
       ? true : false});
   }
   /* Set Error Class*/
@@ -341,7 +339,7 @@ class Employee extends Component {
                 <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="role">Role</Label>            
-                    <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler} required />
+                    <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler}  />
                   </FormGroup>
                 </Col>
                 <Col md={"6"}>
