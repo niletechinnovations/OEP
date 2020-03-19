@@ -83,7 +83,7 @@ class SubCategoryData extends Component {
     ];
     const options = {
       search: true,
-      filter: false,
+      filter: true,
       searchOpen: false,
       print: false,
       download: false,

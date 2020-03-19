@@ -77,7 +77,7 @@ class CategoryData extends Component {
     }
     const options = {
       search: true,
-      filter: false,
+      filter: true,
       searchOpen: false,
       print: false,
       viewColumns: true,

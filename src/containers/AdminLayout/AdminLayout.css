@@ -1,5 +1,5 @@
 body.header-fixed {
-	background:#e8edf2 ;
+	background:#e8edf2 !important;
 }
 .dashboard-template .app-header .nav-item .nav-link {
      padding-top: 0; 
@@ -14,10 +14,10 @@ body.header-fixed {
 .app-header { background-color: #1e222b !important; }
 
 
-a.profileDropDownLink {
+/*a.profileDropDownLink {
     color: #000 !important;
     padding: 0px !important;
-}
+}*/
 .app-header {
     background-color: #ffffff !important;
     background: #fff;
