@@ -66,7 +66,12 @@ class HomePage extends React.Component {
       this.showModalPopup = this.showModalPopup.bind(this); 
 
   }
+  
+  componentDidMount() {
+    this.scrollToTop();
+  }
   scrollToDownloadAPPSection = () =>  window.scrollTo(0, this.downloadAPP.current.offsetTop);
+
   scrollToTop = () => window.scrollTo(0, 0);
   /*Show Modal*/
   showModalPopup = (content, className="") => {

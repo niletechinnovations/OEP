@@ -40,6 +40,11 @@ class RegisterPage extends React.Component {
     };
   }
 
+  componentDidMount() {
+      this.scrollToTop();
+  }
+  scrollToTop = () => window.scrollTo(0, 0);
+    
   submitHandler = event => {
     event.preventDefault();
     event.target.className += " was-validated";

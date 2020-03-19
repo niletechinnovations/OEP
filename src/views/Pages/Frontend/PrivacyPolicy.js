@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { MDBContainer, MDBCol, MDBRow } from "mdbreact";
 export default class PrivacyPolicy extends Component {
+    componentDidMount() {
+        this.scrollToTop();
+    }
+    scrollToTop = () => window.scrollTo(0, 0);
     render() {
         return (
             <>

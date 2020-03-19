@@ -5,6 +5,7 @@ import {
 } from "mdbreact";
 
 const BlogPage = () => {
+    
   return (
     <div className="main-content"> 
         <section className="my-5 mt-5">

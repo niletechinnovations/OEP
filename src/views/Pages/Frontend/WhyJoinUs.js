@@ -3,6 +3,9 @@ import { MDBContainer, MDBCol, MDBRow } from "mdbreact";
 import "./Aboutpage.css";
 class WhyJoinUs extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
+  componentDidMount() {
+        this.scrollToTop();
+    }
   render() {
     return (
       <>

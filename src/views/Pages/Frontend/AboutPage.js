@@ -4,6 +4,9 @@ import "./Aboutpage.css";
 
 class AboutPage extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
+  componentDidMount() {
+        this.scrollToTop();
+    }
   render() {
     return (
       <>
