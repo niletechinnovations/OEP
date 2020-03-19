@@ -37,15 +37,15 @@
     height: 80px;
     width: 80px;
     border-radius: 5px;
-    overflow: hidden;
+    overflow: inherit;
     position: relative;
-    display: inline-block;
+    display: flex;
     margin: 2px;
 }.photos-section p{font-size: 13px;
     margin-bottom: 0;
     padding: 0;
     color: #001737;}
-.photos-info img {width: 100%; border-radius: 5px; }
+.photos-info img {width: 100%; border-radius: 5px; margin: 5px; }
 
 .card-Preview-item {
     background: #f0f4f9;
