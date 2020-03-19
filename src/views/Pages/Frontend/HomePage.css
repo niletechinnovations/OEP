@@ -325,3 +325,4 @@ a.border.nav-link.border-light.rounded.mr-1:hover {
 .modal-header-font .modal-title{font-size:1.09375rem;}
 .modal-dialog .modal-content .modal-header{background: #f6f6f6;}
 .modal-header .close{ padding: 1.2rem 1rem; border-left: 1px solid #a9aeb2; }
+.modal-image-section.features-modal { width: 70%; margin: 20px auto; }

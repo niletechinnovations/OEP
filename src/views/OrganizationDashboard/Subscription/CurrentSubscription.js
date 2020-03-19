@@ -13,7 +13,7 @@ class CurrentSubscription extends React.Component {
       loading: false,    
       subscriptionDetails: {}
     }    
-   
+    this.cancelSubscription = this.cancelSubscription.bind(this);
   }
 
  
@@ -47,7 +47,37 @@ class CurrentSubscription extends React.Component {
     
   }
 
- 
+  cancelSubscription() {
+    debugger;
+    this.setState( { loading: true}, () => {
+        commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: this.state.subscriptionDetails.planInfo.subscriberId})
+          .then( res => {
+            debugger;
+             
+            if ( undefined === res.data.data || !res.data.status ) {
+              this.setState( {  loading: false } );
+              toast.error(res.data.message);             
+              return;
+            } 
+            const subscriptionInfo = res.data.data; 
+            toast.success(res.data.message);            
+            this.setState( { loading: false, subscriptionDetails: subscriptionInfo} );            
+           
+          } )
+          .catch( err => {  
+             
+            if(err.response !== undefined && err.response.status === 401) {
+              localStorage.clear();
+              this.props.history.push('/login');
+            }
+            else {
+              this.setState( { loading: false } );
+              toast.error(err.message);    
+            }
+          } )
+      } )
+  }
+
   render() {
        const {loading, subscriptionDetails} = this.state;
        let loaderElement = '';
@@ -63,7 +93,7 @@ class CurrentSubscription extends React.Component {
             <CardText>Subscription Amount: ${subscriptionDetails.planInfo.amount}</CardText>
             <CardText>Start Date: {startDate}</CardText>
             <CardText>Expiry Date: {expiryDate}</CardText>
-            <Button>Cancel Subscription</Button>
+            <Button onClick={this.cancelSubscription}>Cancel Subscription</Button>
             </>
           }
           else

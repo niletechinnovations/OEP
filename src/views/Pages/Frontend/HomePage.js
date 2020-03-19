@@ -54,6 +54,7 @@ class HomePage extends React.Component {
       super(props);
       this.state = {
         modal: false,
+        className: "",
         modalContent: {
           "img": "",
           "heading": "",
@@ -68,8 +69,8 @@ class HomePage extends React.Component {
   scrollToDownloadAPPSection = () =>  window.scrollTo(0, this.downloadAPP.current.offsetTop);
   scrollToTop = () => window.scrollTo(0, 0);
   /*Show Modal*/
-  showModalPopup = (content) => {
-    this.setState({modal: true, modalContent: content});
+  showModalPopup = (content, className="") => {
+    this.setState({modal: true, modalContent: content, className: className});
   }
   toggle = () => {
     this.setState({
@@ -220,7 +221,7 @@ class HomePage extends React.Component {
           <MDBContainer>
             <MDBRow>
               <MDBCol md="5">
-                <div className="download-app-img">
+                <div className="download-app-img ">
                   <img src="/images/download-app.png" className="img-fluid" alt="Download APP" />
                 </div>
               </MDBCol>
@@ -283,7 +284,7 @@ class HomePage extends React.Component {
         <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
           <MDBModalHeader className="modal-header-font" toggle={this.toggle}>{this.state.modalContent.heading}</MDBModalHeader>
           <MDBModalBody>
-            <div className="modal-image-section">
+            <div className={`${this.state.className} modal-image-section`}>
               <img src={this.state.modalContent.img} alt="" className="modalImg" /> 
             </div>
             <p>{this.state.modalContent.shortPara}</p>
@@ -330,7 +331,7 @@ function SETFEATURESVIEW(props){
                 <p>
                   {contentInfo.shortPara}
                 </p>
-                <button className="btn-Started btnKeyFeatures" onClick={() => props.showPopup(contentInfo)}>Read More</button>
+                <button className="btn-Started btnKeyFeatures" onClick={() => props.showPopup(contentInfo, "features-modal")}>Read More</button>
                 
               </MDBCardBody>
             </MDBCol>)
