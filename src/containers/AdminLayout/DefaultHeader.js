@@ -30,12 +30,12 @@ class DefaultHeader extends Component {
 
         
         <Nav className="ml-auto" navbar>
-          <NavItem className="d-md-down-none">
+          {/*<NavItem className="d-md-down-none">
             <NavLink to="#" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">0</Badge></NavLink>
           </NavItem>
           <NavItem className="d-md-down-none">
             <NavLink to="#" className="nav-link"><i className="icon-list"></i></NavLink>
-          </NavItem>          
+          </NavItem> */}         
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <img src={profileImage} className="img-avatar" alt="admin@abc.com" />

@@ -13,7 +13,7 @@ class Successs extends React.Component {
       loading: false,    
       planList: []
     }    
-   
+    this.verirfySubscription = this.verirfySubscription.bind(this);
   }
 
  
@@ -21,7 +21,14 @@ class Successs extends React.Component {
     
     const values = queryString.parse(this.props.location.search);
     if(values.token !== undefined && values.token !== "") {
-      this.setState( { loading: true}, () => {
+      this.verirfySubscription(values);
+    }
+    else
+      this.props.history.push('/organization/dashboard');
+  }
+
+  verirfySubscription(values) {
+    this.setState( { loading: true}, () => {
         commonService.postAPIWithAccessToken('subscription/verfiy', {token: values.token, isSandBox: true})
           .then( res => {
             
@@ -49,11 +56,7 @@ class Successs extends React.Component {
             }
           } )
       } ) 
-    }
-    else
-      this.props.history.push('/organization/dashboard');
   }
-
  
   render() {
     
