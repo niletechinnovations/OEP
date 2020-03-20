@@ -13,6 +13,7 @@ import TemplateBuilder from './views/OrganizationDashboard/TemplateBuilder/Templ
 //import PreviewTemplatePage from './views/OrganizationDashboard/TemplateBuilder/PreviewTemplatePage';
 import Success from './views/OrganizationDashboard/Subscription/Success';
 import CurrentSubscription from './views/OrganizationDashboard/Subscription/CurrentSubscription';
+import BuySubscription from './views/OrganizationDashboard/Subscription/BuySubscription';
 import Cancel from './views/OrganizationDashboard/Subscription/Cancel';
 const oragnizationRoutes = [
   { path: '/organization/', exact: true, name: 'Home' },
@@ -31,6 +32,7 @@ const oragnizationRoutes = [
   { path: '/organization/manage-template/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/organization/manage-template/create-template/:templateId', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/organization/subscription', exact: true,  name: 'Current Subscription', component: CurrentSubscription },
+  { path: '/organization/subscription/plan', exact: true,  name: 'Subscription Plan', component: BuySubscription },
   { path: '/organization/subscription/success', exact: true,  name: 'Payment Success', component: Success },
   { path: '/organization/subscription/cancel', exact: true,  name: 'Payment Cancel', component: Cancel },
 

@@ -49,6 +49,11 @@ export default {
       url: '/organization/action',  
     },
     {
+      name: 'Subscription',      
+      icon: 'icon-note', 
+      url: '/organization/subscription/plan',  
+    },
+    {
       name: 'Profile',
       url: '/organization/profile',
       icon: 'icon-user',     

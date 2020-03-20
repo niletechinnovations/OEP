@@ -52,10 +52,14 @@ class SubscriptionPlan extends React.Component {
         } )
     } ) 
   }
-  buySubscription(planId) {
+  buySubscription(planInfo) {
+    if(planInfo.isPlanActive) {
+    	toast.error("Plan already activated on your account!");
+    	return;
+    }
     
-    this.setState( { paymentProcess: true, planId: planId}, () => {
-      commonService.postAPIWithAccessToken('subscription/buy', {planId: planId})
+    this.setState( { paymentProcess: true, planId: planInfo.planId}, () => {
+      commonService.postAPIWithAccessToken('subscription/buy', {planId: planInfo.planId})
         .then( res => {
           
            
@@ -114,7 +118,7 @@ function SetPlanDetailsInfo (props) {
                 <CardSubtitle>${`${planInfo.amount} / ${planType}`}</CardSubtitle>                
                 <CardText>Number Of Template : {planInfo.templateAccess}</CardText>
                 <CardText>Number Of Employee : {planInfo.userAccess}</CardText>
-                <button className="payment-Button" onClick={() => props.buySubscription(planInfo.planId)} disabled={props.paymentProcess }>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
+                <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess || props.planInfo.isPlanActive}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
               </CardBody>
             </Card>
           </Col>);
