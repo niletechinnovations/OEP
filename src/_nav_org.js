@@ -49,7 +49,7 @@ export default {
       url: '/organization/action',  
     },
     {
-      name: 'Subscription',      
+      name: 'Subscription Plan',      
       icon: 'icon-note', 
       url: '/organization/subscription/plan',  
     },

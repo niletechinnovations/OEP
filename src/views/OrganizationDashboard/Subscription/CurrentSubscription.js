@@ -48,11 +48,12 @@ class CurrentSubscription extends React.Component {
   }
 
   cancelSubscription() {
-    debugger;
+    if( !window.confirm('Are you sure to cancel this subscription?'))
+      return false;
     this.setState( { loading: true}, () => {
         commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: this.state.subscriptionDetails.planInfo.subscriberId})
           .then( res => {
-            debugger;
+            
              
             if ( undefined === res.data.data || !res.data.status ) {
               this.setState( {  loading: false } );
