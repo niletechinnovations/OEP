@@ -38,12 +38,12 @@ const frontEndFooter = () => {
                   <h2 className="fot-title">Follow us</h2>
                   <ul className="social-links">
                     <li>
-                      <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.facebook.com/Retail-OEP-100654928254091/?modal=admin_todo_tour" target="_blank" rel="noopener noreferrer">
                         <MDBIcon fab icon="facebook"/>
                       </a>
                     </li>
                     <li>
-                      <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer">
+                      <a href="https://twitter.com/OepRetail" target="_blank" rel="noopener noreferrer">
                         <MDBIcon fab icon="twitter"/>
                       </a>
                     </li>
@@ -53,7 +53,7 @@ const frontEndFooter = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.instagram.com/oepretail/" target="_blank" rel="noopener noreferrer">
                         <MDBIcon fab icon="instagram"/>
                       </a>
                     </li>
