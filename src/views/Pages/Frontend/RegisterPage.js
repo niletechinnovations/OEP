@@ -20,6 +20,7 @@ import "./RegisterPage.css";
 
 import commenService from '../../../core/services/commonService';
 
+import VerifyOtp from './VerifyOtp';
 
 class RegisterPage extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
@@ -35,7 +36,8 @@ class RegisterPage extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      loading: false
+      loading: false,
+      isRegistered: false,
       
     };
   }
@@ -67,8 +69,9 @@ class RegisterPage extends React.Component {
             toast.error(res.data.message);
             return;
           }
+          this.setState({loading: false, isRegistered: true, organizationName: "",firstName: "",lastName: "",phoneNumber: "",password: "",confirmPassword: ""});
           toast.success(res.data.message);
-          this.props.history.push('/login');
+          //this.props.history.push('/login');
           
         } )
         .catch( err => {
@@ -106,16 +109,16 @@ class RegisterPage extends React.Component {
                     </div>
                   </div>
                 </MDBCol>
-
+                {loaderElement}
+                <ToastContainer />
                 <MDBCol md="6" xl="5" className="loginForm mb-5">
                   <MDBCard className="account-form">
                     <MDBCardBody className="z-depth-2">
                       <h4 className="text-center text-heading">
-                        <strong>Create your free OEP account!</strong>
+                        <strong>{ !this.state.isRegistered ? `Create your free OEP account!` : `Verify Account`}</strong>
                       </h4>
 
-                      {loaderElement}
-                      <ToastContainer />
+                      { !this.state.isRegistered ? 
                         
                       <form className="grey-textneeds-validation" onSubmit={this.submitHandler} noValidate>
                         <MDBRow>
@@ -144,46 +147,47 @@ class RegisterPage extends React.Component {
                           </MDBCol>
                         </MDBRow>
                         
-                      <MDBRow>
-                        <MDBCol md="6">
-                          <MDBInput type="text" id="phoneNumber" label="Phone number" name="phoneNumber" value={phoneNumber} onChange={this.changeHandler} required>
+                        <MDBRow>
+                          <MDBCol md="6">
+                            <MDBInput type="text" id="phoneNumber" label="Phone number" name="phoneNumber" value={phoneNumber} onChange={this.changeHandler} required>
+                                <div className="invalid-feedback">
+                                  Phone number is required.
+                                </div>
+                              </MDBInput>
+                          </MDBCol>
+                          <MDBCol md="6">
+                            <MDBInput type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Email address *" required>
                               <div className="invalid-feedback">
-                                Phone number is required.
+                              Email-id is required.
                               </div>
                             </MDBInput>
-                        </MDBCol>
-                        <MDBCol md="6">
-                          <MDBInput type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Email address *" required>
-                            <div className="invalid-feedback">
-                            Email-id is required.
-                            </div>
-                          </MDBInput>
-                        </MDBCol>
-                      </MDBRow>
-                      <MDBRow>
-                        <MDBCol md="6">
-                          <MDBInput type="password" name="password" value={password} onChange={this.changeHandler} id="password" label="Password *" required>
-                            <div className="invalid-feedback">
-                              Password is required.
-                            </div>
-                          </MDBInput>
-                        </MDBCol>
-                        <MDBCol md="6">
-                          <MDBInput type="password" name="confirmPassword" value={confirmPassword} onChange={this.changeHandler} id="confirmPassword" label="Confirm Password *" required>
-                            <div className="invalid-feedback">
-                              Confirm password is required.
-                            </div>
-                          </MDBInput>
-                        </MDBCol>
-                      </MDBRow>
-                        
-                      <div className="text-center mt-3 mb-3 black-text">
-                        <MDBBtn className="btn-account" type="submit">Sign Up</MDBBtn>
-                      </div>
-                      <div className="text-center text-foot">
-                        <p>Already have an account? <Link to="/login">Log in</Link></p>
-                      </div>
-                      </form>
+                          </MDBCol>
+                        </MDBRow>
+                        <MDBRow>
+                          <MDBCol md="6">
+                            <MDBInput type="password" name="password" value={password} onChange={this.changeHandler} id="password" label="Password *" required>
+                              <div className="invalid-feedback">
+                                Password is required.
+                              </div>
+                            </MDBInput>
+                          </MDBCol>
+                          <MDBCol md="6">
+                            <MDBInput type="password" name="confirmPassword" value={confirmPassword} onChange={this.changeHandler} id="confirmPassword" label="Confirm Password *" required>
+                              <div className="invalid-feedback">
+                                Confirm password is required.
+                              </div>
+                            </MDBInput>
+                          </MDBCol>
+                        </MDBRow>
+                          
+                        <div className="text-center mt-3 mb-3 black-text">
+                          <MDBBtn className="btn-account" type="submit">Sign Up</MDBBtn>
+                        </div>
+                        <div className="text-center text-foot">
+                          <p>Already have an account? <Link to="/login">Log in</Link></p>
+                        </div>
+                      </form> : 
+                      <VerifyOtp email = {this.state.email} /> }
                     </MDBCardBody>
                   </MDBCard>
                 </MDBCol>

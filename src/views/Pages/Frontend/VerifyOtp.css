@@ -1,0 +1,10 @@
+input.otp-input-field {
+    width: 3em !important;
+    text-align: center !important;
+    padding: 5px !important;
+}
+.otp-container-input {
+    display: flex !important;
+    width: 70% !important;
+    margin: 0 auto !important;
+}
