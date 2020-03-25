@@ -61,9 +61,9 @@ export default class VerifyOtp extends React.Component {
     
             this.setState( {
               loading: false,              
-              loggedIn: false
+              loggedIn: true
             } )
-            this.props.history.push('/login');
+            //this.props.history.push('/login');
             
           } )
           .catch( err => {
@@ -104,13 +104,13 @@ export default class VerifyOtp extends React.Component {
     
     
     render() {
-      if ( this.state.loggedIn || localStorage.getItem( 'accessToken' ) ) {
-        if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
+      if ( this.state.loggedIn  ) {
+        /*if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
           return ( <Redirect to={`/admin/dashboard`} noThrow /> )
         else if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "organization")
           return ( <Redirect to={`/organization/dashboard`} noThrow /> )
-        else
-          return ( <Redirect to={`/`} noThrow /> )
+        else*/
+          return ( <Redirect to={`/login`} noThrow /> )
 
       }
       let loaderElement = '';
