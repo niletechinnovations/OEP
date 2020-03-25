@@ -8,6 +8,7 @@ import RegisterPage from './views/Pages/Frontend/RegisterPage';
 import PrivacyPolicy from './views/Pages/Frontend/PrivacyPolicy';
 import VerifyEmail from './views/Pages/Frontend/VerifyEmail';
 import WhyJoinUs from './views/Pages/Frontend/WhyJoinUs';
+import TermofUse from './views/Pages/Frontend/TermofUse';
 
 const frontendRoutes = [
   { path: '/', exact: true, name: 'Home', component: HomePage },
@@ -21,6 +22,7 @@ const frontendRoutes = [
   { path: '/register', exact: true,  name: 'Register', component: RegisterPage },
   { path: '/reset-password/:token', exact: true,  name: 'Reset Password', component: ResetPassword },
   { path: '/verify-email/:token', exact: true,  name: 'Verify Email', component: VerifyEmail },
+  { path: '/terms-of-service', exact: true,  name: 'Terms of service', component: TermofUse },
 ];
 
 export default frontendRoutes;

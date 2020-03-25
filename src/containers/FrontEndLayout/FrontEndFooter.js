@@ -28,8 +28,9 @@ const frontEndFooter = () => {
               <MDBCol md="2">
                 <nav className="flex-column foot-nav">
                   <Link to="/privacy-policy" className="py-2 text-contrast nav-link">Privacy Policy</Link>
-                  {/*<a href="/" className="py-2 text-contrast nav-link">Terms & Conditions</a>
-                  <a href="#!" className="py-2 text-contrast nav-link">FAQ's</a>*/}
+                  <Link to="/terms-of-service" className="py-2 text-contrast nav-link">Terms & Conditions</Link>
+                  
+                  {/*<a href="#!" className="py-2 text-contrast nav-link">FAQ's</a>*/}
                 </nav>
               </MDBCol>
 
