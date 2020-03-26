@@ -23,6 +23,19 @@ class ApiService {
         else
           return CryptoJS.AES.decrypt(localStorage.getItem("accessToken"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8)
     }
+
+    /*Get Organization Subscribe*/
+    getIsSubscribe() {
+        let isSubscribed = localStorage.getItem("isSubscribed");        
+        if(isSubscribed === '' || isSubscribed === null)
+          return "";
+        else
+          return (CryptoJS.AES.decrypt(localStorage.getItem("isSubscribed"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "true") ? true : false;
+    }
+    setIsSubscribe(isSubscribe = "false") {
+        isSubscribe = isSubscribe.toString();
+        localStorage.setItem( 'isSubscribed', CryptoJS.AES.encrypt(isSubscribe, 'OEPENCRYPTION@12345').toString());
+    }
     /*Get API With Authentication header */
     getAPIWithAccessToken(urlSegment) {
         const accessToken = this.getAccessToken();

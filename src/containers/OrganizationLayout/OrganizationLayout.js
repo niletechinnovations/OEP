@@ -18,8 +18,10 @@ import {
 } from '@coreui/react';
 // sidebar nav config
 import navigation from '../../_nav_org';
+import navigation_unsubcribe from '../../_nav_org_unsubcribe';
 // routes config
 import organizationRoutes from '../../organizationRoutes';
+import commonService from '../../core/services/commonService';
 import './OrganizationLayout.css';
 import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
@@ -48,7 +50,7 @@ class OrganizationLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+            <AppSidebarNav navConfig={commonService.getIsSubscribe() ? navigation : navigation_unsubcribe } {...this.props} router={router}/>
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />

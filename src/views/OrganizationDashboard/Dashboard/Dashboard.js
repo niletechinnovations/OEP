@@ -405,9 +405,11 @@ class Dashboard extends Component {
           const responseData = res.data.data;
          
           if(responseData.organizationSubscriptionPlan.status)
-            localStorage.setItem('isSubscribed', true);
-          else
-            localStorage.removeItem('isSubscribed');
+            commonService.setIsSubscribe(true);
+          else{
+            commonService.setIsSubscribe(false);
+            this.props.history.push('/organization/subscription/plan');
+          }
           this.setState({loading:false, dashBoardStats: res.data.data, 
             inspectionData: responseData.inspectionGraphData.data, inspectionLabels: responseData.inspectionGraphData.labels,
             organizationData: responseData.organizationGraphData.data, organizationLables: responseData.organizationGraphData.labels});     

@@ -2,7 +2,7 @@ import React from "react";
 import  { Redirect, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import commenService from '../../../core/services/commonService';
+import commonService from '../../../core/services/commonService';
 import Loader from '../../Loader/Loader';
 
 
@@ -53,7 +53,7 @@ class LoginPage extends React.Component {
       email: this.state.email,
       password: this.state.password
     };    this.setState( { loading: true }, () => {
-      commenService.postAPI( `auth/sign-in`, loginData )
+      commonService.postAPI( `auth/sign-in`, loginData )
         .then( res => {
          
           console.log(res);
@@ -70,6 +70,8 @@ class LoginPage extends React.Component {
           localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
           localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
           localStorage.setItem( 'userName', loggedInfo.data.firstName );
+          if(loggedInfo.data.role.toLowerCase() === 'organization') 
+            commonService.setIsSubscribe(loggedInfo.data.isActivePlan);
   
           this.setState( {
             loading: false,              
@@ -108,7 +110,7 @@ class LoginPage extends React.Component {
       email: this.state.forgotPasswordEmail
     };
     this.setState( { loading: true }, () => {
-      commenService.postAPI( `auth/forgot-password`, forgotData )
+      commonService.postAPI( `auth/forgot-password`, forgotData )
         .then( res => {
          
           console.log(res);
@@ -150,8 +152,12 @@ class LoginPage extends React.Component {
     if ( loggedIn || localStorage.getItem( 'accessToken' ) ) {
       if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
 			  return ( <Redirect to={`/admin/dashboard`} noThrow /> )
-      else if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "organization")
-        return ( <Redirect to={`/organization/dashboard`} noThrow /> )
+      else if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "organization") {
+        if(!commonService.getIsSubscribe())
+          return ( <Redirect to={`/organization/subscription/plan`} noThrow /> )
+        else
+          return ( <Redirect to={`/organization/dashboard`} noThrow /> )
+      }
       else
         return ( <Redirect to={`/`} noThrow /> )
 

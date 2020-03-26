@@ -10,7 +10,7 @@ import {
   MDBRow,
   MDBBtn
 } from "mdbreact";
-import commenService from '../../../core/services/commonService';
+import commonService from '../../../core/services/commonService';
 import "./VerifyOtp.css";
 var CryptoJS = require("crypto-js");
 var emailAddress = '';
@@ -41,7 +41,7 @@ export default class VerifyOtp extends React.Component {
         
       };
       this.setState( { loading: true }, () => {
-        commenService.postAPI( `auth/verify-otp`, verifyData )
+        commonService.postAPI( `auth/verify-otp`, verifyData )
           .then( res => {
            
             console.log(res);
@@ -51,13 +51,14 @@ export default class VerifyOtp extends React.Component {
               return;
             }
             toast.success(res.data.message);
-            //const loggedInfo = res.data;
+            const loggedInfo = res.data;
           
-            /*localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
+            localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
             localStorage.setItem( 'refreshToken', CryptoJS.AES.encrypt(loggedInfo.data.refreshToken, 'OEPENCRYPTION@12345').toString());
             localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
             localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
-            localStorage.setItem( 'userName', loggedInfo.data.firstName );*/
+            localStorage.setItem( 'userName', loggedInfo.data.firstName );
+            commonService.setIsSubscribe(false);
     
             this.setState( {
               loading: false,              
@@ -81,7 +82,7 @@ export default class VerifyOtp extends React.Component {
         email: emailAddress        
       };
       this.setState( { loading: true }, () => {
-        commenService.postAPI( `auth/resend-otp`, verifyData )
+        commonService.postAPI( `auth/resend-otp`, verifyData )
           .then( res => {
            
             console.log(res);
@@ -105,12 +106,12 @@ export default class VerifyOtp extends React.Component {
     
     render() {
       if ( this.state.loggedIn  ) {
-        /*if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
+        if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
           return ( <Redirect to={`/admin/dashboard`} noThrow /> )
         else if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "organization")
-          return ( <Redirect to={`/organization/dashboard`} noThrow /> )
-        else*/
-          return ( <Redirect to={`/login`} noThrow /> )
+          return ( <Redirect to={`/organization/subscription/plan`} noThrow /> )
+        else
+          return ( <Redirect to={`/`} noThrow /> )
 
       }
       let loaderElement = '';

@@ -41,7 +41,7 @@ class Successs extends React.Component {
             //const paymentInfo = res.data.data;
             
             this.setState( { loading: true} );
-            localStorage.setItem('isSubscribed', true);
+            commonService.setIsSubscribe(true);
            
           } )
           .catch( err => {  
