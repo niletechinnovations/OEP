@@ -21,6 +21,7 @@ import {
   MDBIcon
 } from "mdbreact";
 import "./LoginPage.css";
+import VerifyOtp from './VerifyOtp';
 var CryptoJS = require("crypto-js");
 
 class LoginPage extends React.Component {
@@ -35,7 +36,8 @@ class LoginPage extends React.Component {
       modal: false,
       loggedIn: false,
       loading: false,
-      isExpanded: false
+      isExpanded: false,
+      isLoggedIn: false,
     };
     
   }
@@ -60,6 +62,29 @@ class LoginPage extends React.Component {
           if ( undefined === res.data || !res.data.status ) {
             this.setState( { loading: false } );
             toast.error(res.data.message);
+            if(!res.data.status) {
+              if(res.data.isAccountVerified != undefined && !res.data.isAccountVerified) {
+                this.setState( { loading: true, isLoggedIn: true }, () => {
+                  commonService.postAPI( `auth/resend-otp`, {email: this.state.email} )
+                    .then( res => {
+                     
+                      console.log(res);
+                      if ( undefined === res.data || !res.data.status ) {
+                        this.setState( { loading: false} );
+                        toast.error(res.data.message);
+                        return;
+                      }
+                      this.setState( { loading: false } );
+                      toast.success(res.data.message);            
+                    } )
+                    .catch( err => {
+                      
+                      this.setState( { loading: false } );
+                      toast.error(err.message);
+                    } )
+                } )
+              }
+            }
             return;
           }
   
@@ -190,44 +215,44 @@ class LoginPage extends React.Component {
                     <MDBCard className="account-form">
                       <MDBCardBody className="z-depth-2">
                         <div className="text-center">
-                          <h4 className="text-heading"><strong>Log in to your account</strong></h4>
+                          <h4 className="text-heading"><strong>{!this.state.isLoggedIn ? `Log in to your account`: `Otp Verification` }</strong></h4>
                         </div>
                         {loaderElement} 
-                                        
-                        <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
-                          
-                          <MDBInput icon="envelope" group type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Your email" required>
-                            <div className="valid-feedback">Looks good!</div>
-                            <div className="invalid-feedback">
-                              Please enter your registered email-id.
+                        {!this.state.isLoggedIn ?            
+                          <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
+                            
+                            <MDBInput icon="envelope" group type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Your email" required>
+                              <div className="valid-feedback">Looks good!</div>
+                              <div className="invalid-feedback">
+                                Please enter your registered email-id.
+                              </div>
+                            </MDBInput>
+                            <MDBInput icon="lock" group type="password" name="password" value={password} onChange={this.changeHandler} id="password" label="Password *" required>
+                              <div className="valid-feedback">Looks good!</div>
+                              <div className="invalid-feedback">
+                                Please enter your registered password.
+                              </div>
+                            </MDBInput>
+                            
+                            <MDBRow className="d-flex align-items-center">
+                              <MDBCol md="7" className="d-flex align-items-start">
+                                <MDBInput label={ <>Keep me signed in</> } type='checkbox' id='checkbox1' />
+                              </MDBCol>
+                              <MDBCol md="5" className="d-flex justify-content-end">
+                                <p className="Forgot-text pt-3">
+                                  <a onClick={this.toggle} href="#!" className="ml-1">Forgot Password?</a>
+                                   
+                              </p>
+                              </MDBCol>
+                            </MDBRow>
+                            <div className="text-center mt-3 mb-2">
+                              <MDBBtn className="btn-account" type="submit">SIGN IN</MDBBtn>
                             </div>
-                          </MDBInput>
-                          <MDBInput icon="lock" group type="password" name="password" value={password} onChange={this.changeHandler} id="password" label="Password *" required>
-                            <div className="valid-feedback">Looks good!</div>
-                            <div className="invalid-feedback">
-                              Please enter your registered password.
+                            <div className="text-center text-foot">
+                            <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
                             </div>
-                          </MDBInput>
-                          
-                          <MDBRow className="d-flex align-items-center">
-                            <MDBCol md="7" className="d-flex align-items-start">
-                              <MDBInput label={ <>Keep me signed in</> } type='checkbox' id='checkbox1' />
-                            </MDBCol>
-                            <MDBCol md="5" className="d-flex justify-content-end">
-                              <p className="Forgot-text pt-3">
-                                <a onClick={this.toggle} href="#!" className="ml-1">Forgot Password?</a>
-                                 
-                            </p>
-                            </MDBCol>
-                          </MDBRow>
-                          <div className="text-center mt-3 mb-2">
-                            <MDBBtn className="btn-account" type="submit">SIGN IN</MDBBtn>
-                          </div>
-                          <div className="text-center text-foot">
-                          <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
-                          </div>
-                        </form>  
-                       
+                          </form>  
+                           : <VerifyOtp email = {this.state.email} page="login" />}
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>

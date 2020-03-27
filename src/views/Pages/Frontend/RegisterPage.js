@@ -187,7 +187,7 @@ class RegisterPage extends React.Component {
                           <p>Already have an account? <Link to="/login">Log in</Link></p>
                         </div>
                       </form> : 
-                      <VerifyOtp email = {this.state.email} /> }
+                      <VerifyOtp email = {this.state.email} page="register" /> }
                     </MDBCardBody>
                   </MDBCard>
                 </MDBCol>
