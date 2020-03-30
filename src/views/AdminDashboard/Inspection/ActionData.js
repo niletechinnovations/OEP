@@ -19,9 +19,10 @@ class ActionData extends Component {
    
   }
   
-  deleteInspectionItem(rowIndex){    
-    this.props.deleteInspectionAction(rowIndex);
+  deleteActionItem(rowIndex){    
+    this.props.deleteAction(rowIndex);
   }
+  
   
   render() {
     
@@ -68,7 +69,16 @@ class ActionData extends Component {
       {
         label: 'Action',
         name: 'action',
-        
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+            return (
+             <p><button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+                {if (window.confirm('Are you sure you wish to delete this action?')) this.deleteActionItem(i)}}><i className="fa fa-trash"></i></button></p>
+            );
+          },
+        }
       },
     ];
     const options = {

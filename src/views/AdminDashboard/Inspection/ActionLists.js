@@ -16,14 +16,13 @@ class ActionLists extends Component {
       loading: true,
       organizationList: [],
       employeeList: [],
-      templateList: [],
       subCategoryList: [],
       categoryList: [], 
       filterItem: { organizationId: '', categoryId: '', subCategoryId: '', templateId: '', employeeId: ''},
 
     } 
     
-    this.handleDeleteInspection = this.handleDeleteInspection.bind(this);
+    this.handleDeleteAction = this.handleDeleteAction.bind(this);
     this.filterInspectionList = this.filterInspectionList.bind(this);
     this.resetSearchFilter = this.resetSearchFilter.bind(this);
   }
@@ -142,61 +141,8 @@ class ActionLists extends Component {
 
   }
 
-  /*Get Template List*/
-  getTemplateList(categoryId, subCategoryId, hideSubcat = true){
-    const filterItem = this.state.filterItem;
-    if(categoryId === "" || subCategoryId === "") {      
-      filterItem.templateId = '';
-      this.setState({ filterItem: filterItem, templateList: [] });
-      return;
-    }
-    this.setState( { loading: true}, () => { 
-      commonService.getAPIWithAccessToken("template?categoryId="+categoryId+"&subCategoryId="+subCategoryId)
-      .then( res => {
-        console.log(res);
-         
-        if ( undefined === res.data.data || !res.data.status ) {
-          this.setState( {  loading: false } );
-          toast.error(res.data.message);    
-          return;
-        }   
-        if(hideSubcat)
-          filterItem.templateId = '';
-        this.setState({templateList: res.data.data, filterItem: filterItem, loading: false});     
-        
-      } )
-      .catch( err => {         
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else { 
-          this.setState( {  loading: false } );        
-          toast.error(err.message); 
-
-        }
-      } )
-    })
-  }
-  /*Handle catgeory Input Change and bind subcategory*/
-  changeCategoryHandle = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const filterItem = this.state.filterItem
-    filterItem[name] = value;
-    this.setState({ filterItem: filterItem });
-    this.getSubCategoryList(value);
-  }
-
-  /* Handle Subcategory Change*/
-  changeSubCategoryHandler = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const filterItem = this.state.filterItem
-    filterItem[name] = value;
-    this.setState({ filterItem: filterItem });
-    this.getTemplateList(filterItem.categoryId, value);
-  }
+  
+ 
 
   /*Handle Employee Change*/
   changeOrganizationHandle = event => {
@@ -222,11 +168,36 @@ class ActionLists extends Component {
   }
 
 
-  /* Delete organization*/
-  handleDeleteInspection(rowIndex){
-    
-  }
+ 
 
+  /* Delete organization*/
+  handleDeleteAction(rowIndex){
+    const actionInfo = this.state.inspectionList[rowIndex];
+    this.setState( { loading: true }, () => {      
+        commonService.deleteAPIWithAccessToken('action/'+actionInfo._id)
+          .then( res => {        
+            
+            if ( undefined === res.data.data || !res.data.status ) { 
+              this.setState( { loading: false} );
+              toast.error(res.data.message);
+              return;
+            }             
+            this.setState({ actionData: {}, loading: false, modal: false});
+            toast.success(res.data.message);
+            this.inspectionList();
+          } )
+          .catch( err => {         
+            if(err.response !== undefined && err.response.status === 401) {
+              localStorage.clear();
+              this.props.history.push('/login');
+            }
+            else
+              this.setState( { loading: false } );
+              toast.error(err.message);
+          } )        
+      
+    });
+  }
   resetSearchFilter() {
     this.setState({filterItem: { organizationId: '', categoryId: '', subCategoryId: '', templateId: '', employeeId: ''}});
     this.inspectionList();
@@ -234,7 +205,7 @@ class ActionLists extends Component {
   
   render() {
 
-    const { inspectionList, loading, organizationList, templateList, employeeList} = this.state;     
+    const { inspectionList, loading, organizationList, employeeList} = this.state;     
     let loaderElement = '';
     if(loading)        
       loaderElement = <Loader />    
@@ -277,17 +248,7 @@ class ActionLists extends Component {
                           </FormGroup>
                         </Col>
                         
-                        <Col lg={3}>
-                          <FormGroup> 
-                            <Label htmlFor="templateId">Template</Label>            
-                            <Input type="select" placeholder="Template Name *" id="templateId" name="templateId" value={this.state.filterItem.templateId} onChange={this.changeFilterHandler}  >
-                              <option value="">Select Template</option>
-                              {templateList.map((templateItem, index) =>
-                                <SetTemplateDropDownItem key={index} templateItem={templateItem} selectedCategory={this.state.filterItem.templateId} />
-                              )}
-                            </Input>
-                          </FormGroup>
-                        </Col>
+                        
                         <Col md={3}>
                           <FormGroup className="filter-button-section"> 
                             <Label htmlFor="searchButton">&nbsp;</Label> 
@@ -299,7 +260,7 @@ class ActionLists extends Component {
                     </div>  
                   </Col>
                   <Col md={12}>
-                    <ActionData data={inspectionList} deleteInspectionAction={this.handleDeleteInspection} dataTableLoadingStatus = {this.state.loading} />
+                    <ActionData data={inspectionList} deleteAction={this.handleDeleteAction} dataTableLoadingStatus = {this.state.loading} />
                   </Col>
                 </Row>
               </CardBody>
@@ -322,9 +283,6 @@ function SetEmployeeDropDownItem(props){
   return (<option value={employeeInfo.authId} >{employeeInfo.firstName+' '+employeeInfo.lastName}</option>)
 }
 
-function SetTemplateDropDownItem(props){
-  const templateDetail = props.templateItem;
-  return (<option value={templateDetail.templateId} >{templateDetail.templateName}</option>)
-}
+
 
 export default ActionLists;

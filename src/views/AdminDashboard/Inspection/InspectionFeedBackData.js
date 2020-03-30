@@ -70,8 +70,9 @@ class InspectionFeedBackData extends Component {
           customBodyRender: (value, tableMeta, updateValue) => {
             let i = tableMeta.rowIndex;
             let rowInfo = this.props.data[i];
+            
             return (
-             <p><Link to={`/admin/manage-inspection/inspection/feedback/${rowInfo._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
+             <p><Link to={`/admin/manage-inspection/inspection/${rowInfo.inspectionId}/${rowInfo._id}`} className="btn-view" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
               <a href="#!" className="btn-delete" disabled={this.state.buttonProcessing}><i className="fa fa-trash"></i></a></p>
             );
           },

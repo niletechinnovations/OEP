@@ -38,6 +38,7 @@ class LoginPage extends React.Component {
       loading: false,
       isExpanded: false,
       isLoggedIn: false,
+      errors: {}
     };
     
   }
@@ -51,73 +52,97 @@ class LoginPage extends React.Component {
   submitHandler = event => {
     event.preventDefault();
     event.target.className += " was-validated";
+    if(!this.validateForm())
+    	return false;
     const loginData = {
       email: this.state.email,
       password: this.state.password
     };    this.setState( { loading: true }, () => {
-      commonService.postAPI( `auth/sign-in`, loginData )
-        .then( res => {
-         
-          console.log(res);
-          if ( undefined === res.data || !res.data.status ) {
-            this.setState( { loading: false } );
-            toast.error(res.data.message);
-            if(!res.data.status) {
-              if(res.data.isAccountVerified != undefined && !res.data.isAccountVerified) {
-                this.setState( { loading: true, isLoggedIn: true }, () => {
-                  commonService.postAPI( `auth/resend-otp`, {email: this.state.email} )
-                    .then( res => {
-                     
-                      console.log(res);
-                      if ( undefined === res.data || !res.data.status ) {
-                        this.setState( { loading: false} );
-                        toast.error(res.data.message);
-                        return;
-                      }
-                      this.setState( { loading: false } );
-                      toast.success(res.data.message);            
-                    } )
-                    .catch( err => {
-                      
-                      this.setState( { loading: false } );
-                      toast.error(err.message);
-                    } )
-                } )
-              }
-            }
-            return;
-          }
-  
-          const loggedInfo = res.data;
-          
-          localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
-          localStorage.setItem( 'refreshToken', CryptoJS.AES.encrypt(loggedInfo.data.refreshToken, 'OEPENCRYPTION@12345').toString());
-          localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
-          localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
-          localStorage.setItem( 'userName', loggedInfo.data.firstName );
-          if(loggedInfo.data.role.toLowerCase() === 'organization') 
-            commonService.setIsSubscribe(loggedInfo.data.isActivePlan);
-  
-          this.setState( {
-            loading: false,              
-            loggedIn: true
-          } )
-          toast.success(res.data.message);
-          /*if(loggedInfo.data.role.toLowerCase() === 'admin')
-            this.props.history.push('/admin/dashboard');
-          else if(loggedInfo.data.role.toLowerCase() === 'organization')
-            this.props.history.push('/organization/dashboard');
-          else
-            this.props.history.push('/');*/
-        } )
-        .catch( err => {
-          
-          toast.error(err.message);
-          this.setState( { loading: false} );
-        } )
-    } )
+	commonService.postAPI( `auth/sign-in`, loginData )
+	.then( res => {
+	 
+	  console.log(res);
+	  if ( undefined === res.data || !res.data.status ) {
+	    this.setState( { loading: false } );
+	    toast.error(res.data.message);
+	    if(!res.data.status) {
+	      if(res.data.isAccountVerified !== undefined && !res.data.isAccountVerified) {
+	        this.setState( { loading: true, isLoggedIn: true }, () => {
+	          commonService.postAPI( `auth/resend-otp`, {email: this.state.email} )
+	            .then( res => {
+	             
+	              console.log(res);
+	              if ( undefined === res.data || !res.data.status ) {
+	                this.setState( { loading: false} );
+	                toast.error(res.data.message);
+	                return;
+	              }
+	              this.setState( { loading: false } );
+	              toast.success(res.data.message);            
+	            } )
+	            .catch( err => {
+	              
+	              this.setState( { loading: false } );
+	              toast.error(err.message);
+	            } )
+	        } )
+	      }
+	    }
+	    return;
+	  }
+
+	  const loggedInfo = res.data;
+	  
+	  localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
+	  localStorage.setItem( 'refreshToken', CryptoJS.AES.encrypt(loggedInfo.data.refreshToken, 'OEPENCRYPTION@12345').toString());
+	  localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
+	  localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
+	  localStorage.setItem( 'userName', loggedInfo.data.firstName );
+	  if(loggedInfo.data.role.toLowerCase() === 'organization') 
+	    commonService.setIsSubscribe(loggedInfo.data.isActivePlan);
+
+	  this.setState( {
+	    loading: false,              
+	    loggedIn: true
+	  } )
+	  toast.success(res.data.message);
+	  /*if(loggedInfo.data.role.toLowerCase() === 'admin')
+	    this.props.history.push('/admin/dashboard');
+	  else if(loggedInfo.data.role.toLowerCase() === 'organization')
+	    this.props.history.push('/organization/dashboard');
+	  else
+	    this.props.history.push('/');*/
+	} )
+	.catch( err => {
+	  
+	  toast.error(err.message);
+	  this.setState( { loading: false} );
+	} )
+   } )
 
   };
+
+  validateForm() {
+    let errors = {};
+    let formIsValid = true;
+    if (!this.state.password) {
+        formIsValid = false;
+        errors["password"] = "*Please enter password.";
+    }
+    if (!this.state.email) {
+        formIsValid = false;
+        errors["email"] = "*Please enter your email.";
+    }
+    
+   
+    
+    this.setState({
+      loading: false,
+      errors: errors
+    });
+    
+    return formIsValid;
+  }
 
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -172,7 +197,7 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    const { email, password, loggedIn, loading, forgotPasswordEmail} = this.state;
+    const { email, password, loggedIn, loading, forgotPasswordEmail, errors} = this.state;
 
     if ( loggedIn || localStorage.getItem( 'accessToken' ) ) {
       if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
@@ -221,13 +246,13 @@ class LoginPage extends React.Component {
                         {!this.state.isLoggedIn ?            
                           <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
                             
-                            <MDBInput icon="envelope" group type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Your email" required>
+                            <MDBInput icon="envelope" group type="email" name="email" invalid={errors['email'] !== undefined && errors['email'] !== ""} value={email} onChange={this.changeHandler} id="email" label="Your email" required>
                               <div className="valid-feedback">Looks good!</div>
                               <div className="invalid-feedback">
                                 Please enter your registered email-id.
                               </div>
                             </MDBInput>
-                            <MDBInput icon="lock" group type="password" name="password" value={password} onChange={this.changeHandler} id="password" label="Password *" required>
+                            <MDBInput icon="lock" group type="password" name="password" invalid={errors['password'] !== undefined && errors['password'] !== ""} value={password} onChange={this.changeHandler} id="password" label="Password *" required>
                               <div className="valid-feedback">Looks good!</div>
                               <div className="invalid-feedback">
                                 Please enter your registered password.

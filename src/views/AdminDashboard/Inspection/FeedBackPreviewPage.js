@@ -38,7 +38,7 @@ class FeedBackPreviewPage extends React.Component {
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('inspection/feedback/detail/'+feedBackId)
         .then( res => {         
-           debugger;
+           
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
             toast.error(res.data.message);  

@@ -38,7 +38,7 @@ class RegisterPage extends React.Component {
       confirmPassword: '',
       loading: false,
       isRegistered: false,
-      
+      errors: {}
     };
   }
 
@@ -50,6 +50,8 @@ class RegisterPage extends React.Component {
   submitHandler = event => {
     event.preventDefault();
     event.target.className += " was-validated";
+    if(!this.validateForm())
+      return false;
     const signupData = {
       organizationName: this.state.organizationName,
       firstName: this.state.firstName,
@@ -83,12 +85,72 @@ class RegisterPage extends React.Component {
 
   };
 
+  validateForm() {
+    let errors = {};
+    let formIsValid = true;
+    if (!this.state.firstName) {
+        formIsValid = false;
+        errors["firstName"] = "*Please enter first name.";
+    }
+    if (typeof this.state.firstName !== "undefined") {
+        if (!this.state.firstName.match(/^[a-zA-Z ]*$/)) {
+            formIsValid = false;
+            errors["firstName"] = "*Please enter alphabet characters only.";
+        }
+    }
+    if (!this.state.lastName) {
+      formIsValid = false;
+      errors["lastName"] = "*Please enter last name.";
+    }
+    if (!this.state.email) {
+        formIsValid = false;
+        errors["email"] = "*Please enter your email-ID.";
+    }
+    if (typeof this.state.email !== "undefined") {
+        //regular expression for email validation
+        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        if (!pattern.test(this.state.email)) {
+            formIsValid = false;
+            errors["email"] = "*Please enter valid email-ID.";
+        }
+    }
+    if (!this.state.organizationName) {
+        formIsValid = false;
+        errors["organizationName"] = "*Please enter organization name.";
+    }
+    if (typeof this.state.phoneNumber !== "undefined" &&  this.state.phoneNumber !== "") {
+        if (!this.state.phoneNumber.match(/^[0-9]{10}$/)) {
+            formIsValid = false;
+            errors["phoneNumber"] = "*Please enter valid mobile no.";
+        }
+    }
+    if (!this.state.password) {
+        formIsValid = false;
+        errors["password"] = "*Please enter your password.";
+    }
+    
+    if (!this.state.confirmPassword) {
+      formIsValid = false;
+      errors["confirmPassword"] = "*Please re-enter your password.";
+    }
+    if (this.state.confirmPassword !== this.state.password) {
+      formIsValid = false;
+      errors["confirmPassword"] = "*Passwords and confirm-password do not match.";
+    }
+    this.setState({
+      loading: false,
+      errors: errors
+    });
+    //console.error(errors);
+    return formIsValid;
+  }
+
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
-    const { organizationName, firstName, lastName, email, phoneNumber, password, confirmPassword, loading } = this.state;
+    const { organizationName, firstName, lastName, email, phoneNumber, password, confirmPassword, loading, errors } = this.state;
     let loaderElement = '';
     if(loading)
       loaderElement = <Loader />
@@ -123,25 +185,25 @@ class RegisterPage extends React.Component {
                       <form className="grey-textneeds-validation" onSubmit={this.submitHandler} noValidate>
                         <MDBRow>
                           <MDBCol md="12">
-                            <MDBInput type="text" id="org-name" label="Organization Name" name="organizationName" value={organizationName} onChange={this.changeHandler} required>
+                            <MDBInput type="text" className={errors['organizationName'] !== undefined && errors['organizationName'] !== "" ? "is-invalid" : ""} id="org-name" label="Organization Name" name="organizationName" value={organizationName} onChange={this.changeHandler} required>
                               <div className="invalid-feedback">
-                                Organization name is required.
+                                {errors['organizationName']}
                               </div>
                             </MDBInput>
                           </MDBCol>
                         </MDBRow>
                         <MDBRow>
                           <MDBCol md="6">
-                            <MDBInput type="text" id="first-name" label="Contact person first name" name="firstName" value={firstName} onChange={this.changeHandler} required>
+                            <MDBInput type="text" id="first-name" className={errors['firstName'] !== undefined && errors['firstName'] !== "" ? "is-invalid" : ""}  label="Contact person first name" name="firstName" value={firstName} onChange={this.changeHandler} required>
                               <div className="invalid-feedback">
-                                First name is required.
+                                {errors['firstName']}
                               </div>
                             </MDBInput>
                           </MDBCol>
                           <MDBCol md="6">
-                            <MDBInput type="text" id="last-name" label="Contact person last name" name="lastName" value={lastName} onChange={this.changeHandler} required>
+                            <MDBInput type="text" id="last-name" className={errors['lastName'] !== undefined && errors['lastName'] !== "" ? "is-invalid" : ""}  label="Contact person last name" name="lastName" value={lastName} onChange={this.changeHandler} required>
                               <div className="invalid-feedback">
-                                Last name is required.
+                               {errors['lastName']}
                               </div>
                             </MDBInput>
                           </MDBCol>
@@ -149,32 +211,32 @@ class RegisterPage extends React.Component {
                         
                         <MDBRow>
                           <MDBCol md="6">
-                            <MDBInput type="text" id="phoneNumber" label="Phone number" name="phoneNumber" value={phoneNumber} onChange={this.changeHandler} required>
+                            <MDBInput type="text" id="phoneNumber" label="Phone number" className={errors['phoneNumber'] !== undefined && errors['phoneNumber'] !== "" ? "is-invalid" : ""}  name="phoneNumber" value={phoneNumber} onChange={this.changeHandler} >
                                 <div className="invalid-feedback">
-                                  Phone number is required.
+                                  {errors['phoneNumber']}
                                 </div>
                               </MDBInput>
                           </MDBCol>
                           <MDBCol md="6">
-                            <MDBInput type="email" name="email" value={email} onChange={this.changeHandler} id="email" label="Email address *" required>
+                            <MDBInput type="email" name="email" className={errors['email'] !== undefined && errors['email'] !== "" ? "is-invalid" : ""}  value={email} onChange={this.changeHandler} id="email" label="Email address *" required>
                               <div className="invalid-feedback">
-                              Email-id is required.
+                              {errors['email']}
                               </div>
                             </MDBInput>
                           </MDBCol>
                         </MDBRow>
                         <MDBRow>
                           <MDBCol md="6">
-                            <MDBInput type="password" name="password" value={password} onChange={this.changeHandler} id="password" label="Password *" required>
+                            <MDBInput type="password" name="password" className={errors['password'] !== undefined && errors['password'] !== "" ? "is-invalid" : ""}  value={password} onChange={this.changeHandler} id="password" label="Password *" required>
                               <div className="invalid-feedback">
-                                Password is required.
+                                {errors['password']}
                               </div>
                             </MDBInput>
                           </MDBCol>
                           <MDBCol md="6">
-                            <MDBInput type="password" name="confirmPassword" value={confirmPassword} onChange={this.changeHandler} id="confirmPassword" label="Confirm Password *" required>
+                            <MDBInput type="password" name="confirmPassword" className={errors['confirmPassword'] !== undefined && errors['confirmPassword'] !== "" ? "is-invalid" : ""}  value={confirmPassword} onChange={this.changeHandler} id="confirmPassword" label="Confirm Password *" required>
                               <div className="invalid-feedback">
-                                Confirm password is required.
+                                {errors['confirmPassword']}
                               </div>
                             </MDBInput>
                           </MDBCol>

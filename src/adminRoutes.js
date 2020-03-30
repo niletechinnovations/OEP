@@ -43,7 +43,7 @@ const adminRoutes = [
   { path: '/admin/manage-inspection/assign-inspection', exact: true,  name: 'Assign Inspection', component: AssignInspection },
   { path: '/admin/manage-inspection/assign-inspection/:inspectionId', exact: true,  name: 'Assign Inspection', component: AssignInspection },
   { path: '/admin/manage-inspection/inspection/:inspectionId', exact: true,  name: 'Inspection Feedback', component: InspectionFeedBack },
-  { path: '/admin/manage-inspection/inspection/feedback/:feedBackId', exact: true,  name: 'Feedback Preview', component: FeedBackPreviewPage },
+  { path: '/admin/manage-inspection/inspection/:inspectionId/:feedBackId', exact: true,  name: 'Feedback Preview', component: FeedBackPreviewPage },
   { path: '/admin/action', exact: true,  name: 'Action', component: ActionLists },
   { path: '/admin/subscription', exact: true,  name: 'Subscription', component: Subscription },
   { path: '/admin/reports/subscriber-list', exact: true,  name: 'Subscriber List', component: SubscriberList },
