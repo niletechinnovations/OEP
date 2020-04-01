@@ -66,7 +66,7 @@ class FrontEndHeader extends React.Component {
                 </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink className="btn-Get" onClick={this.closeCollapse("mainNavbarCollapse")} to="/register">
-                    Get started for FREE
+                    Get started
                   </MDBNavLink>
                 </MDBNavItem>
               </>

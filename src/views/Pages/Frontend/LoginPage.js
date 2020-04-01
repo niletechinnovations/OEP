@@ -240,7 +240,7 @@ class LoginPage extends React.Component {
                     <MDBCard className="account-form">
                       <MDBCardBody className="z-depth-2">
                         <div className="text-center">
-                          <h4 className="text-heading"><strong>{!this.state.isLoggedIn ? `Log in to your account`: `Otp Verification` }</strong></h4>
+                          <h4 className="text-heading"><strong>{!this.state.isLoggedIn ? `Log in to your account`: `OTP Verification` }</strong></h4>
                         </div>
                         {loaderElement} 
                         {!this.state.isLoggedIn ?            

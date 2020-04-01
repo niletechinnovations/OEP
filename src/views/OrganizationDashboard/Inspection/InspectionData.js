@@ -95,7 +95,7 @@ class InspectionData extends Component {
       selectableRows: 'none',
       textLabels: {
         body: {
-          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "no record found",
+          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "No Records Found",
           toolTip: "Sort",
           columnHeaderTooltip: column => `Sort for ${column.label}`
         },

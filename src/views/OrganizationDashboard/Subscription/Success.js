@@ -42,6 +42,8 @@ class Successs extends React.Component {
             
             this.setState( { loading: true} );
             commonService.setIsSubscribe(true);
+            toast.success("Your subscription has been created successfully!");
+            this.props.history.push('/organization/subscription');
            
           } )
           .catch( err => {  
@@ -68,7 +70,7 @@ class Successs extends React.Component {
                   <CardTitle>Payment Successs</CardTitle>
                 </CardHeader>
                 <CardBody>                
-                  <CardText>Your subscription created successfully!</CardText>
+                  <CardText>Your subscription has been created successfully!</CardText>
                 </CardBody>
               </Card>
 

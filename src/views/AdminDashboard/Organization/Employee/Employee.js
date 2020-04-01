@@ -20,7 +20,7 @@ class Employee extends Component {
       loading: true,
       formProccessing: false,
       rowIndex: -1,
-      formField: { organizationId: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
+      formField: { organizationId: '', email: '', first_name: '',last_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
       formErrors: { email: '', employee_name: '', role: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
@@ -122,6 +122,7 @@ class Employee extends Component {
       const formData = {
         "email": formInputField.email,
         "firstName": formInputField.first_name, 
+        "lastName": formInputField.last_name, 
         "phoneNumber": formInputField.phoneNumber, 
         "address": formInputField.address, 
         "roleName": formInputField.role, 
@@ -249,7 +250,7 @@ class Employee extends Component {
       rowIndex: -1,
       formValid: false,
       formProccessing : false,
-      formField: {email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
+      formField: {email: '', first_name: '', last_name:'', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
       formErrors: {email: '', employee_name: '', role: '', error: ''}
     });
   }
@@ -260,7 +261,8 @@ class Employee extends Component {
       const formField = {
         organizationId: employeeInfo.organizationAuthId,        
         email: employeeInfo.email, 
-        first_name: employeeInfo.firstName, 
+        first_name: employeeInfo.firstName,
+        last_name: employeeInfo.lastName, 
         phoneNumber: employeeInfo.phoneNumber, 
         address: employeeInfo.address, 
         city: employeeInfo.city, 
@@ -424,8 +426,14 @@ class Employee extends Component {
                 </Col>
                 <Col md={"6"}>
                   <FormGroup> 
-                    <Label htmlFor="first_name">Employee Name</Label>            
-                    <Input type="text" placeholder="Employee Name *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
+                    <Label htmlFor="first_name">First Name</Label>            
+                    <Input type="text" placeholder="First Name *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
+                  </FormGroup>  
+                </Col>
+                <Col md={"6"}>
+                  <FormGroup> 
+                    <Label htmlFor="first_name">Last Name</Label>            
+                    <Input type="text" placeholder="Last Name *" id="last_name" name="last_name" value={this.state.formField.last_name} onChange={this.changeHandler} required />
                   </FormGroup>  
                 </Col>
                 <Col md={"6"}>

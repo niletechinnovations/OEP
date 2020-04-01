@@ -29,7 +29,7 @@ class EmployeeData extends Component {
     for(const [i, employee] of this.props.data.entries()){
       let orgInfo = {   
         organizationName: employee.organizationName,      
-        firstName: employee.firstName,
+        firstName: `${employee.firstName} ${employee.lastName}`,
         email: employee.email,
         roleName: employee.roleName || " ",
         phoneNumber: employee.phoneNumber || " ",
@@ -83,7 +83,7 @@ class EmployeeData extends Component {
       selectableRows: 'none',
       textLabels: {
         body: {
-          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "no record found",
+          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "No Records Found",
           toolTip: "Sort",
           columnHeaderTooltip: column => `Sort for ${column.label}`
         },
