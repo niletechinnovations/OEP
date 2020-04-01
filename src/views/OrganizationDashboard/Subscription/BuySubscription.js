@@ -39,7 +39,7 @@ class BuySubscription extends React.Component {
                 </CardHeader>
                 <CardBody>
                   {loaderElement}                
-                  <SubscriptionPlan />
+                  <SubscriptionPlan propHistory={this.props.history} />
                 </CardBody>
               </Card>
             </Col>  

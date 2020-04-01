@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Col, Row} from 'reactstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import commonService from '../../../core/services/commonService';
+import commonService from '../../../../core/services/commonService';
 
 import "./SubscriptionPlan.css";
 
@@ -15,8 +15,7 @@ class SubscriptionPlan extends React.Component {
       planId: "",
       planList: []
     }    
-    this.buySubscription = this.buySubscription.bind(this); 
-    this.cancelSubscription = this.cancelSubscription.bind(this); 
+    this.buySubscription = this.buySubscription.bind(this);  
   }
 
  
@@ -52,40 +51,6 @@ class SubscriptionPlan extends React.Component {
           }
         } )
     } ) 
-  }
-
-  cancelSubscription(planInfo) {
-    if( !window.confirm('Are you sure to cancel this subscription?'))
-      return false;
-    this.setState( { loading: true}, () => {
-        commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: planInfo.subscriberId})
-          .then( res => {
-            
-             
-            if ( undefined === res.data.data || !res.data.status ) {
-              this.setState( {  loading: false } );
-              toast.error(res.data.message);             
-              return;
-            } 
-            //const subscriptionInfo = res.data.data; 
-            toast.success(res.data.message);            
-            this.setState( { loading: false} ); 
-            localStorage.setItem('isSubscribed', false); 
-            this.subscriptionPlanList();          
-           
-          } )
-          .catch( err => {  
-             
-            if(err.response !== undefined && err.response.status === 401) {
-              localStorage.clear();
-              this.props.propHistory.push('/login');
-            }
-            else {
-              this.setState( { loading: false } );
-              toast.error(err.message);    
-            }
-          } )
-      } )
   }
   buySubscription(planInfo) {
     if(planInfo.isPlanActive) {
@@ -125,12 +90,11 @@ class SubscriptionPlan extends React.Component {
   }
   render() {
     const { planList, paymentProcess } = this.state;
-    let activePlanInfo = planList.filter(function(item) { return item.isPlanActive === true});
-
+    
        return (
           <Row>
             {planList.map((planInfo, index) =>
-              <SetPlanDetailsInfo key={index} cancelSubscription= {this.cancelSubscription} activePlanInfo = {activePlanInfo} planInfo={planInfo} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
+              <SetPlanDetailsInfo key={index} planInfo={planInfo} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
             )}
           </Row>
                  
@@ -146,20 +110,7 @@ function SetPlanDetailsInfo (props) {
     planType = 'Half Yearly';
   else if(planInfo.duration === 4)
     planType = 'Yearly';
-  let actionButton = '';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
-  if(props.activePlanInfo.length > 0 ) {
-    if(props.activePlanInfo[0].duration ===  planInfo.duration)
-      actionButton = <button className="payment-Button"  onClick={() => props.cancelSubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Cancel'}</button>
-    else if(props.activePlanInfo[0].duration <  planInfo.duration)
-      actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Upgrade'}</button>
-    else
-      actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Downgrade'}</button>
-  }
-  else 
-    actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
-  
-  debugger;
   return (<Col lg={3}>
             <Card className="payment-card">
               <CardTitle>{planInfo.planName}</CardTitle> 
@@ -167,7 +118,7 @@ function SetPlanDetailsInfo (props) {
                 <CardSubtitle>${`${planInfo.amount} / ${planType}`}</CardSubtitle>                
                 <CardText>Number Of Template : {planInfo.templateAccess}</CardText>
                 <CardText>Number Of Employee : {planInfo.userAccess}</CardText>
-                {actionButton}
+                <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess || props.planInfo.isPlanActive}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
               </CardBody>
             </Card>
           </Col>);

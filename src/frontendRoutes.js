@@ -9,6 +9,7 @@ import PrivacyPolicy from './views/Pages/Frontend/PrivacyPolicy';
 import VerifyEmail from './views/Pages/Frontend/VerifyEmail';
 import WhyJoinUs from './views/Pages/Frontend/WhyJoinUs';
 import TermofUse from './views/Pages/Frontend/TermofUse';
+import BuySubscription from './views/Pages/Frontend/Subscription/BuySubscription';
 
 const frontendRoutes = [
   { path: '/', exact: true, name: 'Home', component: HomePage },
@@ -23,6 +24,7 @@ const frontendRoutes = [
   { path: '/reset-password/:token', exact: true,  name: 'Reset Password', component: ResetPassword },
   { path: '/verify-email/:token', exact: true,  name: 'Verify Email', component: VerifyEmail },
   { path: '/terms-of-service', exact: true,  name: 'Terms of service', component: TermofUse },
+  { path: '/subscription-plan', exact: true,  name: 'Subscription Plan', component: BuySubscription },
 ];
 
 export default frontendRoutes;

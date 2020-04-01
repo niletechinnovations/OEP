@@ -109,7 +109,7 @@ export default class VerifyOtp extends React.Component {
         if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "admin")
           return ( <Redirect to={`/admin/dashboard`} noThrow /> )
         else if(CryptoJS.AES.decrypt(localStorage.getItem("role"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8) === "organization")
-          return ( <Redirect to={`/organization/subscription/plan`} noThrow /> )
+          return ( <Redirect to={`/subscription-plan`} noThrow /> )
         else
           return ( <Redirect to={`/`} noThrow /> )
 

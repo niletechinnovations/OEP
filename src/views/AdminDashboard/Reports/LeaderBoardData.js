@@ -70,7 +70,7 @@ class SubscriberData extends Component {
       selectableRows: 'none',
       textLabels: {
         body: {
-          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "Sorry, no matching records found",
+          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "no record found",
           toolTip: "Sort",
           columnHeaderTooltip: column => `Sort for ${column.label}`
         },
