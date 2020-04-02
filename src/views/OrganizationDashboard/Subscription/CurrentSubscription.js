@@ -1,9 +1,11 @@
 import React from "react";
 import { Card, CardBody, CardHeader,CardText, CardTitle, Col, Row, Button } from 'reactstrap';
+import  { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../Loader/Loader';
 import commonService from '../../../core/services/commonService';
+import PaymentHistory from './PaymentHistory';
 import "./PaymentPage.css";
 
 class CurrentSubscription extends React.Component {
@@ -21,7 +23,7 @@ class CurrentSubscription extends React.Component {
       this.setState( { loading: true}, () => {
         commonService.getAPIWithAccessToken('organization/subscription-info')
           .then( res => {
-            debugger;
+            
              
             if ( undefined === res.data.data || !res.data.status ) {
               this.setState( {  loading: false } );
@@ -50,6 +52,9 @@ class CurrentSubscription extends React.Component {
   cancelSubscription() {
     if( !window.confirm('Are you sure to cancel this subscription?'))
       return false;
+    if(this.state.subscriptionDetails.planInfo.paymentMethod.toLowerCase() !== 'paypal')
+      toast.error("Current subscription through in-app subscription. Please cancel through your itunes plateform"); 
+    
     this.setState( { loading: true}, () => {
         commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: this.state.subscriptionDetails.planInfo.subscriberId})
           .then( res => {
@@ -85,18 +90,22 @@ class CurrentSubscription extends React.Component {
        const {loading, subscriptionDetails} = this.state;
        let loaderElement = '';
        let subscriptionInfoHtml = '';
-       debugger;      
+             
        if(loading)
           loaderElement = <Loader />
        else {
+
           if(subscriptionDetails.isActive) {
             let startDate = new Date(subscriptionDetails.planInfo.startDate).toDateString("YYYY-MM-DD");
             let expiryDate = new Date(subscriptionDetails.planInfo.expiryDate).toDateString("YYYY-MM-DD");
             subscriptionInfoHtml = <><CardText>Plan Name: {subscriptionDetails.planInfo.planName}</CardText>
+            <CardText>Subscription Id: {subscriptionDetails.planInfo.transactionProfileId}</CardText>
             <CardText>Subscription Amount: ${subscriptionDetails.planInfo.amount}</CardText>
+            <CardText>Payment Method: {subscriptionDetails.planInfo.paymentMethod}</CardText>
             <CardText>Start Date: {startDate}</CardText>
             <CardText>Expiry Date: {expiryDate}</CardText>
-            <Button onClick={this.cancelSubscription}>Cancel Subscription</Button>
+            <Button className="search-btn" color = "warning" onClick={this.cancelSubscription}>Cancel Subscription</Button>
+            {subscriptionDetails.planInfo.duration < 4 ? <Link className="search-btn" color = "success" to = "/organization/subscription/plan" onClick={this.cancelSubscription}>Upgrade Plan</Link> : ""}
             </>
           }
           else
@@ -115,6 +124,9 @@ class CurrentSubscription extends React.Component {
                 </CardBody>
               </Card>
 
+            </Col>
+            <Col lg={12}>
+              <PaymentHistory history = {this.props.history} />
             </Col>
           </Row>
                  

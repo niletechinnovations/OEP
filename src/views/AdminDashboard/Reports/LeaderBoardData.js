@@ -29,8 +29,9 @@ class SubscriberData extends Component {
         globalRank: leaderBoardInfo.globalRank || " ",
         date: leaderBoardInfo.date || " ",
         address: leaderBoardInfo.storeInfo !== null && leaderBoardInfo.storeInfo !== undefined  ? `${leaderBoardInfo.storeInfo.address} ${leaderBoardInfo.storeInfo.city || ""} ${leaderBoardInfo.storeInfo.state || ""}` : " "
-      }      
-      rowsItem.push(orgInfo);
+      }  
+      if(leaderBoardInfo.storeName && leaderBoardInfo.organizationName)        
+        rowsItem.push(orgInfo);
     }      
     
     const columns = [          

@@ -310,7 +310,7 @@ class Store extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Store List</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
@@ -351,8 +351,8 @@ class Store extends Component {
                       <Col md={"2"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="filter_organization_id">&nbsp;</Label> 
-                          <Button color="success" type="button" onClick={this.filterStoreList}>Search</Button> 
-                          <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                          <Button color="success" className="search-btn" type="button" onClick={this.filterStoreList}>Search</Button> 
+                          <Button color="warning" className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                         </FormGroup>             
                       </Col>
                     </Row>  

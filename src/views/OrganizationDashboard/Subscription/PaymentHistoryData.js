@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
 import MUIDataTable from "mui-datatables";
 import commonFunction from '../../../core/functions/commonFunction';
-const getStatusInfo = function(subscriberInfo) {
-  let currentDate = new Date();
-  if(subscriberInfo.status){
-    let expiryDate = new Date(subscriberInfo.endDate);
-    if(expiryDate.getTime() >= currentDate.getTime())
-      return "Active";
-    else
-      return "Inactive";
-  }
-  else if(subscriberInfo.cancelDate)
-    return "Cancelled";
-  else
-    return "Inactive";
-  
-}
-class SubscriberData extends Component {
+
+class PaymentHistoryData extends Component {
   
   constructor(props){
     super(props);   
@@ -36,14 +22,16 @@ class SubscriberData extends Component {
     let rowsItem = [];    
     for(const [i, subscriberInfo] of this.props.data.entries()){
       console.log(i);
+     
       let orgInfo = {   
         organizationName: subscriberInfo.organizationName || " ",      
         planName: subscriberInfo.planName || " ",
         amount: subscriberInfo.amount || " ",
         startDate: commonFunction.getDate(subscriberInfo.startDate || " "),
         endDate: commonFunction.getDate(subscriberInfo.endDate  || " "),
-        subscriberId: subscriberInfo.subscriberId || " ",
-        status: getStatusInfo(subscriberInfo),   
+        createdAt: commonFunction.getDate(subscriberInfo.createdAt  || " "),
+        subscriberId: subscriberInfo.transactionProfileId || " ",
+        status: subscriberInfo.statusLabel,   
         paymentMethod: subscriberInfo.paymentMethod || "PayPal",
         action: "",       
       } 
@@ -82,8 +70,12 @@ class SubscriberData extends Component {
         name: 'endDate',
       },
       {
+        label: 'Payment Date',
+        name: 'createdAt',
+      },
+      {
         label: 'Status',
-        name: 'status',
+        name: 'status'
       }
     ];
     const options = {
@@ -107,7 +99,7 @@ class SubscriberData extends Component {
     
     return (
       <MUIDataTable
-        title={"Subscriber List"}
+        title={"Payment History"}
         data={rowsItem}
         columns={columns}
         options={options}
@@ -116,4 +108,4 @@ class SubscriberData extends Component {
   }
 }
 
-export default SubscriberData;
+export default PaymentHistoryData;
