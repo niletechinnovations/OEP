@@ -6,12 +6,17 @@ export default {
       icon: 'icon-speedometer',
     },
     {
-      name: 'Employee',
+      name: 'Set up',
+      url: '/organization/set-up',
+      icon: 'icon-settings',     
+    },
+    {
+      name: 'View Employee List',
       url: '/organization/employee',
       icon: 'icon-organization',     
     }, 
     {
-      name: 'Store',
+      name: 'View Store List',
       url: '/organization/store',
       icon: 'icon-grid',     
     }, 

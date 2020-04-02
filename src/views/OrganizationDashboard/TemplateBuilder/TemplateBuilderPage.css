@@ -69,3 +69,14 @@
 section.pdf-toolbar {
     padding: 0px 15px;
 }
+
+.react-form-builder .react-form-builder-toolbar {
+    width: 100% !important;
+    margin-top: 0px !important;
+}
+
+.react-form-builder .react-form-builder-toolbar ul li {
+    width: 25% !important;
+    display: inline-block !important;
+    float: left !important;
+}

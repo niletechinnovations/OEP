@@ -375,8 +375,8 @@ class TemplateBuilderPage extends React.Component {
                           </div>
                         </FormGroup>
                       </Col>
-                      <Button color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
-                      <Button color="secondary" onClick={this.resetForm}>Cancel</Button>
+                      <Button className="search-btn" color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
+                      <Button className="btnCancel" color="secondary" onClick={this.resetForm}>Cancel</Button>
                     </Row>
                   </Form>
                   

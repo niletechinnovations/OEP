@@ -115,7 +115,7 @@ class HomePage extends React.Component {
                       </p>*/}
                       <div className="btn-section">
                         <Link className="btn-Started" to="/register">
-                        Get Started for FREE
+                        Get Started
                         </Link>
                         <button className="btn-Download" onClick={this.scrollToDownloadAPPSection}>
                           Download APP

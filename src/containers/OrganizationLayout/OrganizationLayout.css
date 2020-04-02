@@ -53,7 +53,7 @@ a.btn-delete, button.btn-delete {background: #fff; padding: 5px; width: 30px; he
 a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #ffc108; text-align: center; border-radius: 5px; margin: 0 2px; color: #FFC107; display: inline-block; }
 
 .mainHeading{display: flex; align-items: center; right: 0;}
-.categoryAdd {position: absolute; right: 0; top: 0; background: #ffc107; color: #fff; font-size: 12px; box-shadow: none; }
+.categoryAdd {position: absolute; right: 0; top: 0; background: #ffc107; font-weight: bold; color: #fff; font-size: 12px; box-shadow: none; }
 
 .search-filter {background: #f6f9fc; padding: 10px; margin-bottom: 20px; border-radius: 2px; }
 .search-filter .form-group{margin-bottom: 0;}
@@ -61,3 +61,4 @@ a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height
 .search-filter .form-group .form-control {border: 1px solid #cdd4db; font-size: 13px; outline: none; }
 .search-filter button.search-btn{background: #ffc107 !important; color: #fff; font-weight: bold; border: none; box-shadow: none; }
 .filter-button-section {padding-top: 15px; }
+.search-btn {background: #ffc107 !important; margin-right: 5px;  color: #fff; font-weight: bold; text-decoration: none; border: none; box-shadow: none; display: inline-block; text-align: center; vertical-align: middle; user-select: none; padding: 0.375rem 0.75rem; font-size: 0.875rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }

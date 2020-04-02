@@ -27,6 +27,7 @@ class StoreData extends Component {
     
     let rowsItem = []; 
     for(const [i, Store] of this.props.data.entries()){
+      console.log(i);
       let orgInfo = {  
         storeName: Store.storeName,        
         phoneNumber: Store.phoneNumber || " ",
@@ -36,10 +37,7 @@ class StoreData extends Component {
         country: Store.country || " ",
         storeLevelStatus: Store.storeLevelStatus ? (Store.storeLevelStatus === 1 ? "Silver" : Store.storeLevelStatus === 2 ? "Gold" : "Platinum") : 'Silver',
         status: Store.status ? 'Active' : 'Inactive',   
-        action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
-          this.editStoreItem(i)}><i className="fa fa-pencil"></i> </button>
-          <button href className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-          this.deleteStoreItem(i)}><i className="fa fa-trash"></i></button></p>,       
+        action: "",       
       }      
       rowsItem.push(orgInfo);
     }      
@@ -68,6 +66,19 @@ class StoreData extends Component {
       {
         label: 'Action',
         name: 'action',
+        options: {
+          filter: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            let i = tableMeta.rowIndex;
+           
+            return (
+             <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+              this.editStoreItem(i)}><i className="fa fa-pencil"></i> </button>
+              <button href className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+              this.deleteStoreItem(i)}><i className="fa fa-trash"></i></button></p>
+            );
+          },
+        }
       },
     ];
     const options = {

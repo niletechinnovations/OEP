@@ -15,6 +15,7 @@ import Success from './views/OrganizationDashboard/Subscription/Success';
 import CurrentSubscription from './views/OrganizationDashboard/Subscription/CurrentSubscription';
 import BuySubscription from './views/OrganizationDashboard/Subscription/BuySubscription';
 import Cancel from './views/OrganizationDashboard/Subscription/Cancel';
+import SetUpPage from './views/OrganizationDashboard/SetUpPage';
 const oragnizationRoutes = [
   { path: '/organization/', exact: true, name: 'Home' },
   { path: '/organization/dashboard', name: 'Dashboard', component: Dashboard },  
@@ -35,6 +36,7 @@ const oragnizationRoutes = [
   { path: '/organization/subscription/plan', exact: true,  name: 'Subscription Plan', component: BuySubscription },
   { path: '/organization/subscription/success', exact: true,  name: 'Payment Success', component: Success },
   { path: '/organization/subscription/cancel', exact: true,  name: 'Payment Cancel', component: Cancel },
+  { path: '/organization/set-up', exact: true,  name: 'Set Up', component: SetUpPage },
 
 ];
 

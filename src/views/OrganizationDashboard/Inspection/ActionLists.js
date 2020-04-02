@@ -331,8 +331,8 @@ class ActionLists extends Component {
               </FormGroup> 
             </ModalBody>
             <ModalFooter>
-              <Button className="btn btn-gr" type="submit">Submit</Button>
-              <Button className="btn btn-re" onClick={this.toggle}>Cancel</Button>
+              <Button className="search-btn" type="submit">Submit</Button>
+              <Button className="btnCancel" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
           </Form>
         </Modal>     

@@ -141,7 +141,7 @@ class ChangePassword extends Component {
                   </FormGroup>
                   
                 
-                  <Button color="primary"  disabled={!formValid} type="submit">Update</Button>
+                  <Button className="search-btn" color="primary"  disabled={!formValid} type="submit">Update</Button>
                   
                 </Form>
                   

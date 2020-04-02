@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
+
 import HTML5Backend from 'react-dnd-html5-backend';
 import Preview from './preview';
 import Toolbar from './toolbar';
@@ -16,8 +17,11 @@ class ReactFormBuilder extends React.Component {
 
     this.state = {
       editMode: false,
+      data: [],
       editElement: null,
     };
+    const update = this._onChange.bind(this);
+    store.subscribe(state => update(state.data));
   }
 
   editModeOn(data, e) {
@@ -28,6 +32,12 @@ class ReactFormBuilder extends React.Component {
     } else {
       this.setState({ editMode: !this.state.editMode, editElement: data });
     }
+  }
+  _onChange(data) {
+    this.setState({
+      data,
+    });
+    //this.props.handleFormHandleChange(data);
   }
 
   manualEditModeOff() {
@@ -54,27 +64,42 @@ class ReactFormBuilder extends React.Component {
          </div> */}
          <div className="react-form-builder template-builder-layout clearfix">
           <div className="row">
-            <div className="col-md-9">
-             <div className="full-width-template-layout">
-               <Preview files={this.props.files}
-                   manualEditModeOff={this.manualEditModeOff.bind(this)}
-                   showCorrectColumn={this.props.showCorrectColumn}
-                   parent={this}
-                   data={this.props.data}
-                   onLoad={this.props.onLoad}
-                   onPost={this.props.onPost}
-                   editModeOn={this.editModeOn}
-                   editMode={this.state.editMode}
-                   variables={this.props.variables}
-                   editElement={this.state.editElement} />
-               
-             </div>
-            </div>
-            <div className="col-md-3">
+            <div className="col-md-12">
                <div className="template-builder-tollbar ">
                   <Toolbar {...toolbarProps} />
                </div>
             </div>
+            <div className="col-md-6">
+               <div className="full-width-template-layout">
+                 <Preview files={this.props.files}
+                     manualEditModeOff={this.manualEditModeOff.bind(this)}
+                     showCorrectColumn={this.props.showCorrectColumn}
+                     parent={this}
+                     data={this.props.data}
+                     onLoad={this.props.onLoad}
+                     onPost={this.props.onPost}
+                     editModeOn={this.editModeOn}
+                     editMode={this.state.editMode}
+                     variables={this.props.variables}
+                     editElement={this.state.editElement} />
+                 
+               </div>
+            </div>
+             <div className="col-md-6">
+               <h3>Template Preview</h3>
+               <ReactFormGenerator
+                          download_path=""
+                          back_action="/"
+                          back_name="Back"
+                          answer_data={{}}
+                          action_name="Save"
+                          form_action="/"
+                          form_method="POST"
+                          hide_actions= "true"
+                          variables={this.props.variables}
+                          data={this.state.data} />
+             </div>
+            
           </div> 
          </div>
        </div>

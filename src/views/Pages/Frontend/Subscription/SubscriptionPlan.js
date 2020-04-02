@@ -174,15 +174,15 @@ function SetPlanDetailsInfo (props) {
                       <div className="ContentHeight-inner">
                       <ul className="list-unstyled mb-3 position-relative">
                        
-                        <li><b>Number Of Template</b> {planInfo.templateAccess}</li>
-                        <li><b>Number Of Employee</b> {planInfo.userAccess}</li>
+                        <li>Number of template: <b>{planInfo.templateAccess}</b></li>
+                        <li>Number of employee: <b> {planInfo.userAccess}</b></li>
                        
                       </ul>
                       </div>
                       <div className="terms-and-condition">
                         <input type="checkbox" name="term" className="check-term" onChange={(e) => {props.acceptTermCondtion(planInfo.planId, e)}} /> I have read and accept the <a href="https://retailoep.com/terms-of-service" target="_blank" rel="noopener noreferrer" >Terms &amp; Conditions</a> and the <a href="https://retailoep.com/privacy-policy" target="_blank" rel="noopener noreferrer" >Privacy Policy</a>
                       </div>
-                      <button type="button" className="btn-lg btn-custom " onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess || props.planInfo.isPlanActive}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
+                      <button type="button" className="payment-Button" onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess || props.planInfo.isPlanActive}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
                     </div>
                 </div>);
 }

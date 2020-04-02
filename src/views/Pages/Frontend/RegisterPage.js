@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   MDBView,
@@ -172,12 +172,11 @@ class RegisterPage extends React.Component {
                   </div>
                 </MDBCol>
                 {loaderElement}
-                <ToastContainer />
                 <MDBCol md="6" xl="5" className="loginForm mb-5">
                   <MDBCard className="account-form">
                     <MDBCardBody className="z-depth-2">
                       <h4 className="text-center text-heading">
-                        <strong>{ !this.state.isRegistered ? `Create your free OEP account!` : `Verify Account`}</strong>
+                        <strong>{ !this.state.isRegistered ? `Create your OEP account!` : `Verify Account`}</strong>
                       </h4>
 
                       { !this.state.isRegistered ? 

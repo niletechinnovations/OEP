@@ -1,10 +1,11 @@
 import React from "react";
-import { Card, CardBody, CardHeader,CardText, CardTitle, Col, Row, Button } from 'reactstrap';
+import { Card, CardBody, CardHeader,CardText, CardTitle, Col, Row, Button, Tooltip  } from 'reactstrap';
 import  { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../Loader/Loader';
 import commonService from '../../../core/services/commonService';
+import commonFunction from '../../../core/functions/commonFunction';
 import PaymentHistory from './PaymentHistory';
 import "./PaymentPage.css";
 
@@ -13,11 +14,15 @@ class CurrentSubscription extends React.Component {
     super(props);
     this.state = {  
       loading: false,    
-      subscriptionDetails: {}
+      subscriptionDetails: {},
+      tooltipOpen: false
     }    
     this.cancelSubscription = this.cancelSubscription.bind(this);
+    
   }
+  
 
+  toggle = () => { this.setState({tooltipOpen: !this.state.tooltipOpen})}
  
   componentDidMount() {  
       this.setState( { loading: true}, () => {
@@ -86,8 +91,10 @@ class CurrentSubscription extends React.Component {
       } )
   }
 
+
+
   render() {
-       const {loading, subscriptionDetails} = this.state;
+       const {loading, subscriptionDetails, tooltipOpen} = this.state;
        let loaderElement = '';
        let subscriptionInfoHtml = '';
              
@@ -96,17 +103,22 @@ class CurrentSubscription extends React.Component {
        else {
 
           if(subscriptionDetails.isActive) {
-            let startDate = new Date(subscriptionDetails.planInfo.startDate).toDateString("YYYY-MM-DD");
-            let expiryDate = new Date(subscriptionDetails.planInfo.expiryDate).toDateString("YYYY-MM-DD");
-            subscriptionInfoHtml = <><CardText>Plan Name: {subscriptionDetails.planInfo.planName}</CardText>
-            <CardText>Subscription Id: {subscriptionDetails.planInfo.transactionProfileId}</CardText>
-            <CardText>Subscription Amount: ${subscriptionDetails.planInfo.amount}</CardText>
-            <CardText>Payment Method: {subscriptionDetails.planInfo.paymentMethod}</CardText>
-            <CardText>Start Date: {startDate}</CardText>
-            <CardText>Expiry Date: {expiryDate}</CardText>
-            <Button className="search-btn" color = "warning" onClick={this.cancelSubscription}>Cancel Subscription</Button>
-            {subscriptionDetails.planInfo.duration < 4 ? <Link className="search-btn" color = "success" to = "/organization/subscription/plan" onClick={this.cancelSubscription}>Upgrade Plan</Link> : ""}
-            </>
+            let startDate = commonFunction.getDate(subscriptionDetails.planInfo.startDate || " ");
+            let expiryDate = commonFunction.getDate(subscriptionDetails.planInfo.expiryDate || " ");
+            subscriptionInfoHtml = <Row><Col lg={4} className="pd-20">Plan Type: <strong>{subscriptionDetails.planInfo.planType}</strong></Col>
+            <Col lg={4} className="pd-20">Subscription Id: <strong>{subscriptionDetails.planInfo.transactionProfileId}</strong></Col>
+            <Col lg={4} className="pd-20">Subscription Amount: <strong>${subscriptionDetails.planInfo.amount}</strong></Col>
+            <Col lg={4} className="pd-20">Payment Method: <strong>{subscriptionDetails.planInfo.paymentMethod}</strong></Col>
+            <Col lg={4} className="pd-20">Start Date: <strong>{startDate}</strong></Col>
+            <Col lg={4} className="pd-20">Expiry Date: <strong>{expiryDate}</strong></Col>
+            <Col lg={12}><Button className="search-btn cancel-btn" color = "warning" onClick={this.cancelSubscription}>Cancel Subscription</Button>
+              {subscriptionDetails.planInfo.duration < 4 ? <Link className="setup-button" color = "success" to = "/organization/subscription/plan">Upgrade Your Subscription</Link> : ""}
+              <Link className="setup-button" color = "warning" to = "/organization/set-up" >Add Employee &nbsp; <i id="TooltipExample" className="fa fa-info"></i></Link>
+              <Tooltip placement="top" isOpen={tooltipOpen} target="TooltipExample" toggle={this.toggle}>
+                Click here to set up your employees/Team Members.
+              </Tooltip>
+              </Col>
+            </Row>
           }
           else
               subscriptionInfoHtml = <CardText>Currently not have any active subscription</CardText>

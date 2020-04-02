@@ -426,8 +426,8 @@ class Employee extends Component {
               </Row>
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" disabled={!this.state.formValid || formProccessing} type="submit">{formProccessing ? processingBtnText : 'Submit' }</Button>
-              <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+              <Button className="search-btn" color="primary" disabled={!this.state.formValid || formProccessing} type="submit">{formProccessing ? processingBtnText : 'Submit' }</Button>
+              <Button className="btnCancel" color="secondary" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
           </Form>
         </Modal>

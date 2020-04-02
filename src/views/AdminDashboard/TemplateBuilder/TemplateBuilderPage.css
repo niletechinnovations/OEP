@@ -96,3 +96,13 @@ h6.MuiTypography-root {font-size: 16px; color: #000; font-weight: bold !importan
     font-size: 12px;
     box-shadow: none;
 }
+.react-form-builder .react-form-builder-toolbar {
+    width: 100% !important;
+    margin-top: 0px !important;
+}
+
+.react-form-builder .react-form-builder-toolbar ul li {
+    width: 25% !important;
+    display: inline-block !important;
+    float: left !important;
+}

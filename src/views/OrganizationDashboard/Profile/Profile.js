@@ -289,7 +289,7 @@ class Profile extends Component {
                       </FormGroup>
                     </Col>
                     <Col md={6}></Col>
-                    <Button color="primary" disabled={!this.state.formValid} type="submit">Update</Button>
+                    <Button className="search-btn" color="primary" disabled={!this.state.formValid} type="submit">Update</Button>
                   </Row>
                 </Form>
                   
