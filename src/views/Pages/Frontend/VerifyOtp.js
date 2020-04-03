@@ -56,6 +56,7 @@ export default class VerifyOtp extends React.Component {
             localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
             localStorage.setItem( 'refreshToken', CryptoJS.AES.encrypt(loggedInfo.data.refreshToken, 'OEPENCRYPTION@12345').toString());
             localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
+            localStorage.setItem( 'authId', CryptoJS.AES.encrypt(loggedInfo.data.authId, 'OEPENCRYPTION@12345').toString());
             localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
             localStorage.setItem( 'userName', loggedInfo.data.firstName );
             commonService.setIsSubscribe(false);

@@ -11,6 +11,7 @@ import  SubscriptionPlan  from '../Subscription/SubscriptionPlan';
 import "../../../assets/css/font-awesome.min.css";
 import "react-form-builder2/dist/app.css";
 import "./TemplateBuilderPage.css";
+const queryString = require('query-string');
 class TemplateBuilderPage extends React.Component {
   constructor(props){
     super(props);
@@ -24,7 +25,8 @@ class TemplateBuilderPage extends React.Component {
       templateId: "",
       formValid: false,
       templatePreviewData : [],
-      formProccessing: false,      
+      formProccessing: false,  
+      isCopy: false    
     }     
     this.getSubCategoryList = this.getSubCategoryList.bind(this);
     this.handleUpdatedFormHandleChange = this.handleUpdatedFormHandleChange.bind(this);   
@@ -37,6 +39,10 @@ class TemplateBuilderPage extends React.Component {
     const { match: { params } } = this.props;
     if(params.templateId !== undefined && params.templateId !=="") 
       this.getTemplateDetail(params.templateId);
+    const queryParams = queryString.parse(this.props.location.search);
+    if(queryParams.action) 
+      this.setState({isCopy: queryParams.action.toLowerCase() === 'copy' ? true : false})
+    
       
     this.categoryList();
   }
@@ -219,7 +225,7 @@ class TemplateBuilderPage extends React.Component {
         "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)
       };
       
-      if(this.state.templateId !== "" ) {
+      if(this.state.templateId !== "" && !this.state.isCopy) {
         formData.templateId = this.state.templateId;
         commonService.putAPIWithAccessToken('template', formData)
         .then( res => {        

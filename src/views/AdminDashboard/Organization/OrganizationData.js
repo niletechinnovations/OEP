@@ -99,7 +99,7 @@ class OrganizationData extends Component {
       selectableRows: 'none',
       textLabels: {
         body: {
-          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "No Records Found",
+          noMatch: this.props.dataTableLoadingStatus ? "Processing........" : "",
           toolTip: "Sort",
           columnHeaderTooltip: column => `Sort for ${column.label}`
         },

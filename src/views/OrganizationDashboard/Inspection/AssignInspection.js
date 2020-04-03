@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label} from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import  { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import Loader from '../../Loader/Loader';
@@ -171,7 +172,17 @@ class AssignInspection extends React.Component {
         }   
         if(hideEmployee)
           formField.employeeId = '';
-        this.setState({employeeList: res.data.data, formField: formField, loading: false});     
+        let employeeList = [];
+        let authId = commonService.getAuthId();
+        if(authId !== "" ){
+          employeeList.push({employeeId: authId, firstName: 'Self', lastName: ''});
+          for(let i = 0; i < res.data.data.length; i++) {
+            employeeList.push(res.data.data[i]);
+          }
+        }
+        else
+          employeeList = res.data.data;
+        this.setState({employeeList: employeeList, formField: formField, loading: false});     
         
       } )
       .catch( err => {         
@@ -555,6 +566,7 @@ class AssignInspection extends React.Component {
                             <SetTemplateDropDownItem key={index} templateItem={templateItem} selectedCategory={this.state.formField.templateId} />
                           )}
                         </Input>
+                        {this.state.formField.templateId ? <div className="previewTemplateIcon"><Link to={`/common/template/${this.state.formField.templateId}`} target="_blank" className="btn-view"><i className="fa fa-eye"></i> </Link></div> : ""}
                       </FormGroup>
                     </Col>                    
                     <Col lg={12}>

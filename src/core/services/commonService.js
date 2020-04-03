@@ -36,6 +36,13 @@ class ApiService {
         isSubscribe = isSubscribe.toString();
         localStorage.setItem( 'isSubscribed', CryptoJS.AES.encrypt(isSubscribe, 'OEPENCRYPTION@12345').toString());
     }
+    getAuthId() {
+        let isSubscribed = localStorage.getItem("authId");        
+        if(isSubscribed === '' || isSubscribed === null)
+          return "";
+        else
+          return CryptoJS.AES.decrypt(localStorage.getItem("authId"), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8);
+    }
     /*Get API With Authentication header */
     getAPIWithAccessToken(urlSegment) {
         const accessToken = this.getAccessToken();

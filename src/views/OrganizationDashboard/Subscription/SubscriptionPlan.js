@@ -103,7 +103,7 @@ class SubscriptionPlan extends React.Component {
     	return;
     }
      if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId]){
-      toast.error("Please accept term terms and condition");
+      toast.error("Please accept term and conditions");
       return;
     }
     this.setState( { paymentProcess: true, planId: planInfo.planId}, () => {

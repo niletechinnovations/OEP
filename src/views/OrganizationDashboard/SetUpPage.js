@@ -1,8 +1,5 @@
-import React, { Component, useState } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col} from 'reactstrap';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Loader from '../Loader/Loader';
+import React, { Component } from 'react';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col} from 'reactstrap';
 import Profile from './Profile/Profile';
 import Employee from './Employee/Employee';
 import Store from './Store/Store';
@@ -28,11 +25,7 @@ class SetUpPage extends Component {
 
   render() {
 
-    const { loading, activeTab } = this.state;     
-    let loaderElement = '';
-    if(loading) 
-      loaderElement = <Loader />
-
+    const { activeTab } = this.state;     
     return (
      <div>
       <Nav tabs>
