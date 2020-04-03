@@ -36,6 +36,18 @@ class ApiService {
         isSubscribe = isSubscribe.toString();
         localStorage.setItem( 'isSubscribed', CryptoJS.AES.encrypt(isSubscribe, 'OEPENCRYPTION@12345').toString());
     }
+
+    getLocalStorageValue(key) {
+        let data = localStorage.getItem(key);        
+        if(data === '' || data === null)
+          return "";
+        else
+          return CryptoJS.AES.decrypt(localStorage.getItem(key), 'OEPENCRYPTION@12345').toString(CryptoJS.enc.Utf8);
+    }
+    setLocalStorageValue(key, value) {
+        let data = value.toString();
+        localStorage.setItem( key, CryptoJS.AES.encrypt(data, 'OEPENCRYPTION@12345').toString());
+    }
     getAuthId() {
         let isSubscribed = localStorage.getItem("authId");        
         if(isSubscribed === '' || isSubscribed === null)

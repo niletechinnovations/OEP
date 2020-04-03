@@ -29,7 +29,7 @@ const oragnizationRoutes = [
   { path: '/organization/manage-inspection/inspection/:inspectionId', exact: true,  name: 'Inspection Feedback', component: InspectionFeedBack },
   { path: '/organization/manage-inspection/inspection/:inspectionId/:feedBackId', exact: true,  name: 'Feedback Preview', component: FeedBackPreviewPage },
   { path: '/organization/action', exact: true,  name: 'Action', component: ActionLists },
-  { path: '/organization/manage-template/template', exact: true,  name: 'Template List', component: TemplateList },
+  { path: '/organization/manage-template/template', exact: true,  name: 'Template Library', component: TemplateList },
   { path: '/organization/manage-template/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/organization/manage-template/create-template/:templateId', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/organization/subscription', exact: true,  name: 'Current Subscription', component: CurrentSubscription },

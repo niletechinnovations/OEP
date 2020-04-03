@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
-
+import AutoCompletePlaces from '../../../core/google-map/AutoCompletePlaces';
 import Loader from '../../Loader/Loader';
 import StoreData from './StoreData';
 import './Store.css'
@@ -19,7 +19,7 @@ class Store extends Component {
       loading: true,
       formProccessing: false,
       rowIndex: -1,
-      formField: { store_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: ''},
+      formField: { store_name: '', phoneNumber: '', latitude: '', longitude: '', address: '', city: '', state: '', country: '', postalCode: ''},
       formErrors: { store_name: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
@@ -29,12 +29,21 @@ class Store extends Component {
     this.handleDeleteStore = this.handleDeleteStore.bind(this);
     this.filterStoreList = this.filterStoreList.bind(this);
     this.resetSearchFilter = this.resetSearchFilter.bind(this);
+    this.setLatitudeLongitude = this.setLatitudeLongitude.bind(this);
     
   }
   // Fetch the Employee List
   componentDidMount() {     
     this.storeList({});   
     
+  }
+
+  setLatitudeLongitude(address, latLng, city, state, country, postal_code){
+    let formField = this.state.formField;
+    formField.state = state;
+    formField.country = country;formField.city = city;formField.postalCode = postal_code;
+    formField.address = address
+    this.setState({ formField: formField })
   }
   /*Employee List API*/
   storeList(filterItem = {}) {
@@ -345,6 +354,14 @@ class Store extends Component {
                     <StoreData data={storeList} editStoreAction={this.handleEditStore} deleteStoreAction={this.handleDeleteStore} dataTableLoadingStatus = {this.state.loading} />
                     </div>
                   </Col>
+                  {this.props.previousStep ? 
+                  <Col md={6}>
+                      <Button className="search-btn" onClick={() => this.props.previousStep()}>Previous Step</Button>
+                  </Col> : ""}
+                  {this.props.finishSetup ? 
+                  <Col md={6}>
+                      <Button className="search-btn pull-right" onClick={() => this.props.finishSetup()}>Finish</Button>
+                  </Col> : ""}
                 </Row> 
               </CardBody>
             </Card>
@@ -372,7 +389,7 @@ class Store extends Component {
                 <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="address">Address</Label>            
-                    <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
+                    <AutoCompletePlaces  setLatitudeLongitude={this.setLatitudeLongitude} address = {this.state.formField.address} />
                   </FormGroup>
                 </Col>
                 <Col md={"6"}>  

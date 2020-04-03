@@ -43,7 +43,11 @@ class Successs extends React.Component {
             this.setState( { loading: true} );
             commonService.setIsSubscribe(true);
             toast.success("Your subscription has been created successfully!");
-            this.props.history.push('/organization/subscription');
+            let isProfileCompleted = commonService.getLocalStorageValue('isProfileCompleted');
+            if(isProfileCompleted.toLowerCase() === "yes")
+              this.props.history.push('/organization/set-up?showAlert=yes');
+            else
+              this.props.history.push('/organization/subscription');
            
           } )
           .catch( err => {  

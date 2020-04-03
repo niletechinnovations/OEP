@@ -10,6 +10,7 @@ import { FormErrors } from '../../Formerrors/Formerrors';
 import "../../../assets/css/font-awesome.min.css";
 import "react-form-builder2/dist/app.css";
 import "./AssignInspection.css";
+const queryString = require('query-string');
 class AssignInspection extends React.Component {
   constructor(props){
     super(props);
@@ -43,6 +44,17 @@ class AssignInspection extends React.Component {
     const { match: { params } } = this.props;
     if(params.inspectionId !== undefined && params.inspectionId !=="") 
       this.getInspectionDetail(params.inspectionId);
+    const queryParams = queryString.parse(this.props.location.search);
+    
+    if(queryParams.templateId && queryParams.categoryId && queryParams.subCategoryId) {
+      let formField = this.state.formField;
+      formField.categoryId = queryParams.categoryId;
+      formField.subCategoryId = queryParams.subCategoryId;
+      formField.templateId = queryParams.templateId;
+      this.setState({formField: formField});
+      this.getSubCategoryList(queryParams.categoryId, false);
+      this.getTemplateList(queryParams.categoryId, queryParams.subCategoryId, false);
+    }
       
     this.categoryList();
     this.getEmployeeList();
@@ -559,16 +571,19 @@ class AssignInspection extends React.Component {
                     </Col>
                     <Col lg={6} md={6}>
                       <FormGroup> 
-                        <Label htmlFor="templateId">Template <span className="mandatory">*</span></Label>            
+                        <Label htmlFor="templateId">Template <span className="mandatory">*</span>  </Label>            
                         <Input type="select" placeholder="Subcategory Name *" id="templateId" name="templateId" value={this.state.formField.templateId} onChange={this.changeHandler} required >
                           <option value="">Select Template</option>
                           {templateList.map((templateItem, index) =>
                             <SetTemplateDropDownItem key={index} templateItem={templateItem} selectedCategory={this.state.formField.templateId} />
                           )}
                         </Input>
-                        {this.state.formField.templateId ? <div className="previewTemplateIcon"><Link to={`/common/template/${this.state.formField.templateId}`} target="_blank" className="btn-view"><i className="fa fa-eye"></i> </Link></div> : ""}
+                        
                       </FormGroup>
-                    </Col>                    
+                    </Col>  
+                    
+                      {this.state.formField.templateId ? <Col lg={6} md={6}><div className="previewTemplateIcon"><Link to={`/common/template/${this.state.formField.templateId}`} target="_blank" className="search-btn">Preview Template </Link></div></Col>  : ""}
+                                     
                     <Col lg={12}>
                         <FormGroup>
                           <Label htmlFor="inspection_name">Inspection Name</Label>            

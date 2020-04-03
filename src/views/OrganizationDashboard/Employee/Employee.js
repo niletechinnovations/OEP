@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
-
+import AutoCompletePlaces from '../../../core/google-map/AutoCompletePlaces';
 import Loader from '../../Loader/Loader';
 import EmployeeData from './EmployeeData';
 import './Employee.css'
@@ -19,7 +19,7 @@ class Employee extends Component {
       loading: true,
       formProccessing: false,
       rowIndex: -1,
-      formField: { email: '', first_name: '', last_name:'', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
+      formField: { email: '', first_name: '', last_name:'', phoneNumber: '', latitude: '', longitude: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
       formErrors: { email: '', employee_name: '', role: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
@@ -30,11 +30,19 @@ class Employee extends Component {
     this.handleDeleteEmployee = this.handleDeleteEmployee.bind(this);
     this.filterEmployeeList = this.filterEmployeeList.bind(this);
     this.resetSearchFilter = this.resetSearchFilter.bind(this);
+    this.setLatitudeLongitude = this.setLatitudeLongitude.bind(this);
     
   }
   // Fetch the Employee List
   componentDidMount() { 
     this.EmployeeList();
+  }
+  setLatitudeLongitude(address, latLng, city, state, country, postal_code){
+    let formField = this.state.formField;
+    formField.state = state;
+    formField.country = country;formField.city = city;formField.postalCode = postal_code;
+    formField.address = address
+    this.setState({ formField: formField })
   }
   /*Employee List API*/
   EmployeeList(filterItem = {}) {
@@ -353,6 +361,14 @@ class Employee extends Component {
                     <EmployeeData data={EmployeeList} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} />
                     </div>
                   </Col>
+                  {this.props.previousStep ? 
+                  <Col md={6}>
+                      <Button className="search-btn" onClick={() => this.props.previousStep()}>Previous Step</Button>
+                  </Col> : ""}
+                  {this.props.enableNextStep ? 
+                  <Col md={6}>
+                      <Button className="search-btn pull-right" onClick={() => this.props.enableNextStep()}>Next Step</Button>
+                  </Col> : ""}
                 </Row> 
               </CardBody>
             </Card>
@@ -398,7 +414,8 @@ class Employee extends Component {
                 <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="address">Address</Label>            
-                    <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
+                    <AutoCompletePlaces setLatitudeLongitude={this.setLatitudeLongitude} address = {this.state.formField.address} />
+                       
                   </FormGroup>
                 </Col>
                 <Col md={"6"}>  

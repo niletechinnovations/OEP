@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardHeader,CardText, CardTitle, Col, Row, Button, Tooltip  } from 'reactstrap';
+import { Card, CardBody, CardHeader,CardText, CardTitle, Col, Row, Button  } from 'reactstrap';
 import  { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,7 +22,7 @@ class CurrentSubscription extends React.Component {
   }
   
 
-  toggle = () => { this.setState({tooltipOpen: !this.state.tooltipOpen})}
+  /*toggle = () => { this.setState({tooltipOpen: !this.state.tooltipOpen})}*/
  
   componentDidMount() {  
       this.setState( { loading: true}, () => {
@@ -94,7 +94,7 @@ class CurrentSubscription extends React.Component {
 
 
   render() {
-       const {loading, subscriptionDetails, tooltipOpen} = this.state;
+       const {loading, subscriptionDetails} = this.state;
        let loaderElement = '';
        let subscriptionInfoHtml = '';
              
@@ -113,10 +113,7 @@ class CurrentSubscription extends React.Component {
             <Col lg={4} className="pd-20">Expiry Date: <strong>{expiryDate}</strong></Col>
             <Col lg={12}><Button className="search-btn cancel-btn" color = "warning" onClick={this.cancelSubscription}>Cancel Subscription</Button>
               {subscriptionDetails.planInfo.duration < 4 ? <Link className="setup-button" color = "success" to = "/organization/subscription/plan">Upgrade Your Subscription</Link> : ""}
-              <Link className="setup-button" color = "warning" to = "/organization/set-up" >Add Employee &nbsp; <i id="TooltipExample" className="fa fa-info"></i></Link>
-              <Tooltip placement="top" isOpen={tooltipOpen} target="TooltipExample" toggle={this.toggle}>
-                Click here to set up your employees/Team Members.
-              </Tooltip>
+              
               </Col>
             </Row>
           }

@@ -5,13 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
 import Loader from '../../Loader/Loader';
+import AutoCompletePlaces from '../../../core/google-map/AutoCompletePlaces';
 import './Profile.css'
 
 class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', profilePic: '' },
+      formField: {organization_name: '', email: '', first_name: '', latitude: '', longitude: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', profilePic: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: true,
       organizationId: "",
@@ -19,10 +20,20 @@ class Profile extends Component {
 
     };
     this.submitHandler = this.submitHandler.bind(this);
+    this.setLatitudeLongitude = this.setLatitudeLongitude.bind(this);
   }
   componentDidMount() { 
     this.getProfile();
   }
+
+  setLatitudeLongitude(address, latLng, city, state, country, postal_code){
+    let formField = this.state.formField;
+    formField.state = state;
+    formField.country = country;formField.city = city;formField.postalCode = postal_code;
+    formField.address = address
+    this.setState({ formField: formField })
+  }
+
   /*get profile API*/
   getProfile() {   
 
@@ -121,7 +132,9 @@ class Profile extends Component {
           "address": formInputField.address, 
           "roleName": formInputField.role, 
           "city": formInputField.city, 
-          "state": formInputField.state, 
+          "state": formInputField.state,
+          "latitude": formInputField.latitude,
+          "longitude": formInputField.longitude, 
           "country": formInputField.country, 
           "postalCode": formInputField.postalCode, 
           "organizationName": formInputField.organization_name
@@ -198,7 +211,7 @@ class Profile extends Component {
   
 
   render() {
-
+    debugger;
     const { loading } = this.state;
     let loaderElement = '';
     let prevImg = '';
@@ -254,7 +267,7 @@ class Profile extends Component {
                     <Col md={4}>
                       <FormGroup> 
                         <Label htmlFor="address">Address</Label>            
-                        <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
+                        <AutoCompletePlaces setLatitudeLongitude={this.setLatitudeLongitude} address = {this.state.formField.address} />
                       </FormGroup>
                     </Col>
                     <Col md={3}>
@@ -290,6 +303,10 @@ class Profile extends Component {
                     </Col>
                     <Col md={12}></Col>
                     <Button className="Update-btn" color="primary" disabled={!this.state.formValid} type="submit">Update</Button>
+                    {this.props.enableNextStep ? 
+                   
+                        <Button className="search-btn pull-right" onClick={() => this.props.enableNextStep()}>Next Step</Button>
+                    : ""}
                   </Row>
                 </Form>
                   

@@ -90,7 +90,7 @@ class OrganizationData extends Component {
       },
     ];
     const options = {
-      search: true,
+      search: true,viewColumns: false,
       filter: false,
       searchOpen: false,
       print: false,

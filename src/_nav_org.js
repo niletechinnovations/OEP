@@ -29,7 +29,7 @@ export default {
           url: '/organization/manage-template/create-template'
         },
         {
-          name: 'Template List',
+          name: 'Template Library',
           url: '/organization/manage-template/template'
         }
       ]
