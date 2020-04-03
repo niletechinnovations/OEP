@@ -1,0 +1,7 @@
+.tabs-info-card {background: #fff; padding: 10px; border-radius: 2px; } 
+.tabs-info-card .nav-tabs .nav-link {font-size: 13px; font-weight: 600; color: #607D8B; }
+.tabs-info-card .nav-tabs .nav-link.active{background: #e6eaee; border: none; }
+.tabs-info-card .nav-tabs .nav-link:hover, 
+.tabs-info-card .nav-tabs .nav-link:focus{border-color:transparent; }
+.tabs-info-card .tab-content {margin-top: -2px; background: #fff; border: 1px solid #e8edf2; }
+.tabs-info-card .tab-content .tab-pane { padding: 10px;}

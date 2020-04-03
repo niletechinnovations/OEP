@@ -309,7 +309,8 @@ class Employee extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col lg={12}>
-            <Card>
+          <div className="oep-em-info">
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Employee List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
@@ -340,23 +341,25 @@ class Employee extends Component {
                         </Col>
                         <Col md={"6"} lg={"3"}>
                           <FormGroup className="filter-button-section"> 
-                            <Label htmlFor="filter_organization_id">&nbsp;</Label> 
                             <Button className="search-btn"  type="button" onClick={this.filterEmployeeList}>Search</Button> 
-                            <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                            <Button className="reset-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                           </FormGroup>             
                         </Col>
                       </Row>  
                     </div>
                   </Col>
                   <Col md={12}>
+                    <div className="oep-table">
                     <EmployeeData data={EmployeeList} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} />
+                    </div>
                   </Col>
                 </Row> 
               </CardBody>
             </Card>
+            </div>
           </Col>
         </Row>
-        <Modal isOpen={modal} toggle={this.toggle} className="full-width-modal-section employee-modal">
+        <Modal isOpen={modal} toggle={this.toggle} className="oep-model employee-modal">
           <ModalHeader toggle={this.toggle}>Employee</ModalHeader>
           <Form onSubmit={this.submitHandler} noValidate>
             <ModalBody>
@@ -426,7 +429,7 @@ class Employee extends Component {
               </Row>
             </ModalBody>
             <ModalFooter>
-              <Button className="search-btn" color="primary" disabled={!this.state.formValid || formProccessing} type="submit">{formProccessing ? processingBtnText : 'Submit' }</Button>
+              <Button className="submit-btn" color="primary" disabled={!this.state.formValid || formProccessing} type="submit">{formProccessing ? processingBtnText : 'Submit' }</Button>
               <Button className="btnCancel" color="secondary" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
           </Form>

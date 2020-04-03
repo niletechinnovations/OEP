@@ -211,71 +211,71 @@ class Profile extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Profile Info</strong> 
               </CardHeader>
               <CardBody>
                 <ToastContainer />
                 {loaderElement}
-                <Form onSubmit={this.submitHandler} noValidate>
+                <Form className="oep-form" onSubmit={this.submitHandler} noValidate>
                   <Row>
                     <FormErrors formErrors={this.state.formErrors} />
-                    <Col md={6}>
+                    <Col md={4}>
                       <FormGroup> 
                         <Label htmlFor="organization_name">Organization Name</Label>            
                         <Input type="text" placeholder="Organization Name *" id="organization_name" name="organization_name" value={this.state.formField.organization_name} onChange={this.changeHandler} required />
                       </FormGroup>  
                     </Col>
-                    <Col md={6}>
+                    <Col md={4}>
                       <FormGroup> 
                         <Label htmlFor="email">Email</Label>            
                         <Input type="text" placeholder="Email *" id="email" name="email" value={this.state.formField.email} onChange={this.changeHandler} required />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={4}>
                       <FormGroup> 
                         <Label htmlFor="first_name">Contact Person</Label>            
                         <Input type="text" placeholder="Contact Person *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={4}>
                       <FormGroup> 
                         <Label htmlFor="role">Role</Label>            
                         <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler} required />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={4}>
                       <FormGroup> 
                         <Label htmlFor="phoneNumber">Contact Number</Label>            
                         <Input type="text" placeholder="Contact Number " id="phoneNumber" name="phoneNumber" value={this.state.formField.phoneNumber} onChange={this.changeHandler}  />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={4}>
                       <FormGroup> 
                         <Label htmlFor="address">Address</Label>            
                         <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={3}>
                       <FormGroup> 
                         <Label htmlFor="city">City</Label>            
                         <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={3}>
                       <FormGroup> 
                         <Label htmlFor="state">State</Label>            
                         <Input type="text" placeholder="State" id="state" name="state" value={this.state.formField.state} onChange={this.changeHandler}  />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={3}>
                       <FormGroup> 
                         <Label htmlFor="country">Country</Label>            
                         <Input type="text" placeholder="Country" id="country" name="country" value={this.state.formField.country} onChange={this.changeHandler}  />
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={3}>
                       <FormGroup> 
                         <Label htmlFor="postalCode">Postal Code</Label>            
                         <Input type="text" placeholder="Postal Code" id="postalCode" name="postalCode" value={this.state.formField.postalCode} onChange={this.changeHandler}  />
@@ -288,8 +288,8 @@ class Profile extends Component {
                         {prevImg}
                       </FormGroup>
                     </Col>
-                    <Col md={6}></Col>
-                    <Button className="search-btn" color="primary" disabled={!this.state.formValid} type="submit">Update</Button>
+                    <Col md={12}></Col>
+                    <Button className="Update-btn" color="primary" disabled={!this.state.formValid} type="submit">Update</Button>
                   </Row>
                 </Form>
                   

@@ -6,3 +6,58 @@
     width: 100%;
     height: 100%;
 }
+
+.oep-card .card-header {
+    padding: 10px 0;
+    font-size: 13px
+}
+
+.oep-card .card-body {
+    padding: 10px 0;
+}
+
+.oep-form label{margin-bottom: 0;font-weight: 500;
+    font-size: 12px;}
+
+.oep-form .form-control {
+    font-size: 12px;
+    padding: 8px;
+    height: auto;box-shadow: none;outline: none;
+}
+
+.prevProfileImageArea {
+    width: 150px;
+    height: 150px;
+    margin-top: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.oep-form .row{margin-left: -5px; margin-right: -5px}
+.oep-form .row .col-md-3,
+.oep-form .row .col-md-4,
+.oep-form .row .col-md-5,
+.oep-form .row .col-md-6,
+.oep-form .row .col-md-12{padding-left:5px; padding-right:5px}
+
+
+.Update-btn{
+    background: #141310 !important;
+    margin-right: 5px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    box-shadow: none;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

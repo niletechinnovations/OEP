@@ -27,7 +27,7 @@ class SetUpPage extends Component {
 
     const { activeTab } = this.state;     
     return (
-     <div>
+     <div className="tabs-info-card">
       <Nav tabs>
         <NavItem>
           <NavLink
@@ -56,25 +56,13 @@ class SetUpPage extends Component {
       </Nav>
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
-          <Row>
-            <Col sm="12">
               <Profile history = { this.props.history} />
-            </Col>
-          </Row>
         </TabPane>
         <TabPane tabId="2">
-          <Row>
-            <Col sm="12">
               <Employee history = { this.props.history} />
-            </Col>
-          </Row>
         </TabPane>
         <TabPane tabId="3">
-          <Row>
-            <Col sm="12">
               <Store history = { this.props.history} />
-            </Col>
-          </Row>
         </TabPane>
       </TabContent>
     </div>

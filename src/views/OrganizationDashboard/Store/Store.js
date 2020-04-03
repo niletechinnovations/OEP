@@ -300,7 +300,8 @@ class Store extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <div className="oep-em-info">
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Store List</strong> <Button color="abc" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
               </CardHeader>
@@ -332,7 +333,7 @@ class Store extends Component {
                           <FormGroup className="filter-button-section"> 
                             <Label htmlFor="filter_organization_id">&nbsp;</Label> 
                             <Button className="search-btn"  type="button" onClick={this.filterStoreList}>Search</Button> 
-                            <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                            <Button className="reset-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                           </FormGroup>   
                                   
                         </Col>
@@ -340,14 +341,17 @@ class Store extends Component {
                     </div>
                   </Col>
                   <Col md={12}>
+                    <div className="oep-table">
                     <StoreData data={storeList} editStoreAction={this.handleEditStore} deleteStoreAction={this.handleDeleteStore} dataTableLoadingStatus = {this.state.loading} />
+                    </div>
                   </Col>
                 </Row> 
               </CardBody>
             </Card>
+            </div>
           </Col>
         </Row>
-        <Modal isOpen={modal} toggle={this.toggle} className="full-width-modal-section store-modal">
+        <Modal isOpen={modal} toggle={this.toggle} className=" oep-model store-modal">
           <ModalHeader toggle={this.toggle}>Store</ModalHeader>
           <Form onSubmit={this.submitHandler} noValidate>
             <ModalBody>
@@ -399,7 +403,7 @@ class Store extends Component {
               </Row>
             </ModalBody>
             <ModalFooter>
-              <Button className="search-btn" color="primary" disabled={!this.state.formValid || formProccessing} type="submit">{formProccessing ? processingBtnText : 'Submit' }</Button>
+              <Button className="submit-btn" color="primary" disabled={!this.state.formValid || formProccessing} type="submit">{formProccessing ? processingBtnText : 'Submit' }</Button>
               <Button className="btnCancel" color="secondary" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
           </Form>
