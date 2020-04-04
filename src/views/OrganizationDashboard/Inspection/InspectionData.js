@@ -36,7 +36,7 @@ class InspectionData extends Component {
         templateName: inspection.templateName || " ",
         categoryName: inspection.categoryName || " ",
         subCategoryName: inspection.subCategoryName || " ",
-        status: inspection.currentStatus === 1 ? "Pending" : inspection.currentStatus === 2 ? "Proccessing" : "Completed",
+        status: inspection.currentStatus === 1 ? "Not Started" : inspection.currentStatus === 2 ? "In Process" : "Completed",
         action: "",       
       }      
       rowsItem.push(inspectionInfo);
@@ -77,8 +77,8 @@ class InspectionData extends Component {
             return (
              <p><Link to={`/organization/manage-inspection/assign-inspection/${rowInfo.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link>
               <Link to={`/organization/manage-inspection/inspection/${rowInfo.inspectionId}`} title="View Feedback" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
-              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
-              this.deleteInspectionItem(i)}><i className="fa fa-trash"></i></button></p>
+              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => {
+              if( window.confirm('Are you sure you wish to delete this inspection?')) this.deleteInspectionItem(i)}}><i className="fa fa-trash"></i></button></p>
              
             );
           },
