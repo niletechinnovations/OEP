@@ -90,13 +90,14 @@ class LoginPage extends React.Component {
 	    }
 	    return;
 	  }
-
+  
 	  const loggedInfo = res.data;
+    let isProfileCompleted = loggedInfo.data.isProfileCompleted ? "yes" : "no";
 	  
 	  localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
 	  localStorage.setItem( 'refreshToken', CryptoJS.AES.encrypt(loggedInfo.data.refreshToken, 'OEPENCRYPTION@12345').toString());
 	  localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
-    localStorage.setItem( 'isProfileCompleted', CryptoJS.AES.encrypt(loggedInfo.data.isProfileCompleted, 'OEPENCRYPTION@12345').toString());
+    localStorage.setItem( 'isProfileCompleted', CryptoJS.AES.encrypt(isProfileCompleted, 'OEPENCRYPTION@12345').toString());
     localStorage.setItem( 'authId', CryptoJS.AES.encrypt(loggedInfo.data.authId, 'OEPENCRYPTION@12345').toString());
 	  localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
 	  localStorage.setItem( 'userName', loggedInfo.data.firstName );
