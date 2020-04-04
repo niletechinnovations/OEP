@@ -1,14 +1,14 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import * as router from 'react-router-dom';
+//import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 import {
   AppAside,
   AppFooter,
   AppHeader,  
-  AppBreadcrumb2 as AppBreadcrumb,
+ /* AppBreadcrumb2 as AppBreadcrumb,*/
   
 } from '@coreui/react';
 // sidebar nav config
@@ -41,7 +41,7 @@ class OrganizationLayout extends Component {
         <div className="app-body">
           
           <main className="main">
-            <AppBreadcrumb appRoutes={organizationRoutes} router={router}/>
+            {/*<AppBreadcrumb appRoutes={organizationRoutes} router={router}/>*/}
             <Container fluid>
               <ToastContainer />
               <Suspense fallback={this.loading()}>
