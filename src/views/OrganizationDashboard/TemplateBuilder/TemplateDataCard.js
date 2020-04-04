@@ -38,7 +38,7 @@ class TemplateDataCard extends Component {
                 <div className="card-footer-section">{template.type.toLowerCase() !== 'free' && template.isCreated ? <Link to={`/organization/manage-template/create-template/${template.templateId}`} className="btn-view"><i className="fa fa-pencil"></i> </Link> : ""} 
                 {template.isCreated ? <Link to={`/organization/manage-template/create-template/${template.templateId}?action=copy`} className="btn-view"><i className="fa fa-copy"></i> </Link> : ""}
                 {template.isCreated ? <Link to={`/common/template/${template.templateId}`} target="_blank" className="btn-view"><i className="fa fa-eye"></i> </Link> : ""}
-                {template.isCreated ? <Link to={`/organization/manage-inspection/assign-inspection?templateId=${template.templateId}&categoryId=${template.categoryId}&subCategoryId=${template.subCategoryId}`}  className="search-btn">Assign Template </Link> : ""}
+                {template.isCreated ? <Link to={`/organization/manage-inspection/assign-inspection?templateId=${template.templateId}&categoryId=${template.categoryId}&subCategoryId=${template.subCategoryId}`}  className="search-btn">Assign </Link> : ""}
                 {template.isUploaded && template.uploadedFileName !== "" ? <a href={`${this.props.apiUrl}template/${template.uploadedFileName}`} target="_blank" rel="noopener noreferrer" className="btn-view"><i className="fa fa-download"></i></a> : ""}
                 {template.isUploaded && !template.isCreated ? <><button className="btn-view" onClick={() => 
                   this.editTemplateFile(index)}><i className="fa fa-pencil"></i></button> <button className="btn-view" onClick={() => {if( window.confirm('Are you sure you wish to delete this template?'))
