@@ -58,13 +58,13 @@ class AutoCompletePlaces extends React.Component {
         for (var i = 0; i < place.address_components.length; i++) {
           var addressType = place.address_components[i].types[0];
           if (componentForm[addressType]) {
-            if(addressType == 'locality')              
+            if(addressType === 'locality')              
               city = place.address_components[i][componentForm[addressType]];            
-            else if(addressType == 'country')
+            else if(addressType === 'country')
              country = place.address_components[i][componentForm[addressType]];
-            else if(addressType == 'administrative_area_level_1')
+            else if(addressType === 'administrative_area_level_1')
              state = place.address_components[i][componentForm[addressType]];
-            else if(addressType == 'postal_code')
+            else if(addressType === 'postal_code')
               postal_code =  place.address_components[i][componentForm[addressType]];
             
           }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Alert} from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Alert} from 'reactstrap';
 import Profile from './Profile/Profile';
 import Employee from './Employee/Employee';
 import Store from './Store/Store';
