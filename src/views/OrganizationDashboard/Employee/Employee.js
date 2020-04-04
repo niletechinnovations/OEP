@@ -320,7 +320,7 @@ class Employee extends Component {
           <div className="oep-em-info">
             <Card className="oep-card">
               <CardHeader className="mainHeading">
-                <strong>Employee List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Employee List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Employee</Button>
               </CardHeader>
               <CardBody>
                 <ToastContainer />

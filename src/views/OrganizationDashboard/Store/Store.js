@@ -312,7 +312,7 @@ class Store extends Component {
             <div className="oep-em-info">
             <Card className="oep-card">
               <CardHeader className="mainHeading">
-                <strong>Store List</strong> <Button color="abc" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Store List</strong> <Button color="abc" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Store</Button>
               </CardHeader>
               <CardBody>
                 
