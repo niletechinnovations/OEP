@@ -88,7 +88,7 @@ function SetupMenuItem(props) {
     return (
       <Dropdown nav isOpen={props.isOpenMenu && props.currentIndex === props.selectedIndex} toggle={ (e) =>props.showDropDownMenu(props.currentIndex)} >
           <DropdownToggle nav caret>
-            <i className={props.menuList.icon}></i>{props.menuList.name}
+            <i className={props.menuList.icon}></i>&nbsp;{props.menuList.name}
           </DropdownToggle>
           <DropdownMenu>
             { props.menuList.children.map((submenu, menuindex) => <SetMenuItem  menuItem={submenu} /> )}
@@ -97,7 +97,7 @@ function SetupMenuItem(props) {
   }
   else 
     return (<NavItem>
-            <NavLink href={props.menuList.url} className="nav-link"><i className={props.menuList.icon}></i>{props.menuList.name}</NavLink>
+            <NavLink href={props.menuList.url} className="nav-link"><i className={props.menuList.icon}></i> &nbsp; {props.menuList.name}</NavLink>
           </NavItem>)
 }
 
