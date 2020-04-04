@@ -19,7 +19,7 @@ a.subscription-btn {background: #4CAF50; color: #fff; padding: 8px 15px; display
     border: 1px solid #c5d2db !important;
     box-shadow: 6px 6px #c5d2db !important;
     border-radius: 10px;
-    min-height: 320px;
+    min-height: 250px;
     background: #ffffff;
     background: -moz-linear-gradient(-45deg, #ffffff 0%, #edf3f7 50%, #e3edf4 50%, #ffffff 100%);
     background: -webkit-linear-gradient(-45deg, #ffffff 0%,#edf3f7 50%,#e3edf4 50%,#ffffff 100%);
