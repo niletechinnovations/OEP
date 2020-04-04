@@ -7,21 +7,14 @@ import { Container } from 'reactstrap';
 import {
   AppAside,
   AppFooter,
-  AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarMinimizer,
+  AppHeader,  
   AppBreadcrumb2 as AppBreadcrumb,
-  AppSidebarNav2 as AppSidebarNav,
+  
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav_org';
-import navigation_unsubcribe from '../../_nav_org_unsubcribe';
+
 // routes config
 import organizationRoutes from '../../organizationRoutes';
-import commonService from '../../core/services/commonService';
 import './OrganizationLayout.css';
 import DefaultAside from './DefaultAside';
 import DefaultFooter from './DefaultFooter';
@@ -46,15 +39,7 @@ class OrganizationLayout extends Component {
           </Suspense>
         </AppHeader>
         <div className="app-body">
-          <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <Suspense>
-            <AppSidebarNav navConfig={commonService.getIsSubscribe() ? navigation : navigation_unsubcribe } {...this.props} router={router}/>
-            </Suspense>
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
-          </AppSidebar>
+          
           <main className="main">
             <AppBreadcrumb appRoutes={organizationRoutes} router={router}/>
             <Container fluid>
