@@ -194,7 +194,7 @@ class PreviewTemplatePage extends React.Component {
           <div className="animated fadeIn">
             <Row>
               <Col lg={12}>
-                <Card>
+                <Card className="oep-card">
                   <CardHeader className="mainHeading">
                     <strong>Preview Template</strong>
                   </CardHeader>

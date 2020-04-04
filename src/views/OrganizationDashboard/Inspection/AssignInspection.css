@@ -1,10 +1,7 @@
 .react-form-builder .react-form-builder-preview .Sortable .rfb-item .toolbar-header .label {
 	position: relative;
 }
-#templateBuilderPage {
-    max-height: 600px;
-    overflow: scroll;
-}
+
 #templateBuilderPage .react-form-builder .react-form-builder-preview.is-editing .edit-form {   
     left: 206px;
     top: 61px;
@@ -25,4 +22,19 @@
 .btnFont-size.btnRemove{margin-top: 28px;}
 .btnFont-size{font-size: 12px; margin: 4px 0 20px 0;    padding: 7px 17px;}
 
-.previewTemplateIcon {margin-top: 27px; }
+.previewTemplateIcon {margin-top: 20px; }
+.Preview-btn{background: #4CAF50;
+    color: #fff;
+    padding: 7px 15px;
+    display: inline-block;
+    border-radius: 3px;
+    font-weight: bold;}
+
+.Preview-btn:hover{color: #fff; text-decoration: none;}
+
+.Addemp-btn {background: #4CAF50; color: #fff !important; padding: 7px 15px; display: inline-block; border-radius: 3px; font-weight: bold; margin-bottom: 20px; } 
+.Addemp-btn:hover{color: #fff; text-decoration: none;}
+.btnRemove{background: #f81a0a ;    margin-top: 20px; color: #fff !important; padding: 7px 15px; display: inline-block; border-radius: 3px; font-weight: bold; margin-bottom: 20px; } 
+.btnRemove:hover{color: #fff; text-decoration: none;}
+
+.selectedEmployeItem-list {border: 1px solid #eee; padding: 10px; margin-bottom: 10px; }

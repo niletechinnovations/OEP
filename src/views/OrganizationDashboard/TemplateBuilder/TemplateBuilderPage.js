@@ -323,7 +323,8 @@ class TemplateBuilderPage extends React.Component {
         <div className="animated fadeIn">
           <Row>
             <Col lg={12}>
-              <Card>
+              <div className="oep-em-info">
+              <Card className="oep-card">
                 <CardHeader className="mainHeading">
                   <strong>Create Template</strong>
                   <div className="previewButton"><DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange} fileName = {this.state.formField.template_name} ></DemoBar></div>
@@ -332,62 +333,69 @@ class TemplateBuilderPage extends React.Component {
                   {loaderElement}                
                   <Form onSubmit={this.submitHandler} noValidate>
                     <FormErrors formErrors={this.state.formErrors} />
-                    
-                    <Row>
-                      <Col lg={3}>
-                        <FormGroup> 
-                          <Label htmlFor="categoryId">Category <span className="mandatory">*</span></Label>            
-                          <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.formField.categoryId} onChange={this.changeCategoryHandle} required >
-                            <option value="">Select Category</option>
-                            {categoryList.map((categoryItem, index) =>
-                              <SetCategoryDropDownItem key={index} categoryItem={categoryItem} selectedCategory={this.state.formField.categoryId} />
-                            )}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col lg={3}>
-                        <FormGroup> 
-                          <Label htmlFor="subCategoryId">Subcategory <span className="mandatory">*</span></Label>            
-                          <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.formField.subCategoryId} onChange={this.changeHandler} required >
-                            <option value="">Select Subcategory</option>
-                            {subCategoryList.map((subCategoryItem, index) =>
-                              <SetSubCategoryDropDownItem key={index} subCategoryItem={subCategoryItem} selectedCategory={this.state.formField.subCategoryId} />
-                            )}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col lg={4}>
-                          <FormGroup>
-                            <Label htmlFor="template_name">Template Name</Label>            
-                            <Input type="text" placeholder="Template Name *" value={this.state.formField.template_name} onChange={this.changeHandler} id="template_name" name="template_name" required />
+                    <div className="Create-filter">
+                      <Row>
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="categoryId">Category <span className="mandatory">*</span></Label>            
+                            <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.formField.categoryId} onChange={this.changeCategoryHandle} required >
+                              <option value="">Select Category</option>
+                              {categoryList.map((categoryItem, index) =>
+                                <SetCategoryDropDownItem key={index} categoryItem={categoryItem} selectedCategory={this.state.formField.categoryId} />
+                              )}
+                            </Input>
                           </FormGroup>
-                      </Col>
-                      <Col lg={2}>
-                        <FormGroup>
-                          <Label htmlFor="template_status">Status</Label>            
-                          <Input type="select" placeholder="Status *" id="status" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
-                            <option value="">Select Status</option>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col lg={12}>
-                        <FormGroup>
-                          <Label htmlFor="templateBuilderPage">Form Builder Area</Label>
-                          <div id="templateBuilderPage" className="">
-                            <ReactFormBuilder data={this.state.templatePreviewData}></ReactFormBuilder>  
-                            
-                          </div>
-                        </FormGroup>
-                      </Col>
-                      <Button className="search-btn" color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
-                      <Button className="btnCancel" color="secondary" onClick={this.resetForm}>Cancel</Button>
-                    </Row>
+                        </Col>
+                        <Col lg={3}>
+                          <FormGroup> 
+                            <Label htmlFor="subCategoryId">Subcategory <span className="mandatory">*</span></Label>            
+                            <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.formField.subCategoryId} onChange={this.changeHandler} required >
+                              <option value="">Select Subcategory</option>
+                              {subCategoryList.map((subCategoryItem, index) =>
+                                <SetSubCategoryDropDownItem key={index} subCategoryItem={subCategoryItem} selectedCategory={this.state.formField.subCategoryId} />
+                              )}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={3}>
+                            <FormGroup>
+                              <Label htmlFor="template_name">Template Name</Label>            
+                              <Input type="text" placeholder="Template Name *" value={this.state.formField.template_name} onChange={this.changeHandler} id="template_name" name="template_name" required />
+                            </FormGroup>
+                        </Col>
+                        <Col lg={3}>
+                          <FormGroup>
+                            <Label htmlFor="template_status">Status</Label>            
+                            <Input type="select" placeholder="Status *" id="status" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
+                              <option value="">Select Status</option>
+                              <option value="Active">Active</option>
+                              <option value="Inactive">Inactive</option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    </div>
+
+                    <div className="FormBuilderArea">
+                      <Row>
+                        <Col lg={12}>
+                          <FormGroup>
+                            <div id="templateBuilderPage" className="">
+                              <ReactFormBuilder data={this.state.templatePreviewData}></ReactFormBuilder>  
+                              
+                            </div>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                        <Button className="search-btn" color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
+                        <Button className="btnCancel" color="secondary" onClick={this.resetForm}>Cancel</Button>
+                      
+                    </div>
                   </Form>
                   
                 </CardBody>
               </Card>
+              </div>
             </Col>  
           </Row>
           

@@ -224,6 +224,7 @@ class Profile extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col lg={12}>
+            <div className="oep-em-info">
             <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Profile Info</strong> 
@@ -312,6 +313,7 @@ class Profile extends Component {
                   
               </CardBody>
             </Card>
+            </div>
           </Col>
         </Row>
        

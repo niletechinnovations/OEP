@@ -258,7 +258,8 @@ class ActionLists extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <div className="oep-em-info">
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Action</strong> <Button color="abc" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Action</Button>
               </CardHeader>
@@ -283,7 +284,7 @@ class ActionLists extends Component {
                           <FormGroup className="filter-button-section"> 
                             <Label htmlFor="searchButton">&nbsp;</Label> 
                             <Button className="search-btn" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
-                            <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                            <Button className="reset-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                           </FormGroup>
                                     
                         </Col>
@@ -291,15 +292,18 @@ class ActionLists extends Component {
                     </div> 
                   </Col>
                   <Col md={12}>
+                    <div className="oep-table">
                     <ActionData data={inspectionList} deleteAction={this.handleDeleteAction} editAction={this.handleEditAction} dataTableLoadingStatus = {this.state.loading} />
+                      </div>
                   </Col>
                 </Row>
               </CardBody>
             </Card>
+            </div>
           </Col>
         </Row>   
 
-        <Modal isOpen={this.state.modal } toggle={this.toggle} className="category-modal-section">
+        <Modal isOpen={this.state.modal } toggle={this.toggle} className="oep-model category-modal-section">
           <ModalHeader toggle={this.toggle}>Action</ModalHeader>
           <Form onSubmit={this.submitHandler}>
             <ModalBody>
@@ -331,7 +335,7 @@ class ActionLists extends Component {
               </FormGroup> 
             </ModalBody>
             <ModalFooter>
-              <Button className="search-btn" type="submit">Submit</Button>
+              <Button className="submit-btn" type="submit">Submit</Button>
               <Button className="btnCancel" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
           </Form>

@@ -163,7 +163,7 @@ class CustomTemplate extends Component {
          
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Custom Template</strong> 
               </CardHeader>
@@ -171,6 +171,7 @@ class CustomTemplate extends Component {
                
                 <Row>
                   <Col md={12}>
+                    <div className="search-filter">
                     <Row>
                       <Col md={"6"} lg={"4"}>
                         <FormGroup> 
@@ -200,11 +201,11 @@ class CustomTemplate extends Component {
                           <Button color="success" className="search-btn" id="searchButton" type="button" onClick={this.filterTemplateList}> Search</Button> 
                         </FormGroup>             
                       </Col>
-                    </Row>  
+                    </Row> 
+                    </div> 
                   </Col>
                   <Col md={12}>
                     <TemplateDataCard data={templateList} deleteTemplate = "" editTemplateFile="" apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
-                    
                     
                   </Col>
                 </Row>

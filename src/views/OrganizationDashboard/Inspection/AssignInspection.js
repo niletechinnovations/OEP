@@ -503,20 +503,23 @@ class AssignInspection extends React.Component {
       <div className="animated fadeIn">
         <Row>
           <Col lg={12}>
-            <Card>
+            <div className="oep-em-info">
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Assign Inspection</strong>
               </CardHeader>
               <CardBody>
                 {loaderElement}
                 <ToastContainer />
-                <Form onSubmit={this.submitHandler} noValidate>
+                <Form className="oep-form" onSubmit={this.submitHandler} noValidate>
                   <FormErrors formErrors={this.state.formErrors} />
                   <Row>                   
-                    <Col md={isMulti ? 12 : 12}>                     
+                    <Col md={isMulti ? 12 : 12}>
+                                           
                         {this.state.selectedEmployeList.map((selectedEmployeItem, index) =>
+                            <div className="selectedEmployeItem-list"> 
                             <Row key={index}>
-                              <Col md={isMulti ? 4 : 6}> 
+                              <Col md={isMulti ? 5 : 6}> 
                                 <FormGroup>
                                   <Label htmlFor="employee">Employee</Label>
                                    <Input type="select" placeholder={selectedEmployeItem.employeeId} key={index} name={`employeeId_${index}`} value={selectedEmployeItem.employeeId} onChange={this.changeEmployeeHandler} required = { index === 0 ? true : false } >
@@ -527,7 +530,7 @@ class AssignInspection extends React.Component {
                                   </Input>
                                 </FormGroup>
                               </Col>
-                              <Col md={isMulti ? 4 : 6}>
+                              <Col md={isMulti ? 5 : 6}>
                                 <FormGroup> 
                                   <Label htmlFor="storeId">Store <span className="mandatory">*</span></Label>            
                                   <Input type="select" multiple={isMulti} placeholder={index} key={index} name={`storeId_${index}[]`} value={selectedEmployeItem.storeId} onChange={this.changeStoreHandler} required = { index === 0 ? true : false } >
@@ -538,16 +541,18 @@ class AssignInspection extends React.Component {
                                   </Input>
                                 </FormGroup>
                               </Col>
-                              <Col md={4} className={!isMulti ? 'hide' : ''}>
-                                <Button color="danger" type="button" className="btnFont-size btnRemove" id={index} key={index}  onClick={this.removeOptions.bind(this)}><i className="fa fa-times"></i> Remove</Button>
+                              <Col md={2} className={!isMulti ? 'hide' : ''}>
+                                <a className="btnRemove" id={index} key={index}  onClick={this.removeOptions.bind(this)}><i className="fa fa-times"></i> Remove</a>
                               </Col>
                             </Row>
-                          )}                        
+                            </div>  
+                          )}
+                                                
                     </Col>
                     <Col md={12} className={!isMulti ? 'hide' : ''}>
-                        <Button color="success" type="button" className="btnFont-size" onClick={this.addMoreOption.bind(this)} disabled={this.state.selectedEmployeList.length === employeeList.length || employeeList.length === 0 ? true : false}><i className="fa fa-plus"></i> Add More</Button>
+                        <a className="Addemp-btn"  onClick={this.addMoreOption.bind(this)} disabled={this.state.selectedEmployeList.length === employeeList.length || employeeList.length === 0 ? true : false}><i className="fa fa-plus"></i> Add More</a>
                     </Col>
-                    <Col lg={6} md={6}>
+                    <Col lg={3} md={3}>
                       <FormGroup> 
                         <Label htmlFor="categoryId">Category <span className="mandatory">*</span></Label>            
                         <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.formField.categoryId} onChange={this.changeCategoryHandle} required >
@@ -558,7 +563,7 @@ class AssignInspection extends React.Component {
                         </Input>
                       </FormGroup>
                     </Col>
-                    <Col lg={6} md={6}>
+                    <Col lg={3} md={3}>
                       <FormGroup> 
                         <Label htmlFor="subCategoryId">Subcategory <span className="mandatory">*</span></Label>            
                         <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.formField.subCategoryId} onChange={this.changeSubCategoryHandler} required >
@@ -569,7 +574,7 @@ class AssignInspection extends React.Component {
                         </Input>
                       </FormGroup>
                     </Col>
-                    <Col lg={6} md={6}>
+                    <Col lg={3} md={3}>
                       <FormGroup> 
                         <Label htmlFor="templateId">Template <span className="mandatory">*</span>  </Label>            
                         <Input type="select" placeholder="Subcategory Name *" id="templateId" name="templateId" value={this.state.formField.templateId} onChange={this.changeHandler} required >
@@ -582,22 +587,23 @@ class AssignInspection extends React.Component {
                       </FormGroup>
                     </Col>  
                     
-                      {this.state.formField.templateId ? <Col lg={6} md={6}><div className="previewTemplateIcon"><Link to={`/common/template/${this.state.formField.templateId}`} target="_blank" className="search-btn">Preview Template </Link></div></Col>  : ""}
+                      {this.state.formField.templateId ? <Col lg={3} md={3}><div className="previewTemplateIcon"><Link to={`/common/template/${this.state.formField.templateId}`} target="_blank" className="Preview-btn">Preview Template </Link></div></Col>  : ""}
                                      
-                    <Col lg={12}>
+                    <Col lg={12} md={12}>
                         <FormGroup>
                           <Label htmlFor="inspection_name">Inspection Name</Label>            
                           <Input type="text" placeholder="Inspection Name *" value={this.state.formField.inspection_name} onChange={this.changeHandler} id="inspection_name" name="inspection_name" required />
                         </FormGroup>
                     </Col>
                     
-                    <Button className="search-btn" color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
-                    <Button className="btnCancel" color="secondary" onClick={this.resetForm}>Cancel</Button>
+                    <Button className="search-btn" disabled={!this.state.formValid} type="submit">Save</Button>
+                    <Button className="btnCancel"  onClick={this.resetForm}>Cancel</Button>
                   </Row>
                 </Form>
                 
               </CardBody>
             </Card>
+            </div>
           </Col>  
         </Row>
       </div>

@@ -53,7 +53,7 @@ class ReactFormBuilder extends React.Component {
     const toolbarProps = {};
     if (this.props.toolbarItems) { toolbarProps.items = this.props.toolbarItems; }
     return (
-       <div>
+      <div>
          {/* <div>
            <p>
              It is easy to implement a sortable interface with React DnD. Just make
@@ -62,47 +62,56 @@ class ReactFormBuilder extends React.Component {
            </p>
            <Container />
          </div> */}
-         <div className="react-form-builder template-builder-layout clearfix">
-          <div className="row">
-            <div className="col-md-12">
-               <div className="template-builder-tollbar ">
-                  <Toolbar {...toolbarProps} />
-               </div>
+        <div className="react-form-builder template-builder-layout clearfix">
+          <div className="template-input-card">
+            <h2>Form Builder Area</h2>
+            <div className="row">
+              <div className="col-md-12">
+                 <div className="template-builder-tollbar ">
+                    <Toolbar {...toolbarProps} />
+                 </div>
+              </div>
             </div>
-            <div className="col-md-6">
+          </div>
+
+          <div className="template-builder-preview-drop">
+            <div className="row">
+              <div className="col-md-8">
                <div className="full-width-template-layout">
-                 <Preview files={this.props.files}
-                     manualEditModeOff={this.manualEditModeOff.bind(this)}
-                     showCorrectColumn={this.props.showCorrectColumn}
-                     parent={this}
-                     data={this.props.data}
-                     onLoad={this.props.onLoad}
-                     onPost={this.props.onPost}
-                     editModeOn={this.editModeOn}
-                     editMode={this.state.editMode}
-                     variables={this.props.variables}
-                     editElement={this.state.editElement} />
-                 
+                  <Preview files={this.props.files}
+                   manualEditModeOff={this.manualEditModeOff.bind(this)}
+                   showCorrectColumn={this.props.showCorrectColumn}
+                   parent={this}
+                   data={this.props.data}
+                   onLoad={this.props.onLoad}
+                   onPost={this.props.onPost}
+                   editModeOn={this.editModeOn}
+                   editMode={this.state.editMode}
+                   variables={this.props.variables}
+                   editElement={this.state.editElement} />
                </div>
-            </div>
-             <div className="col-md-6">
-               <h3>Template Preview</h3>
-               <ReactFormGenerator
-                          download_path=""
-                          back_action="/"
-                          back_name="Back"
-                          answer_data={{}}
-                          action_name="Save"
-                          form_action="/"
-                          form_method="POST"
-                          hide_actions= "true"
-                          variables={this.props.variables}
-                          data={this.state.data} />
-             </div>
-            
+              </div>
+
+              <div className="col-md-4">
+                <div className="template-preview-card">
+                  <h3>Template Preview</h3>
+                  <ReactFormGenerator
+                  download_path=""
+                  back_action="/"
+                  back_name="Back"
+                  answer_data={{}}
+                  action_name="Save"
+                  form_action="/"
+                  form_method="POST"
+                  hide_actions= "true"
+                  variables={this.props.variables}
+                  data={this.state.data} />
+                </div>
+              </div>
+            </div>            
           </div> 
-         </div>
-       </div>
+        </div>
+      </div>
     );
   }
 }

@@ -399,7 +399,7 @@ class UploadTemplate extends Component {
          
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Uploaded Template</strong> <Button color="abc" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Upload Template</Button>
               </CardHeader>
@@ -407,6 +407,7 @@ class UploadTemplate extends Component {
                
                 <Row>
                   <Col md={12}>
+                    <div className="search-filter">
                     <Row>
                       <Col md={"6"} lg={"4"}>
                         <FormGroup> 
@@ -436,7 +437,8 @@ class UploadTemplate extends Component {
                           <Button color="success" className="search-btn" id="searchButton" type="button" onClick={this.filterTemplateList}> Search</Button> 
                         </FormGroup>             
                       </Col>
-                    </Row>  
+                    </Row>
+                    </div>  
                   </Col>
                   <Col md={12}>
                     <TemplateDataCard data={templateList} deleteTemplate = {this.deleteTemplate} editTemplateFile = {this.editTemplateFile} apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
@@ -449,7 +451,7 @@ class UploadTemplate extends Component {
             </Card>
           </Col>
         </Row>
-        <Modal isOpen={modal} toggle={this.toggle} className="category-modal-section">
+        <Modal isOpen={modal} toggle={this.toggle} className="oep-model category-modal-section">
           <ModalHeader toggle={this.toggle}>Upload Template</ModalHeader>
           <Form onSubmit={this.submitHandler} noValidate>
             <ModalBody>
@@ -495,8 +497,8 @@ class UploadTemplate extends Component {
               
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" type="submit">Submit</Button>
-              <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+              <Button className="submit-btn" type="submit">Submit</Button>
+              <Button className="btnCancel" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
           </Form>
         </Modal>

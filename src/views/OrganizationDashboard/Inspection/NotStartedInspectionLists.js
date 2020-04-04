@@ -292,7 +292,7 @@ class NotStartedInspectionLists extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card>
+            <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Inspection</strong>
               </CardHeader>
@@ -349,14 +349,16 @@ class NotStartedInspectionLists extends Component {
                           <FormGroup className="filter-button-section"> 
                             <Label htmlFor="searchButton">&nbsp;</Label> 
                             <Button className="search-btn" id="searchButton" type="button" onClick={this.filterInspectionList}>Search</Button> 
-                            <Button className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                            <Button className="reset-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
                           </FormGroup>             
                         </Col>
                       </Row>  
                     </div>
                   </Col>
                   <Col md={12}>
+                     <div className="oep-table"> 
                     <InspectionData data={inspectionList} deleteInspectionAction={this.handleDeleteInspection} dataTableLoadingStatus = {this.state.loading} />
+                    </div>
                   </Col>
                 </Row>
               </CardBody>
