@@ -87,7 +87,7 @@ section.pdf-toolbar {
 }
 .react-form-builder .react-form-builder-toolbar ul{margin-bottom: 0;}
 .react-form-builder .react-form-builder-toolbar ul li {
-    width: 25% !important;
+    width: 17% !important;
     display: inline-block !important;
         margin: 0 8px 8px 0 !important;
 
@@ -107,3 +107,9 @@ section.pdf-toolbar {
     padding: 0;
 }
 .FormBuilderArea h3 {font-size: 13px; font-weight: bold !important; border-bottom: 1px solid #eee; padding: 0px 0 20px; margin: 0 0 20px 0; }
+.template-preview-card .templatePreview1 {
+    display: inline;
+    position: absolute;
+    right: 0px;
+    top: -13px;
+}

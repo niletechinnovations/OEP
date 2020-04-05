@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label} from 'reactstrap';
-import DemoBar from '../../FormBuilder/demobar';
+
 import {ReactFormBuilder} from "../../FormBuilder/";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -327,7 +327,7 @@ class TemplateBuilderPage extends React.Component {
               <Card className="oep-card">
                 <CardHeader className="mainHeading">
                   <strong>Create Template</strong>
-                  <div className="previewButton"><DemoBar handleFormHandleChange = {this.handleUpdatedFormHandleChange} fileName = {this.state.formField.template_name} ></DemoBar></div>
+                  <div className="previewButton"></div>
                 </CardHeader>
                 <CardBody>
                   {loaderElement}                
@@ -381,7 +381,7 @@ class TemplateBuilderPage extends React.Component {
                         <Col lg={12}>
                           <FormGroup>
                             <div id="templateBuilderPage" className="">
-                              <ReactFormBuilder data={this.state.templatePreviewData}></ReactFormBuilder>  
+                              <ReactFormBuilder data={this.state.templatePreviewData} handleUpdatedFormHandleChange = {this.handleUpdatedFormHandleChange} template_name = {this.state.formField.template_name}></ReactFormBuilder>  
                               
                             </div>
                           </FormGroup>

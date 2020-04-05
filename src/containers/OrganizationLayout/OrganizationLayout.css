@@ -110,4 +110,6 @@ a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height
 
 
 tfoot.MuiTableFooter-root .MuiTableCell-root{padding:0 !important;}
+.navbar .navbar-nav .nav-item{margin-left: 0px;}
+.Create-filter .form-group .form-control, .oep-form .form-control, .search-filter .form-group .form-control, .oep-model .form-group .form-control, .oep-model .form-group .form-control{height: 35px;}
 

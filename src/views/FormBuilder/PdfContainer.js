@@ -93,7 +93,11 @@ class PdfContainer extends Component {
           }
         })
       }
-    }    
+      else 
+        toast.error("Please enter valid email address");
+    }   
+    else
+      toast.error("Please enter email address"); 
   }
   showShareOption = () => {    
     this.setState({
@@ -105,13 +109,13 @@ class PdfContainer extends Component {
   };
   createPdf = () => this.props.createPdf(this.bodyRef.current);   
   render() {
-    let shareButton = <button className="btn-re pull-right" onClick={this.showShareOption}>Share</button>;
+    let shareButton = <a className="btn-re pull-right" onClick={this.showShareOption}>Share</a>;
     if(this.props.hideShareButton !== undefined && this.props.hideShareButton)
       shareButton = "";
     return (
       <section className="pdf-container">
         <section className="pdf-toolbar">
-          <button onClick={this.createPdf} className=" btn btn-ye"><i className="fa fa-download"></i> Export PDF</button>
+          <a onClick={this.createPdf} className=" btn btn-ye"><i className="fa fa-download"></i> Export PDF</a>
           {shareButton}
 
         </section>
@@ -123,7 +127,7 @@ class PdfContainer extends Component {
         </section>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className="category-modal-section">
             <ModalHeader toggle={this.toggle}>Share Template</ModalHeader>
-            <Form onSubmit={this.submitHandler} noValidate>
+            
               <ModalBody>
                 <FormGroup> 
                   <Label htmlFor="share_email">Share on Email</Label>            
@@ -132,10 +136,10 @@ class PdfContainer extends Component {
                 </FormGroup>
               </ModalBody>
               <ModalFooter>
-                <Button color="primary"  type="submit" disabled={this.state.loading}>{this.state.loading ? "Processing...": "Send"}</Button>
+                <Button color="primary"  onClick = {this.submitHandler}  disabled={this.state.loading}>{this.state.loading ? "Processing...": "Send"}</Button>
                 <Button color="secondary" onClick={this.toggle}>Cancel</Button>
               </ModalFooter>
-            </Form>
+            
           </Modal>
       </section>
     )

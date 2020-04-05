@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { DragDropContext } from 'react-dnd';
-
+import DemoBar from './demobar';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Preview from './preview';
 import Toolbar from './toolbar';
@@ -94,7 +94,7 @@ class ReactFormBuilder extends React.Component {
 
               <div className="col-md-4">
                 <div className="template-preview-card">
-                  <h3>Template Preview</h3>
+                  <h3>Template Preview <DemoBar handleFormHandleChange = {this.props.handleUpdatedFormHandleChange} fileName = {this.props.template_name} ></DemoBar></h3>
                   <ReactFormGenerator
                   download_path=""
                   back_action="/"
