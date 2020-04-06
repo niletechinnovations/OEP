@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, Dropdown } from 'reactstrap';
+import { UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav /*NavItem, NavLink, Dropdown*/ } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo-black.svg'
 import sygnet from '../../assets/img/brand/logo-black.svg'
-import navigation from '../../_nav_org';
+/*import navigation from '../../_nav_org';
 import navigation_unsubcribe from '../../_nav_org_unsubcribe';
-import commonService from '../../core/services/commonService';
+import commonService from '../../core/services/commonService';*/
 const propTypes = {
   children: PropTypes.node,
 };
@@ -23,11 +23,11 @@ class DefaultHeader extends Component {
       selectedIndex : -1,
 
     }     
-    this.showDropDownMenu = this.showDropDownMenu.bind(this);
-    this.closeSubMenuItm = this.closeSubMenuItm.bind(this);
+    //this.showDropDownMenu = this.showDropDownMenu.bind(this);
+    //this.closeSubMenuItm = this.closeSubMenuItm.bind(this);
   }
 
-  showDropDownMenu = (currentIndex) => {    
+ /* showDropDownMenu = (currentIndex) => {    
     if(currentIndex === this.state.selectedIndex)
       this.setState({isOpenMenu: !this.state.isOpenMenu, selectedIndex: currentIndex});
     else
@@ -35,9 +35,9 @@ class DefaultHeader extends Component {
   }
   closeSubMenuItm(){
 
-  }
+  }*/
   render() {
-    let navigationItem = commonService.getIsSubscribe() ? navigation : navigation_unsubcribe;
+    /*let navigationItem = commonService.getIsSubscribe() ? navigation : navigation_unsubcribe;*/
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
     const profileImage = (localStorage.getItem('profilePic') !== undefined &&  localStorage.getItem('profilePic') !== "" && localStorage.getItem('profilePic') !== null) ? localStorage.getItem('profilePic') : '../../assets/img/avatars/6.jpg';
@@ -53,7 +53,7 @@ class DefaultHeader extends Component {
         
         <Nav className="ml-auto" navbar>
           {
-            navigationItem.items.map((value, index) => <SetupMenuItem showDropDownMenu = {this.showDropDownMenu} selectedIndex = {this.state.selectedIndex} isOpenMenu = { this.state.isOpenMenu} closeSubMenuItm = {this.closeSubMenuItm} currentIndex = {index}  key = {index} menuList = {value} />)
+            /*navigationItem.items.map((value, index) => <SetupMenuItem showDropDownMenu = {this.showDropDownMenu} selectedIndex = {this.state.selectedIndex} isOpenMenu = { this.state.isOpenMenu} closeSubMenuItm = {this.closeSubMenuItm} currentIndex = {index}  key = {index} menuList = {value} />)*/
           }
           {/*<NavItem className="d-md-down-none">
             <NavLink to="#" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">0</Badge></NavLink>
@@ -83,7 +83,7 @@ class DefaultHeader extends Component {
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
-function SetupMenuItem(props) {
+/*function SetupMenuItem(props) {
   if(props.menuList.children) {
     return (
       <Dropdown nav isOpen={props.isOpenMenu && props.currentIndex === props.selectedIndex} toggle={ (e) =>props.showDropDownMenu(props.currentIndex)} >
@@ -103,6 +103,6 @@ function SetupMenuItem(props) {
 
 function SetMenuItem(props){
   return (<DropdownItem tag={Link} to={props.menuItem.url} className="submenu-item"> {props.menuItem.name}</DropdownItem>);
-}
+}*/
 
 export default DefaultHeader;

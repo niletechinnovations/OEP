@@ -1,6 +1,7 @@
 .react-form-builder .react-form-builder-preview .Sortable .rfb-item .toolbar-header .label {
-	position: relative;
+    position: relative;
 }
+
 
 #templateBuilderPage .react-form-builder .react-form-builder-preview.is-editing .edit-form {   
     left: 206px;
@@ -10,10 +11,10 @@
     min-height: 600px;
 }
 .react-form-builder-preview .Sortable + div[draggable="true"]{
-	min-height: 600px;
+    min-height: 600px;
 }
 .show {
-	display: block;
+    display: block;
 }
 .form-builder-preview { top: 100px; }
 .form-builder-preview .react-form-builder-form { padding: 0px 20px; }
@@ -22,11 +23,21 @@
 .modal-content.form-builder-preview .modal-header { padding: 0rem 1rem; }
 .form-builder-preview .modal-header a { padding: 0.25rem 0.75rem; }
 
-.template-builder-tollbar {
-      position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  justify-content: flex-start;
+.template-input-card {
+    position: sticky;
+    top: 50px;
+    background: #fff;
+    z-index: 9;
+    border: 1px solid #eee;
+        padding: 10px;
+}
+.template-builder-preview-drop {
+    width: 100%;
+    max-height: 690px;
+    overflow-y: auto;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #eee;
 }
 
 .react-form-builder .react-form-builder-preview {
@@ -70,39 +81,35 @@ section.pdf-toolbar {
     padding: 0px 15px;
 }
 
-
-.categoryAdd {background: #ffc107; color: #fff; font-size: 12px; box-shadow: none; position: absolute; right: 0; top: 0 } 
-.categoryList .MuiToolbar-regular{    min-height: auto;}
-
-.categoryList .MuiTableCell-body p{margin-bottom: 0;} 
-h6.MuiTypography-root {font-size: 16px; color: #000; font-weight: bold !important; }
-.search-filter {background: #f6f9fc; padding: 10px; margin-bottom: 20px; border-radius: 2px; }
-.search-filter .form-group{margin-bottom: 10px !important;}
-.search-filter .form-group label {margin-bottom: 0; font-size: 12px; font-weight: 600; color: #000; }
-.search-filter .form-group .form-control {border: 1px solid #cdd4db; font-size: 13px; outline: none; }
-.search-filter button.search-btn{background: #ffc107 !important; color: #fff; font-weight: bold; border: none; box-shadow: none; }
-.filter-button-section {padding-top: 15px; }
-
-.ye-btn{
-    background: #ffc107;
-    color: #fff;
-    font-size: 12px;
-    box-shadow: none;
-}
-
-.re-btn{
-    background: #f62010;
-    color: #fff;
-    font-size: 12px;
-    box-shadow: none;
-}
 .react-form-builder .react-form-builder-toolbar {
     width: 100% !important;
     margin-top: 0px !important;
 }
-
+.react-form-builder .react-form-builder-toolbar ul{margin-bottom: 0;}
 .react-form-builder .react-form-builder-toolbar ul li {
     width: 17% !important;
     display: inline-block !important;
-    float: left !important;
+        margin: 0 8px 8px 0 !important;
+
+}
+.Create-filter{background: #ffffff; padding: 10px; margin-bottom: 10px; border-radius: 2px; border: 1px solid #eee;}
+ .Create-filter .row{margin-left: -5px; margin-right: -5px}
+.Create-filter .row .col-lg-3,
+.Create-filter .row .col-lg-4,
+.Create-filter .row .col-lg-6{padding-left:5px; padding-right:5px}
+.Create-filter .form-group label {margin-bottom: 0; font-weight: 500; font-size: 12px; } 
+.Create-filter .form-group .form-control {font-size: 12px; padding: 8px; height: auto; box-shadow: none; outline: none; }
+
+.FormBuilderArea h2 {font-size: 13px; font-weight: bold !important; padding: 0; }
+.FormBuilderArea .react-form-builder-toolbar h4{display: none;}
+.FormBuilderArea .template-builder-tollbar {background: #ffffff;  display: inline-block; width: 100%; position: sticky; top: 0; }
+.create-heading.card-header {
+    padding: 0;
+}
+.FormBuilderArea h3 {font-size: 13px; font-weight: bold !important; border-bottom: 1px solid #eee; padding: 0px 0 20px; margin: 0 0 20px 0; }
+.template-preview-card .templatePreview1 {
+    display: inline;
+    position: absolute;
+    right: 0px;
+    top: -13px;
 }
