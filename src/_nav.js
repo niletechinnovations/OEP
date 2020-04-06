@@ -43,7 +43,7 @@ export default {
           icon: 'icon-theme',     
         },
         {
-          name: 'Template List',
+          name: 'Template Library',
           url: '/admin/manage-template/template',
           icon: 'icon-theme',     
         }

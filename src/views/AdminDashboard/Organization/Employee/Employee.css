@@ -1,5 +1,5 @@
 .full-width-modal-section.modal-dialog { max-width: 700px; }
-.categoryAdd {background: #ffc107; color: #fff; font-size: 12px; box-shadow: none; position: absolute; right: 0; top: 0 } 
+ 
 .categoryList .MuiToolbar-regular{    min-height: auto;}
 
 .categoryList .MuiTableCell-body p{margin-bottom: 0;} 
@@ -8,5 +8,4 @@ h6.MuiTypography-root {font-size: 16px; color: #000; font-weight: bold !importan
 .search-filter .form-group{margin-bottom: 0;}
 .search-filter .form-group label {margin-bottom: 0; font-size: 12px; font-weight: 600; color: #000; }
 .search-filter .form-group .form-control {border: 1px solid #cdd4db; font-size: 13px; outline: none; }
-.search-filter button.search-btn{background: #ffc107 !important; color: #fff; font-weight: bold; border: none; box-shadow: none; }
 .filter-button-section {padding-top: 15px; }

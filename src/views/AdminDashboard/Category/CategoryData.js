@@ -77,10 +77,10 @@ class CategoryData extends Component {
     }
     const options = {
       search: true,
-      filter: true,
+      filter: false,
       searchOpen: false,
       print: false,
-      viewColumns: true,
+      viewColumns: false,
       download: false,
       responsive: 'stacked',
       selectableRows: 'none',
@@ -94,7 +94,7 @@ class CategoryData extends Component {
       fixedHeaderOptions: { xAxis: false, yAxis: false },
        customToolbar: () => {
         return (
-          <Button color="" className="categoryAdd" type="button" onClick={this.props.toggle}><i className="fa fa-plus"></i> Add New</Button>
+          <Button color="" className="categoryAdd" type="button" onClick={this.props.toggle}><i className="fa fa-plus"></i> Add Category</Button>
         );
       }
 

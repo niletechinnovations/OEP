@@ -312,7 +312,7 @@ class Organization extends Component {
             <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Organization List</strong> 
-                <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Organization</Button>
               </CardHeader>
               <CardBody>
                 

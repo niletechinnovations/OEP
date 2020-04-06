@@ -1,0 +1,46 @@
+.card-footer-section {position: absolute; bottom: 35px; }
+
+.tabs-info-card {background: #fff; padding: 10px; border-radius: 2px; } 
+.tabs-info-card .nav-tabs .nav-link {font-size: 13px; font-weight: 600; color: #607D8B; }
+.tabs-info-card .nav-tabs .nav-link.active{background: #e6eaee; border: none; }
+.tabs-info-card .nav-tabs .nav-link:hover, 
+.tabs-info-card .nav-tabs .nav-link:focus{border-color:transparent; }
+.tabs-info-card .tab-content {margin-top: -2px; background: #fff; border: 1px solid #e8edf2; }
+.tabs-info-card .tab-content .tab-pane { padding: 10px;}
+
+.DefaultTemplate-msg-card{background: #f5ebdc; padding: 15px; margin-bottom: 20px; border-left: 2px solid #FF9800; }
+.DefaultTemplate-msg-card p {margin-bottom: 0; font-size: 13px; font-weight: 600; color: #ad7828; }
+
+.plan-info-notice {background: #e4f9e5; padding: 15px; margin-bottom: 20px;border-left: 2px solid #4CAF50; }
+.plan-info-notice p {margin-bottom: 0; font-size: 13px; color: #033505; font-weight: 600; }
+a.subscription-btn {background: #4CAF50; color: #fff; padding: 8px 15px; display: inline-block; border-radius: 3px; font-weight: bold; }
+
+.cardArea {
+    border: 1px solid #c5d2db !important;
+    box-shadow: 6px 6px #c5d2db !important;
+    border-radius: 10px;
+    min-height: 280px;
+    background: #ffffff;
+    background: -moz-linear-gradient(-45deg, #ffffff 0%, #edf3f7 50%, #e3edf4 50%, #ffffff 100%);
+    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#edf3f7 50%,#e3edf4 50%,#ffffff 100%);
+    background: linear-gradient(135deg, #ffffff 0%,#edf3f7 50%,#e3edf4 50%,#ffffff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 );
+    padding: 10px;
+}
+
+.oep-title,
+p.oep-title.card-text{font-size: 12px !important; color: #000 !important;}
+
+.btn-copy {display: inline-block;margin: 1px; background: #fff; color: #FF9800; font-weight: bold; border: none; box-shadow: none; padding: 7px 10px; border-radius: 3px; font-size: 13px; font-weight: 600; border: 1px solid #FF9800; }
+.btn-Edit {display: inline-block; margin: 1px; background: #fff; color: #2196F3; font-weight: bold; border: none; box-shadow: none; padding: 7px 10px; border-radius: 3px; font-size: 13px; font-weight: 600; border: 1px solid #2196F3; }
+.btn-preview {display: inline-block;margin: 1px; background: #fff; color: #607D8B; font-weight: bold; border: none; box-shadow: none; padding: 7px 10px; border-radius: 3px; font-size: 13px; font-weight: 600; border: 1px solid #607D8B; }
+.btn-Assign {display: inline-block;margin: 1px; background: #fff; color: #4CAF50; font-weight: bold; border: none; box-shadow: none; padding: 7px 10px; border-radius: 3px; font-size: 13px; font-weight: 600; border: 1px solid #4CAF50; }
+.btn-Uploaded{display: inline-block;margin: 1px; background: #fff; color: #4CAF50; font-weight: bold; border: none; box-shadow: none; padding: 7px 10px; border-radius: 3px; font-size: 13px; font-weight: 600; border: 1px solid #4CAF50; }
+.btn-Delete {display: inline-block; margin: 1px; background: #fff; color: #ff1807; font-weight: bold; border: none; box-shadow: none; padding: 7px 10px; border-radius: 3px; font-size: 13px; font-weight: 600; border: 1px solid #ff1807; }
+
+.oep-model h5.modal-title {font-size: 14px; font-weight: bold; color: #000; }
+.oep-model .modal-footer{padding: 5px}
+.oep-model .form-group label {margin-bottom: 0; font-weight: 500; font-size: 12px; } 
+.oep-model .form-group .form-control {font-size: 12px; padding: 8px; height: auto; box-shadow: none; outline: none; }
+.btnCancel{background: #f81a0a !important; color: #ffffff !important; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }
+.submit-btn{background: #4CAF50  !important; opacity: 1 !important; color: #ffffff !important; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }

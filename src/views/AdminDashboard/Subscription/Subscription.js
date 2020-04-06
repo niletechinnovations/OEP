@@ -227,7 +227,7 @@ class Subscription extends Component {
           <Col lg={12}>
             <Card>
               <CardHeader className="mainHeading">
-                <strong>Subscription Plan List</strong> <Button color="button" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Subscription Plan List</strong> <Button color="button" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Plan</Button>
               </CardHeader>
               <CardBody>                
                 <Row>                 

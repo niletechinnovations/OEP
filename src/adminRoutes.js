@@ -34,7 +34,7 @@ const adminRoutes = [
   { path: '/admin/manage-organization/store', exact: true,  name: 'Store', component: Store },
   { path: '/admin/manage-organization/store/:organizationId', exact: true,  name: 'Store', component: Store },
   { path: '/admin/change-password', exact: true,  name: 'Change Password', component: ChangePassword },
-  { path: '/admin/manage-template/template', exact: true,  name: 'Template List', component: TemplateList },
+  { path: '/admin/manage-template/template', exact: true,  name: 'Template Library', component: TemplateList },
   { path: '/admin/manage-template/create-template', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/admin/manage-template/create-template/:templateId', exact: true,  name: 'Create Template', component: TemplateBuilder },
   { path: '/admin/manage-template/preview/:inspectionId', exact: true,  name: 'Preview Template', component: PreviewTemplatePage },

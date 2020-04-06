@@ -82,8 +82,9 @@ class SubCategoryData extends Component {
       },
     ];
     const options = {
-      search: true,viewColumns: false,
-      filter: true,
+      search: true,
+      viewColumns: false,
+      filter: false,
       searchOpen: false,
       print: false,
       download: false,
@@ -99,7 +100,7 @@ class SubCategoryData extends Component {
       fixedHeaderOptions: { xAxis: false, yAxis: false },
        customToolbar: () => {
         return (
-          <Button color="" className="categoryAdd" type="button" onClick={this.props.toggle}><i className="fa fa-plus"></i> Add New</Button>
+          <Button color="" className="categoryAdd" type="button" onClick={this.props.toggle}><i className="fa fa-plus"></i> Add Subcategory</Button>
         );
       }
       

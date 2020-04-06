@@ -352,7 +352,7 @@ class Employee extends Component {
           <Col lg={12}>
             <Card className="oep-card">
               <CardHeader className="mainHeading">
-                <strong>Employee List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Employee List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Employee</Button>
               </CardHeader>
               <CardBody>
                 

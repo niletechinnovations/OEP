@@ -340,12 +340,12 @@ class Store extends Component {
           <Col lg={12}>
             <Card className="oep-card">
               <CardHeader className="mainHeading">
-                <strong>Store List</strong> <Button color="primary" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add New</Button>
+                <strong>Store List</strong> <Button color="yellow" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Store</Button>
               </CardHeader>
               <CardBody>
                 
                 <Row>
-                  <Col md={12}>
+                  <Col md={12} className="search-filter">
                     <Row>
                       <Col md={"2"}>
                         <FormGroup> 

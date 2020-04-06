@@ -347,19 +347,21 @@ class TemplateBuilderPage extends React.Component {
                     </Col>
                     </Row>
                     </div>
-                    <Row>
-                    <Col lg={12}>
-                      <FormGroup>
-                        <Label htmlFor="templateBuilderPage">Form Builder Area</Label>
-                        <div id="templateBuilderPage" className="">
-                          <ReactFormBuilder data={this.state.templatePreviewData} handleUpdatedFormHandleChange = {this.handleUpdatedFormHandleChange} template_name = {this.state.formField.template_name}></ReactFormBuilder>    
-                          
-                        </div>
-                      </FormGroup>
-                    </Col>
-                    <Button color="" className="ye-btn" disabled={!this.state.formValid} type="submit">Save</Button>
-                    <Button color="" className="re-btn" onClick={this.resetForm}>Cancel</Button>
-                  </Row>
+                    <div className="FormBuilderArea">
+                      <Row>
+                        <Col lg={12}>
+                          <FormGroup>
+                            <Label htmlFor="templateBuilderPage">Form Builder Area</Label>
+                            <div id="templateBuilderPage" className="">
+                              <ReactFormBuilder data={this.state.templatePreviewData} handleUpdatedFormHandleChange = {this.handleUpdatedFormHandleChange} template_name = {this.state.formField.template_name}></ReactFormBuilder>    
+                              
+                            </div>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Button color="" className="search-btn ye-btn" disabled={!this.state.formValid} type="submit">Save</Button>
+                      <Button color="" className="btnCancel  re-btn" onClick={this.resetForm}>Cancel</Button>
+                    </div>
                 </Form>
                 
               </CardBody>
