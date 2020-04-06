@@ -5,3 +5,4 @@
 .tabs-info-card .nav-tabs .nav-link:focus{border-color:transparent; }
 .tabs-info-card .tab-content {margin-top: -2px; background: #fff; border: 1px solid #e8edf2; }
 .tabs-info-card .tab-content .tab-pane { padding: 10px;}
+.floating-prev-next { margin-top: 10px; }

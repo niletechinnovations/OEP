@@ -103,7 +103,7 @@ class Profile extends Component {
           formField.profilePic = res.data.data.profilePic;          
           this.setState({ loading: false, formField: formField});
           toast.success(res.data.message);
-          this.props.history.push('/organization/profile');
+          //this.props.history.push('/organization/profile');
          
         } )
         .catch( err => {         
@@ -217,9 +217,11 @@ class Profile extends Component {
     let prevImg = '';
     if(loading)
       loaderElement = <Loader />
+
     if(this.state.formField.profilePic !== "")
       prevImg = <div className="prevProfileImageArea"><img src={this.state.formField.profilePic} alt="Profile" className="prevProfileImage" /></div>
-
+    else
+      prevImg = <div className="prevProfileImageArea"><img src='../../../assets/img/avatars/6.jpg' alt="Profile" className="prevProfileImage" /></div>
     return (
       <div className="animated fadeIn">
         <Row>

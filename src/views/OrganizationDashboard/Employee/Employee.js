@@ -362,11 +362,11 @@ class Employee extends Component {
                     </div>
                   </Col>
                   {this.props.previousStep ? 
-                  <Col md={6}>
+                  <Col md={6} className="floating-prev-next">
                       <Button className="search-btn" onClick={() => this.props.previousStep()}>Previous Step</Button>
                   </Col> : ""}
                   {this.props.enableNextStep ? 
-                  <Col md={6}>
+                  <Col md={6} className="floating-prev-next">
                       <Button className="search-btn pull-right" onClick={() => this.props.enableNextStep()}>Next Step</Button>
                   </Col> : ""}
                 </Row> 
