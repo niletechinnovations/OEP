@@ -25,15 +25,14 @@ a.payment-Button {
 }
 
 .payment-Button {
-    background: #e3ab37;
-    padding: 8px 20px;
+    background: #FF9800;
+    padding: 8px 30px;
     color: #fff !important;
     font-size: 14px;
     font-weight: bold;
-    border-radius: 30px;
-    
+    border-radius: 5px;
     display: inline-block;
-    border:none;
+    border: none;
 }
 .payment-card .card-subtitle{font-size: 14px;
     font-weight: bold;margin-bottom: 15px;}
@@ -45,18 +44,53 @@ a.payment-Button {
     margin-bottom: 5px;
 }
 
-
-
-
+.termsCondition {
+    width: 100%;
+}
 .how-it-section {background: #F7F8FF;background: -webkit-linear-gradient(to right, #ffeff5, #f0f0ff);
 background: linear-gradient(to right, #ffeff5, #f0f0ff);}
-.pricing-divider {
-border-radius: 20px;
-background: #8141AA;
-padding: 1em 0 2em;
-position: relative;
-min-height: 200px;
+.pricing-plan {
+    background: #ffffff;
+background: -moz-linear-gradient(-45deg,  #ffffff 0%, #f3f3f3 50%, #ededed 50%, #ffffff 100%);
+background: -webkit-linear-gradient(-45deg,  #ffffff 0%,#f3f3f3 50%,#ededed 50%,#ffffff 100%);
+background: linear-gradient(135deg,  #ffffff 0%,#f3f3f3 50%,#ededed 50%,#ffffff 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 );
+
+    padding: 20px;
+    position: relative;
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid #eee;
+        text-align: left;
 }
+
+.pricing-plan h2 {
+    font-size: 16px;
+    font-weight: bold !important;
+    color: #607D8B;text-align: left;
+}
+.point-list li {
+    text-align: left;
+    font-size: 13px;
+    padding-bottom: 3px;
+}
+
+.lastPrice {
+        margin-bottom: 20px;
+    font-size: 24px;
+    padding: 0;
+    color: #607d8b;
+    font-weight: bold;
+    text-align: left;
+}
+
+.lastPrice span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.point-list{list-style: none;margin: 0; padding: 0;}
+
 .internal-page-section{padding: 0 0 2.5rem 0;}
 .red-tem .pricing-divider{
 background: #D3145A;
@@ -120,25 +154,17 @@ transform: translate3d(-15px, 0, 0);
 transform: translate3d(-15px, 0, 0);
 }
 .container-fluid.bg-gradient.p-5{padding: 1rem 1rem 3rem 1rem !important;}
-.lastPrice{ font-size: 18px;
-text-align: left;
-margin: 0 0 0 64px;
-padding: 0; color: #fff; opacity: .6;}
-.OfferTopHeading{padding: 2rem 0rem; }
+
+.OfferTopHeading{padding: 0rem 0rem 1rem 0; }
 .OfferTopHeading .OfferContentFirst p{font-size: 14px !important;}
 .OfferContentFirst{width: 70%; margin: auto; text-align: center;}
-.OfferContentSecond{width: 80%;
-    padding: 10px 10px 10px 3.3rem;
-    margin: auto;
-    background: rgb(255, 255, 255, 0.4);
-    border-radius: 20px;
-    border: 1px solid #f7e3f0;
-    box-shadow: 5px 10px 12px -6px #ded8ef; }
-.OfferContentFirst h4 {padding-bottom: 0px !important;}
-.OfferContentSecond h4 {padding-bottom: 0px !important; text-align: center;}
-.OfferTopHeading .OfferContentSecond ul li{list-style-type: decimal; line-height: 22px; margin-bottom: .6rem; }.
-.OfferTopHeading h4{font-size: 20px; font-weight: 500;}
-.OfferTopHeading p{font-size: 16px;}
+.OfferContentSecond {background: #f5ebdc; padding: 15px; margin-bottom: 20px; border-left: 2px solid #FF9800; }
+
+.OfferContentSecond h4 {padding-bottom: 0px !important; font-weight: bold !important; font-size: 14px; }
+.OfferContentSecond ul {margin: 0; padding: 0 0 0 20px; list-style: circle; }
+.OfferContentSecond ul li {line-height: 22px; font-size: 13px; }
+.OfferTopHeading p {font-size: 13px; color: #925802; font-weight: 600; margin-bottom: 10px; }
+.OfferTopHeading p a {color: #FF9800; border: 2px solid #FF9800; padding: 5px 10px; border-radius: 2px; }
 .termsCondition p{font-style: italic; font-size: 14px; margin:30px 0 0 14px; }
 .ContentHeight-fix{height: 230px; min-height: 230px;}
 .btn-custom.ads-fix-button {position: relative;
@@ -164,6 +190,5 @@ padding: 0px 5px;
 .terms-and-condition a{color:#2e3192}
 .ContentHeight-inner {
 height: auto;
-min-height: 110px;
+min-height: 90px;
 }
-
