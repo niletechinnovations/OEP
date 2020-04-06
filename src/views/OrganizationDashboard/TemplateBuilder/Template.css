@@ -14,7 +14,9 @@
 .plan-info-notice {background: #e4f9e5; padding: 15px; margin-bottom: 20px;border-left: 2px solid #4CAF50; }
 .plan-info-notice p {margin-bottom: 0; font-size: 13px; color: #033505; font-weight: 600; }
 a.subscription-btn {background: #4CAF50; color: #fff; padding: 8px 15px; display: inline-block; border-radius: 3px; font-weight: bold; }
-
+.formBuilderPreview {
+    top: 10%;
+}
 .cardArea {
     border: 1px solid #c5d2db !important;
     box-shadow: 6px 6px #c5d2db !important;

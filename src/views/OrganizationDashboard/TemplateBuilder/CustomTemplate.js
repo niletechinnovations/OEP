@@ -198,7 +198,7 @@ class CustomTemplate extends Component {
                       <Col md={"6"} lg={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
-                          <Button color="success" className="search-btn" id="searchButton" type="button" onClick={this.filterTemplateList}> Search</Button> 
+                          <Button className="search-btn" id="searchButton" type="button" onClick={this.filterTemplateList}> Search</Button> 
                         </FormGroup>             
                       </Col>
                     </Row> 

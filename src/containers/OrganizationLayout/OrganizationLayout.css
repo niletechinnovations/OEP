@@ -61,6 +61,11 @@ a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height
 .oep-em-info{background: #fff; padding: 10px; border-radius: 2px;}
 .mainHeading{display: flex; align-items: center; right: 0;}
 .categoryAdd {position: absolute; right: 0; top: 0; border: none; background:#4caf50; font-weight: bold; color: #fff; font-size: 12px; box-shadow: none; }
+.categoryAdd:hover,
+.categoryAdd:focus, 
+.categoryAdd:active, 
+.categoryAdd.active,
+button.categoryAdd.btn.btn-secondary:not([disabled]):not(.disabled):active{background: #4caf50 !important; color: #ffffff !important; box-shadow: none;}
 
 .search-filter {background: #ffffff; padding: 10px; margin-bottom: 20px; border-radius: 2px; border: 1px solid #eee; }
 .search-filter .row{margin-left: -5px; margin-right: -5px}
@@ -73,15 +78,20 @@ a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height
 .search-filter .form-group{margin-bottom: 0;}
 .search-filter .form-group label {margin-bottom: 0; font-weight: 500; font-size: 12px; } 
 .search-filter .form-group .form-control {font-size: 12px; padding: 8px; height: auto; box-shadow: none; outline: none; }
-.search-filter button.search-btn{background: #ff9800  !important; color: #fff; font-weight: bold; border: none; box-shadow: none; }
-.reset-btn {background: #070707 !important; color: #ffffff; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }
-
+/*.search-btn{background: #ff9800  !important; color: #fff; font-weight: bold; border: none; box-shadow: none; }
+*/.reset-btn {background: #070707 !important; color: #ffffff; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }
+.reset-btn:hover,
+.reset-btn:focus, 
+.reset-btn:active, 
+.reset-btn.active,
+button.reset-btn.btn.btn-secondary:not([disabled]):not(.disabled):active{background: #070707 !important; color: #ffffff !important;}
 .filter-button-section {padding-top: 15px; }
-.search-btn {background: #141310 !important; color: #fff !important; font-weight: 600; border: none; box-shadow: none; text-transform: initial; opacity: 1 !important; }
+.search-btn {background: #ff9800 !important; color: #fff !important; font-weight: 600; border: none; box-shadow: none; text-transform: initial; opacity: 1 !important; }
 .search-btn:hover,
 .search-btn:focus, 
 .search-btn:active, 
-.search-btn.active{background: #141310;}
+.search-btn.active,
+button.search-btn.btn.btn-secondary:not([disabled]):not(.disabled):active{background: #ff9800 !important; box-shadow: none;}
 
 .oep-table .MuiTableCell-root p{margin-bottom: 0}
 .oep-table .MuiToolbar-regular {
@@ -104,7 +114,8 @@ a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height
 .btnCancel:hover,
 .btnCancel:focus, 
 .btnCancel:active, 
-.btnCancel.active{background: #f81a0a !important; box-shadow: none !important; }
+.btnCancel.active,
+button.btnCancel.btn.btn-secondary:not([disabled]):not(.disabled):active{background: #f81a0a !important; box-shadow: none !important; }
 
 
 .submit-btn{background: #4CAF50  !important; opacity: 1 !important; color: #ffffff !important; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }
