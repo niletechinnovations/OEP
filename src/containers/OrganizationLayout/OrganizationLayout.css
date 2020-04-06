@@ -19,14 +19,16 @@ body.header-fixed {
     padding: 0px !important;
 }*/
 .app-header {
-    background-color: #ffffff !important;
+    background-color: #fbf0d0 !important;
     background: #fff;
-    box-shadow: 0 0 13px rgba(0, 0, 0, 0.13);
+    box-shadow: none;
     border: none;
 }
  .main .container-fluid {
-    padding: 15px;
+    padding:0  15px;
 }
+
+.breadcrumb{background-color: #e8edf2;}
 .breadcrumb{margin-bottom: 0;}
 
  .navbar .dropdown-menu a{font-size: 12px !important;}
@@ -107,9 +109,36 @@ a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height
 
 .submit-btn{background: #4CAF50  !important; opacity: 1 !important; color: #ffffff !important; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }
 
-
+.header-fixed .app-body {
+    margin-top: 105px;
+}
 
 tfoot.MuiTableFooter-root .MuiTableCell-root{padding:0 !important;}
 .navbar .navbar-nav .nav-item{margin-left: 0px;}
 .Create-filter .form-group .form-control, .oep-form .form-control, .search-filter .form-group .form-control, .oep-model .form-group .form-control, .oep-model .form-group .form-control{height: 35px;}
 
+.organization-nav-card {    padding: 15px 0; background: #fff; position: relative; width: 100%; box-shadow: 0 19px 34px -15px #d2d2f2; -webkit-box-shadow: 0 19px 34px -15px #d2d2f2; -moz-box-shadow: 0 19px 34px -15px #d2d2f2; }
+.organization-menu li a.nav-link.nav-link {color: #1d1d1d; font-size: 13px; font-weight: 400; }
+.organization-menu li a i {margin-right: 5px; font-size: 16px; color: #e3ab36; font-weight: 400; }
+.header-top {
+    width: 100%;
+    display: flex;
+}
+.organization-menu .dropdown-menu {
+    background: #fff;
+    border-top: none;
+    border-radius: 4px;
+    box-shadow: 1px 0 20px rgba(0,0,0,.08);
+    -webkit-box-shadow: 1px 0 20px rgba(0,0,0,.08);
+}
+
+/*.header-fixed .organization-nav-card {
+    position: fixed;
+    z-index: 1020;
+    width: 100%;
+}*/
+.organization-menu .dropdown-item{font-size: 12px}
+.organization-menu .dropdown .dropdown-menu .dropdown-item:active,
+.organization-menu .dropdown-item:hover, .organization-menu .dropdown-item:focus {
+    background-color: #fff; color: #1d1d1d;outline: none;
+}

@@ -141,14 +141,10 @@ class SubscriptionPlan extends React.Component {
     let activePlanInfo = planList.filter(function(item) { return item.isPlanActive === true});
 
        return (
-         <div className="container-fluid bg-gradient p-5">
+         <div className="plan-section">
             <div className="OfferTopHeading">
-              <div className="OfferContentFirst">
-                
-              </div>
               <div className="OfferContentSecond">
-                <p>
-                  </p><h4>How it works</h4>
+                <h4>How it works</h4>
                   <ul>
                     <li>Select your preferred plan</li>
                     <li>Easily pay through Paypal</li>
@@ -161,7 +157,7 @@ class SubscriptionPlan extends React.Component {
                 <p className="contactLine">If you have any questions about our advertisement plans, feel free to <Link to="/contact-us" title="Contact Us"> contact us </Link> </p>
               </div>
             </div>
-            <Row className ="m-auto text-center w-85">
+            <Row className ="">
               {planList.map((planInfo, index) =>
                 <SetPlanDetailsInfo key={index} cancelSubscription= {this.cancelSubscription} activePlanInfo = {activePlanInfo} planInfo={planInfo} acceptTermCondtion = {this.acceptTermCondtion} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
               )}
@@ -178,17 +174,17 @@ class SubscriptionPlan extends React.Component {
 function SetPlanDetailsInfo (props) {
   const planInfo = props.planInfo;
   let planType = 'Monthly';
-  let className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item yellow-item";
+  let className = "col-md-3 col-lg-3 col-sm-6";
   if(planInfo.duration === 2){
-    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item violet-item";
+    className = "col-md-3 col-lg-3 col-sm-6";
     planType = 'Quaterly';
   }
   else if(planInfo.duration === 3) {
-    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item dark-blue-item";
+    className = "col-md-3 col-lg-3 col-sm-6";
     planType = 'Half Yearly';
   }
   else if(planInfo.duration === 4){
-    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item red-item";
+    className = "col-md-3 col-lg-3 col-sm-6";
     planType = 'Yearly';
   }
   let actionButton = '';
@@ -206,33 +202,22 @@ function SetPlanDetailsInfo (props) {
   
  
   return (<div className={className}>
-                    <div className="pricing-divider ">
-                        <h5 className="text-light">{planInfo.planName}</h5>
-                        <h2 className="my-0 font-weight-normal lastPrice"><span className="">$</span> {planInfo.amount} <span className="">/{planType}</span></h2>
-                       <svg className="pricing-divider-img" enableBackground="new 0 0 300 100" height="100px" id="Layer_1" preserveAspectRatio="none" version="1.1" viewBox="0 0 300 100" width="300px" x="0px"  y="0px">
-                    <path className="deco-layer deco-layer--1" d="M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
-            c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z" fill="#FFFFFF" opacity="0.6"></path>
-                    <path className="deco-layer deco-layer--2" d="M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
-            c48.653-4.055,69.939,16.218,69.939,16.218v54.396H-35.667V44.628z" fill="#FFFFFF" opacity="0.6"></path>
-                    <path className="deco-layer deco-layer--3" d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716
-            H42.401L43.415,98.342z" fill="#FFFFFF" opacity="0.7"></path>
-                    <path className="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428
-            c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#FFFFFF"></path>
-                  </svg>
-                    </div>
-                    <div className="card-body bg-white mt-0 shadow ContentHeight-fix">
-                      <div className="ContentHeight-inner">
-                      <ul className="list-unstyled mb-3 position-relative">
-                       
-                        <li>Number of template: <b>{planInfo.templateAccess}</b></li>
-                        <li>Number of employee: <b> {planInfo.userAccess}</b></li>
-                       
-                      </ul>
-                      </div>
-                      <div className="terms-and-condition">
-                        <input type="checkbox" name="term" className="check-term" onChange={(e) => {props.acceptTermCondtion(planInfo.planId, e)}} /> I have read and accept the <a href="https://retailoep.com/terms-of-service" target="_blank" rel="noopener noreferrer" >Terms &amp; Conditions</a> and the <a href="https://retailoep.com/privacy-policy" target="_blank" rel="noopener noreferrer" >Privacy Policy</a>
-                      </div>
-                      {actionButton}
+                    <div className="pricing-plan">
+                        <h2>{planInfo.planName}</h2>
+                        <div className="lastPrice">
+                          <span className="">$</span>
+                           {planInfo.amount} <span className="">/{planType}</span>
+                        </div>
+                        <div className="ContentHeight-inner">
+                          <ul className="point-list">
+                            <li>Number of template: <b>{planInfo.templateAccess}</b></li>
+                            <li>Number of employee: <b> {planInfo.userAccess}</b></li>
+                          </ul>
+                        </div>
+                        <div className="terms-and-condition">
+                          <input type="checkbox" name="term" className="check-term" onChange={(e) => {props.acceptTermCondtion(planInfo.planId, e)}} /> I have read and accept the <a href="https://retailoep.com/terms-of-service" target="_blank" rel="noopener noreferrer" >Terms &amp; Conditions</a> and the <a href="https://retailoep.com/privacy-policy" target="_blank" rel="noopener noreferrer" >Privacy Policy</a>
+                        </div>
+                        {actionButton}
                     </div>
                 </div>);
 }

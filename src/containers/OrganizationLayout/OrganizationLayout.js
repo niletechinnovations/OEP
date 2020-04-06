@@ -59,21 +59,28 @@ class OrganizationLayout extends Component {
     return (
       <div className="app dashboard-template">
         <AppHeader fixed>
+          <div className="header-top">
           <Suspense  fallback={this.loading()}>
             <DefaultHeader onLogout={e=>this.signOut(e)}/>
           </Suspense>
-        </AppHeader>
-        <div className="app-body">
-          
-          <main className="main">
-            
-            <Nav className="ml-auto organization-menu" navbar>
+        </div>
+
+        <div className="organization-nav-card">            
+          <Nav className="organization-menu">
              {
             navigationItem.items.map((value, index) => <SetupMenuItem showDropDownMenu = {this.showDropDownMenu} selectedIndex = {this.state.selectedIndex} isOpenMenu = { this.state.isOpenMenu} closeSubMenuItm = {this.closeSubMenuItm} currentIndex = {index}  key = {index} menuList = {value} />)
           }
           </Nav>
-            <AppBreadcrumb appRoutes={organizationRoutes} router={router}/>
+        </div>
+        </AppHeader>
+        <div className="app-body">
+          
+          <main className="main">
+          
+
             <Container fluid>
+              <AppBreadcrumb appRoutes={organizationRoutes} router={router}/>
+
               <ToastContainer />
               <Suspense fallback={this.loading()}>
                 <Switch>
