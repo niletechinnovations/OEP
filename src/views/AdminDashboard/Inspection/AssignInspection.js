@@ -77,7 +77,7 @@ class AssignInspection extends React.Component {
           this.getSubCategoryList(inspectionDetail.categoryId, false);
           this.getEmployeeList(inspectionDetail.organizationId, false);
           this.getStoreList(inspectionDetail.organizationId, false);
-          this.getTemplateList(inspectionDetail.categoryId, inspectionDetail.subCategoryId, false);
+          this.getTemplateList(inspectionDetail.categoryId, inspectionDetail.subCategoryId, inspectionDetail.organizationId, false);
           this.setState({loading:false, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, selectedEmployeList: selectedEmployeList});     
          
         } )
@@ -265,7 +265,7 @@ class AssignInspection extends React.Component {
   }
 
   /*Get Template List*/
-  getTemplateList(categoryId, subCategoryId, hideSubcat = true){
+  getTemplateList(categoryId, subCategoryId,organizationId, hideSubcat = true){
     const formField = this.state.formField;
     if(categoryId === "" || subCategoryId === "") {      
       formField.templateId = '';
@@ -273,7 +273,8 @@ class AssignInspection extends React.Component {
       return;
     }
     this.setState( { loading: true}, () => { 
-      commonService.getAPIWithAccessToken("template?categoryId="+categoryId+"&subCategoryId="+subCategoryId)
+      let organizationIdQuery = (organizationId !== "") ? `&organizationId=${organizationId}`: "";
+      commonService.getAPIWithAccessToken("template?categoryId="+categoryId+"&subCategoryId="+subCategoryId+organizationIdQuery)
       .then( res => {
         console.log(res);
          
@@ -357,7 +358,7 @@ class AssignInspection extends React.Component {
     const formField = this.state.formField
     formField[name] = value;
     this.setState({ formField: formField }, () => { this.validateField(name, value) });
-    this.getTemplateList(formField.categoryId, value);
+    this.getTemplateList(formField.categoryId, value, this.state.formField.organizationId);
   }
 
   /*Handle Employee Change*/
@@ -369,6 +370,8 @@ class AssignInspection extends React.Component {
     this.setState({ formField: formField }, () => { this.validateField(name, value) });
     this.getEmployeeList(value);
     this.getStoreList(value);
+    if(this.state.formField.categoryId !== "" && this.state.formField.subCategoryId !== "")
+      this.getTemplateList(this.state.formField.categoryId, this.state.formField.subCategoryId, this.state.formField.organizationId);
   }
   /* Validate Field*/
   validateField(fieldName, value) {

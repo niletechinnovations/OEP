@@ -20,34 +20,7 @@ class Template extends Component {
     
   }
   componentDidMount() {  
-      this.setState( { loading: true}, () => {
-        commonService.getAPIWithAccessToken('organization/subscription-info')
-          .then( res => {
-            
-             
-            if ( undefined === res.data.data || !res.data.status ) {
-              this.setState( {  loading: false } );
-              toast.error(res.data.message);             
-              return;
-            } 
-            let subscriptionInfo = res.data.data;            
-            if(subscriptionInfo.planInfo) 
-              subscriptionInfo.duration = subscriptionInfo.planInfo.duration;
-            this.setState( { loading: false, subscriptionDetails: subscriptionInfo} );            
-           
-          } )
-          .catch( err => {  
-             
-            if(err.response !== undefined && err.response.status === 401) {
-              localStorage.clear();
-              this.props.history.push('/login');
-            }
-            else {
-              this.setState( { loading: false } );
-              toast.error(err.message);    
-            }
-          } )
-      } ) 
+      
     
   }
 
@@ -76,7 +49,7 @@ class Template extends Component {
             className={ activeTab === '2' ? "active" : "" }
             onClick={() => { this.toggle('2'); }}
           >
-            Custom Template
+            Organization Template
           </NavLink>
         </NavItem>
         <NavItem>

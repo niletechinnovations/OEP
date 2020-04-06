@@ -16,11 +16,13 @@ class TemplateBuilderPage extends React.Component {
     super(props);
     this.state = {      
       subCategoryList: [],      
-      loading: false,      
+      loading: false, 
+      templateInfo: {},     
       categoryList: [], 
       formField: { categoryId: '', subCategoryId: '', template_name: '', status: ''},
       formErrors: {category: '', subcategory: '', template_form: '', template_name: '', error: ''},
       templateData: [],
+      makeDefaultTemplate: false,
       templateId: "",
       formValid: false,
       templatePreviewData : [],
@@ -61,7 +63,7 @@ class TemplateBuilderPage extends React.Component {
           formField.template_name = templateDetail.templateName;
           formField.status = (templateDetail.status) ? "Active": "Inactive";
           this.getSubCategoryList(templateDetail.categoryId, false);
-          this.setState({loading:false, formField: formField, formValid: true, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
+          this.setState({loading:false, formField: formField, formValid: true, templateInfo: templateDetail, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
          
         } )
         .catch( err => {         
@@ -159,6 +161,14 @@ class TemplateBuilderPage extends React.Component {
     this.setState({ formField: formField }, () => { this.validateField(name, value) });
     this.getSubCategoryList(value);
   }
+
+  makeDefaultTemplate = event => {
+    
+    if(event.target.checked)
+      this.setState({makeDefaultTemplate: true});
+    else
+      this.setState({makeDefaultTemplate: false});
+  } 
   /* Validate Field*/
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
@@ -216,6 +226,7 @@ class TemplateBuilderPage extends React.Component {
         "subCategoryId": formInputField.subCategoryId, 
         "templateName": formInputField.template_name, 
         "formField": this.state.templateData,
+        "makeDefaultTemplate": this.state.makeDefaultTemplate,
         "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)
       };
       
@@ -345,6 +356,10 @@ class TemplateBuilderPage extends React.Component {
                           </Input>
                         </FormGroup>
                     </Col>
+                    {this.state.templateInfo.type !== undefined && this.state.templateInfo.type !== 'free' ? this.state.templateInfo.isCreated ? <Col md ={12} className="custom-info-row"><p>Template edit on behalf of organization {this.state.templateInfo.createdBy}</p></Col> : <Col md ={12} className="custom-info-row"><Row>
+                    <Col md={6}><p>Template edit on behalf of organization {this.state.templateInfo.createdBy}</p></Col>
+                    <Col md={6}><FormGroup><input type="checkbox" name="createDefualtTemplate" onChange={this.makeDefaultTemplate} />Create as Default Template </FormGroup></Col>
+                    </Row></Col>: ""}
                     </Row>
                     </div>
                     <div className="FormBuilderArea">

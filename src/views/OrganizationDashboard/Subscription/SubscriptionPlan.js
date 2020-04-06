@@ -154,7 +154,7 @@ class SubscriptionPlan extends React.Component {
                     <li>Assign Template to Team member for inspection</li>
                   </ul>
                 <p></p>
-                <p className="contactLine">If you have any questions about our advertisement plans, feel free to <Link to="/contact-us" title="Contact Us"> contact us </Link> </p>
+                <p className="contactLine">If you have any questions about our subscription plans, feel free to <Link to="/contact-us" title="Contact Us"> contact us </Link> </p>
               </div>
             </div>
             <Row className ="">
