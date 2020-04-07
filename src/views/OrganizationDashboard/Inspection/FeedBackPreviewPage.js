@@ -153,7 +153,7 @@ class FeedBackPreviewPage extends React.Component {
                           <Col md={3}>
                             <FormGroup> 
                               <Label htmlFor="score">Score</Label>            
-                              <p>{feedBackInfo.successItem}/{feedBackInfo.totalItem } - {feedBackInfo.score * 100 }%</p>
+                              <p>{feedBackInfo.successItem}/{feedBackInfo.totalItem } - {(feedBackInfo.score * 100 ).toFixed(2)}%</p>
                             </FormGroup>
                           </Col> 
                           <Col md={3}>

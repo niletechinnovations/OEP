@@ -28,7 +28,7 @@ class commonFunction {
         }
         return convertedDate;
     }
-    getDate($utcTime, $format= 'YYYY-MM-DD') {
+    getDate($utcTime, $format= 'MM/DD/YYYY') {
         var convertedDate = "";
         if($utcTime !== undefined && $utcTime !== "") {
             let newDate = new Date($utcTime);
