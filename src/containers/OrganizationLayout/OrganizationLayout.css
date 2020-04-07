@@ -153,3 +153,5 @@ tfoot.MuiTableFooter-root .MuiTableCell-root{padding:0 !important;}
 .organization-menu .dropdown-item:hover, .organization-menu .dropdown-item:focus {
     background-color: #fff; color: #1d1d1d;outline: none;
 }
+
+.btn-share { font-weight: bold; color: #fff; background: #4caf50; }

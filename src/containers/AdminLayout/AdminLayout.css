@@ -60,3 +60,4 @@ a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height
 .btnCancel:focus, 
 .btnCancel:active, 
 .btnCancel.active{background: #f81a0a !important; box-shadow: none !important; }
+.btn-share { font-weight: bold; color: #fff; background: #4caf50; }
