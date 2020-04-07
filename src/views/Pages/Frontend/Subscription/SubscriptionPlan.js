@@ -144,17 +144,17 @@ class SubscriptionPlan extends React.Component {
 function SetPlanDetailsInfo (props) {
   const planInfo = props.planInfo;
   let planType = 'Monthly';
-  let className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item yellow-item";
+  let className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item ";
   if(planInfo.duration === 2){
-    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item violet-item";
+    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item ";
     planType = 'Quaterly';
   }
   else if(planInfo.duration === 3) {
-    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item dark-blue-item";
+    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item ";
     planType = 'Half Yearly';
   }
   else if(planInfo.duration === 4){
-    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item red-item";
+    className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item ";
     planType = 'Yearly';
   }
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
