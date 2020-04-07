@@ -65,8 +65,13 @@ class SubscriptionPlan extends React.Component {
   }
 
   cancelSubscription(planInfo) {
+    if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId]){
+      toast.error("Please accept term and conditions");
+      return;
+    }
     if( !window.confirm('Are you sure to cancel this subscription?'))
       return false;
+
     this.setState( { loading: true}, () => {
         commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: planInfo.subscriberId})
           .then( res => {
@@ -102,7 +107,7 @@ class SubscriptionPlan extends React.Component {
     	toast.error("Plan already activated on your account!");
     	return;
     }
-     if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId]){
+    if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId]){
       toast.error("Please accept term and conditions");
       return;
     }

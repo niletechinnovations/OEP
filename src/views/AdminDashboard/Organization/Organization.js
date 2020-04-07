@@ -19,7 +19,7 @@ class Organization extends Component {
       loading: true,
       rowIndex: -1,
       formProccessing: false,
-      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
+      formField: {organization_name: '', email: '', first_name: '', last_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
@@ -80,7 +80,8 @@ class Organization extends Component {
       const formInputField = this.state.formField;
       const formData = {
         "email": formInputField.email,
-        "firstName": formInputField.first_name, 
+        "firstName": formInputField.first_name,
+        "lastName": formInputField.lastName, 
         "phoneNumber": formInputField.phoneNumber, 
         "address": formInputField.address, 
         "roleName": formInputField.role, 
@@ -202,7 +203,7 @@ class Organization extends Component {
       rowIndex: -1,
       formValid: false,
       formProccessing : false,
-      formField: {organization_name: '', email: '', first_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
+      formField: {organization_name: '', email: '', first_name: '', last_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''}
     });
   }
@@ -214,6 +215,7 @@ class Organization extends Component {
         organization_name: organizationInfo.organizationName, 
         email: organizationInfo.email, 
         first_name: organizationInfo.firstName, 
+        last_name: organizationInfo.lastName, 
         phoneNumber: organizationInfo.phoneNumber, 
         address: organizationInfo.address, 
         city: organizationInfo.city, 
@@ -377,8 +379,14 @@ class Organization extends Component {
                 </Col>
                 <Col md={"6"}>  
                   <FormGroup> 
-                    <Label htmlFor="first_name">Contact Person</Label>            
-                    <Input type="text" placeholder="Contact Person *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
+                    <Label htmlFor="first_name">First Name</Label>            
+                    <Input type="text" placeholder="First Name *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
+                  </FormGroup>
+                </Col>
+                <Col md={"6"}>  
+                  <FormGroup> 
+                    <Label htmlFor="last_name">Last Name</Label>            
+                    <Input type="text" placeholder="Last Name *" id="last_name" name="last_name" value={this.state.formField.last_name} onChange={this.changeHandler} required />
                   </FormGroup>
                 </Col>
                 <Col md={"6"}>  

@@ -36,7 +36,7 @@ const oragnizationRoutes = [
   { path: '/organization/subscription/plan', exact: true,  name: 'Subscription Plan', component: BuySubscription },
   { path: '/organization/subscription/success', exact: true,  name: 'Payment Success', component: Success },
   { path: '/organization/subscription/cancel', exact: true,  name: 'Payment Cancel', component: Cancel },
-  { path: '/organization/set-up', exact: true,  name: 'Set Up', component: SetUpPage },
+  { path: '/organization/set-up', exact: true,  name: 'Setup', component: SetUpPage },
 
 ];
 

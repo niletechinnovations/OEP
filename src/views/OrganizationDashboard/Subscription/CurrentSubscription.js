@@ -74,7 +74,11 @@ class CurrentSubscription extends React.Component {
             toast.success(res.data.message);            
             this.setState( { loading: false, subscriptionDetails: subscriptionInfo} ); 
             localStorage.setItem('isSubscribed', false);
-            this.props.history.push('/subscription-plan');           
+            var history = this.props.history;
+            setTimeout(function(){
+               history.push('/subscription-plan');
+            }, 1000)
+                       
            
           } )
           .catch( err => {  

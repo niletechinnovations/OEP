@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label} from 'reactstrap';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
@@ -12,7 +12,7 @@ class Profile extends Component {
   constructor(props){
     super(props);
     this.state = {
-      formField: {organization_name: '', email: '', first_name: '', latitude: '', longitude: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', profilePic: '' },
+      formField: {organization_name: '', email: '', first_name: '', last_name: '', latitude: '', longitude: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', profilePic: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: true,
       organizationId: "",
@@ -51,6 +51,7 @@ class Profile extends Component {
             organization_name: organizationInfo.organizationName, 
             email: organizationInfo.email, 
             first_name: organizationInfo.firstName, 
+            last_name: organizationInfo.lastName, 
             phoneNumber: organizationInfo.phoneNumber, 
             address: organizationInfo.address, 
             city: organizationInfo.city, 
@@ -127,7 +128,8 @@ class Profile extends Component {
         const formData = {
           "email": formInputField.email,
           "profileId": this.state.organizationId,
-          "firstName": formInputField.first_name, 
+          "firstName": formInputField.first_name,
+          "lastName": formInputField.last_name, 
           "phoneNumber": formInputField.phoneNumber, 
           "address": formInputField.address, 
           "roleName": formInputField.role, 
@@ -232,7 +234,7 @@ class Profile extends Component {
                 <strong>Profile Info</strong> 
               </CardHeader>
               <CardBody>
-                <ToastContainer />
+                
                 {loaderElement}
                 <Form className="oep-form" onSubmit={this.submitHandler} noValidate>
                   <Row>
@@ -251,8 +253,14 @@ class Profile extends Component {
                     </Col>
                     <Col md={4}>
                       <FormGroup> 
-                        <Label htmlFor="first_name">Contact Person</Label>            
-                        <Input type="text" placeholder="Contact Person *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
+                        <Label htmlFor="first_name">First Name</Label>            
+                        <Input type="text" placeholder="First Name *" id="first_name" name="first_name" value={this.state.formField.first_name} onChange={this.changeHandler} required />
+                      </FormGroup>
+                    </Col>
+                    <Col md={4}>
+                      <FormGroup> 
+                        <Label htmlFor="first_name">Last Name</Label>            
+                        <Input type="text" placeholder="Last Name *" id="last_name" name="last_name" value={this.state.formField.last_name} onChange={this.changeHandler} required />
                       </FormGroup>
                     </Col>
                     <Col md={4}>
@@ -297,7 +305,7 @@ class Profile extends Component {
                         <Input type="text" placeholder="Postal Code" id="postalCode" name="postalCode" value={this.state.formField.postalCode} onChange={this.changeHandler}  />
                       </FormGroup>                  
                     </Col>
-                    <Col md={6}>
+                    <Col md={12}>
                       <FormGroup>
                         <Label htmlFor="profileImage">Profile Image</Label>
                         <Input name="profileImage" type="file" accept="image/*" id="profileImage" onChange={this.changeFileHandle}  />

@@ -19,6 +19,7 @@ class PaymentHistory extends Component {
       filterItem: { filter_organization: '', subscription_id: '', planId: ''},
     }    
     this.filterPaymentHistory = this.filterPaymentHistory.bind(this);
+    this.resetSearchFilter = this.resetSearchFilter.bind(this);
     
   }
   // Fetch the Employee List
@@ -102,38 +103,42 @@ class PaymentHistory extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card className="oep-card">
-              <CardHeader className="mainHeading">
-                <strong>Subscriber List</strong> 
-              </CardHeader>
-              <CardBody>
-                
-                <Row>
-                  <Col md={12}>
-                    <div className="search-filter">
-                    <Row>
-                      <Col md={"3"}>
-                        <FormGroup> 
-                          <Label htmlFor="transction profile id">Subscription Id</Label>            
-                          <Input type="text" placeholder="Subscription Id" id="subscription_id" name="subscription_id" value={this.state.filterItem.subscription_id} onChange={this.changeFilterHandler} />
-                        </FormGroup>  
-                      </Col>
-                      <Col md={"3"}>
-                        <FormGroup className="filter-button-section"> 
-                          <Label htmlFor="filter_organization_id">&nbsp;</Label> 
-                          <Button className="search-btn"  type="button" onClick={this.filterPaymentHistory}>Search</Button> 
-                          <Button color="warning" className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
-                        </FormGroup>             
-                      </Col>
-                    </Row>
-                    </div>  
-                  </Col>
-                  <Col md={12}>
-                    <PaymentHistoryData data={paymentHistory}  />
-                  </Col>
-                </Row> 
-              </CardBody>
-            </Card>
+            <div className="oep-em-info">
+              <Card className="oep-card">
+                <CardHeader className="mainHeading">
+                  <strong>Subscriber List</strong> 
+                </CardHeader>
+                <CardBody>
+                  
+                  <Row>
+                    <Col md={12}>
+                      <div className="search-filter">
+                      <Row>
+                        <Col md={"3"}>
+                          <FormGroup> 
+                            <Label htmlFor="transction profile id">Subscription Id</Label>            
+                            <Input type="text" placeholder="Subscription Id" id="subscription_id" name="subscription_id" value={this.state.filterItem.subscription_id} onChange={this.changeFilterHandler} />
+                          </FormGroup>  
+                        </Col>
+                        <Col md={"3"}>
+                          <FormGroup className="filter-button-section"> 
+                            <Label htmlFor="filter_organization_id">&nbsp;</Label> 
+                            <Button className="search-btn"  type="button" onClick={this.filterPaymentHistory}>Search</Button> 
+                            <Button color="warning" className="search-btn" id="resetButton" type="button" onClick={this.resetSearchFilter}>Reset</Button> 
+                          </FormGroup>             
+                        </Col>
+                      </Row>
+                      </div>  
+                    </Col>
+                    <Col md={12}>
+                      <div className="oep-table">
+                        <PaymentHistoryData data={paymentHistory}  />
+                      </div>
+                    </Col>
+                  </Row> 
+                </CardBody>
+              </Card>
+            </div>
           </Col>
         </Row>
        

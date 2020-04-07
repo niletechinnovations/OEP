@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
@@ -323,7 +323,7 @@ class Employee extends Component {
                 <strong>Employee List</strong> <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Employee</Button>
               </CardHeader>
               <CardBody>
-                <ToastContainer />
+                
                 {loaderElement}
                 <Row>
                   <Col md={12}>
