@@ -187,7 +187,7 @@ class AssignInspection extends React.Component {
         let employeeList = [];
         let authId = commonService.getAuthId();
         if(authId !== "" ){
-          employeeList.push({employeeId: authId, firstName: 'Self', lastName: ''});
+          employeeList.push({authId: authId, firstName: 'Self', lastName: ''});
           for(let i = 0; i < res.data.data.length; i++) {
             employeeList.push(res.data.data[i]);
           }
@@ -394,7 +394,7 @@ class AssignInspection extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/organization/inspection');
+          this.props.history.push('/organization/manage-inspection/inspection');
          
         } )
         .catch( err => {         
@@ -419,7 +419,7 @@ class AssignInspection extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/organization/inspection');
+          this.props.history.push('/organization/manage-inspection/inspection');
          
         } )
         .catch( err => {         
@@ -438,7 +438,7 @@ class AssignInspection extends React.Component {
   };
 
   resetForm(){
-    this.props.history.push('/organization/inspection');
+    this.props.history.push('/organization/manage-inspection/inspection');
   }
 
 
