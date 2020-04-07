@@ -288,7 +288,7 @@ class InspectionLists extends Component {
   /* Delete organization*/
   handleDeleteInspection(rowIndex){
     const inspectionInfo = this.state.inspectionList[rowIndex];
-    debugger;
+    
     this.setState( { loading: true}, () => {
       commonService.deleteAPIWithAccessToken(`inspection/`+inspectionInfo.inspectionId)
         .then( res => {

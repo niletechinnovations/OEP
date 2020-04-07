@@ -213,7 +213,7 @@ class Profile extends Component {
   
 
   render() {
-    debugger;
+    
     const { loading } = this.state;
     let loaderElement = '';
     let prevImg = '';

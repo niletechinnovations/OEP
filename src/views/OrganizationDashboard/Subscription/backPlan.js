@@ -159,7 +159,7 @@ function SetPlanDetailsInfo (props) {
   else 
     actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
   
-  debugger;
+  
   return (<Col lg={3}>
             <Card className="payment-card">
               <CardTitle>{planInfo.planName}</CardTitle> 

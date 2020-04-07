@@ -34,7 +34,7 @@ class FeedBackPreviewPage extends React.Component {
       this.props.history.push('/login'); 
     const apiUrl = commonService.getAPIUrl();
     this.setState({apiUrl: apiUrl});
-    debugger;
+    
   }
 
   getInspectionFeedBackDetail(feedBackId) {
