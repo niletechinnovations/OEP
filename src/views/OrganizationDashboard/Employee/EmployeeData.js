@@ -73,9 +73,9 @@ class EmployeeData extends Component {
             let i = tableMeta.rowIndex;
            
             return (
-              <p><button className="btn-edit"  disabled={this.state.buttonProcessing} onClick={() => 
+              <p><button className="btn-edit" title="Edit Employee"  disabled={this.state.buttonProcessing} onClick={() => 
               this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </button>
-              <button className="btn-delete"  disabled={this.state.buttonProcessing} onClick={() => {if( window.confirm('Are you sure you wish to delete this employee?'))
+              <button className="btn-delete"  title="Delete Employee" disabled={this.state.buttonProcessing} onClick={() => {if( window.confirm('Are you sure you wish to delete this employee?'))
                   this.deleteEmployeeItem(i);}}><i className="fa fa-trash"></i></button></p>
             );
           },

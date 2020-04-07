@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { Button, Form, Input, FormGroup, FormFeedback, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Input, FormGroup, FormFeedback, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast } from 'react-toastify';
 import commonService from '../../core/services/commonService';
 import logo from '../../assets/img/brand/logo-black.svg';

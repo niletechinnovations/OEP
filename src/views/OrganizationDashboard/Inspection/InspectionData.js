@@ -75,9 +75,9 @@ class InspectionData extends Component {
             let i = tableMeta.rowIndex;
             let rowInfo = this.props.data[i];
             return (
-             <p><Link to={`/organization/manage-inspection/assign-inspection/${rowInfo.inspectionId}`} className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link>
+             <p><Link to={`/organization/manage-inspection/assign-inspection/${rowInfo.inspectionId}`} title="Inspection Detail" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-pencil"></i> </Link>
               <Link to={`/organization/manage-inspection/inspection/${rowInfo.inspectionId}`} title="View Feedback" className="btn-edit" disabled={this.state.buttonProcessing} ><i className="fa fa-eye"></i> </Link>
-              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => {
+              <button className="btn-delete" title="Delete Inspection" disabled={this.state.buttonProcessing} onClick={() => {
               if( window.confirm('Are you sure you wish to delete this inspection?')) this.deleteInspectionItem(i)}}><i className="fa fa-trash"></i></button></p>
              
             );

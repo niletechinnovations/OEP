@@ -57,6 +57,11 @@ export default {
       name: 'Subscription Plan',      
       icon: 'icon-note', 
       url: '/organization/subscription/plan',  
-    }
+    },
+    {
+      name: 'Leaderboard',
+      icon: 'icon-doc', 
+      url: '/organization/leaderboard'
+    },
   ],
 };

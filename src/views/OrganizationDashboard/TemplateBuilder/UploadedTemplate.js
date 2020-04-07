@@ -18,6 +18,8 @@ class UploadTemplate extends Component {
       templateFile: "",
       categoryId: "",
       templateId: "",
+      displayContentCount: 10,
+      displayContentSize: 10,
       popupSubcategoryList: [],
       templateList: [],      
       subCategoryList: [],
@@ -28,6 +30,7 @@ class UploadTemplate extends Component {
     this.filterTemplateList = this.filterTemplateList.bind(this);
     this.editTemplateFile = this.editTemplateFile.bind(this);
     this.deleteTemplate = this.deleteTemplate.bind(this);
+    this.loadMoreContent = this.loadMoreContent.bind(this);
   }
   componentDidMount() { 
     this.templateList();
@@ -199,9 +202,19 @@ class UploadTemplate extends Component {
 
   filterTemplateList(){
     const filterItem = this.state.filterItem;
+    this.setState({displayContentCount: this.state.displayContentSize});
     this.templateList(filterItem);
   }
 
+  loadMoreContent() {
+    let totalTemplateCount = this.state.templateList.length;
+    let currentDisplayCount = this.state.displayContentCount;
+    let displayContentCount = currentDisplayCount + this.state.displayContentSize;
+    if(totalTemplateCount <= displayContentCount)
+      displayContentCount = totalTemplateCount;
+    this.setState({displayContentCount: displayContentCount});
+      
+  }
   changeHandler = event => {
     const name = event.target.name;
     const value = event.target.value
@@ -388,8 +401,15 @@ class UploadTemplate extends Component {
 
   render() {
 
-    const { templateList, loading, categoryList, subCategoryList, modal, popupSubcategoryList, errors } = this.state; 
+    const { templateList, loading, categoryList, subCategoryList, modal, popupSubcategoryList, errors, displayContentCount } = this.state; 
     let loaderElement = '';
+    let displayTemplateData = [];
+    if(templateList.length >= displayContentCount){
+      displayTemplateData = templateList.slice(0, displayContentCount);
+    }
+    else if(templateList.length > 0 ) {
+      displayTemplateData = templateList.slice(0, templateList.length);
+    }
     if(loading) 
       loaderElement = <Loader />
 
@@ -441,10 +461,16 @@ class UploadTemplate extends Component {
                     </div>  
                   </Col>
                   <Col md={12}>
-                    <TemplateDataCard data={templateList} deleteTemplate = {this.deleteTemplate} editTemplateFile = {this.editTemplateFile} apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
+                    <TemplateDataCard data={displayTemplateData} deleteTemplate = {this.deleteTemplate} editTemplateFile = {this.editTemplateFile} apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
                     
                     
                   </Col>
+                  {templateList.length > 0 && templateList.length > displayContentCount ? 
+                  <Col md={12}>
+                    <div className="load-more-section">
+                      <button className="btn-Edit" onClick={this.loadMoreContent}>Load More</button>
+                    </div>
+                  </Col> : ""}
                 </Row>
                   
               </CardBody>

@@ -61,7 +61,7 @@ class SetUpPage extends Component {
     return (
      <div className="tabs-info-card">
       <Alert color="warning" isOpen={visible} toggle={this.onDismiss}>
-        Complete your organization setup
+        Complete your account setup
       </Alert>
       <Nav tabs>
         <NavItem>

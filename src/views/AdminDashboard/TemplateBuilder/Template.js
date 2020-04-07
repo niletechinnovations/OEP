@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col} from 'reactstrap';
-import  { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+/*import  { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';*/
 import 'react-toastify/dist/ReactToastify.css';
 import DefaultTemplate from './DefaultTemplate';
 import CustomTemplate from './CustomTemplate';
 import UploadedTemplate from './UploadedTemplate';
-import commonService from '../../../core/services/commonService';
+//import commonService from '../../../core/services/commonService';
 import './Template.css'
 
 class Template extends Component {

@@ -38,9 +38,9 @@ class ActionData extends Component {
        dueDate: inspection.dueDate,   
        priority: inspection.priority === 1 ? 'Low' : (inspection.priority === 2  ? 'Medium': 'High'),
        status: inspection.status === 1 ? 'To Do' : (inspection.status === 2  ? 'In Process': 'Completed'), 
-       action: <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+       action: <p><button className="btn-edit" title="Edit Action" disabled={this.state.buttonProcessing} onClick={() => 
           this.editActionItem(i)}><i className="fa fa-pencil"></i> </button>
-          <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+          <button className="btn-delete" title="Edit Action" disabled={this.state.buttonProcessing} onClick={() => 
           {if (window.confirm('Are you sure you wish to delete this action?')) this.deleteActionItem(i)}}><i className="fa fa-trash"></i></button></p>
       }      
       rowsItem.push(inspectionInfo);

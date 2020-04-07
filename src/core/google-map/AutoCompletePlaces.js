@@ -44,7 +44,7 @@ class AutoCompletePlaces extends React.Component {
     var postal_code = '';
     geocodeByAddress(address)
       .then(results => {
-        debugger;
+        
         var place = results[0];
         var componentForm = {
           premise: 'short_name',

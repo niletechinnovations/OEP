@@ -167,8 +167,8 @@ class Subscription extends Component {
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     return (formErrors.plan_name === "" && formField.plan_name !== "" && formErrors.amount === "" && formField.amount !== ""
-        && formErrors.number_employee === "" && formField.number_employee !== ""
-        && formErrors.number_template === "" && formField.number_template !== ""
+        /*&& formErrors.number_employee === "" && formField.number_employee !== ""
+        && formErrors.number_template === "" && formField.number_template !== ""*/
         && formErrors.plan_type === "" && formField.plan_type !== ""
         ) 
       ? true : false;
@@ -271,7 +271,7 @@ class Subscription extends Component {
                     <FormFeedback>{formErrors.plan_type}</FormFeedback>
                   </FormGroup>  
                 </Col>
-                <Col md={"6"}>
+               {/* <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="number_employee">Number of Employee</Label>            
                     <Input type="text" placeholder="Number of Employee *" pattern="[0-9]*" id="number_employee" name="number_employee" value={this.state.formField.number_employee} onChange={this.changeHandler} required />
@@ -284,7 +284,7 @@ class Subscription extends Component {
                     <Input type="text" placeholder="Number Of Template *" pattern="[0-9]*" id="number_template" name="number_template" value={this.state.formField.number_template} onChange={this.changeHandler} required />
                     <FormFeedback>{formErrors.number_template}</FormFeedback>
                   </FormGroup>  
-                </Col>
+                </Col>*/}
                 <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="plan_type">Status</Label>            

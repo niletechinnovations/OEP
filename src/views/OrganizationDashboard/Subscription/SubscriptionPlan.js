@@ -215,8 +215,13 @@ function SetPlanDetailsInfo (props) {
                         </div>
                         <div className="ContentHeight-inner">
                           <ul className="point-list">
-                            <li>Number of template: <b>{planInfo.templateAccess}</b></li>
-                            <li>Number of employee: <b> {planInfo.userAccess}</b></li>
+                            <li>Template edits: <b>Unlimited</b></li>
+                            <li>Create templates: <b> Unlimited</b></li>
+                            <li>Stores: <b> Unlimited</b></li>
+                            <li>Employees: <b> Unlimited</b></li>
+                            <li>Inspections: <b> Unlimited</b></li>
+                            <li>Template Sharing: <b> Unlimited</b></li>
+                            <li>24 Hour Help: <b> Unlimited</b></li>
                           </ul>
                         </div>
                         <div className="terms-and-condition">

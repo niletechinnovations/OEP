@@ -65,14 +65,7 @@ class SubscriptionData extends Component {
         label: 'Plan Type',
         name: 'duration',
       },
-      {
-        label: 'Number of User',
-        name: 'userAccess',
-      },
-      {
-        label: 'Number of Template',
-        name: 'templateAccess',
-      },
+      
       {
         label: 'Status',
         name: 'status',
@@ -86,7 +79,7 @@ class SubscriptionData extends Component {
             let i = tableMeta.rowIndex;
            
             return (
-               <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+               <p><button className="btn-edit" title="Edit Plan" disabled={this.state.buttonProcessing} onClick={() => 
                 this.editSubscriptionItem(i)}><i className="fa fa-pencil"></i> </button>
                 </p>
             );

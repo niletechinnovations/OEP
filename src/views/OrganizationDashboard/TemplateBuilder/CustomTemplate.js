@@ -14,12 +14,15 @@ class CustomTemplate extends Component {
     super(props);
     this.state = {
       loading: true,
+      displayContentCount: 10,
+      displayContentSize: 10,
       templateList: [],      
       subCategoryList: [],
       categoryList: [], 
       filterItem: { organizationId: '', categoryId: '', subCategoryId: ''},
     } 
     this.filterTemplateList = this.filterTemplateList.bind(this);
+    this.loadMoreContent = this.loadMoreContent.bind(this);
   }
   componentDidMount() { 
     this.templateList();
@@ -147,15 +150,33 @@ class CustomTemplate extends Component {
 
   filterTemplateList(){
     const filterItem = this.state.filterItem;
+    this.setState({displayContentCount: this.state.displayContentSize});
     this.templateList(filterItem);
+  }
+
+  loadMoreContent() {
+    let totalTemplateCount = this.state.templateList.length;
+    let currentDisplayCount = this.state.displayContentCount;
+    let displayContentCount = currentDisplayCount + this.state.displayContentSize;
+    if(totalTemplateCount <= displayContentCount)
+      displayContentCount = totalTemplateCount;
+    this.setState({displayContentCount: displayContentCount});
+      
   }
 
   render() {
 
-    const { templateList, loading, categoryList, subCategoryList } = this.state; 
+    const { templateList, loading, categoryList, subCategoryList, displayContentCount } = this.state; 
     let loaderElement = '';
     if(loading) 
       loaderElement = <Loader />
+    let displayTemplateData = [];
+    if(templateList.length >= displayContentCount){
+      displayTemplateData = templateList.slice(0, displayContentCount);
+    }
+    else if(templateList.length > 0 ) {
+      displayTemplateData = templateList.slice(0, templateList.length);
+    }
 
     return (
       <div className="animated fadeIn">
@@ -205,9 +226,15 @@ class CustomTemplate extends Component {
                     </div> 
                   </Col>
                   <Col md={12}>
-                    <TemplateDataCard data={templateList} deleteTemplate = "" editTemplateFile="" apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
+                    <TemplateDataCard data={displayTemplateData} deleteTemplate = "" editTemplateFile="" apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
                     
                   </Col>
+                  {templateList.length > 0 && templateList.length > displayContentCount ? 
+                  <Col md={12}>
+                    <div className="load-more-section">
+                      <button className="btn-Edit" onClick={this.loadMoreContent}>Load More</button>
+                    </div>
+                  </Col> : ""}
                 </Row>
                   
               </CardBody>

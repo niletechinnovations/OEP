@@ -78,9 +78,9 @@ class StoreData extends Component {
             let i = tableMeta.rowIndex;
            
             return (
-             <p><button className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
+             <p><button title="Edit Store" className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
               this.editStoreItem(i)}><i className="fa fa-pencil"></i> </button>
-              <button className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
+              <button title="Delete Store" className="btn-delete" disabled={this.state.buttonProcessing} onClick={() => 
               this.deleteStoreItem(i)}><i className="fa fa-trash"></i></button></p>
             );
           },

@@ -98,43 +98,41 @@ class LeaderBoard extends Component {
           
           {loaderElement}
           <Col lg={12}>
-            <Card className="oep-card">
-              <CardHeader className="mainHeading">
-                <strong>LeaderBoard</strong> 
-              </CardHeader>
-              <CardBody>
-                
-                <Row>
-                  <Col md={12}>
-                    <div className="search-filter">
-                    <Row>
-                      <Col md={"4"}>
-                        <FormGroup> 
-                          <Label htmlFor="filter_organization_id">Search By Organization Email/ Organization Name</Label>            
-                          <Input type="text" placeholder="Search By Email/ Name" id="custom_search" name="custom_search" value={this.state.filterItem.custom_search} onChange={this.changeFilterHandler} />
-                        </FormGroup>  
-                      </Col>
-                      <Col md={"4"}>
-                        <FormGroup> 
-                          <Label htmlFor="storeName">Search By Store Name</Label>            
-                          <Input type="text" placeholder="Search By Store Name" id="storeName" name="storeName" value={this.state.filterItem.storeName} onChange={this.changeFilterHandler} />
-                        </FormGroup>  
-                      </Col>
-                      <Col md={"2"}>
-                        <FormGroup className="filter-button-section"> 
-                          <Label htmlFor="filter_organization_id">&nbsp;</Label> 
-                          <Button className="search-btn"  type="button" onClick={this.filterLeaderBoardList}>Search</Button> 
-                        </FormGroup>             
-                      </Col>
-                    </Row>
-                    </div>  
-                  </Col>
-                  <Col md={12}>
-                    <LeaderBoardData data={leaderBoardList}  />
-                  </Col>
-                </Row> 
-              </CardBody>
-            </Card>
+            <div className="oep-em-info">
+              <Card className="oep-card">
+                <CardHeader className="mainHeading">
+                  <strong>LeaderBoard</strong> 
+                </CardHeader>
+                <CardBody>
+                  
+                  <Row>
+                    <Col md={12}>
+                      <div className="search-filter">
+                      <Row>
+                        <Col md={"4"}>
+                          <FormGroup> 
+                            <Label htmlFor="storeName">Search By Store Name</Label>            
+                            <Input type="text" placeholder="Search By Store Name" id="storeName" name="storeName" value={this.state.filterItem.storeName} onChange={this.changeFilterHandler} />
+                          </FormGroup>  
+                        </Col>
+                        <Col md={"2"}>
+                          <FormGroup className="filter-button-section"> 
+                            <Label htmlFor="filter_organization_id">&nbsp;</Label> 
+                            <Button className="search-btn"  type="button" onClick={this.filterLeaderBoardList}>Search</Button> 
+                          </FormGroup>             
+                        </Col>
+                      </Row>
+                      </div>  
+                    </Col>
+                    <Col md={12}>
+                      <div className="oep-table">
+                        <LeaderBoardData data={leaderBoardList}  />
+                      </div>
+                    </Col>
+                  </Row> 
+                </CardBody>
+              </Card>
+            </div>
           </Col>
         </Row>
        

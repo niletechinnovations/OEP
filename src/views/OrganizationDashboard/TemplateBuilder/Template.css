@@ -46,3 +46,4 @@ p.oep-title.card-text{font-size: 12px !important; color: #000 !important;}
 .oep-model .form-group .form-control {font-size: 12px; padding: 8px; height: auto; box-shadow: none; outline: none; }
 .btnCancel{background: #f81a0a !important; color: #ffffff !important; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }
 .submit-btn{background: #4CAF50  !important; opacity: 1 !important; color: #ffffff !important; font-weight: 600; border: none; box-shadow: none; text-transform: inherit; }
+.load-more-section {text-align: center; }
