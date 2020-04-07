@@ -32,7 +32,9 @@ class TemplateDataCard extends Component {
             <Card className="cardArea">                
               <CardBody>
 
-                <CardTitle className="oep-title"><b>Template :</b> {template.templateName}</CardTitle>                                
+                <CardTitle className="oep-title"><b>Template :</b> {template.templateName}</CardTitle>
+
+                {template.type.toLowerCase() !== 'free' ? <CardText className="oep-title"><b>Organization Name :</b> {template.createdBy}</CardText>  : "" }                             
                 <CardText className="oep-title"><b>Category :</b> {template.categoryName}</CardText>
                 <CardText className="oep-title"><b>Subcategory :</b> {template.subCategoryName}</CardText>
                 <CardText className="oep-title"><b>Status :</b> {template.status ? 'Active' : 'Inactive'}</CardText>

@@ -260,52 +260,56 @@ class UploadTemplate extends Component {
     
     if(this.state.rowIndex > -1) {
       formData.append('templateId', this.state.templateList[this.state.rowIndex].templateId);
-      commonService.putAPIWithAccessToken( `template/upload`, formData)
-      .then( res => {
-                
-        if ( undefined === res.data.data || !res.data.status ) { 
-          this.setState({loading: false});           
-          toast.error(res.data.message);             
-          return;
-        }            
-        this.setState({modal: false, loading: false});
-        toast.success(res.data.message); 
-        this.templateList();
-      } )
-      .catch( err => {
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else{
-          this.setState( { loading: false } );
-          toast.error(err.message); 
-        }
-      } );
+      this.setState( { loading: true}, () => { 
+        commonService.putAPIWithAccessToken( `template/upload`, formData)
+        .then( res => {
+                  
+          if ( undefined === res.data.data || !res.data.status ) { 
+            this.setState({loading: false});           
+            toast.error(res.data.message);             
+            return;
+          }            
+          this.setState({modal: false, loading: false});
+          toast.success(res.data.message); 
+          this.templateList();
+        } )
+        .catch( err => {
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else{
+            this.setState( { loading: false } );
+            toast.error(err.message); 
+          }
+        } );
+      });
     }
     else{
-      commonService.postAPIWithAccessToken( `template/upload`, formData)
-      .then( res => {
-                
-        if ( undefined === res.data.data || !res.data.status ) { 
-          this.setState({loading: false});           
-          toast.error(res.data.message);             
-          return;
-        }            
-        this.setState({modal: false, loading: false});
-        toast.success(res.data.message); 
-        this.templateList();
-      } )
-      .catch( err => {
-        if(err.response !== undefined && err.response.status === 401) {
-          localStorage.clear();
-          this.props.history.push('/login');
-        }
-        else{
-          this.setState( { loading: false } );
-          toast.error(err.message); 
-        }
-      } );
+      this.setState( { loading: true}, () => { 
+        commonService.postAPIWithAccessToken( `template/upload`, formData)
+        .then( res => {
+                  
+          if ( undefined === res.data.data || !res.data.status ) { 
+            this.setState({loading: false});           
+            toast.error(res.data.message);             
+            return;
+          }            
+          this.setState({modal: false, loading: false});
+          toast.success(res.data.message); 
+          this.templateList();
+        } )
+        .catch( err => {
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.history.push('/login');
+          }
+          else{
+            this.setState( { loading: false } );
+            toast.error(err.message); 
+          }
+        } );
+      });
     }
   }
 

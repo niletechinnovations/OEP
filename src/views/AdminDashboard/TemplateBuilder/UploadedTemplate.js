@@ -17,6 +17,7 @@ class UploadTemplate extends Component {
       modal: false,
       displayContentCount: 10,
       displayContentSize: 10,
+      organizationList: [],
       templateFile: "",
       categoryId: "",
       templateId: "",
@@ -35,8 +36,33 @@ class UploadTemplate extends Component {
   componentDidMount() { 
     this.templateList();
     this.categoryList();
+    this.organizationList();
   }
 
+  organizationList() {   
+    
+    commonService.getAPIWithAccessToken('organization')
+      .then( res => {       
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( { loading: false } );
+          toast.error(res.data.message);
+          return;
+        }   
+
+        this.setState({loading:false, organizationList: res.data.data});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else 
+          this.setState( { loading: false } );
+      } )
+    
+  }
   /*User List API*/
   templateList(filterItem = {}) {
     let queryString = "";
@@ -402,7 +428,7 @@ class UploadTemplate extends Component {
 
   render() {
 
-    const { templateList, loading, categoryList, subCategoryList, displayContentCount } = this.state; 
+    const { templateList, loading, categoryList, subCategoryList, displayContentCount, organizationList } = this.state; 
     let loaderElement = '';
     let displayTemplateData = [];
     if(templateList.length >= displayContentCount){
@@ -430,7 +456,18 @@ class UploadTemplate extends Component {
                   <Col md={12}>
                     <div className="search-filter">
                     <Row>
-                      <Col md={"6"} lg={"4"}>
+                      <Col md={"3"}>
+                        <FormGroup> 
+                          <Label htmlFor="organizationId">Organization</Label>            
+                          <Input type="select" placeholder="Organization *" id="organizationId" name="organizationId" value={this.state.filterItem.organizationId} onChange={this.changeFilterHandler} >
+                            <option value="">Select Organization</option>
+                            {organizationList.map((organizationInfo, index) =>
+                              <SetOrganizationDropDownItem key={index} organizationInfo={organizationInfo} />
+                            )}
+                          </Input>
+                        </FormGroup>  
+                      </Col>
+                      <Col md={"3"} lg={"3"}>
                         <FormGroup> 
                           <Label htmlFor="categoryId">Category</Label>            
                           <Input type="select" placeholder="category Name *" id="categoryId" name="categoryId" value={this.state.filterItem.categoryId} onChange={this.changeCategoryHandle}  >
@@ -441,7 +478,7 @@ class UploadTemplate extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col md={"6"} lg={"4"}>
+                      <Col md={"3"} lg={"3"}>
                         <FormGroup> 
                           <Label htmlFor="subCategoryId">Subcategory</Label>            
                           <Input type="select" placeholder="Subcategory Name *" id="subCategoryId" name="subCategoryId" value={this.state.filterItem.subCategoryId} onChange={this.changeFilterHandler}  >
@@ -452,7 +489,7 @@ class UploadTemplate extends Component {
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col md={"6"} lg={"3"}>
+                      <Col md={"3"} lg={"3"}>
                         <FormGroup className="filter-button-section"> 
                           <Label htmlFor="searchButton">&nbsp;</Label> 
                           <Button color="success" className="search-btn" id="searchButton" type="button" onClick={this.filterTemplateList}> Search</Button> 
@@ -535,7 +572,10 @@ class UploadTemplate extends Component {
   }
 }
 
-
+function SetOrganizationDropDownItem (props) {
+  const organizationInfo = props.organizationInfo;
+  return (<option value={organizationInfo.authId} >{organizationInfo.organizationName}</option>)
+}
 
 function SetCategoryDropDownItem (props) {
   const categoryItem = props.categoryItem;
