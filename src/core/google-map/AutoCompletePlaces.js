@@ -57,7 +57,7 @@ class AutoCompletePlaces extends React.Component {
               const getCity = googleMapData.address_components.filter(function(item) { return item.types.indexOf('administrative_area_level_2') > -1;});
               const getPostalCode = googleMapData.address_components.filter(function(item) { return item.types.indexOf('postal_code') > -1;})
               const formatted_address = googleMapData.formatted_address || "";
-              const getLocality = googleMapData.address_components.filter(function(item){ return item.types.indexOf('locality')> -1 ;})
+             // const getLocality = googleMapData.address_components.filter(function(item){ return item.types.indexOf('locality')> -1 ;})
               const addressInfo = {country: getCountry.length > 0 ? getCountry[0].long_name : "",
               state: getState.length > 0 ? getState[0].long_name : "",
               city: getCity.length > 0 ? getCity[0].long_name : "",

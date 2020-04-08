@@ -5,7 +5,7 @@ import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
-
+import AutoCompletePlaces from '../../../core/google-map/AutoCompletePlaces';
 import Loader from '../../Loader/Loader';
 import OrganizationData from './OrganizationData';
 import './Organization.css'
@@ -19,7 +19,7 @@ class Organization extends Component {
       loading: true,
       rowIndex: -1,
       formProccessing: false,
-      formField: {organization_name: '', email: '', first_name: '', last_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
+      formField: {organization_name: '', email: '', first_name: '', last_name: '', latitude: '', longitude: '',  phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
@@ -30,11 +30,22 @@ class Organization extends Component {
     this.handleDeleteOrganization = this.handleDeleteOrganization.bind(this);
     this.filterOragnizationList = this.filterOragnizationList.bind(this);
     this.resetSearchFilter = this.resetSearchFilter.bind(this);
+    this.setLatitudeLongitude = this.setLatitudeLongitude.bind(this);
     
   }
   // Fetch the organization List
   componentDidMount() { 
     this.organizationList();
+  }
+
+  setLatitudeLongitude(address, latLng, city = "", state = "", country = "", postal_code = ""){
+    let formField = this.state.formField;
+    formField.state = state;
+    formField.latitude = latLng.latitude;
+    formField.longitude = latLng.longitude;
+    formField.country = country;formField.city = city;formField.postalCode = postal_code;
+    formField.address = address
+    this.setState({ formField: formField })
   }
   /*organization List API*/
   organizationList(filterItem = {}) {
@@ -87,6 +98,8 @@ class Organization extends Component {
         "roleName": formInputField.role, 
         "city": formInputField.city, 
         "state": formInputField.state, 
+        "latitude": formInputField.latitude,
+        "longitude": formInputField.longitude, 
         "country": formInputField.country, 
         "postalCode": formInputField.postalCode, 
         "organizationName": formInputField.organization_name,
@@ -404,10 +417,10 @@ class Organization extends Component {
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="address">Address</Label>            
-                    <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
+                    <AutoCompletePlaces setLatitudeLongitude={this.setLatitudeLongitude} address = {this.state.formField.address} />  
                   </FormGroup>
                 </Col>                
-                <Col md={"6"}>  
+                {/*<Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="country">Country</Label>     
                     <CountryDropdown id="country" priorityOptions={priorityCountry} name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
@@ -425,7 +438,7 @@ class Organization extends Component {
                     <Label htmlFor="city">City</Label>            
                     <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
                   </FormGroup>
-                </Col>
+                </Col>*/}
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="postalCode">Postal Code</Label>            

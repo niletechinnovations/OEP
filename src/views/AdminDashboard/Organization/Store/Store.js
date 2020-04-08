@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../../core/services/commonService';
 import { FormErrors } from '../../../Formerrors/Formerrors';
-
+import AutoCompletePlaces from '../../../../core/google-map/AutoCompletePlaces';
 import Loader from '../../../Loader/Loader';
 import StoreData from './StoreData';
 import './Store.css'
@@ -30,6 +30,7 @@ class Store extends Component {
     this.handleDeleteStore = this.handleDeleteStore.bind(this);
     this.filterStoreList = this.filterStoreList.bind(this);
     this.resetSearchFilter = this.resetSearchFilter.bind(this);
+    this.setLatitudeLongitude = this.setLatitudeLongitude.bind(this);
     
   }
   // Fetch the Employee List
@@ -44,7 +45,17 @@ class Store extends Component {
     }
     this.storeList({filter_organization_id: organizationId});
     this.organizationList();
+  }
+
     
+  setLatitudeLongitude(address, latLng, city = "", state = "", country = "", postal_code = ""){
+    let formField = this.state.formField;
+    formField.state = state;
+    formField.latitude = latLng.latitude;
+    formField.longitude = latLng.longitude;
+    formField.country = country;formField.city = city;formField.postalCode = postal_code;
+    formField.address = address
+    this.setState({ formField: formField })
   }
   /*Employee List API*/
   storeList(filterItem = {}) {
@@ -125,6 +136,8 @@ class Store extends Component {
         "address": formInputField.address, 
         "city": formInputField.city, 
         "state": formInputField.state, 
+        "latitude": formInputField.latitude,
+        "longitude": formInputField.longitude, 
         "country": formInputField.country, 
         "postalCode": formInputField.postalCode,
         "organizationId": formInputField.organizationId         
@@ -422,12 +435,13 @@ class Store extends Component {
                     <Input type="text" placeholder="Contact Number " id="phoneNumber" name="phoneNumber" value={this.state.formField.phoneNumber} onChange={this.changeHandler}  />
                   </FormGroup>
                 </Col>
-                <Col md={"6"}>
+                <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="address">Address</Label>            
-                    <Input type="text" placeholder="Address" id="address" name="address" value={this.state.formField.address} onChange={this.changeHandler}  />
+                    <AutoCompletePlaces setLatitudeLongitude={this.setLatitudeLongitude} address = {this.state.formField.address} />  
                   </FormGroup>
                 </Col>
+                {/*
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="country">Country</Label>     
@@ -446,7 +460,7 @@ class Store extends Component {
                     <Label htmlFor="city">City</Label>            
                     <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
                   </FormGroup>
-                </Col>
+                </Col>*/}
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="postalCode">Postal Code</Label>            

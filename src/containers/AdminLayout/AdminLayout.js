@@ -28,10 +28,12 @@ import DefaultHeader from './DefaultHeader';
 import '../OrganizationLayout/DashboardResponsive.css'
 class AdminLayout extends Component {
 
-  /*constructor(props) {
+  constructor(props) {
     super(props);
-    //this.asideTogglerRef = React.createRef();
-  }*/
+    this.state = {
+      isLogout: false
+    }
+  }
 
   /*componentDidMount() {
     ReactDOM.findDOMNode(this.asideTogglerRef.current).addEventListener('click', this.handleClick.bind(this));
@@ -54,10 +56,13 @@ class AdminLayout extends Component {
   signOut(e) {
     e.preventDefault();
     localStorage.clear();
-    this.props.history.push('/login')
+    this.setState({isLogout: true});
+    //this.props.history.push('/login')
   }
 
   render() {
+    if(this.state.isLogout)
+      return ( <Redirect to={`/`} noThrow /> )
     return (
       <div className="app dashboard-template">
         <AppHeader fixed>

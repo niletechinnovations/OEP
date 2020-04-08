@@ -10,15 +10,25 @@ import FrontEndFooter from './FrontEndFooter';
 import './FrontEndResponsive.css'
 class FrontEndLayout extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogout: false
+    }
+  }
+  
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
     e.preventDefault();
     localStorage.clear();
-    this.props.history.push('/login')
+    this.setState({isLogout: true});
+    //this.props.history.push('/login')
   }
 
   render() {
+    if(this.state.isLogout)
+      return ( <Redirect to={`/`} noThrow /> )
     return (
       <div className="app">
         <div className="flyout">

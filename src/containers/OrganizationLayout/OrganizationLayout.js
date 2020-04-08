@@ -31,6 +31,7 @@ class OrganizationLayout extends Component {
     this.state = {      
       isOpenMenu: false,
       selectedIndex : -1,
+      isLogout: false
 
     }     
     this.showDropDownMenu = this.showDropDownMenu.bind(this);
@@ -51,10 +52,13 @@ class OrganizationLayout extends Component {
   signOut(e) {
     e.preventDefault();
     localStorage.clear();
-    this.props.history.push('/login')
+    this.setState({isLogout: true});
+    //this.props.history.push('/login')
   }
 
   render() {
+    if(this.state.isLogout)
+      return ( <Redirect to={`/`} noThrow /> )
     let navigationItem = commonService.getIsSubscribe() ? navigation : navigation_unsubcribe;
     return (
       <div className="app dashboard-template">
