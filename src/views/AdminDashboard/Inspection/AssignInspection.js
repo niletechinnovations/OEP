@@ -73,7 +73,7 @@ class AssignInspection extends React.Component {
           formField.storeId = inspectionDetail.storeId;
           let selectedEmployeList = this.state.selectedEmployeList;
           selectedEmployeList[0].employeeId = inspectionDetail.employeeId;
-          selectedEmployeList[0].storeId = inspectionDetail.storeId;
+          selectedEmployeList[0].storeId.push(inspectionDetail.storeId);
           this.getSubCategoryList(inspectionDetail.categoryId, false);
           this.getEmployeeList(inspectionDetail.organizationId, false);
           this.getStoreList(inspectionDetail.organizationId, false);

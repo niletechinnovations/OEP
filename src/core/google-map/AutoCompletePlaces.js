@@ -3,14 +3,25 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-
+import { toast } from 'react-toastify';
+import { geolocated } from "react-geolocated";
+import GeoLocationData from './GeoLocationData';
 import './AutoCompletePlaces.css';
+import commonService from '../services/commonService';
 
 
 class AutoCompletePlaces extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: '', latitude:'', longitude:'', scriptLoading: false };
+    this.state = { address: '', latitude:'', longitude:'', scriptLoading: false, 
+    currentAddress: {country: "",
+              state: "",
+              city: "",
+              postal_code: "",
+              formatted_address: "", latitude: "", longitude: ""},
+      locationEnabled: false,
+   };
+    this.updateGeoLocationAddress = this.updateGeoLocationAddress.bind(this);
   }
   
   componentDidMount() { 
@@ -29,6 +40,51 @@ class AutoCompletePlaces extends React.Component {
     //this.setState({ address:this.props.setAddress });
 
   }
+
+  updateGeoLocationAddress(coords) {
+    
+    if(coords.latitude && coords.longitude){
+      
+      this.setState({latitude: coords.latitude, longitude: coords.longitude, locationEnabled: true}, () => {
+          commonService.getExternalAPI("https://maps.googleapis.com/maps/api/geocode/json?latlng="+coords.latitude+","+coords.longitude+"&key="+commonService.getGoogleAPIKey())
+            .then( res => {  
+           
+            const googleMapData = res.data.results ? res.data.results[0] : [];
+           
+            if(googleMapData.address_components !== undefined && googleMapData.address_components.length > 0 ) {
+              const getCountry = googleMapData.address_components.filter(function(item) { return item.types.indexOf('country') > -1;});
+              const getState = googleMapData.address_components.filter(function(item) { return item.types.indexOf('administrative_area_level_1') > -1;});
+              const getCity = googleMapData.address_components.filter(function(item) { return item.types.indexOf('administrative_area_level_2') > -1;});
+              const getPostalCode = googleMapData.address_components.filter(function(item) { return item.types.indexOf('postal_code') > -1;})
+              const formatted_address = googleMapData.formatted_address || "";
+              const getLocality = googleMapData.address_components.filter(function(item){ return item.types.indexOf('locality')> -1 ;})
+              const addressInfo = {country: getCountry.length > 0 ? getCountry[0].long_name : "",
+              state: getState.length > 0 ? getState[0].long_name : "",
+              city: getCity.length > 0 ? getCity[0].long_name : "",
+              postal_code: getPostalCode.length > 0 ? getPostalCode[0].long_name : "",
+              formatted_address: formatted_address, latitude: coords.latitude, longitude: coords.longitude}; 
+              this.setState({currentAddress: addressInfo});
+            }
+          } )
+          .catch( err => {         
+            
+          } )
+      });
+    }
+  }
+
+  useCurrentLocation = event => {
+    if(!this.state.locationEnabled){
+      toast.error("Please allow to access your location");
+      return;
+    }
+    else {
+      this.props.setLatitudeLongitude(this.state.currentAddress.formatted_address,{latitude: this.state.currentAddress.latitude, longitude:this.state.currentAddress.longitude}, this.state.currentAddress.city, 
+        this.state.currentAddress.state, this.state.currentAddress.country, this.state.currentAddress.postal_code) 
+     
+    }
+  }
+
   handleChange = address => {
     this.setState({ address });
     if(address === "")
@@ -86,14 +142,20 @@ class AutoCompletePlaces extends React.Component {
   render() {
     let address = ( (this.state.address==='' && this.props.address) ? this.props.address : this.state.address );
     
-    
+    let geoLocationTags = '';
+    if(this.props.isGeolocationAvailable) {
+      if(this.props.isGeolocationEnabled) {
+        if(this.props.coords != null && !this.state.locationEnabled)
+            geoLocationTags = <GeoLocationData cords = {this.props.coords} updateAddress = {this.updateGeoLocationAddress} />
+      }
+    }
     if(!this.state.scriptLoading)
       return (<></>);
     
     return (
       <>
-      
-      
+      {geoLocationTags}
+      <span className="use-current-location pull-right" onClick={this.useCurrentLocation}><i className="fa fa-location-arrow"></i>Use current location</span>
       <PlacesAutocomplete
         value={address}
         onChange={this.handleChange}
@@ -104,7 +166,7 @@ class AutoCompletePlaces extends React.Component {
             <input
               {...getInputProps({
                 name: 'address',
-                placeholder: 'Search Your Location ...',
+                placeholder: 'Search Location ...',
                 className: 'form-control location-search-input',
               })}
             />
@@ -143,4 +205,10 @@ class AutoCompletePlaces extends React.Component {
     
   }
 }
-export default AutoCompletePlaces;
+//export default AutoCompletePlaces;
+export default geolocated({
+    positionOptions: {
+        enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+})(AutoCompletePlaces);

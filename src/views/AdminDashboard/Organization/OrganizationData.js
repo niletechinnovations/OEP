@@ -32,7 +32,7 @@ class OrganizationData extends Component {
       console.log(i);
       let orgInfo = {
         organizationName: orgnization.organizationName,  
-        firstName: `${orgnization.firstName} ${orgnization.last_name}`,
+        firstName: `${orgnization.firstName} ${orgnization.lastName}`,
         email: orgnization.email,
         roleName: orgnization.organizationRole || " ",
         phoneNumber: orgnization.phoneNumber || " ",

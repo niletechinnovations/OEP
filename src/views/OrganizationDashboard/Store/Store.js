@@ -392,6 +392,7 @@ class Store extends Component {
                     <AutoCompletePlaces  setLatitudeLongitude={this.setLatitudeLongitude} address = {this.state.formField.address} />
                   </FormGroup>
                 </Col>
+                {/*
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="country">Country</Label>     
@@ -410,7 +411,7 @@ class Store extends Component {
                     <Label htmlFor="city">City</Label>            
                     <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
                   </FormGroup>
-                </Col>
+                </Col> */}
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="postalCode">Postal Code</Label>            

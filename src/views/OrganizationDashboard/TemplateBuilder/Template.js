@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col} from 'reactstrap';
-import  { Link } from 'react-router-dom';
+//import  { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DefaultTemplate from './DefaultTemplate';
@@ -103,9 +103,9 @@ class SetUpPage extends Component {
         </TabPane>
         <TabPane tabId="2">
           <Row>
-            <Col sm="12">
+            {/*<Col sm="12">
               {this.state.subscriptionDetails.duration === 1 ? <div className="plan-info-notice"><p>Your subscription allows you to create 5 Templates and add 10 employees to your account.</p><p>Would you like to upgrade your Subscription to a Annual Subscription. Annual Subscription allows you to Create 50 Templates. You can also add 50 Employees to your account. </p><Link className="subscription-btn" color = "success" to = "/organization/subscription/plan">Upgrade Your Subscription</Link></div> : <p>Your subscription allows you to create 50 Templates and add 50 Employees to your account.</p>} 
-            </Col>
+            </Col>*/}
             <Col sm="12">
               <CustomTemplate history = { this.props.history} />
             </Col>

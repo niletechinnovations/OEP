@@ -59,6 +59,7 @@ const frontEndFooter = () => {
                       </a>
                     </li>
                   </ul>
+                  <a href="mailto:support.retailoep.com" className="py-2 text-contrast nav-link">support@retailoep.com</a>
               </MDBCol>
 
             </MDBRow>

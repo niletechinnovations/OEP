@@ -2,8 +2,6 @@ import React , { Component } from 'react';
 import { Button, Input, FormGroup, FormFeedback, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast } from 'react-toastify';
 import commonService from '../../core/services/commonService';
-import logo from '../../assets/img/brand/logo-black.svg';
-
 var pdf_header_logo = {
   "width": "50%",
   "margin": "0 auto",
@@ -12,6 +10,7 @@ var pdf_header_logo = {
 var pdf_header_logo_img = {
   width: "100%",
 }
+
 class PdfContainer extends Component {
   
   constructor(props){
@@ -121,7 +120,7 @@ class PdfContainer extends Component {
         </section>
         <section className="pdf-body" style= {{padding: "20px"}} ref={this.bodyRef}>
           <div className="pdf-header-logo" style = {pdf_header_logo}>
-              <img src={logo} alt="logo" style = {pdf_header_logo_img} />
+              <img src="https://retailoep.com/logo-black.svg" alt="logo" style = {pdf_header_logo_img} />
           </div>
           {this.props.children}
         </section>
@@ -134,6 +133,11 @@ class PdfContainer extends Component {
                   <Input type="email" placeholder="Email *" id="share_email" name="share_email" value={this.state.email} onChange={this.changeHandler} required />
                   <FormFeedback></FormFeedback>
                 </FormGroup>
+                {this.props.templateType === "inspection" ? <FormGroup><div className="share-template-on-social" ><h3>OR</h3>
+                  <a className="facebook-btn" target="_blank" href={`http://www.facebook.com/sharer.php?u=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}`}><i className="fa fa-facebook"></i> Facebook</a>
+                  <a className="twitter-btn" target="_blank" href={`http://twitter.com/share?text=RetailOEP will be the platform to help you inspect what you expect&url=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}`}><i className="fa fa-twitter"></i> Twitter</a>
+                  <a className="linkdin-btn" target="_blank" href={`https://www.linkedin.com/shareArticle?mini=true&url=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}&title=RetailOEP will be the platform to help you inspect what you expect`}><i className="fa fa-linkedin"></i> Linkedin</a>
+                </div></FormGroup> : ""}
               </ModalBody>
               <ModalFooter>
                 <Button color="primary"  onClick = {this.submitHandler}  disabled={this.state.loading}>{this.state.loading ? "Processing...": "Send"}</Button>

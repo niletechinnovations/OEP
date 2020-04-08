@@ -6,7 +6,7 @@ export default {
       icon: 'icon-speedometer',
     },
     {
-      name: 'Set up',
+      name: 'Setup',
       url: '/organization/set-up',
       icon: 'icon-settings',     
     },

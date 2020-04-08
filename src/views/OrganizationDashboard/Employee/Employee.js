@@ -418,7 +418,7 @@ class Employee extends Component {
                        
                   </FormGroup>
                 </Col>
-                <Col md={"6"}>  
+                {/*<Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="country">Country</Label>     
                     <CountryDropdown id="country" priorityOptions={priorityCountry} name="country" className="form-control" value={this.state.formField.country}  onChange={(val) => this.selectCountry(val)} />       
@@ -436,7 +436,7 @@ class Employee extends Component {
                     <Label htmlFor="city">City</Label>            
                     <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
                   </FormGroup>
-                </Col>
+                </Col> */}
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="postalCode">Postal Code</Label>            

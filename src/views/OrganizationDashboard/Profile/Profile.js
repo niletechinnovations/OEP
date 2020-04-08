@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Button, Form, Input, FormGroup, Label} from 'reactstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import commonService from '../../../core/services/commonService';
 import { FormErrors } from '../../Formerrors/Formerrors';
 import Loader from '../../Loader/Loader';
 import AutoCompletePlaces from '../../../core/google-map/AutoCompletePlaces';
+
 import './Profile.css'
 
 class Profile extends Component {
@@ -16,19 +18,24 @@ class Profile extends Component {
       formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
       formValid: true,
       organizationId: "",
-      loading: true
-
+      loading: true,
+      
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.setLatitudeLongitude = this.setLatitudeLongitude.bind(this);
+    
   }
   componentDidMount() { 
     this.getProfile();
   }
 
-  setLatitudeLongitude(address, latLng, city, state, country, postal_code){
+  
+
+  setLatitudeLongitude(address, latLng, city = "", state = "", country = "", postal_code = ""){
     let formField = this.state.formField;
     formField.state = state;
+    formField.latitude = latLng.latitude;
+    formField.longitude = latLng.longitude;
     formField.country = country;formField.city = city;formField.postalCode = postal_code;
     formField.address = address
     this.setState({ formField: formField })
@@ -219,6 +226,7 @@ class Profile extends Component {
     let prevImg = '';
     if(loading)
       loaderElement = <Loader />
+    
 
     if(this.state.formField.profilePic !== "")
       prevImg = <div className="prevProfileImageArea"><img src={this.state.formField.profilePic} alt="Profile" className="prevProfileImage" /></div>
@@ -277,11 +285,11 @@ class Profile extends Component {
                     </Col>
                     <Col md={4}>
                       <FormGroup> 
-                        <Label htmlFor="address">Address</Label>            
+                        <Label htmlFor="address">Address  </Label>            
                         <AutoCompletePlaces setLatitudeLongitude={this.setLatitudeLongitude} address = {this.state.formField.address} />
                       </FormGroup>
                     </Col>
-                    <Col md={3}>
+                   {/* <Col md={3}>
                       <FormGroup> 
                         <Label htmlFor="city">City</Label>            
                         <Input type="text" placeholder="City" id="city" name="city" value={this.state.formField.city} onChange={this.changeHandler}  />
@@ -298,7 +306,7 @@ class Profile extends Component {
                         <Label htmlFor="country">Country</Label>            
                         <Input type="text" placeholder="Country" id="country" name="country" value={this.state.formField.country} onChange={this.changeHandler}  />
                       </FormGroup>
-                    </Col>
+                    </Col> */}
                     <Col md={3}>
                       <FormGroup> 
                         <Label htmlFor="postalCode">Postal Code</Label>            
@@ -334,3 +342,4 @@ class Profile extends Component {
 }
 
 export default Profile;
+
