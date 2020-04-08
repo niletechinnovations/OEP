@@ -4,7 +4,9 @@ import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import Loader from '../../Loader/Loader';
-import './TemplatePreview.css'
+import './TemplatePreview.css';
+import Doc from '../../FormBuilder/DocService';
+import PdfContainer from '../../FormBuilder/PdfContainer';
 import PreviewTemplatePageForm from '../../AdminDashboard/TemplateBuilder/PreviewTemplatePageForm'
 class TemplatePreview extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
@@ -74,6 +76,7 @@ class TemplatePreview extends React.Component {
     formField[fieldName] = fieldValue;
     this.setState({formField: formField});
   }
+  createPdf = (html) => Doc.createPdf(html, this.state.templateId);
   render() {
     let loaderElement = '';
     if(this.state.loading)
@@ -89,7 +92,9 @@ class TemplatePreview extends React.Component {
                         <MDBCol lg="12" className="card-info-box">
                             <MDBCard>
                                 <MDBCardBody>
+                                  <PdfContainer createPdf={this.createPdf} templateType = "template" history = {this.props.history} shareTemplate = "yes" templateId = {this.state.templateId}>
                                     <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} answers={this.state.userAnswer} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue}  /> 
+                                  </PdfContainer>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>

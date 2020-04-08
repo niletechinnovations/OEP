@@ -102,7 +102,7 @@ class FeedBackPreviewPage extends React.Component {
               </CardHeader>
               <CardBody className="feedBackPreview">
                 {loaderElement}
-                <PdfContainer createPdf={this.createPdf} templateType = "inspection" inspectionId = {this.state.feedBackInfo.inspectionId} employeeId = {this.state.feedBackInfo.employeeId}>  
+                <PdfContainer createPdf={this.createPdf} templateType = "inspection" inspectionId = {this.state.feedBackInfo.inspectionId} employeeId = {this.state.feedBackInfo.employeeId} history = {this.props.history}>  
                   <div className="card-Preview-info"> 
                     <Row>
                       <Col md={12}>

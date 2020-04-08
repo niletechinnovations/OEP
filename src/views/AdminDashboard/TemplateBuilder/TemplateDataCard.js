@@ -44,7 +44,7 @@ class TemplateDataCard extends Component {
                 {/*{template.isUploaded && !template.isCreated ? <><button className="btn-Edit" onClick={() => 
                   this.editTemplateFile(index)}>Edit</button> <button className="btn-Delete" onClick={() => {if( window.confirm('Are you sure you wish to delete this template?'))
                   this.deleteTemplate(index);}}>Delete</button></> : ""}*/}
-                <Link to={`/admin/manage-template/create-template/${template.templateId}`} className="btn-Edit">Edit </Link>
+                <Link to={`/admin/manage-template/create-template/${template.templateId}`} className="btn-Edit">{!template.isCreated ? "Create Template" : "Edit"} </Link>
                 {template.isCreated ? <Link to={`/admin/manage-inspection/assign-inspection?templateId=${template.templateId}&categoryId=${template.categoryId}&subCategoryId=${template.subCategoryId}`}  className="btn-Assign">Assign </Link> : ""}
                 </div>
               </CardBody>

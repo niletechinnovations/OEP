@@ -1,9 +1,10 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // routes config
 import commonRoutes from '../../commonRoutes.js';
+import './CommonLayout.css';
 
 class CommonLayout extends Component {
 
@@ -19,7 +20,8 @@ class CommonLayout extends Component {
     return (
       <div className="app">
         <div className="flyout">           
-            <main>                
+            <main>         
+              <ToastContainer />       
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {commonRoutes.map((route, idx) => {
