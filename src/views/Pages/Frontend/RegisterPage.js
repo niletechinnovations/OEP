@@ -38,12 +38,17 @@ class RegisterPage extends React.Component {
       confirmPassword: '',
       loading: false,
       isRegistered: false,
+      planId: "",
       errors: {}
     };
   }
 
   componentDidMount() {
       this.scrollToTop();
+      if(this.props.history.location.state !== undefined && this.props.history.location.state !== null) {
+        if(this.props.history.location.state.planId != undefined)
+          this.setState({planId: this.props.history.location.state.planId});
+      }
   }
   scrollToTop = () => window.scrollTo(0, 0);
     
@@ -59,6 +64,7 @@ class RegisterPage extends React.Component {
       phoneNumber: this.state.phoneNumber,
       email: this.state.email,
       password: this.state.password,
+      planId: this.state.planId,
       role: 'organization'
     };
     this.setState( { loading: true }, () => {

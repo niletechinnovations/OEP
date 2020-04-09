@@ -195,7 +195,7 @@ function SetPlanDetailsInfo (props) {
   let actionButton = '';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
   if(props.activePlanInfo.length > 0 ) {
-    if(props.activePlanInfo[0].duration ===  planInfo.duration)
+    if(props.activePlanInfo[0].planId ===  planInfo.planId)
       actionButton = <button className="payment-Button"  onClick={() => props.cancelSubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Cancel'}</button>
     else if(props.activePlanInfo[0].duration <  planInfo.duration)
       actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Upgrade'}</button>

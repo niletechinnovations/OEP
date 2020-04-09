@@ -61,6 +61,10 @@ export default class VerifyOtp extends React.Component {
             localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
             localStorage.setItem( 'userName', loggedInfo.data.firstName );
             commonService.setIsSubscribe(false);
+            if(loggedInfo.data.isRedirectToPayPal && loggedInfo.data.payPalRedirectUrl !== ""){
+              window.location.href = loggedInfo.data.payPalRedirectUrl;
+              return ;
+            }
     
             this.setState( {
               loading: false,              

@@ -36,7 +36,7 @@ class InspectionData extends Component {
         templateName: inspection.templateName || " ",
         categoryName: inspection.categoryName || " ",
         subCategoryName: inspection.subCategoryName || " ",
-        status: inspection.currentStatus === 1 ? "Pending" : inspection.currentStatus === 2 ? "Proccessing" : "Completed",
+        status: inspection.currentStatus === 1 ? "Pending" : inspection.currentStatus === 2 ? "In Process" : "Completed",
         action: "",       
       }      
       rowsItem.push(inspectionInfo);

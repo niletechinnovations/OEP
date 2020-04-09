@@ -96,7 +96,11 @@ class FrontEndHeader extends React.Component {
                     About Us
                   </MDBNavLink>
                 </MDBNavItem>
-                
+                <MDBNavItem>
+                  <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/subscription-plan" >
+                    Subscription Plan
+                  </MDBNavLink>
+                </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink onClick={this.closeCollapse("mainNavbarCollapse")} to="/contact-us" >
                     Contact Us

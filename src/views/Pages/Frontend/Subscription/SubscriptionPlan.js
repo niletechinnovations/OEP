@@ -18,6 +18,7 @@ class SubscriptionPlan extends React.Component {
       termCondtionAccepted: {},
     }    
     this.buySubscription = this.buySubscription.bind(this);  
+    this.cancelSubscription = this.cancelSubscription.bind(this);
     this.acceptTermCondtion = this.acceptTermCondtion.bind(this);
   }
 
@@ -62,6 +63,46 @@ class SubscriptionPlan extends React.Component {
         } )
     } ) 
   }
+
+  cancelSubscription(planInfo) {
+    if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId]){
+      toast.error("Please accept term and conditions");
+      return;
+    }
+    if( !window.confirm('Are you sure to cancel this subscription?'))
+      return false;
+
+    this.setState( { loading: true}, () => {
+        commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: planInfo.subscriberId})
+          .then( res => {
+            
+             
+            if ( undefined === res.data.data || !res.data.status ) {
+              this.setState( {  loading: false } );
+              toast.error(res.data.message);             
+              return;
+            } 
+            //const subscriptionInfo = res.data.data; 
+            toast.success(res.data.message);            
+            this.setState( { loading: false} ); 
+            localStorage.setItem('isSubscribed', false); 
+            this.subscriptionPlanList();          
+           
+          } )
+          .catch( err => {  
+             
+            if(err.response !== undefined && err.response.status === 401) {
+              localStorage.clear();
+              this.props.propHistory.push('/login');
+            }
+            else {
+              this.setState( { loading: false } );
+              toast.error(err.message);    
+            }
+          } )
+      } )
+  }
+
   buySubscription(planInfo) {
     if(planInfo.isPlanActive) {
     	toast.error("Plan already activated on your account!");
@@ -69,6 +110,17 @@ class SubscriptionPlan extends React.Component {
     }
     if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId]){
       toast.error("Please accept term and conditions");
+      return;
+    }
+    if(!commonService.getAuth()) {
+      this.props.propHistory.push({
+        pathname: '/register',
+        state: { planId: planInfo.planId }
+      });
+      return;
+    }
+    if(commonService.getLocalStorageValue('role') === "admin") {
+      toast.error("Admin not allowed to buy subscription");
       return;
     }
     this.setState( { paymentProcess: true, planId: planInfo.planId}, () => {
@@ -103,7 +155,7 @@ class SubscriptionPlan extends React.Component {
   }
   render() {
     const { planList, paymentProcess } = this.state;
-    
+    let activePlanInfo = planList.filter(function(item) { return item.isPlanActive === true});
        return (
           <div className="container-fluid bg-gradient p-5">
            <div className="plan-section">
@@ -129,7 +181,7 @@ class SubscriptionPlan extends React.Component {
 
             <Row className ="m-auto text-center w-85">
               {planList.map((planInfo, index) =>
-                <SetPlanDetailsInfo key={index} planInfo={planInfo} acceptTermCondtion = {this.acceptTermCondtion} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
+                <SetPlanDetailsInfo key={index} cancelSubscription= {this.cancelSubscription} activePlanInfo = {activePlanInfo} planInfo={planInfo} acceptTermCondtion = {this.acceptTermCondtion} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
               )}
               <div className="termsCondition">
                 <p>* Terms and Conditions apply to the subscription plans.</p>
@@ -157,7 +209,19 @@ function SetPlanDetailsInfo (props) {
     className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item ";
     planType = 'Yearly';
   }
+  
+  let actionButton = '';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
+  if(props.activePlanInfo.length > 0 ) {
+    if(props.activePlanInfo[0].planId ===  planInfo.planId)
+      actionButton = <button className="payment-Button"  onClick={() => props.cancelSubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Cancel'}</button>
+    else if(props.activePlanInfo[0].duration <  planInfo.duration)
+      actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Upgrade'}</button>
+    else
+      actionButton = ""
+  }
+  else 
+    actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
   return (<div className={className}>
                     <div className="pricing-plan">
                         <h2>{planInfo.planName}</h2>
@@ -179,7 +243,7 @@ function SetPlanDetailsInfo (props) {
                         <div className="terms-and-condition">
                           <input type="checkbox" name="term" className="check-term" onChange={(e) => {props.acceptTermCondtion(planInfo.planId, e)}} /> I have read and accept the <a href="https://retailoep.com/terms-of-service" target="_blank" rel="noopener noreferrer" >Terms &amp; Conditions</a> and the <a href="https://retailoep.com/privacy-policy" target="_blank" rel="noopener noreferrer" >Privacy Policy</a>
                         </div>
-                        <button type="button" className="payment-Button" onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess || props.planInfo.isPlanActive}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
+                        {actionButton}
                     </div>
                 </div>);
 }

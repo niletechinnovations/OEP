@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import {Col, Row, Input, FormGroup, Label, CustomInput} from 'reactstrap';
+import {Col, Row, Input, FormGroup, Label, CustomInput, Button} from 'reactstrap';
 import './TemplatePreviewPageForm.css';
 let countQuestion = 0;
+const yellow = 'ye';
+const blue = 'bl';
+
 const renderHTML = (rawHTML: string) => React.createElement("customlabel", { dangerouslySetInnerHTML: { __html: rawHTML } });
 function FieldLayout(props) {
   const formFieldDetails = props.formFieldDetails;
@@ -76,6 +79,12 @@ function FieldLayout(props) {
               )}
             </div>
           </FormGroup>
+          <div className="inspection-btn-section">              
+            <Button color={blue}  disabled="true">Comment</Button> 
+            <Label className="btn btn-gr">Photo </Label> 
+            
+            <Button color={yellow} disabled="true" >Action</Button> 
+          </div>
         </div>
       )
 
