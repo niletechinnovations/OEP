@@ -145,8 +145,8 @@ class PdfContainer extends Component {
                 </div></FormGroup>: ""}
               </ModalBody>
               <ModalFooter>
-                <Button color="primary"  onClick = {this.submitHandler}  disabled={this.state.loading}>{this.state.loading ? "Processing...": "Send"}</Button>
-                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                <Button className="submit-btn"  onClick = {this.submitHandler}  disabled={this.state.loading}>{this.state.loading ? "Processing...": "Send"}</Button>
+                <Button className="btnCancel" onClick={this.toggle}>Cancel</Button>
               </ModalFooter>
             
           </Modal>

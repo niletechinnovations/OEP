@@ -223,8 +223,8 @@ class PreviewTemplatePage extends React.Component {
                 <Form onSubmit={this.submitHandler} noValidate>
                   <FormErrors formErrors={this.state.formErrors} />
                   <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} answers={this.state.userAnswer} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue}  /> 
-                  <Button color="primary" disabled={!this.state.formValid} type="submit">Save</Button>
-                  <Button color="secondary" onClick={this.resetForm}>Cancel</Button>
+                  <Button className="submit-btn" disabled={!this.state.formValid} type="submit">Save</Button>
+                  <Button className="btnCancel" onClick={this.resetForm}>Cancel</Button>
                 </Form>
                 
               </CardBody>
