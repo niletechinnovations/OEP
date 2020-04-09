@@ -20,7 +20,7 @@ class Organization extends Component {
       rowIndex: -1,
       formProccessing: false,
       formField: {organization_name: '', email: '', first_name: '', last_name: '', latitude: '', longitude: '',  phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', status: '' },
-      formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
+      formErrors: {organization_name: '', email: '', contact_person: '', role: '', address: '', error: ''},
       formValid: false,
       filterItem: { filter_organization_id: '', country: '', state: '', custom_search: ''},
 
@@ -45,7 +45,8 @@ class Organization extends Component {
     formField.longitude = latLng.longitude;
     formField.country = country;formField.city = city;formField.postalCode = postal_code;
     formField.address = address
-    this.setState({ formField: formField })
+    this.setState({ formField: formField });
+    this.validateField('address', address);
   }
   /*organization List API*/
   organizationList(filterItem = {}) {
@@ -189,6 +190,10 @@ class Organization extends Component {
       case 'first_name':        
         fieldValidationErrors.contact_person = (value !== '') ? '' : ' is required';
         break;
+
+      case 'address':        
+        fieldValidationErrors.address = (value !== '') ? '' : ' is required';
+        break;
                    
       default:
         break;
@@ -202,7 +207,7 @@ class Organization extends Component {
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
     this.setState({formValid: 
-      (formErrors.organization_name === ""  && formErrors.email === "" && formErrors.contact_person === "" && formField.organization_name !== "" && formField.first_name !== "" && formField.email !== "") 
+      (formErrors.organization_name === ""  && formErrors.email === "" && formErrors.address === "" && formErrors.contact_person === "" && formField.organization_name !== "" && formField.address !== "" && formField.first_name !== "" && formField.email !== "") 
       ? true : false});
   }
   /* Set Error Class*/
@@ -217,7 +222,7 @@ class Organization extends Component {
       formValid: false,
       formProccessing : false,
       formField: {organization_name: '', email: '', first_name: '', last_name: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '' },
-      formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''}
+      formErrors: {organization_name: '', email: '', contact_person: '', role: '', address: '', error: ''}
     });
   }
   /* Edit organization*/
@@ -327,7 +332,7 @@ class Organization extends Component {
             <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Organization List</strong> 
-                <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Organization</Button>
+                {/*<Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Organization</Button>*/}
               </CardHeader>
               <CardBody>
                 

@@ -16,3 +16,5 @@
     cursor: pointer;
     border-bottom: solid 1px #ccc;
 }
+.location-icon { width: 20px; float: left; }
+.location-icon .current-location-icon { width: 100%; }

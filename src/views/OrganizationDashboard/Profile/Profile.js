@@ -15,7 +15,7 @@ class Profile extends Component {
     super(props);
     this.state = {
       formField: {organization_name: '', email: '', first_name: '', last_name: '', latitude: '', longitude: '', phoneNumber: '', address: '', city: '', state: '', country: '', postalCode: '', role: '', profilePic: '' },
-      formErrors: {organization_name: '', email: '', contact_person: '', role: '', error: ''},
+      formErrors: {organization_name: '', email: '', contact_person: '', role: '', address: '', error: ''},
       formValid: true,
       organizationId: "",
       loading: true,
@@ -38,7 +38,8 @@ class Profile extends Component {
     formField.longitude = latLng.longitude;
     formField.country = country;formField.city = city;formField.postalCode = postal_code;
     formField.address = address
-    this.setState({ formField: formField })
+    this.setState({ formField: formField });
+    this.validateField('address', address);
   }
 
   /*get profile API*/
@@ -196,8 +197,11 @@ class Profile extends Component {
         case 'first_name':        
           fieldValidationErrors.contact_person = (value !== '') ? '' : ' is required';
           break;
-        case 'role':        
+        /*case 'role':        
           fieldValidationErrors.role = (value !== '') ? '' : ' is required';
+          break;*/
+        case 'address':        
+          fieldValidationErrors.address = (value !== '') ? '' : ' is required';
           break;               
         default:
           break;
@@ -210,7 +214,7 @@ class Profile extends Component {
       const formErrors = this.state.formErrors;
       const formField = this.state.formField;
       this.setState({formValid: 
-        (formErrors.organization_name === ""  && formErrors.contact_person === "" && formErrors.role === "" && formField.organization_name !== "" && formField.role !== "" && formField.first_name !== "" ) 
+        (formErrors.organization_name === ""  && formErrors.contact_person === "" &&  formErrors.address === "" && formField.organization_name !== "" &&  formField.address !== "" && formField.first_name !== "" ) 
         ? true : false});
     }
     /* Set Error Class*/
