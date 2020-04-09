@@ -38,13 +38,18 @@ class LoginPage extends React.Component {
       loading: false,
       isExpanded: false,
       isLoggedIn: false,
+      planId: "",
       errors: {}
     };
     
   }
 
-  componentDidMount() {
+  componentDidMount() {    
     this.scrollToTop();
+    if(this.props.history.location.state !== undefined && this.props.history.location.state !== null) {
+      if(this.props.history.location.state.planId != undefined && this.props.history.location.state.planId !== "")
+        this.setState({planId: this.props.history.location.state.planId});
+    }
   }
   
   scrollToTop = () => window.scrollTo(0, 0);
@@ -93,7 +98,7 @@ class LoginPage extends React.Component {
   
 	  const loggedInfo = res.data;
     let isProfileCompleted = loggedInfo.data.isProfileCompleted ? "yes" : "no";
-	  
+	  let toastEnable = false;
 	  localStorage.setItem( 'accessToken', CryptoJS.AES.encrypt(loggedInfo.data.accessToken, 'OEPENCRYPTION@12345').toString());
 	  localStorage.setItem( 'refreshToken', CryptoJS.AES.encrypt(loggedInfo.data.refreshToken, 'OEPENCRYPTION@12345').toString());
 	  localStorage.setItem( 'role', CryptoJS.AES.encrypt(loggedInfo.data.role, 'OEPENCRYPTION@12345').toString());
@@ -101,14 +106,55 @@ class LoginPage extends React.Component {
     localStorage.setItem( 'authId', CryptoJS.AES.encrypt(loggedInfo.data.authId, 'OEPENCRYPTION@12345').toString());
 	  localStorage.setItem( 'profilePic', loggedInfo.data.profilePic );
 	  localStorage.setItem( 'userName', loggedInfo.data.firstName );
-	  if(loggedInfo.data.role.toLowerCase() === 'organization') 
+	  
+    if(loggedInfo.data.role.toLowerCase() === 'organization') {
 	    commonService.setIsSubscribe(loggedInfo.data.isActivePlan);
+      if(!loggedInfo.data.isActivePlan && this.state.planId !== ""){
+        
+        commonService.postAPIWithAccessToken('subscription/buy', {planId: this.state.planId})
+          .then( res => {           
+             
+          if ( undefined === res.data.data || !res.data.status ) {
+            this.setState( {  loading: false, loggedIn: true } );
+            toast.error(res.data.message);             
+            return;
+          } 
+          const paymentInfo = res.data.data;
+          
+          //this.setState( { paymentProcess: true} );
+          window.location.href = paymentInfo.redirectUrl;
+         
+         
+        } )
+        .catch( err => {  
+               
+          if(err.response !== undefined && err.response.status === 401) {
+            localStorage.clear();
+            this.props.propHistory.push('/login');
+          }
+          else {
+            this.setState( { loading: false, loggedIn: true } );
+            toast.error(err.message);    
+          }
+        } )
+        return;
 
-	  this.setState( {
-	    loading: false,              
-	    loggedIn: true
-	  } )
-	  toast.success(res.data.message);
+      }
+      else if(loggedInfo.data.isActivePlan && this.state.planId !== "")       
+        toastEnable = true;
+      
+    }
+
+	  
+    toast.success(toastEnable ? "You have already active subscription plan" : res.data.message);
+    var stateObj = this;
+   
+    setTimeout(function(){
+      stateObj.setState( {
+          loading: false,              
+          loggedIn: true
+        } )
+    }, 500)
 	  /*if(loggedInfo.data.role.toLowerCase() === 'admin')
 	    this.props.history.push('/admin/dashboard');
 	  else if(loggedInfo.data.role.toLowerCase() === 'organization')
@@ -199,6 +245,14 @@ class LoginPage extends React.Component {
     });
   }
 
+  redirectToLoginPage (event){
+    event.preventDefault();
+    this.props.history.push({
+      pathname: '/register',
+      state: {planId: this.state.planId}
+    })
+  }
+
   render() {
     const { email, password, loggedIn, loading, forgotPasswordEmail, errors} = this.state;
 
@@ -249,13 +303,13 @@ class LoginPage extends React.Component {
                         {!this.state.isLoggedIn ?            
                           <form className="grey-text mt-5 needs-validation" onSubmit={this.submitHandler} noValidate>
                             
-                            <MDBInput icon="envelope" group type="email" name="email" invalid={errors['email'] !== undefined && errors['email'] !== ""} value={email} onChange={this.changeHandler} id="email" label="Your email" required>
+                            <MDBInput icon="envelope" group type="email" name="email" invalid={errors['email'] !== undefined && errors['email'] !== "" ? "true" : "false"} value={email} onChange={this.changeHandler} id="email" label="Your email" required>
                               <div className="valid-feedback">Looks good!</div>
                               <div className="invalid-feedback">
                                 Please enter your registered email-id.
                               </div>
                             </MDBInput>
-                            <MDBInput icon="lock" group type="password" name="password" invalid={errors['password'] !== undefined && errors['password'] !== ""} value={password} onChange={this.changeHandler} id="password" label="Password *" required>
+                            <MDBInput icon="lock" group type="password" name="password" invalid={errors['password'] !== undefined && errors['password'] !== "" ? "true" : "false"} value={password} onChange={this.changeHandler} id="password" label="Password *" required>
                               <div className="valid-feedback">Looks good!</div>
                               <div className="invalid-feedback">
                                 Please enter your registered password.
@@ -277,7 +331,7 @@ class LoginPage extends React.Component {
                               <MDBBtn className="btn-account" type="submit">SIGN IN</MDBBtn>
                             </div>
                             <div className="text-center text-foot">
-                            <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
+                            <p>Don't have an account? <Link to="/register" onClick= {(e) => this.redirectToLoginPage(e)}>Sign Up</Link></p>
                             </div>
                           </form>  
                            : <VerifyOtp email = {this.state.email} page="login" />}

@@ -46,7 +46,7 @@ class RegisterPage extends React.Component {
   componentDidMount() {
       this.scrollToTop();
       if(this.props.history.location.state !== undefined && this.props.history.location.state !== null) {
-        if(this.props.history.location.state.planId != undefined)
+        if(this.props.history.location.state.planId != undefined && this.props.history.location.state.planId !== "")
           this.setState({planId: this.props.history.location.state.planId});
       }
   }
@@ -155,6 +155,14 @@ class RegisterPage extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  redirectToLoginPage (event){
+    event.preventDefault();
+    this.props.history.push({
+      pathname: '/login',
+      state: {planId: this.state.planId}
+    })
+  }
+
   render() {
     const { organizationName, firstName, lastName, email, phoneNumber, password, confirmPassword, loading, errors } = this.state;
     let loaderElement = '';
@@ -251,7 +259,7 @@ class RegisterPage extends React.Component {
                           <MDBBtn className="btn-account" type="submit">Sign Up</MDBBtn>
                         </div>
                         <div className="text-center text-foot">
-                          <p>Already have an account? <Link to="/login">Log in</Link></p>
+                          <p>Already have an account? <Link to="/login" onClick= {(e) => this.redirectToLoginPage(e)}>Log in</Link></p>
                         </div>
                       </form> : 
                       <VerifyOtp email = {this.state.email} page="register" /> }

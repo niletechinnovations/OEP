@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import * as router from 'react-router-dom';
 import { Container,  DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, Dropdown } from 'reactstrap';
 
@@ -129,7 +130,7 @@ function SetupMenuItem(props) {
             <i className={props.menuList.icon}></i>&nbsp;&nbsp;{props.menuList.name}
           </DropdownToggle>
           <DropdownMenu>
-            { props.menuList.children.map((submenu, menuindex) => <SetMenuItem  menuItem={submenu} /> )}
+            { props.menuList.children.map((submenu, menuindex) => <SetMenuItem key = {menuindex} menuItem={submenu} /> )}
           </DropdownMenu>
         </Dropdown>)
   }
