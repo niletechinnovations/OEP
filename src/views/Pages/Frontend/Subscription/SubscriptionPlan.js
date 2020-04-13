@@ -16,6 +16,7 @@ class SubscriptionPlan extends React.Component {
       planId: "",
       planList: [],
       termCondtionAccepted: {},
+      activePlanType: 1,
     }    
     this.buySubscription = this.buySubscription.bind(this);  
     this.cancelSubscription = this.cancelSubscription.bind(this);
@@ -112,10 +113,15 @@ class SubscriptionPlan extends React.Component {
       toast.error("Please accept term and conditions");
       return;
     }
+    let planVariationId = '';
+    if(this.state.activePlanType===1)
+      planVariationId = planInfo.planVariation[0].id;
+    else
+      planVariationId = planInfo.planVariation[1].id;
     if(!commonService.getAuth()) {
       this.props.propHistory.push({
         pathname: '/register',
-        state: { planId: planInfo.planId }
+        state: { planId: planInfo.planId, planVariationId: planVariationId }
       });
       return;
     }
@@ -124,7 +130,7 @@ class SubscriptionPlan extends React.Component {
       return;
     }
     this.setState( { paymentProcess: true, planId: planInfo.planId}, () => {
-      commonService.postAPIWithAccessToken('subscription/buy', {planId: planInfo.planId})
+      commonService.postAPIWithAccessToken('subscription/buy', {planId: planInfo.planId, planVariationId: planVariationId})
         .then( res => {
           
            
@@ -153,8 +159,17 @@ class SubscriptionPlan extends React.Component {
         } )
     } ) 
   }
+
+  changePlanType = () => {
+    if(this.state.activePlanType===1)
+      this.setState( { activePlanType: 4 } );
+    else
+      this.setState( { activePlanType: 1 } );
+  }
+
+
   render() {
-    const { planList, paymentProcess } = this.state;
+    const { planList, paymentProcess, activePlanType } = this.state;
     let activePlanInfo = planList.filter(function(item) { return item.isPlanActive === true});
        return (
           <div className="container-fluid bg-gradient p-5">
@@ -179,9 +194,17 @@ class SubscriptionPlan extends React.Component {
               </div>
             </div>
 
-            <Row className ="m-auto text-center w-85">
+            <Row className ="m-auto text-center w-85 subscription-plan-section">
+              <div className="pricing-section">
+                <label className={ ( activePlanType===1 ? 'toggler toggler--is-active' : 'toggler' ) } id="filt-monthly">Monthly</label>
+                <div className="toggle">
+                    <input type="checkbox" id="switcher" className="check" onClick={ () =>  this.changePlanType() } />
+                    <b className="b switch"></b>
+                </div>
+                <label className={ ( activePlanType===4 ? 'toggler toggler--is-active' : 'toggler' ) } id="filt-yearly">Yearly</label>
+              </div>
               {planList.map((planInfo, index) =>
-                <SetPlanDetailsInfo key={index} cancelSubscription= {this.cancelSubscription} activePlanInfo = {activePlanInfo} planInfo={planInfo} acceptTermCondtion = {this.acceptTermCondtion} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
+                <SetPlanDetailsInfo key={index} activePlanType = {activePlanType} cancelSubscription= {this.cancelSubscription} activePlanInfo = {activePlanInfo} planInfo={planInfo} acceptTermCondtion = {this.acceptTermCondtion} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
               )}
               <div className="termsCondition">
                 <p>* Terms and Conditions apply to the subscription plans.</p>
@@ -213,28 +236,48 @@ function SetPlanDetailsInfo (props) {
   let actionButton = '';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
   if(props.activePlanInfo.length > 0 ) {
-    if(props.activePlanInfo[0].planId ===  planInfo.planId)
-      actionButton = <button className="payment-Button"  onClick={() => props.cancelSubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Cancel'}</button>
-    else if(props.activePlanInfo[0].duration <  planInfo.duration)
-      actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Upgrade'}</button>
-    else
-      actionButton = ""
+    let planVariation = props.activePlanInfo.planVariation.filter(function(item) { return item.isActive === true ;});
+    let durationPlan = '';
+    if(planVariation.length > 0 )
+      durationPlan = planVariation[0].duration;
+
+    if(props.activePlanInfo[0].planId ===  planInfo.planId){
+      if(props.activePlanType === durationPlan)
+        actionButton = <button className="payment-Button"  onClick={() => props.cancelSubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Cancel'}</button>
+      else if(props.activePlanType > durationPlan)
+        actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Upgrade'}</button>
+      else
+        actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Downgrade'}</button>
+    }
+    else {
+      if(props.activePlanInfo[0].isSingleUser)
+        actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Upgrade'}</button>
+      else
+        actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Downgrade'}</button>
+    }    
   }
   else 
     actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
+  if(planInfo.planVariation === undefined ||  planInfo.planVariation.length === 0)
+    return (<></>);
   return (<div className={className}>
                     <div className="pricing-plan">
                         <h2>{planInfo.planName}</h2>
+                        {props.activePlanType === 1 ? 
                         <div className="lastPrice">
                           <span className="">$</span>
-                           {planInfo.amount} <span className="">/{planType}</span>
+                           {planInfo.planVariation[0].amount} <span className="">/Monthly</span>
                         </div>
+                        : <div className="lastPrice">
+                          <span className="">$</span>
+                           {planInfo.planVariation[1].amount} <span className="">/Yearly</span>
+                        </div> }
                         <div className="ContentHeight-inner">
                           <ul className="point-list">
                             <li>Template edits: <b>Unlimited</b></li>
                             <li>Create templates: <b> Unlimited</b></li>
-                            <li>Stores: <b> Unlimited</b></li>
-                            <li>Employees: <b> Unlimited</b></li>
+                            <li>Stores: <b> {planInfo.isSingleUser ? "Single" : "Unlimited"}</b></li>
+                            <li>Employees: <b> {planInfo.isSingleUser ? "Single" : "Unlimited"}</b></li>
                             <li>Inspections: <b> Unlimited</b></li>
                             <li>Template Sharing: <b> Unlimited</b></li>
                             <li>24 Hour Help: <b> Unlimited</b></li>

@@ -13,7 +13,7 @@ import TemplateBuilder from './views/OrganizationDashboard/TemplateBuilder/Templ
 //import PreviewTemplatePage from './views/OrganizationDashboard/TemplateBuilder/PreviewTemplatePage';
 import Success from './views/OrganizationDashboard/Subscription/Success';
 import CurrentSubscription from './views/OrganizationDashboard/Subscription/CurrentSubscription';
-import BuySubscription from './views/OrganizationDashboard/Subscription/BuySubscription';
+import BuySubscription from './views/Pages/Frontend/Subscription/BuySubscription';
 import Cancel from './views/OrganizationDashboard/Subscription/Cancel';
 import LeaderBoard from './views/OrganizationDashboard/Reports/LeaderBoard';
 import SetUpPage from './views/OrganizationDashboard/SetUpPage';

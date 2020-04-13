@@ -39,6 +39,7 @@ class RegisterPage extends React.Component {
       loading: false,
       isRegistered: false,
       planId: "",
+      planVariationId: "",
       errors: {}
     };
   }
@@ -46,8 +47,8 @@ class RegisterPage extends React.Component {
   componentDidMount() {
       this.scrollToTop();
       if(this.props.history.location.state !== undefined && this.props.history.location.state !== null) {
-        if(this.props.history.location.state.planId != undefined && this.props.history.location.state.planId !== "")
-          this.setState({planId: this.props.history.location.state.planId});
+        if(this.props.history.location.state.planId != undefined && this.props.history.location.state.planId !== "" && this.props.history.location.state.planVariationId != undefined && this.props.history.location.state.planVariationId !== "")
+          this.setState({planId: this.props.history.location.state.planId, planVariationId: this.props.history.location.state.planVariationId});
       }
   }
   scrollToTop = () => window.scrollTo(0, 0);
@@ -65,6 +66,7 @@ class RegisterPage extends React.Component {
       email: this.state.email,
       password: this.state.password,
       planId: this.state.planId,
+      planVariationId: this.state.planVariationId,
       role: 'organization'
     };
     this.setState( { loading: true }, () => {
@@ -159,7 +161,7 @@ class RegisterPage extends React.Component {
     event.preventDefault();
     this.props.history.push({
       pathname: '/login',
-      state: {planId: this.state.planId}
+      state: {planId: this.state.planId, planVariationId: this.state.planVariationId,}
     })
   }
 

@@ -17,7 +17,7 @@ class Subscription extends Component {
       loading: true,
       formProccessing: false,
       rowIndex: -1,
-      formField: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0},
+      formField: { plan_name: '', amount: '', yearly_amount: '', period: '', isTrail: false, isSingleUser: false, duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0},
       formErrors: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', error: ''},
       formValid: true,     
     } 
@@ -73,8 +73,11 @@ class Subscription extends Component {
       
       const formData = {       
         "planName": formInputField.plan_name, 
-        "amount": Number(formInputField.amount), 
-        "duration": Number(formInputField.plan_type), 
+        "isTrail" : formInputField.isTrail,
+        "isSingleUser": formInputField.isSingleUser,
+        "planVariation": [{amount: Number(formInputField.amount) , duration:1}, {amount: Number(formInputField.yearly_amount), duration:4 } ],
+        //"amount": Number(formInputField.amount), 
+        //"duration": Number(formInputField.plan_type), 
         "userAccess": Number(formInputField.number_employee), 
         "templateAccess": Number(formInputField.number_template),
         "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)       
@@ -148,6 +151,16 @@ class Subscription extends Component {
     this.setState({ formField: formField },
                   () => { this.validateField(name, value, isValid, validationMessage) });
   };
+
+  changeCheckBoxHandle = event => {
+    const name = event.target.name;
+    let checked  = false;
+    if(event.target.checked)
+      checked = true;
+    const formField = this.state.formField; 
+    formField[name] = checked;
+    this.setState({formField: formField});
+  }
   
   /* Validate Form Field */
   validateField(fieldName, value, isValid, errorMessage) {
@@ -166,10 +179,9 @@ class Subscription extends Component {
     
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
-    return (formErrors.plan_name === "" && formField.plan_name !== "" && formErrors.amount === "" && formField.amount !== ""
+    return (formErrors.plan_name === "" && formField.plan_name !== "" && formErrors.amount === "" && formField.amount !== "" && formErrors.yearly_amount === "" && formField.yearly_amount !== ""
         /*&& formErrors.number_employee === "" && formField.number_employee !== ""
         && formErrors.number_template === "" && formField.number_template !== ""*/
-        && formErrors.plan_type === "" && formField.plan_type !== ""
         ) 
       ? true : false;
   }
@@ -184,19 +196,25 @@ class Subscription extends Component {
       rowIndex: -1,
       formProccessing : false,
       formValid: true,
-      formField: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0, status: ""},
+      formField: { plan_name: '', amount: '', yearly_amount: '', isTrail: false, isSingleUser: false,  period: '', duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0, status: ""},
       formErrors: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', error: ''},
     });
   }
   /* Edit Employee*/
   handleEditSubscription(rowIndex){
       const planInfo = this.state.planList[rowIndex];
+      let pmon = planInfo.planVariation[0];
+      let pyear = planInfo.planVariation[1];
       let status = (planInfo.status) ? "Active": "Inactive";
       const formField = {
         planId: planInfo.planId, 
         plan_name: planInfo.planName, 
-        amount: planInfo.amount, 
-        plan_type: planInfo.duration, 
+        isTrail: planInfo.isTrail,
+        isSingleUser: planInfo.isSingleUser,
+        amount: ( pmon!==undefined ? pmon.amount : '' ),
+        yearly_amount: ( pyear!==undefined ? pyear.amount : '' ), 
+        /*amount: planInfo.amount, 
+        plan_type: planInfo.duration, */
         number_employee: planInfo.userAccess, 
         number_template: planInfo.templateAccess,
         status: status };
@@ -253,12 +271,32 @@ class Subscription extends Component {
                 </Col>
                 <Col md={"6"}>
                   <FormGroup> 
-                    <Label htmlFor="amount">Amount</Label>            
-                    <Input type="text" placeholder="Amount *" id="amount"  name="amount" value={this.state.formField.amount} onChange={this.changeHandler} required />
+                    <Label htmlFor="amount">Monthly Amount</Label>            
+                    <Input type="text" placeholder="Monthly Amount *" id="amount"  name="amount" value={this.state.formField.amount} onChange={this.changeHandler} required />
                     <FormFeedback>{formErrors.amount}</FormFeedback>
                   </FormGroup>  
                 </Col>
                 <Col md={"6"}>
+                  <FormGroup> 
+                    <Label htmlFor="amount">Yearly Amount</Label>            
+                    <Input type="text" placeholder="Yearly Amount *" id="yearly_amount"  name="yearly_amount" value={this.state.formField.yearly_amount} onChange={this.changeHandler} required />
+                    <FormFeedback>{formErrors.amount}</FormFeedback>
+                  </FormGroup>  
+                </Col>
+                <Col md={"6"}>
+                  <FormGroup> 
+                    <Label htmlFor="plan_type">Status</Label>            
+                    <Input type="select" placeholder="Status " id="plan_type" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
+                      <option value="">Select Status</option>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </Input>
+                   
+                  </FormGroup>  
+                </Col>
+                <Col md={6}><FormGroup><input type="checkbox" checked = {this.state.formField.isTrail} name="isTrail" onChange={this.changeCheckBoxHandle} /> Enable 1 Month Trial Period </FormGroup></Col>
+                <Col md={6}><FormGroup><input type="checkbox" checked = {this.state.formField.isSingleUser} name="isSingleUser" onChange={this.changeCheckBoxHandle} /> Is Single User Subscription Plan</FormGroup></Col>
+                {/* <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="plan_type">Plan Type</Label>            
                     <Input type="select" placeholder="Plan Type *" id="plan_type" name="plan_type" value={this.state.formField.plan_type} onChange={this.changeHandler} required >
@@ -271,7 +309,7 @@ class Subscription extends Component {
                     <FormFeedback>{formErrors.plan_type}</FormFeedback>
                   </FormGroup>  
                 </Col>
-               {/* <Col md={"6"}>
+               <Col md={"6"}>
                   <FormGroup> 
                     <Label htmlFor="number_employee">Number of Employee</Label>            
                     <Input type="text" placeholder="Number of Employee *" pattern="[0-9]*" id="number_employee" name="number_employee" value={this.state.formField.number_employee} onChange={this.changeHandler} required />
@@ -285,17 +323,7 @@ class Subscription extends Component {
                     <FormFeedback>{formErrors.number_template}</FormFeedback>
                   </FormGroup>  
                 </Col>*/}
-                <Col md={"6"}>
-                  <FormGroup> 
-                    <Label htmlFor="plan_type">Status</Label>            
-                    <Input type="select" placeholder="Status " id="plan_type" name="status" value={this.state.formField.status} onChange={this.changeHandler} required >
-                      <option value="">Select Status</option>
-                      <option value="Active">Active</option>
-                      <option value="Inactive">Inactive</option>
-                    </Input>
-                   
-                  </FormGroup>  
-                </Col>
+                
               </Row>
             </ModalBody>
             <ModalFooter>

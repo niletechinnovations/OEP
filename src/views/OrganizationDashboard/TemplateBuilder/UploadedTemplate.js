@@ -225,7 +225,7 @@ class UploadTemplate extends Component {
     const targetFile = event.target.files[0];
     
     if(targetFile.type !== "image/png" && targetFile.type !== "image/jpeg" && targetFile.type !== "image/jpg" && 
-      targetFile.type !== "image/svg" && targetFile.type !== "application/pdf" && targetFile.type !== "application/vnd.ms-excel") {
+      targetFile.type !== "image/svg" && targetFile.type !== "application/pdf" && targetFile.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && targetFile.type !== "application/vnd.ms-excel" && targetFile.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       toast.error("Allow only images, pdf or excel");
       this.setState({ templateFile: targetFile});
     }
@@ -387,7 +387,7 @@ class UploadTemplate extends Component {
     if(this.state.templateFile) {
       let targetFile = this.state.templateFile;
       if(targetFile.type !== "image/png" && targetFile.type !== "image/jpeg" && targetFile.type !== "image/jpg" && 
-        targetFile.type !== "image/svg" && targetFile.type !== "application/pdf" && targetFile.type !== "application/vnd.ms-excel") {
+        targetFile.type !== "image/svg" && targetFile.type !== "application/pdf" && targetFile.type !== "application/vnd.ms-excel" && targetFile.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
         errors["templateFile"] = "Allow only images, pdf or excel";
         formIsValid = false;
       }

@@ -39,6 +39,7 @@ class LoginPage extends React.Component {
       isExpanded: false,
       isLoggedIn: false,
       planId: "",
+      planVariationId: "",
       errors: {}
     };
     
@@ -47,8 +48,8 @@ class LoginPage extends React.Component {
   componentDidMount() {    
     this.scrollToTop();
     if(this.props.history.location.state !== undefined && this.props.history.location.state !== null) {
-      if(this.props.history.location.state.planId != undefined && this.props.history.location.state.planId !== "")
-        this.setState({planId: this.props.history.location.state.planId});
+      if(this.props.history.location.state.planId != undefined && this.props.history.location.state.planId !== "" && this.props.history.location.state.planVariationId != undefined && this.props.history.location.state.planVariationId !== "")
+          this.setState({planId: this.props.history.location.state.planId, planVariationId: this.props.history.location.state.planVariationId});
     }
   }
   
@@ -109,9 +110,9 @@ class LoginPage extends React.Component {
 	  
     if(loggedInfo.data.role.toLowerCase() === 'organization') {
 	    commonService.setIsSubscribe(loggedInfo.data.isActivePlan);
-      if(!loggedInfo.data.isActivePlan && this.state.planId !== ""){
+      if(!loggedInfo.data.isActivePlan && this.state.planId !== "" && this.state.planVariationId !== ""){
         
-        commonService.postAPIWithAccessToken('subscription/buy', {planId: this.state.planId})
+        commonService.postAPIWithAccessToken('subscription/buy', {planId: this.state.planId, planVariationId: this.state.planVariationId})
           .then( res => {           
              
           if ( undefined === res.data.data || !res.data.status ) {
@@ -249,7 +250,7 @@ class LoginPage extends React.Component {
     event.preventDefault();
     this.props.history.push({
       pathname: '/register',
-      state: {planId: this.state.planId}
+      state: {planId: this.state.planId, planVariationId: this.state.planVariationId,}
     })
   }
 
