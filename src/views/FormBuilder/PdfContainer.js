@@ -113,7 +113,7 @@ class PdfContainer extends Component {
       shareButton = "";
     return (
       <section className="pdf-container">
-        <section className="pdf-toolbar">
+        <section className="pdf-toolbar pdf-toolbar-padding">
           <a onClick={this.createPdf} className=" btn btn-ye"><i className="fa fa-download"></i> Download PDF</a>
           {shareButton}
 

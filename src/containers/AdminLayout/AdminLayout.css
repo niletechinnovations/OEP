@@ -12,6 +12,7 @@ body.header-fixed {
 	top: 3em !important;
 }
 .app-header { background-color: #1e222b !important; }
+.pdf-toolbar-padding{padding: 0 !important;}
 
 
 /*a.profileDropDownLink {
