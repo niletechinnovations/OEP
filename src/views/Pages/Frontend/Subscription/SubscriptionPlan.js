@@ -283,6 +283,7 @@ function SetPlanDetailsInfo (props) {
                         </div> }
                         <div className="ContentHeight-inner">
                           <ul className="point-list">
+                            <li><strong>30 Days Free Trial</strong></li>
                             <li>Template edits: <b>Unlimited</b></li>
                             <li>Create templates: <b> Unlimited</b></li>
                             <li>Stores: <b> {planInfo.isSingleUser ? "Single" : "Unlimited"}</b></li>
