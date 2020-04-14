@@ -105,13 +105,14 @@ class CurrentSubscription extends React.Component {
        if(loading)
           loaderElement = <Loader />
        else {
-
+          
           if(subscriptionDetails.isActive) {
             let startDate = commonFunction.getDate(subscriptionDetails.planInfo.startDate || " ");
             let expiryDate = commonFunction.getDate(subscriptionDetails.planInfo.expiryDate || " ");
             subscriptionInfoHtml = <Row><Col lg={4} className="pd-20">Plan Type: <strong>{subscriptionDetails.planInfo.planType}</strong></Col>
             <Col lg={4} className="pd-20">Subscription Id: <strong>{subscriptionDetails.planInfo.transactionProfileId}</strong></Col>
-            <Col lg={4} className="pd-20">Subscription Amount: <strong>${subscriptionDetails.planInfo.amount}</strong></Col>
+            <Col lg={4} className="pd-20">Subscription Amount: <strong>${subscriptionDetails.planInfo.isTrail ? `0.00 (Next Billing Amount $ ${subscriptionDetails.planInfo.amount})`: subscriptionDetails.planInfo.amount}</strong></Col>
+            
             <Col lg={4} className="pd-20">Payment Method: <strong>{subscriptionDetails.planInfo.paymentMethod}</strong></Col>
             <Col lg={4} className="pd-20">Start Date: <strong>{startDate}</strong></Col>
             <Col lg={4} className="pd-20">Expiry Date: <strong>{expiryDate}</strong></Col>

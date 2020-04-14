@@ -22,11 +22,11 @@ class PaymentHistoryData extends Component {
     let rowsItem = [];    
     for(const [i, subscriberInfo] of this.props.data.entries()){
       console.log(i);
-     
+      
       let orgInfo = {   
         organizationName: subscriberInfo.organizationName || " ",      
         planName: subscriberInfo.planName || " ",
-        amount: subscriberInfo.amount || " ",
+        amount: subscriberInfo.isTrail ? 0.00 : subscriberInfo.amount,
         startDate: commonFunction.getDate(subscriberInfo.startDate || " "),
         endDate: commonFunction.getDate(subscriberInfo.endDate  || " "),
         createdAt: commonFunction.getDate(subscriberInfo.createdAt  || " "),
