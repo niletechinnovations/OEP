@@ -99,6 +99,11 @@ class HomePage extends React.Component {
                 <img className="d-block w-100" src="/images/store-inspection-1.jpg" alt="Store Inspection" />
               </MDBView>
             </MDBCarouselItem>
+            <MDBCarouselItem itemId="2">
+              <MDBView>
+                <img className="d-block w-100" src="/images/site-inspection-3.jpg" alt="Store Inspection" />
+              </MDBView>
+            </MDBCarouselItem>
           </MDBCarouselInner>
           <div className="homepage-search-bar">  
             
