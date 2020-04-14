@@ -27,12 +27,19 @@ class SubscriptionPlan extends React.Component {
   componentDidMount() {    
     this.subscriptionPlanList();
   }
-  acceptTermCondtion(planId, event) {
+  acceptTermCondtion(planInfo, event) {
     let status = false;
+    let planId = planInfo.planId;
     if(event.target.checked) 
       status = true;
     let termCondtionAccepted = this.state.termCondtionAccepted;
     termCondtionAccepted[planId] = status;
+    let planVariationId = '';
+    if(this.state.activePlanType===1)
+      planVariationId = planInfo.planVariation[0].id;
+    else
+      planVariationId = planInfo.planVariation[1].id;
+    termCondtionAccepted[planVariationId] = status;
     this.setState({termCondtionAccepted: termCondtionAccepted})
   }
   subscriptionPlanList() {
@@ -109,15 +116,16 @@ class SubscriptionPlan extends React.Component {
     	toast.error("Plan already activated on your account!");
     	return;
     }
-    if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId]){
-      toast.error("Please accept term and conditions");
-      return;
-    }
+    
     let planVariationId = '';
     if(this.state.activePlanType===1)
       planVariationId = planInfo.planVariation[0].id;
     else
       planVariationId = planInfo.planVariation[1].id;
+    if(this.state.termCondtionAccepted[planInfo.planId] === undefined  || !this.state.termCondtionAccepted[planInfo.planId] || this.state.termCondtionAccepted[planVariationId] === undefined  || !this.state.termCondtionAccepted[planVariationId]){
+      toast.error("Please accept term and conditions");
+      return;
+    }
     if(!commonService.getAuth()) {
       this.props.propHistory.push({
         pathname: '/register',
@@ -235,8 +243,9 @@ function SetPlanDetailsInfo (props) {
   
   let actionButton = '';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
+  
   if(props.activePlanInfo.length > 0 ) {
-    let planVariation = props.activePlanInfo.planVariation.filter(function(item) { return item.isActive === true ;});
+    let planVariation = props.activePlanInfo[0].planVariation.filter(function(item) { return item.isActive === true ;});
     let durationPlan = '';
     if(planVariation.length > 0 )
       durationPlan = planVariation[0].duration;
@@ -274,6 +283,7 @@ function SetPlanDetailsInfo (props) {
                         </div> }
                         <div className="ContentHeight-inner">
                           <ul className="point-list">
+                            <li><strong>30 Days Free Trial</strong></li>
                             <li>Template edits: <b>Unlimited</b></li>
                             <li>Create templates: <b> Unlimited</b></li>
                             <li>Stores: <b> {planInfo.isSingleUser ? "Single" : "Unlimited"}</b></li>
@@ -284,7 +294,7 @@ function SetPlanDetailsInfo (props) {
                           </ul>
                         </div>
                         <div className="terms-and-condition">
-                          <input type="checkbox" name="term" className="check-term" onChange={(e) => {props.acceptTermCondtion(planInfo.planId, e)}} /> I have read and accept the <a href="https://retailoep.com/terms-of-service" target="_blank" rel="noopener noreferrer" >Terms &amp; Conditions</a> and the <a href="https://retailoep.com/privacy-policy" target="_blank" rel="noopener noreferrer" >Privacy Policy</a>
+                          <input type="checkbox" name="term" className="check-term" onChange={(e) => {props.acceptTermCondtion(planInfo, e)}} /> I have read and accept the <a href="https://retailoep.com/terms-of-service" target="_blank" rel="noopener noreferrer" >Terms &amp; Conditions</a> and the <a href="https://retailoep.com/privacy-policy" target="_blank" rel="noopener noreferrer" >Privacy Policy</a>
                         </div>
                         {actionButton}
                     </div>
