@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MUIDataTable from "mui-datatables";
+import  { Link } from 'react-router-dom';
 
 class EmployeeData extends Component {
   
@@ -40,6 +41,10 @@ class EmployeeData extends Component {
         country: employee.country || " ",
         status: employee.status ? "Active": "Inactive",   
         action: "",       
+        isSingleUserSubscription: employee.isSingleUserSubscription,
+        isActiveSubscription: employee.isActiveSubscription,
+        subscriberId: employee.subscriberId,
+        authId: employee.authId
       }      
       rowsItem.push(orgInfo);
     }        
@@ -71,10 +76,12 @@ class EmployeeData extends Component {
           filter: true,
           customBodyRender: (value, tableMeta, updateValue) => {
             let i = tableMeta.rowIndex;
-           
+            let employeeInfo = rowsItem[i];
             return (
               <p><button className="btn-edit" title="Edit Employee"  disabled={this.state.buttonProcessing} onClick={() => 
               this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </button>
+              {employeeInfo.isSingleUserSubscription ? employeeInfo.isActiveSubscription ? <button className="btn-delete" title="Cancel Subscription"  disabled={this.state.buttonProcessing} onClick={() => 
+              {if( window.confirm('Are you sure cancel employee subscription?')) this.props.cancelSubscription(i);}}><i className="fa fa-times"></i> </button>: <Link to ={`/organization/subscription/employee-subscription/${employeeInfo.authId}`} className="btn-edit" title="Buy Subscription"><i className="fa fa-plus"></i></Link> :  ""}
               <button className="btn-delete"  title="Delete Employee" disabled={this.state.buttonProcessing} onClick={() => {if( window.confirm('Are you sure you wish to delete this employee?'))
                   this.deleteEmployeeItem(i);}}><i className="fa fa-trash"></i></button></p>
             );

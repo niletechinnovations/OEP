@@ -31,6 +31,7 @@ class Employee extends Component {
     this.filterEmployeeList = this.filterEmployeeList.bind(this);
     this.resetSearchFilter = this.resetSearchFilter.bind(this);
     this.setLatitudeLongitude = this.setLatitudeLongitude.bind(this);
+    this.cancelSubscription = this.cancelSubscription.bind(this);
     
   }
   // Fetch the Employee List
@@ -46,7 +47,7 @@ class Employee extends Component {
   }
   /*Employee List API*/
   EmployeeList(filterItem = {}) {
-    let stroreWalkQuery = "";
+    let stroreWalkQuery = "?listItem=all";
     if(filterItem.filter_organization_id !== undefined && filterItem.filter_organization_id !== "" ) 
       stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&organizationId="+filterItem.filter_organization_id: "?organizationId="+filterItem.filter_organization_id;
     if(filterItem.country !== undefined && filterItem.country !== "" ) 
@@ -237,7 +238,40 @@ class Employee extends Component {
         role: employeeInfo.roleName };
       this.setState({rowIndex: rowIndex, formField: formField, formProccessing : false, modal: true, formValid: true});
   }
- 
+   
+  cancelSubscription(rowIndex) {
+    const employeeInfo = this.state.EmployeeList[rowIndex];
+
+    this.setState( { loading: true}, () => {
+        commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: employeeInfo.subscriberId})
+          .then( res => {
+            
+             
+            if ( undefined === res.data.data || !res.data.status ) {
+              this.setState( {  loading: false } );
+              toast.error(res.data.message);             
+              return;
+            } 
+            //const subscriptionInfo = res.data.data; 
+            toast.success(res.data.message);            
+            this.setState( { loading: false} ); 
+            
+            this.EmployeeList();          
+           
+          } )
+          .catch( err => {  
+             
+            if(err.response !== undefined && err.response.status === 401) {
+              localStorage.clear();
+              this.props.history.push('/login');
+            }
+            else {
+              this.setState( { loading: false } );
+              toast.error(err.message);    
+            }
+          } )
+      } )
+  }
  /* Delete Employee*/
   handleDeleteEmployee(rowIndex){
    
@@ -358,7 +392,7 @@ class Employee extends Component {
                   </Col>
                   <Col md={12}>
                     <div className="oep-table">
-                    <EmployeeData data={EmployeeList} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} />
+                    <EmployeeData data={EmployeeList} cancelSubscription = {this.cancelSubscription} editEmployeeAction={this.handleEditEmployee} deleteEmployeeAction={this.handleDeleteEmployee} />
                     </div>
                   </Col>
                   {this.props.previousStep ? 

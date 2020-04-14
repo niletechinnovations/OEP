@@ -66,6 +66,7 @@ class EmployeeData extends Component {
         label: 'Status',
         name: 'status',
       },
+
       {
         label: 'Action',
         name: 'action',
@@ -73,7 +74,7 @@ class EmployeeData extends Component {
           filter: true,
           customBodyRender: (value, tableMeta, updateValue) => {
             let i = tableMeta.rowIndex;
-           
+            
             return (
              <p><button title="Edit Employee" className="btn-edit" disabled={this.state.buttonProcessing} onClick={() => 
               this.editEmployeeItem(i)}><i className="fa fa-pencil"></i> </button>

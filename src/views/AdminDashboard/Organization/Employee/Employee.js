@@ -57,7 +57,7 @@ class Employee extends Component {
   }
   /*Employee List API*/
   EmployeeList(filterItem={}) {
-    let stroreWalkQuery = "";
+    let stroreWalkQuery = "?listItem=all";
     if(filterItem.filter_organization_id !== undefined && filterItem.filter_organization_id !== "" ) 
       stroreWalkQuery += (stroreWalkQuery !=="" ) ? "&organizationId="+filterItem.filter_organization_id: "?organizationId="+filterItem.filter_organization_id;
     if(filterItem.country !== undefined && filterItem.country !== "" ) 

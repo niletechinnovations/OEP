@@ -14,6 +14,7 @@ import TemplateBuilder from './views/OrganizationDashboard/TemplateBuilder/Templ
 import Success from './views/OrganizationDashboard/Subscription/Success';
 import CurrentSubscription from './views/OrganizationDashboard/Subscription/CurrentSubscription';
 import BuySubscription from './views/Pages/Frontend/Subscription/BuySubscription';
+import EmmployeeBuySubscription from './views/OrganizationDashboard/Subscription/EmployeeBuySubscription';
 import Cancel from './views/OrganizationDashboard/Subscription/Cancel';
 import LeaderBoard from './views/OrganizationDashboard/Reports/LeaderBoard';
 import SetUpPage from './views/OrganizationDashboard/SetUpPage';
@@ -39,6 +40,7 @@ const oragnizationRoutes = [
   { path: '/organization/subscription/cancel', exact: true,  name: 'Payment Cancel', component: Cancel },
   { path: '/organization/set-up', exact: true,  name: 'Setup', component: SetUpPage },
   { path: '/organization/leaderboard', exact: true,  name: 'LeaderBoard', component: LeaderBoard },
+  { path: '/organization/subscription/employee-subscription/:employeeId', exact: true,  name: 'Buy Subscription', component: EmmployeeBuySubscription },
 
 ];
 
