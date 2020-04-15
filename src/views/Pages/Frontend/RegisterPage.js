@@ -47,7 +47,7 @@ class RegisterPage extends React.Component {
   componentDidMount() {
       this.scrollToTop();
       if(this.props.history.location.state !== undefined && this.props.history.location.state !== null) {
-        if(this.props.history.location.state.planId != undefined && this.props.history.location.state.planId !== "" && this.props.history.location.state.planVariationId != undefined && this.props.history.location.state.planVariationId !== "")
+        if(this.props.history.location.state.planId !== undefined && this.props.history.location.state.planId !== "" && this.props.history.location.state.planVariationId !== undefined && this.props.history.location.state.planVariationId !== "")
           this.setState({planId: this.props.history.location.state.planId, planVariationId: this.props.history.location.state.planVariationId});
       }
   }

@@ -192,3 +192,51 @@ padding: 0px 5px;
 height: auto;
 min-height: 90px;
 }
+
+/*Plan*/
+
+.plan-section{padding: 2rem 1rem; position: relative; background: #f4f7fb;}
+.plan-section:after {content: ''; position: absolute; background: url(/images/ft-strip1.png); z-index: 9; height: 14px; width: 100%; bottom: -12px; }
+
+.plan-section .heading-title{margin-bottom: 30px; margin-top: 0px;}
+.plan-section  .heading-title h2 {font-weight: 700; padding: 0; color: #000000; margin-bottom: .5rem; font-size: 2.0rem; }
+.plan-section  .heading-title p {color: #6c757d; font-size: 20px; font-weight: 300; padding: 0; margin-bottom: 20px; margin-top: 0px;}
+.plan-content-intro .row{margin-left: -2px; margin-right: -2px;}
+.plan-content-intro .row .col-md-3{padding-left: 2px; padding-right: -2px;}
+
+.plan-intro-card {/* -webkit-box-shadow: 0 3px 10px rgba(8,25,50,.1); */-moz-box-shadow: 0 3px 10px rgba(8,25,50,.1);-ms-box-shadow: 0 3px 10px rgba(8,25,50,.1);/* box-shadow: 0 3px 10px rgba(8,25,50,.1); */background: #f9fbff;height: 100%;padding: 20px;position: relative;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;border-radius: 5px;background: #ffffff;background: -moz-linear-gradient(top,  #ffffff 1%, #f4f9fc 100%);background: -webkit-linear-gradient(top,  #ffffff 1%,#f4f9fc 100%);background: linear-gradient(to bottom,  #ffffff 1%,#f4f9fc 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f9fc',GradientType=0 );border:1px solid #e9f0f3;}
+.app .plan-intro-card h2 {font-size: 24px; margin-bottom:0px; font-weight: bold; color:#5d676b; padding: 0; }
+.plan-intro-card  p {color: #5d676b; font-weight: 500; font-size: 16px; }
+.price-info {display: flex; align-items: center; position: relative; padding-top: 20px; padding-bottom: 20px; }
+.price-value {font-size: 2.5em; font-weight: 700; margin: 0; padding: 0; color: #5d676b; }
+.price-per{font-size: 12px; padding-left: 15px;}
+.plan-point-list {margin-top: 10px; margin-bottom: 10px; position: relative; border-top: 1px solid rgba(8,25,50,.1); padding: 20px 0; }
+.plan-point-list h4 {font-size: 16px; font-weight: bold; padding: 0; }
+.plan-point-list ul {margin: 0; padding: 0 0 0 20px; list-style: circle; }
+.plan-point-list ul li{position: relative;color: #5d676b; font-weight: 500; font-size: 14px;}
+.btn-conversion {background: #002164; color: #fff; font-size: 16px !important; padding: 10px 25px; border-radius: 5px; font-weight: bold; }
+.btn-conversion:hover{color:#fff;}
+.current-plan{background: #002164;}
+.app .current-plan h2,
+.current-plan  .price-value,
+.current-plan .price-per,
+.current-plan .plan-point-list h4,
+.current-plan .plan-point-list ul li{color: #fff;}
+.current-plan .plan-point-list{border-color: #2d519a;}
+.current-plan .btn-conversion{background: #fff; color: #002164; }
+.plan-intro-card{ overflow: hidden;}
+.plan-intro-card .ribbon {
+  width: 160px;
+  height: 32px;
+  font-size: 14px;
+  text-align: center;
+  color: #002164;
+  font-weight: bold;
+  box-shadow: 0px 2px 3px rgba(136, 136, 136, 0.25);
+  background: #ffffff;
+  transform: rotate(45deg);
+  position: absolute;
+  right: -42px;
+  top: 20px;
+  padding-top: 4px; 
+}

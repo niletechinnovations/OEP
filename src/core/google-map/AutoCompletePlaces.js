@@ -155,7 +155,7 @@ class AutoCompletePlaces extends React.Component {
     return (
       <>
       {geoLocationTags}
-      <span className="use-current-location pull-right" onClick={this.useCurrentLocation}><span className="location-icon"><img src="https://retailoep.com/current_location.png" className="current-location-icon" /></span>Use current location</span>
+      <span className="use-current-location pull-right" onClick={this.useCurrentLocation}><span className="location-icon"><img src="https://retailoep.com/current_location.png" alt=" Current Location" className="current-location-icon" /></span>Use current location</span>
       <PlacesAutocomplete
         value={address}
         onChange={this.handleChange}

@@ -108,10 +108,10 @@ class EmployeeSubscriptionPlan extends React.Component {
       } )
   }
   buySubscription(planInfo) {
-    if(planInfo.isPlanActive) {
+    /*if(planInfo.isPlanActive) {
     	toast.error("Plan already activated on your account!");
     	return;
-    }
+    }*/
     
     if(this.state.termCondtionAccepted[planInfo.id] === undefined  || !this.state.termCondtionAccepted[planInfo.id] || this.state.termCondtionAccepted[this.state.planId] === undefined  || !this.state.termCondtionAccepted[this.state.planId]){
       toast.error("Please accept term and conditions");
@@ -154,7 +154,7 @@ class EmployeeSubscriptionPlan extends React.Component {
     let loaderElement ='';
     if(paymentProcess)
       loaderElement = <Loader />
-    if(isSingleUserPlan.length == 0)
+    if(isSingleUserPlan.length === 0)
       return ("");
 
        return (
@@ -175,14 +175,15 @@ class EmployeeSubscriptionPlan extends React.Component {
               </div>
             </div>
             {loaderElement}
+            <div className="plan-content-intro">
             <Row className ="">
               {isSingleUserPlan[0].planVariation.map((planInfo, index) =>
                 <SetPlanDetailsInfo key={index} isSingleUserPlan = {isSingleUserPlan[0]} cancelSubscription= {this.cancelSubscription} activePlanInfo = {activePlanInfo} planInfo={planInfo} acceptTermCondtion = {this.acceptTermCondtion} planId={this.state.planId} buySubscription={this.buySubscription} paymentProcess= {paymentProcess} />
-              )}
+              )}</Row></div>
               <div className="termsCondition">
                 <p>* Terms and Conditions apply to the subscription plans.</p>
               </div>
-            </Row>
+            
          </div>
          
                  
@@ -207,7 +208,7 @@ function SetPlanDetailsInfo (props) {
   }
   let actionButton = '';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
-  if(props.activePlanInfo.length > 0 ) {
+  /*if(props.activePlanInfo.length > 0 ) {
     if(props.activePlanInfo[0].planId ===  planInfo.planId)
       actionButton = <button className="payment-Button"  onClick={() => props.cancelSubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Cancel'}</button>
     else if(props.activePlanInfo[0].duration <  planInfo.duration)
@@ -215,26 +216,27 @@ function SetPlanDetailsInfo (props) {
     else
       actionButton = ""
   }
-  else 
+  else */
     actionButton = <button className="payment-Button"  onClick={() => props.buySubscription(planInfo)} disabled={props.paymentProcess}>{props.paymentProcess && props.planId === planInfo.planId ? buttonTxt: 'Buy Now'}</button>
   
  
   return (<div className={className}>
-                    <div className="pricing-plan">
+                    <div className="plan-intro-card">
                         <h2>{props.isSingleUserPlan.planName}</h2>
-                        <div className="lastPrice">
+                        <div class="price-info"><div class="price-value">${planInfo.amount}</div><span class="price-per">/ {planType}</span></div>
+                        {/*<div className="lastPrice">
                           <span className="">$</span>
                            {planInfo.amount} <span className="">/{planType}</span>
-                        </div>
-                        <div className="ContentHeight-inner">
-                          <ul className="point-list">
-                            <li>Template edits: <b>Unlimited</b></li>
-                            <li>Create templates: <b> Unlimited</b></li>
-                            <li>Stores: <b> Unlimited</b></li>
-                            <li>Employees: <b> Unlimited</b></li>
-                            <li>Inspections: <b> Unlimited</b></li>
-                            <li>Template Sharing: <b> Unlimited</b></li>
-                            <li>24 Hour Help: <b> Unlimited</b></li>
+                        </div>*/}
+                        <div className="plan-point-list">
+                          <ul className="">
+                            <li>Edit Unlimited Templates</li>
+                            <li>Create Unlimited Templates</li>
+                            <li>Unlimited Stores</li>
+                            <li>Single Employee</li>
+                            <li>Unlimited Inspections</li>
+                            <li>Unlimited Template Sharing</li>
+                            <li>24 Hour Help</li>
                           </ul>
                         </div>
                         <div className="terms-and-condition">

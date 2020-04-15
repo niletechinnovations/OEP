@@ -240,7 +240,7 @@ function SetPlanDetailsInfo (props) {
     className = "col-md-4 col-lg-4 col-sm-6 plan-info-item princing-item ";
     planType = 'Yearly';
   }
-  
+  console.log(planType);
   let actionButton = '';
   let buttonTxt = props.paymentProcess ? 'Processing...' : 'Buy Now';
   
@@ -271,6 +271,7 @@ function SetPlanDetailsInfo (props) {
     return (<></>);
   return (<div className={className}>
                     <div className="pricing-plan">
+                        {!planInfo.isSingleUser ? <div class="ribbon">Best Value</div> : ""}
                         <h2>{planInfo.planName}</h2>
                         {props.activePlanType === 1 ? 
                         <div className="lastPrice">
@@ -281,8 +282,18 @@ function SetPlanDetailsInfo (props) {
                           <span className="">$</span>
                            {planInfo.planVariation[1].amount} <span className="">/Yearly</span>
                         </div> }
-                        <div className="ContentHeight-inner">
-                          <ul className="point-list">
+                        <div className="plan-point-list">
+                          <ul className="">
+                            {planInfo.isTrail ? <li><strong>30 Days Free Trial</strong></li>: ""}
+                            <li>Edit Unlimited Templates</li>
+                            <li>Create Unlimited Templates</li>
+                            <li>Unlimited Stores</li>
+                            <li>{planInfo.isSingleUser ? "Single Employee" : "Unlimited Employees"}</li>
+                            <li>Unlimited Inspections</li>
+                            <li>Unlimited Template Sharing</li>
+                            <li>24 Hour Help</li>
+                          </ul>
+                          {/* <ul className="point-list">
                             {planInfo.isTrail ? <li><strong>30 Days Free Trial</strong></li>: ""}
                             <li>Template edits: <b>Unlimited</b></li>
                             <li>Create templates: <b> Unlimited</b></li>
@@ -291,7 +302,7 @@ function SetPlanDetailsInfo (props) {
                             <li>Inspections: <b> Unlimited</b></li>
                             <li>Template Sharing: <b> Unlimited</b></li>
                             <li>24 Hour Help: <b> Unlimited</b></li>
-                          </ul>
+                          </ul> */}
                         </div>
                         <div className="terms-and-condition">
                           <input type="checkbox" name="term" className="check-term" onChange={(e) => {props.acceptTermCondtion(planInfo, e)}} /> I have read and accept the <a href="https://retailoep.com/terms-of-service" target="_blank" rel="noopener noreferrer" >Terms &amp; Conditions</a> and the <a href="https://retailoep.com/privacy-policy" target="_blank" rel="noopener noreferrer" >Privacy Policy</a>

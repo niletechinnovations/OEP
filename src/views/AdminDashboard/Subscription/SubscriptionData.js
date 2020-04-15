@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MUIDataTable from "mui-datatables";
 
-const getPlanType = (planType) => {
+/*const getPlanType = (planType) => {
     if(planType === 1)
       return 'Monthly';
     else if(planType === 2)
@@ -10,7 +10,7 @@ const getPlanType = (planType) => {
       return 'Half Yearly';
     if(planType === 4)
       return 'Yearly';
-}
+}*/
 class SubscriptionData extends Component {
   
   constructor(props){
@@ -38,11 +38,12 @@ class SubscriptionData extends Component {
     let rowsItem = [];
     for(const [i, plan] of this.props.data.entries()){
       console.log(i);
+      let planVariation = plan.planVariation;
       let orgInfo = {   
         planId: plan.planId,      
         planName: plan.planName,        
-        amount: plan.amount || " ",
-        duration: getPlanType(plan.duration),
+        amount: `$${planVariation[0].amount} / $${planVariation[1].amount}`,
+        duration: 'Monthly / Yearly',
         userAccess: plan.userAccess || " ",      
         templateAccess: plan.templateAccess || " ",
         status: plan.status ? 'Active' : 'Inactive',   

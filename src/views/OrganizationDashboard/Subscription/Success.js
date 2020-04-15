@@ -47,7 +47,7 @@ class Successs extends React.Component {
             let authId = commonService.getLocalStorageValue('authId');
             if(authId !== res.data.data.authId)       
               this.props.history.push('/organization/employee');     
-            else if(isProfileCompleted.toLowerCase() === "false")
+            else if(isProfileCompleted.toLowerCase() === "no")
               this.props.history.push('/organization/set-up?showAlert=yes');
             else
               this.props.history.push('/organization/subscription');

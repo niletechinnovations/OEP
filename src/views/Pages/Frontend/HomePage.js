@@ -87,7 +87,7 @@ class HomePage extends React.Component {
       <>
       <MDBView className="home-bg">
       <MDBMask className="gradient"></MDBMask>
-        <MDBCarousel activeItem={1} length={2} showControls={false} showIndicators={false} className="z-depth-1 home-slider" slide>
+        <MDBCarousel activeItem={1} length={5} showControls={false} showIndicators={false} className="z-depth-1 home-slider" slide>
           <MDBCarouselInner>            
             <MDBCarouselItem itemId="1">
               <MDBView>
@@ -99,11 +99,22 @@ class HomePage extends React.Component {
                 <img className="d-block w-100" src="/images/store-inspection-1.jpg" alt="Store Inspection" />
               </MDBView>
             </MDBCarouselItem>
-            <MDBCarouselItem itemId="2">
+            <MDBCarouselItem itemId="3">
               <MDBView>
                 <img className="d-block w-100" src="/images/site-inspection-3.jpg" alt="Store Inspection" />
               </MDBView>
             </MDBCarouselItem>
+            <MDBCarouselItem itemId="4">
+              <MDBView>
+                <img className="d-block w-100" src="/images/site-inspection-4.jpg" alt="Store Inspection" />
+              </MDBView>
+            </MDBCarouselItem>
+            <MDBCarouselItem itemId="5">
+              <MDBView>
+                <img className="d-block w-100" src="/images/site-inspection-5.jpg" alt="Store Inspection" />
+              </MDBView>
+            </MDBCarouselItem>
+           
           </MDBCarouselInner>
           <div className="homepage-search-bar">  
             

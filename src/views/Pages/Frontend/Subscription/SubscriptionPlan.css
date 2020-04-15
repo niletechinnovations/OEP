@@ -267,3 +267,20 @@ min-height: 90px;
 .subscription-plan-section .pricing-section .toggle{ background-color: #d5022a;}
 .subscription-plan-section .pricing-section .toggler{ color: #777;}
 .subscription-plan-section .pricing-section .toggler--is-active{ color: #d5022a;}
+.pricing-plan .ribbon {
+  width: 160px;
+  height: 32px;
+  font-size: 14px;
+  text-align: center;
+  color: #002164;
+  font-weight: bold;
+  box-shadow: 0px 2px 3px rgba(136, 136, 136, 0.25);
+  background: #ffffff;
+  transform: rotate(45deg);
+  position: absolute;
+  right: -42px;
+  top: 20px;
+  padding-top: 4px; 
+}
+
+

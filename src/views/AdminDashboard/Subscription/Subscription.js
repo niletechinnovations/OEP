@@ -17,8 +17,8 @@ class Subscription extends Component {
       loading: true,
       formProccessing: false,
       rowIndex: -1,
-      formField: { plan_name: '', amount: '', yearly_amount: '', period: '', isTrail: false, isSingleUser: false, duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0},
-      formErrors: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', error: ''},
+      formField: { plan_name: '', amount: '', yearly_amount: '', period: '', isTrail: false, isSingleUser: false, duration: '', plan_type:'', number_employee: '', number_template: '', trail_days: 0},
+      formErrors: { plan_name: '', amount: '', yearly_amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', error: ''},
       formValid: true,     
     } 
     this.handleEditSubscription = this.handleEditSubscription.bind(this);
@@ -82,6 +82,7 @@ class Subscription extends Component {
         "templateAccess": Number(formInputField.number_template),
         "status": formInputField.status === "" ? true : ((formInputField.status === "Active") ? true : false)       
       };
+      
       const rowIndex = this.state.rowIndex;
       if(rowIndex > -1) {
         const planInfo = this.state.planList[rowIndex];
@@ -179,6 +180,7 @@ class Subscription extends Component {
     
     const formErrors = this.state.formErrors;
     const formField = this.state.formField;
+    
     return (formErrors.plan_name === "" && formField.plan_name !== "" && formErrors.amount === "" && formField.amount !== "" && formErrors.yearly_amount === "" && formField.yearly_amount !== ""
         /*&& formErrors.number_employee === "" && formField.number_employee !== ""
         && formErrors.number_template === "" && formField.number_template !== ""*/
@@ -196,7 +198,7 @@ class Subscription extends Component {
       rowIndex: -1,
       formProccessing : false,
       formValid: true,
-      formField: { plan_name: '', amount: '', yearly_amount: '', isTrail: false, isSingleUser: false,  period: '', duration: '', plan_type:'', number_employee: '', number_template: '', isTrail: false, trail_days: 0, status: ""},
+      formField: { plan_name: '', amount: '', yearly_amount: '', isTrail: false, isSingleUser: false,  period: '', duration: '', plan_type:'', number_employee: '', number_template: '',  trail_days: 0, status: ""},
       formErrors: { plan_name: '', amount: '', period: '', duration: '', plan_type:'', number_employee: '', number_template: '', error: ''},
     });
   }
