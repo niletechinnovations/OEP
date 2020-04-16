@@ -35,7 +35,7 @@ const frontEndFooter = () => {
               </MDBCol>
 
               
-              <MDBCol md="2">
+              <MDBCol md="4">
                   <h2 className="fot-title">Follow us</h2>
                   <ul className="social-links">
                     <li>
@@ -47,19 +47,15 @@ const frontEndFooter = () => {
                       <a href="https://twitter.com/OepRetail" target="_blank" rel="noopener noreferrer">
                         <MDBIcon fab icon="twitter"/>
                       </a>
-                    </li>
-                    <li>
-                      <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-                        <MDBIcon fab icon="linkedin"/>
-                      </a>
-                    </li>
+                    </li>                    
                     <li>
                       <a href="https://www.instagram.com/oepretail/" target="_blank" rel="noopener noreferrer">
                         <MDBIcon fab icon="instagram"/>
                       </a>
                     </li>
                   </ul>
-                  <a href="mailto:support.retailoep.com" className="py-2 text-contrast nav-link">support@retailoep.com</a>
+                  <a href="mailto:support.retailoep.com" className="py-2 text-contrast nav-link"><i className="fa fa-envelope"></i> support@retailoep.com</a>
+                  <div className="branding-logo-footer"><p><strong>Powered By:</strong></p><img src = "http://retailoep.com/images/OEP_Retail_Tech.jpg" alt="OEP Retail Tech" width ="170" /></div>
               </MDBCol>
 
             </MDBRow>

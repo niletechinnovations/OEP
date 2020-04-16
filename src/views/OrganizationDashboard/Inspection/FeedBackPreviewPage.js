@@ -115,8 +115,8 @@ class FeedBackPreviewPage extends React.Component {
                           </Col>  
                           <Col md={3}>
                             <FormGroup> 
-                              <Label htmlFor="templateId">OEP Store Walk Tier</Label>            
-                              <p>{feedBackInfo.storeWalkLevel === 1 ? 'Silver' : feedBackInfo.storeWalkLevel === 2 ? 'Glod' : feedBackInfo.storeWalkLevel === 3 ? 'Platinum' : 'Silver'} <a href="https://retailoep.com/GLOBAL_OPERATIONAL_EXCELLENCE_PROGRAM_CHALLENGE.pdf" target="_blank" rel="noopener noreferrer" ><i className="fa fa-info"></i></a></p>
+                              <Label htmlFor="templateId">OEP Store Walk Tier <a className="info-icon-link" href="https://retailoep.com/GLOBAL_OPERATIONAL_EXCELLENCE_PROGRAM_CHALLENGE.pdf" target="_blank" rel="noopener noreferrer" ><i className="fa fa-info"></i></a></Label>            
+                              <p>{feedBackInfo.storeWalkLevel === 1 ? 'Silver' : feedBackInfo.storeWalkLevel === 2 ? 'Glod' : feedBackInfo.storeWalkLevel === 3 ? 'Platinum' : 'Silver'} </p>
                             </FormGroup>
                           </Col>
                           <Col md={3}>

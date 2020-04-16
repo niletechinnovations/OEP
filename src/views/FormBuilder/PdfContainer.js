@@ -2,6 +2,7 @@ import React , { Component } from 'react';
 import { Button, Input, FormGroup, FormFeedback, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast } from 'react-toastify';
 import commonService from '../../core/services/commonService';
+import './pdfstyle.css'
 var pdf_header_logo = {
   "width": "50%",
   "margin": "0 auto",
@@ -115,6 +116,7 @@ class PdfContainer extends Component {
       <section className="pdf-container">
         <section className="pdf-toolbar pdf-toolbar-padding">
           <a onClick={this.createPdf} className=" btn btn-ye"><i className="fa fa-download"></i> Download PDF</a>
+          <a href="https://retailoep.com/GLOBAL_OPERATIONAL_EXCELLENCE_PROGRAM_CHALLENGE.pdf" className=" btn-ye pull-right oep-challenge"><i className="fa fa-globe"></i> OEP Global Challenge</a>
           {shareButton}
 
         </section>

@@ -112,3 +112,11 @@ button.btnCancel.btn.btn-secondary:not([disabled]):not(.disabled):active{backgro
 .submit-btn:active, 
 .submit-btn.active,
 button.submit-btn.btn.btn-secondary:not([disabled]):not(.disabled):active{background: #4CAF50 !important; box-shadow: none !important; }
+.info-icon-link {
+    margin: 2px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+.info-icon-link .fa.fa-info {
+    padding: 5px;
+}

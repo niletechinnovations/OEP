@@ -190,3 +190,11 @@ tfoot.MuiTableFooter-root .MuiTableCell-root{padding:0 !important;}
 a.facebook-btn{background: #3b579d;}
 a.twitter-btn{background: #2caae1;}
 a.linkdin-btn{background: #007bb6;}
+.info-icon-link {
+    margin: 2px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+.info-icon-link .fa.fa-info {
+    padding: 5px;
+}

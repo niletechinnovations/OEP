@@ -19,3 +19,11 @@
 .btn-header-white:after {position: absolute; right: 0; top: 0; width: 0%; height: 100%; content: ""; background-color: #626264; z-index: -1; border-radius: 1px; -webkit-transition: .5s; -o-transition: .5s; transition: .5s; }
 .btn-header-white:hover{color: #fff !important }
 .btn-header-white:hover:after {width: 100%; left: 0; right: auto; } 
+.info-icon-link {
+    margin: 2px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+.info-icon-link .fa.fa-info {
+    padding: 5px;
+}
