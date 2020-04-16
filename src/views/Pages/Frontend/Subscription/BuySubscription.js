@@ -41,6 +41,7 @@ class BuySubscription extends React.Component {
                     
                     <div className="heading-title">
                       <h2>OEP Subscription Plan</h2>
+                      <a href="https://retailoep.com/GLOBAL_OPERATIONAL_EXCELLENCE_PROGRAM_CHALLENGE.pdf" class=" btn-ye pull-right oep-challenge"><i class="fa fa-globe"></i> OEP Global Challenge</a>
                       
                     </div>
                     <MDBRow className="align-items-center">

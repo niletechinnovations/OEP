@@ -101,7 +101,8 @@ class LeaderBoard extends Component {
             <div className="oep-em-info">
               <Card className="oep-card">
                 <CardHeader className="mainHeading">
-                  <strong>LeaderBoard</strong> 
+                  <strong className="mt-20">LeaderBoard</strong> 
+                  <a href="https://retailoep.com/GLOBAL_OPERATIONAL_EXCELLENCE_PROGRAM_CHALLENGE.pdf" className=" btn-ye pull-right oep-challenge"><i className="fa fa-globe"></i> OEP Global Challenge</a>
                 </CardHeader>
                 <CardBody>
                   

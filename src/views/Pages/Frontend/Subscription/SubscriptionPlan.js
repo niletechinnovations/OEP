@@ -189,6 +189,7 @@ class SubscriptionPlan extends React.Component {
               <div className="OfferContentSecond">
                 <p>
                   </p><h4>How it works</h4>
+                  
                   <ul>
                     <li>Select your preferred plan</li>
                     <li>Easily pay through Paypal</li>

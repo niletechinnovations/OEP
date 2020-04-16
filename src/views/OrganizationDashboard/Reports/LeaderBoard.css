@@ -1,3 +1,5 @@
+.oep-card .mainHeading.card-header{display: block !important;}
+.oep-card .mainHeading .mt-20{margin-top: 20px;}
 .full-width-modal-section.modal-dialog { max-width: 700px; }
 
 .categoryList .MuiToolbar-regular{    min-height: auto;}

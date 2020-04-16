@@ -54,7 +54,7 @@ const frontEndFooter = () => {
                       </a>
                     </li>
                   </ul>
-                  <a href="mailto:support.retailoep.com" className="py-2 text-contrast nav-link"><i className="fa fa-envelope"></i> support@retailoep.com</a>
+                  <a href="mailto:support.retailoep.com" className="py-2 text-contrast p-align"><i className="fa fa-envelope"></i> support@retailoep.com</a>
                   <div className="branding-logo-footer"><p><strong>Powered By:</strong></p><img src = "http://retailoep.com/images/OEP_Retail_Tech.jpg" alt="OEP Retail Tech" width ="170" /></div>
               </MDBCol>
 
