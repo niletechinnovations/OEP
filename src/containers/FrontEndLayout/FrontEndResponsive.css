@@ -22,19 +22,8 @@
 }
 
 @media only screen and (max-width : 991px) {
-.navbar-toggler {
-    background: #fbbe3f;
-}
-.navbar-toggler-icon:before {
-    display: inline-block;
-    font-family: FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    content: "\f0c9";
-    line-height: 30px;
-    color: #fff; }
+.navbar-toggler {background: #fbbe3f; }
+.navbar-toggler-icon:before {display: inline-block; font-family: FontAwesome; font-size: inherit; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; content: "\f0c9"; line-height: 30px; color: #fff; }
 #mainNavbarCollapse{padding: 16px 10px;}
 .main-slider-content h1{font-size: 20px;}
 .main-slider-content p{font-size: 12px;}    
@@ -56,9 +45,9 @@
 .home-slider{max-height: inherit;}
 .containerBd{border-bottom: 1px solid #e6e6e6; margin-bottom: 10px;}
 .loginForm{margin-top:2.5rem;}
-.account-content {margin-top: 6rem;}
+.account-content {margin-top: 1.3rem;}
 /*#loginPage .view{height: auto;}*/
-.view .mask{height: min-content;}
+/*.view .mask{height: min-content;}*/
 .view{overflow: auto;}
 .main-slider-content{    margin-top: 1%; margin-bottom: 10%;}
 .exploreMargin-adjust{margin-top: 1rem !important; }
@@ -67,11 +56,18 @@
 .heading-title:{margin: 6px auto;}
 .fixed-bottom, .fixed-top{position: inherit;}
 .btn-Started.btnKeyFeatures{bottom: 12px;}
-.cardContent{   min-height: 200px;  height: 200px; border: 1px solid ;}
+.cardContent{   min-height: 230px;  height: 230px; border: 1px solid #f1f1f1; background: #f9f9f9;}
+.pb-5, .py-5 {padding-bottom: 0px !important;}
+.mb-5, .my-5 {margin-bottom: 0px !important;}
+#loginPage .view{ height: auto; }
+.view .mask{position: inherit;}
+.homepage-search-bar{background:rgb(96, 125, 138); padding-bottom: 20px; }
+
 }
 
 @media only screen and (max-width: 576px) {
-	
+    .forgot-password-modal{width: auto;}
+#loginPage .modal .modal-dialog{margin: 0px auto; padding: 10px;}
 
 
 }
