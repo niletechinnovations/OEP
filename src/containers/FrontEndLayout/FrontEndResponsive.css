@@ -63,6 +63,11 @@
 .main-slider-content{    margin-top: 1%; margin-bottom: 10%;}
 .exploreMargin-adjust{margin-top: 1rem !important; }
 .counter-card{margin-bottom: 20px;}
+.OfferTopHeading p a{margin-top:12px; display:block;}
+.heading-title:{margin: 6px auto;}
+.fixed-bottom, .fixed-top{position: inherit;}
+.btn-Started.btnKeyFeatures{bottom: 12px;}
+.cardContent{   min-height: 200px;  height: 200px; border: 1px solid ;}
 }
 
 @media only screen and (max-width: 576px) {
