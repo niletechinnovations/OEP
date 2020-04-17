@@ -60,7 +60,7 @@
 /*#loginPage .view{height: auto;}*/
 .view .mask{height: min-content;}
 .view{overflow: auto;}
-.main-slider-content{margin-top: 5%;}
+.main-slider-content{    margin-top: 1%; margin-bottom: 10%;}
 .exploreMargin-adjust{margin-top: 1rem !important; }
 .counter-card{margin-bottom: 20px;}
 }

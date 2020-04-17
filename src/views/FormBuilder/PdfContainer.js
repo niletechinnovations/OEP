@@ -116,7 +116,7 @@ class PdfContainer extends Component {
       <section className="pdf-container">
         <section className="pdf-toolbar pdf-toolbar-padding">
           <a onClick={this.createPdf} className=" btn btn-ye"><i className="fa fa-download"></i> Download PDF</a>
-          {this.props.templateType === "inspection" ? <a href="https://retailoep.com/GLOBAL_OPERATIONAL_EXCELLENCE_PROGRAM_CHALLENGE.pdf" className=" btn-ye pull-right oep-challenge"><i className="fa fa-globe"></i> OEP Global Challenge</a> : ""}
+          {this.props.templateType === "inspection" ? <a href="https://retailoep.com/GLOBAL_OPERATIONAL_EXCELLENCE_PROGRAM_CHALLENGE.pdf" className=" btn-ye pull-right oep-challenge" target="_blank" rel="noopener noreferrer"><i className="fa fa-globe"></i> OEP Global Challenge</a> : ""}
           {shareButton}
 
         </section>
