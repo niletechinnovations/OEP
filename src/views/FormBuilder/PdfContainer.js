@@ -136,13 +136,13 @@ class PdfContainer extends Component {
                   <FormFeedback></FormFeedback>
                 </FormGroup>
                 {this.props.templateType === "inspection" ? <FormGroup><div className="share-template-on-social" ><h3>OR</h3>
-                  <a className="facebook-btn" target="_blank" rel="noopener noreferrer" href={`http://www.facebook.com/sharer.php?u=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}`}><i className="fa fa-facebook"></i> Facebook</a>
-                  <a className="twitter-btn" target="_blank" rel="noopener noreferrer" href={`http://twitter.com/share?text=RetailOEP will be the platform to help you inspect what you expect&url=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}`}><i className="fa fa-twitter"></i> Twitter</a>
+                  <a className="facebook-btn" target="_blank" rel="noopener noreferrer" href={`https://www.facebook.com/sharer.php?u=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}`}><i className="fa fa-facebook"></i> Facebook</a>
+                  <a className="twitter-btn" target="_blank" rel="noopener noreferrer" href={`https://twitter.com/share?text=RetailOEP will be the platform to help you inspect what you expect&url=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}`}><i className="fa fa-twitter"></i> Twitter</a>
                   <a className="linkdin-btn" target="_blank" rel="noopener noreferrer" href={`https://www.linkedin.com/shareArticle?mini=true&url=https://retailoep.com/common/feedback-preview/${this.props.inspectionId}/${this.props.employeeId}&title=RetailOEP will be the platform to help you inspect what you expect`}><i className="fa fa-linkedin"></i> Linkedin</a>
                 </div></FormGroup> : ""}
                 {this.props.templateType === "template" && this.props.shareTemplate === "yes" ?  <FormGroup><div className="share-template-on-social" ><h3>OR</h3>
-                  <a className="facebook-btn" target="_blank" rel="noopener noreferrer" href={`http://www.facebook.com/sharer.php?u=https://retailoep.com/common/template/${this.props.templateId}`}><i className="fa fa-facebook"></i> Facebook</a>
-                  <a className="twitter-btn" target="_blank" rel="noopener noreferrer" href={`http://twitter.com/share?text=RetailOEP will be the platform to help you inspect what you expect&url=https://retailoep.com/common/template/${this.props.templateId}`}><i className="fa fa-twitter"></i> Twitter</a>
+                  <a className="facebook-btn" target="_blank" rel="noopener noreferrer" href={`https://www.facebook.com/sharer.php?u=https://retailoep.com/common/template/${this.props.templateId}`}><i className="fa fa-facebook"></i> Facebook</a>
+                  <a className="twitter-btn" target="_blank" rel="noopener noreferrer" href={`https://twitter.com/share?text=RetailOEP will be the platform to help you inspect what you expect&url=https://retailoep.com/common/template/${this.props.templateId}`}><i className="fa fa-twitter"></i> Twitter</a>
                   <a className="linkdin-btn" target="_blank" rel="noopener noreferrer" href={`https://www.linkedin.com/shareArticle?mini=true&url=https://retailoep.com/common/template/${this.props.templateId}&title=RetailOEP will be the platform to help you inspect what you expect`}><i className="fa fa-linkedin"></i> Linkedin</a>
                 </div></FormGroup>: ""}
               </ModalBody>
