@@ -21,6 +21,7 @@ class ReactFormBuilder extends React.Component {
   }
 
   editModeOn(data, e) {
+    debugger;
     e.preventDefault();
     e.stopPropagation();
     if (this.state.editMode) {
@@ -64,6 +65,7 @@ class ReactFormBuilder extends React.Component {
                  onLoad={this.props.onLoad}
                  onPost={this.props.onPost}
                  editModeOn={this.editModeOn}
+                 copyModeOn={this.copyModeOn}
                  editMode={this.state.editMode}
                  variables={this.props.variables}
                  editElement={this.state.editElement} />

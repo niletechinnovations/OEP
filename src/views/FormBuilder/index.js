@@ -10,21 +10,24 @@ import Preview from './preview';
 import Toolbar from './toolbar';
 import ReactFormGenerator from './form';
 import store from './stores/store';
+import ID from './UUID';
 
 class ReactFormBuilder extends React.Component {
   constructor(props) {
     super(props);
-
+    this.IDRef = ID;
     this.state = {
       editMode: false,
       data: [],
       editElement: null,
     };
     const update = this._onChange.bind(this);
-    store.subscribe(state => update(state.data));
+    store.subscribe(state => update(state.data));    
+    this.copyModeOn = this.copyModeOn.bind(this);
   }
 
   editModeOn(data, e) {
+   
     e.preventDefault();
     e.stopPropagation();
     if (this.state.editMode) {
@@ -33,7 +36,41 @@ class ReactFormBuilder extends React.Component {
       this.setState({ editMode: !this.state.editMode, editElement: data });
     }
   }
+
+  copyModeOn(data, e) {
+    let dataItem = {};
+    for (var key in data) {      
+      if(key.toLowerCase() === "options"){
+        let optionsItem = [];             
+        for(let options of data[key]) {
+          let optionsKeyItem = {}
+          for (var optionKey in options) {
+            optionsKeyItem[optionKey] = options[optionKey];
+          }
+          optionsKeyItem.key = "radiobuttons_option_"+this.IDRef.uuid();
+          optionsItem.push(optionsKeyItem);
+        }        
+        dataItem[key] = optionsItem;
+      }
+      else
+        dataItem[key] = data[key];
+    }
+    
+    //dataItem = data;
+    
+    dataItem.id = this.IDRef.uuid();
+    debugger;
+    store.dispatch('create', dataItem);
+    if (this.state.editMode) {
+      this.setState({ editMode: !this.state.editMode, editElement: null });
+    } else {
+      this.setState({ editMode: !this.state.editMode, editElement: dataItem });
+    }
+    
+  }
+
   _onChange(data) {
+    
     this.setState({
       data,
     });
@@ -86,6 +123,7 @@ class ReactFormBuilder extends React.Component {
                    onLoad={this.props.onLoad}
                    onPost={this.props.onPost}
                    editModeOn={this.editModeOn}
+                   copyModeOn={this.copyModeOn}
                    editMode={this.state.editMode}
                    variables={this.props.variables}
                    editElement={this.state.editElement} />

@@ -29,6 +29,7 @@ const store = new Store({
     },
 
     create(context, element) {
+      
       const { data } = context.state;
       data.push(element);
       this.setData(context, data, true);

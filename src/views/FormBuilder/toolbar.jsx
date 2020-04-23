@@ -40,9 +40,9 @@ export default class Toolbar extends React.Component {
         ];
       case 'RadioButtons':
         return [
-          { value: 'Yes', text: 'Yes', key: `radiobuttons_option_${ID.uuid()}` },
-          { value: 'No', text: 'No', key: `radiobuttons_option_${ID.uuid()}` },
-          { value: 'N/A', text: 'N/A', key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'Yes', score: 1, text: 'Yes', key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'No', score: 0, text: 'No', key: `radiobuttons_option_${ID.uuid()}` },
+          { value: 'N/A', score: '', text: 'N/A', key: `radiobuttons_option_${ID.uuid()}` },
         ];
       default:
         return [];
@@ -137,6 +137,10 @@ export default class Toolbar extends React.Component {
     if (item.key === 'Download') {
       elementOptions._href = item._href;
       elementOptions.file_path = item.file_path;
+    }
+
+    if (item.key === 'RadioButtons') {
+      elementOptions.score = true;
     }
 
     if (item.key === 'Range') {

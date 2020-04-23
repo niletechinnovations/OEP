@@ -33,7 +33,7 @@ class InspectionFeedBackData extends Component {
         inspectionName: inspectionInfo.inspectionName,
         organizationName: inspectionInfo.organizationName,  
         employeeName: inspectionInfo.employeeFirstName+" "+inspectionInfo.employeeLastName,
-        score: `${feedback.score * 100}%`,
+        score: `${(feedback.score * 100).toFixed(2)}%`,
         failedItem: feedback.wrongQuestion,
         templateName: inspectionInfo.templateName || " ",
         date: commonFunction.getDate(feedback.createdAt),

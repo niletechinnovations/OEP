@@ -96,7 +96,8 @@ export default class FormElementsEdit extends React.Component {
     const {
       canHavePageBreakBefore, canHaveAlternateForm, canHaveDisplayHorizontal, canHaveOptionCorrect, canHaveOptionValue,
     } = this.props.element;
-
+    
+    const scoreEnable = (this.props.element.score !== undefined) ? true : false 
     const this_files = this.props.files.length ? this.props.files : [];
     if (this_files.length < 1 || (this_files.length > 0 && this_files[0].id !== '')) {
       this_files.unshift({ id: '', file_name: '' });
@@ -329,6 +330,7 @@ export default class FormElementsEdit extends React.Component {
             updateElement={this.props.updateElement}
             preview={this.props.preview}
             element={this.props.element}
+            score={scoreEnable}
             key={this.props.element.options.length} />
         }
       </div>

@@ -115,8 +115,12 @@ class FeedBackPreviewPageForm extends Component {
     let failedItemId = [];
     Object.keys(formFeildValue).forEach((key, value) => {
       
-      if(formFeildValue[key].input !== null) {      
-        if(formFeildValue[key].input !== undefined && formFeildValue[key].input.toLowerCase() === "no")
+      if(formFeildValue[key].input !== null) { 
+        if(formFeildValue[key].score !== undefined) {
+          if(formFeildValue[key].input !== undefined && formFeildValue[key].isFailedItem)
+            failedItemId.push(key);
+        }    
+        else if(formFeildValue[key].input !== undefined && formFeildValue[key].input.toLowerCase() === "no")
             failedItemId.push(key);
       }
         

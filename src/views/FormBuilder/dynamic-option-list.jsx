@@ -21,7 +21,7 @@ export default class DynamicOptionList extends React.Component {
 
   editOption(option_index, e) {
     const this_element = this.state.element;
-    const val = (this_element.options[option_index].value !== this._setValue(this_element.options[option_index].text)) ? this_element.options[option_index].value : this._setValue(e.target.value);
+    const val = e.target.value;//(this_element.options[option_index].value !== this._setValue(this_element.options[option_index].text)) ? this_element.options[option_index].value : this._setValue(e.target.value);
 
     this_element.options[option_index].text = e.target.value;
     this_element.options[option_index].value = val;
@@ -35,6 +35,16 @@ export default class DynamicOptionList extends React.Component {
     const this_element = this.state.element;
     const val = (e.target.value === '') ? this._setValue(this_element.options[option_index].text) : e.target.value;
     this_element.options[option_index].value = val;
+    this.setState({
+      element: this_element,
+      dirty: true,
+    });
+  }
+
+  editScoreValue(option_index, e) {
+    const this_element = this.state.element;
+    const val = (e.target.value === '') ? '' : e.target.value;
+    this_element.options[option_index].score = val;
     this.setState({
       element: this_element,
       dirty: true,
@@ -78,39 +88,47 @@ export default class DynamicOptionList extends React.Component {
     if (this.state.dirty) {
        let this_element = this.state.element;
        this_element.dirty = true;
-       this.setState({element: this_element})
+       this.state.element = this_element;
+       //this.setState({element: this_element})
     }
     return (
       <div className="dynamic-option-list">
         <ul>
           <li>
             <div className="row">
-              <div className="col-sm-6"><b>Options</b></div>
-              { this.props.canHaveOptionValue &&
-              <div className="col-sm-2"><b>Value</b></div> }
-              { this.props.canHaveOptionValue && this.props.canHaveOptionCorrect &&
-              <div className="col-sm-4"><b>Correct</b></div> }
+              <div className="col-sm-4"><b>Options</b></div>
+              { /* this.props.canHaveOptionValue &&
+              <div className="col-sm-2"><b>Value</b></div> */}
+              {  this.props.score &&
+              <div className="col-sm-2"><b>Score</b></div> }
+              {  /* this.props.canHaveOptionValue && this.props.canHaveOptionCorrect &&
+              <div className="col-sm-4"><b>Correct</b></div> */}
             </div>
           </li>
           {
             this.props.element.options.map((option, index) => {
               const this_key = `edit_${option.key}`;
               const val = (option.value !== this._setValue(option.text)) ? option.value : '';
+              const score = option.score !== undefined ? option.score : '';
               return (
                 <li className="clearfix" key={this_key}>
                   <div className="row">
-                    <div className="col-sm-6">
-                      <input tabIndex={index + 1} className="form-control" readOnly="true" style={{ width: '100%' }} type="text" name={`text_${index}`} placeholder="Option text" value={option.text} onBlur={this.updateOption.bind(this)} onChange={this.editOption.bind(this, index)} />
+                    <div className="col-sm-4">
+                      <input tabIndex={index + 1} className="form-control" style={{ width: '100%' }} type="text" name={`text_${index}`} placeholder="Option text" value={option.text} onBlur={this.updateOption.bind(this)} onChange={this.editOption.bind(this, index)} />
                     </div>
-                    { this.props.canHaveOptionValue &&
+                    {/* this.props.canHaveOptionValue &&
                     <div className="col-sm-2">
                       <input className="form-control" type="text" name={`value_${index}`} readOnly="true" value={val} onChange={this.editValue.bind(this, index)} />
+                    </div> */}
+                    { this.props.score &&
+                    <div className="col-sm-2">
+                      <input className="form-control" type="number" name={`score_${index}`} value={score} onChange={this.editScoreValue.bind(this, index)} />
                     </div> }
-                    { this.props.canHaveOptionValue && this.props.canHaveOptionCorrect &&
+                    {/* this.props.canHaveOptionValue && this.props.canHaveOptionCorrect &&
                     <div className="col-sm-1">
                       <input className="form-control" type="checkbox" value="1" onChange={this.editOptionCorrect.bind(this, index)} checked={option.hasOwnProperty('correct')} />
-                    </div> }
-                    {/*
+                    </div> */}
+                    {
                     <div className="col-sm-3">
                       <div className="dynamic-options-actions-buttons">
                         <button onClick={this.addOption.bind(this, index)} className="btn btn-success"><i className="fa fa-plus-circle"></i></button>
@@ -119,7 +137,7 @@ export default class DynamicOptionList extends React.Component {
                         }
                       </div>
                     </div>
-                    */}
+                    }
                   </div>
                 </li>
               );
