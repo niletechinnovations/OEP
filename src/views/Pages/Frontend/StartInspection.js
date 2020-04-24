@@ -154,8 +154,8 @@ class StartInspection extends React.Component {
           }
           let isDisabled = this.state.isDisabled;
           let autoTimerStart = this.state.autoTimerStart;
-          /*if(inspectionDetail.currentStatus === 3)
-            isDisabled = true;*/
+          if(inspectionDetail.currentStatus === 3)
+            isDisabled = true;
           if(!isDisabled)
             autoTimerStart = true;
           this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, totalFormFillingTime: inspectionDetail.totalFormFillingTime, autoTimerStart: autoTimerStart, isDisabled: isDisabled, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});

@@ -54,9 +54,9 @@ body.header-fixed {
 
 footer.app-footer {background: #fff; border: none; font-size: 12px; }
 
-a.btn-edit, button.btn-edit {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #4CAF50; text-align: center; border-radius: 5px; margin: 0 2px; color: #4CAF50; display: inline-block; }
-a.btn-delete, button.btn-delete {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #F44336; text-align: center; border-radius: 5px; margin: 0 2px; color: #F44336; display: inline-block; }
-a.btn-view, button.btn-view {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #ffc108; text-align: center; border-radius: 5px; margin: 0 2px; color: #FFC107; display: inline-block; }
+a.btn-edit, button.btn-edit, div.btn-edit {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #4CAF50; text-align: center; border-radius: 5px; margin: 0 2px; color: #4CAF50; display: inline-block; }
+a.btn-delete, button.btn-delete, div.btn-delete {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #F44336; text-align: center; border-radius: 5px; margin: 0 2px; color: #F44336; display: inline-block; }
+a.btn-view, button.btn-view, div.btn-view {background: #fff; padding: 5px; width: 30px; height: 30px; border: 1px solid #ffc108; text-align: center; border-radius: 5px; margin: 0 2px; color: #FFC107; display: inline-block; }
 
 .oep-em-info{background: #fff; padding: 10px; border-radius: 2px;}
 .mainHeading{display: flex; align-items: center; right: 0;}

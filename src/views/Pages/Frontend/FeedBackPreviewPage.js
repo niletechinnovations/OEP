@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, CardHeader, Col, Row, FormGroup, Label} from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, FormGroup, Label, Tooltip} from 'reactstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
@@ -18,9 +18,11 @@ class FeedBackPreviewPage extends React.Component {
       feedBackId: "",     
       formProccessing: false,
       feedBackInfo: {templateFormData: [], feedBackData: {}, inspectionId: ""},
-      apiUrl: ""
+      apiUrl: "",
+      tooltipOpen: false
         
     }  
+    this.toggleScoreTooltip = this.toggleScoreTooltip.bind(this);
    
   }
 
@@ -35,6 +37,11 @@ class FeedBackPreviewPage extends React.Component {
     const apiUrl = commonService.getAPIUrl();
     this.setState({apiUrl: apiUrl});
     
+  }
+
+  toggleScoreTooltip(){
+    
+    this.setState({tooltipOpen: !this.state.tooltipOpen});
   }
 
   getInspectionFeedBackDetail(feedBackId) {
@@ -154,7 +161,10 @@ class FeedBackPreviewPage extends React.Component {
                           </Col>  
                           <Col md={3}>
                             <FormGroup> 
-                              <Label htmlFor="score">Score</Label>            
+                              <Label htmlFor="score">Score <span className="info-icon-link" id="tooltipScore"><i className="fa fa-info"></i></span></Label>  
+                              <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="tooltipScore" toggle={this.toggleScoreTooltip}>
+                                Each Question is depend upon score point and the score reflects the missed items. These scores are factored into the world rankings and included into the Silver, Gold & Platinum banners.
+                              </Tooltip>            
                               <p>{feedBackInfo.successItem}/{feedBackInfo.totalItem } - {(feedBackInfo.score * 100).toFixed(2) }%</p>
                             </FormGroup>
                           </Col> 
