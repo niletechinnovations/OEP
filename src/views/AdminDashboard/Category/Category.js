@@ -20,6 +20,7 @@ class Category extends Component {
       categoryImageUrl: "",
       loading: true,
       rowIndex: -1,
+      status: "",
       formErrors: {category_name: '', category_image: '', error: ''},
       category_name_valid: false,
       formValid: false,
@@ -74,7 +75,12 @@ class Category extends Component {
       }
       formData.append('filename',this.state.categoryImage);
     }
+
     formData.append('categoryName', this.state.category_name);
+    let statusTextValue = this.state.status; 
+    let statusText =  statusTextValue === "" ? true : ((statusTextValue === "Active") ? true : false);
+    formData.append('status', statusText);
+    
     this.setState( { loading: true}, () => {
       if(this.state.rowIndex > -1){
         /* Update Category */
@@ -201,8 +207,9 @@ class Category extends Component {
   handleEditCategory(rowIndex){
    
       const categoryItem = this.state.categoryList[rowIndex];
+      let status = (categoryItem.status) ? "Active": "Inactive";
 
-      this.setState({modal: true, category_name: categoryItem.categoryName, rowIndex: rowIndex, formValid: true, categoryImageUrl: categoryItem.imagUrl});
+      this.setState({modal: true, status: status, category_name: categoryItem.categoryName, rowIndex: rowIndex, formValid: true, category_name_valid: true, categoryImageUrl: categoryItem.imagUrl});
   }
   /* Add category */
   handleDeleteCategory(rowIndex){
@@ -270,6 +277,16 @@ class Category extends Component {
                 <Label htmlFor="category_name">Category Name</Label>            
                 <Input type="text" placeholder="Category Name *" id="category_name" name="category_name" value={this.state.category_name} onChange={this.changeHandler} required />
               </FormGroup>
+
+              <FormGroup>
+                <Label htmlFor="template_status">Status</Label>            
+                <Input type="select" placeholder="Status *" id="status" name="status" value={this.state.status} onChange={this.changeHandler} required >
+                  <option value="">Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </Input>
+              </FormGroup>
+                
               <FormGroup>      
                 <Label htmlFor="categoryImage">Upload Image</Label>            
                 <Input type="file" placeholder="File *" id="categoryImage" name="categoryImage" onChange={this.changeFileHandler} accept=".png,.jpg,.jpeg,.svg"/>

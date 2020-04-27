@@ -251,7 +251,7 @@ class HomePage extends React.Component {
                   <h3>Get the app today!</h3>
                   <p>Super easy to inspect what you expect from your daily professional lives. RetailOEP allows you to do it from the palm of your hand, with the Retail OEP app.</p>
                   <div className="download-app-button">
-                    <a href="https://apps.apple.com/us/app/retail-oep/id1501693671?ls=1" className="download-btn" target="_blank"  rel="noopener noreferrer">
+                    <a href="https://apps.apple.com/us/app/retail-oep/id1508990742?ls=1" className="download-btn" target="_blank"  rel="noopener noreferrer">
                       <MDBIcon fab icon="apple" />
                       <p><small>Download On</small><br /> App Store</p>
                     </a>

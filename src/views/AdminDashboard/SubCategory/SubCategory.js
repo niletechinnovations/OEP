@@ -21,6 +21,7 @@ class SubCategory extends Component {
       subCategoryImage: null,
       subCategoryImageUrl: "",
       loading: true,
+      status: "",
       rowIndex: -1,
       categoryList: [],
       formErrors: {subCategory_name: '', subCategory_image: '', category: '', error: ''},
@@ -110,6 +111,9 @@ class SubCategory extends Component {
     }
     formData.append('subCategoryName', this.state.subCategory_name);
     formData.append('categoryId', this.state.categoryId);
+    let statusTextValue = this.state.status;
+    let statusText =  statusTextValue === "" ? true : ((statusTextValue === "Active") ? true : false);
+    formData.append('status', statusText);
     this.setState( { formProccessing: true}, () => {
       if(this.state.rowIndex > -1){
         /* Update subCategory */
@@ -244,8 +248,8 @@ class SubCategory extends Component {
   handleEditSubCategory(rowIndex){
     
       const subCategoryItem = this.state.subCategoryList[rowIndex];
-      
-      this.setState({modal: true, subCategory_name: subCategoryItem.subCategoryName, rowIndex: rowIndex, categoryId:subCategoryItem.categoryId, subCategoryImageUrl:subCategoryItem.imagUrl, formValid: true});
+      let status = (subCategoryItem.status) ? "Active": "Inactive";
+      this.setState({modal: true, status: status, subCategory_name: subCategoryItem.subCategoryName, subCategory_name_valid: true, category_valid: true, rowIndex: rowIndex, categoryId:subCategoryItem.categoryId, subCategoryImageUrl:subCategoryItem.imagUrl, formValid: true});
   }
   /* Add subCategory */
   handleDeleteSubCategory(rowIndex){
@@ -321,6 +325,14 @@ class SubCategory extends Component {
               <FormGroup> 
                 <Label htmlFor="subCategory_name">Subcategory Name <span className="mandatory">*</span></Label>            
                 <Input type="text" placeholder="Subcategory Name *" id="subCategory_name" name="subCategory_name" value={this.state.subCategory_name} onChange={this.changeHandler} required />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="template_status">Status</Label>            
+                <Input type="select" placeholder="Status *" id="status" name="status" value={this.state.status} onChange={this.changeHandler} required >
+                  <option value="">Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </Input>
               </FormGroup>
               <FormGroup>      
                 <Label htmlFor="subCategoryImage">Upload Image</Label>            
