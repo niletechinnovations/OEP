@@ -154,7 +154,7 @@ class HomePage extends React.Component {
             <MDBContainer> 
                 <div className="heading-title"> 
                   <h2 className="my-3">
-                    Why OEP Retail?
+                    Why Retail OEP?
                   </h2>
                   
                 </div>

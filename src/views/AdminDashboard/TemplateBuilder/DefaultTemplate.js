@@ -23,6 +23,7 @@ class DefaultTemplate extends Component {
     } 
     this.filterTemplateList = this.filterTemplateList.bind(this);
     this.loadMoreContent = this.loadMoreContent.bind(this);
+    this.deleteTemplate = this.deleteTemplate.bind(this);
   }
   componentDidMount() { 
     this.templateList();
@@ -164,6 +165,38 @@ class DefaultTemplate extends Component {
       
   }
 
+  deleteTemplate(index){
+    const templateInfo = this.state.templateList[index];
+    
+    this.setState( { loading : true}, () => {   
+      commonService.deleteAPIWithAccessToken(`template/${templateInfo.templateId}`)
+      .then( res => {
+        
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+         
+          this.setState( { loading : false} );
+          toast.error(res.data.message);
+          return;
+        } 
+        
+        this.setState({ modal: false, loading : false});
+        toast.success(res.data.message);
+        this.templateList();
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else
+          this.setState( { loading : false } );
+          toast.error(err.message);
+      } )
+    } );
+  }
+
   render() {
 
     const { templateList, loading, categoryList, subCategoryList, displayContentCount } = this.state; 
@@ -226,7 +259,7 @@ class DefaultTemplate extends Component {
                     </div>  
                   </Col>
                   <Col md={12}>
-                    <TemplateDataCard data={displayTemplateData} deleteTemplate = "" editTemplateFile="" apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
+                    <TemplateDataCard data={displayTemplateData} deleteTemplate = {this.deleteTemplate} editTemplateFile="" apiUrl = {commonService.getAPIUrl()} dataTableLoadingStatus = {this.state.loading} />
                     
                     
                   </Col>

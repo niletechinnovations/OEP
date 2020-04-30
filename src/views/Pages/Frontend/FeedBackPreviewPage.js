@@ -173,7 +173,13 @@ class FeedBackPreviewPage extends React.Component {
                               <Label htmlFor="templateId">Completed On</Label>            
                               <p>{feedBackInfo.inspectionEndDate ? commonFunction.getDateTime(feedBackInfo.inspectionEndDate) : ''}</p>
                             </FormGroup>
-                          </Col>                 
+                          </Col> 
+                          <Col md={3}>
+                            <FormGroup> 
+                              <Label htmlFor="templateId">Duration</Label>            
+                              <p>{feedBackInfo.totalDuration ? commonFunction.convertTime(feedBackInfo.totalDuration) : ''}</p>
+                            </FormGroup>
+                          </Col>                
                         </Row>  
                       </Col>                    
                     </Row>

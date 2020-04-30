@@ -51,6 +51,32 @@ class commonFunction {
         }
         return convertedDate;
     }
+
+    convertTime(callDuration) {
+        if(callDuration === undefined || callDuration < 0)
+            return `0 seconds`;
+        let delta = Math.ceil(callDuration);
+
+        // calculate (and subtract) whole hours
+        let hours = Math.floor(delta / 3600) % 24;
+        delta -= hours * 3600;
+
+        // calculate (and subtract) whole minutes
+        let minutes = Math.floor(delta / 60) % 60;
+        delta -= minutes * 60;
+
+        // what's left is seconds
+        let seconds = delta % 60;
+
+        if(hours > 0 && minutes > 0 && seconds > 0 )
+          return `${hours} hours ${minutes} minutes ${seconds} seconds`;
+        else if(minutes > 0 && seconds > 0 )
+          return `${minutes} minutes ${seconds} seconds`;
+        else if(seconds > 0 )
+          return `${seconds} seconds`;
+        else 
+          return `0 seconds`;
+    }
 }
 
 export default new commonFunction();
