@@ -124,11 +124,12 @@ class HomePage extends React.Component {
                 <MDBCol className="col-lg-6 col-md-6 mt-xl-5">
                   <div className="main-slider-content">
                       <h1 className="">
-                      OEP will be the platform to help you inspect what you expect{" "}
+                      OEP will be the digital platform to help you inspect what you expect!{" "}
                       </h1>
                       {/*<p className="">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                       </p>*/}
+                      
                       <div className="btn-section">
                         <Link className="btn-Started" to="/register">
                         Get Started
@@ -136,6 +137,16 @@ class HomePage extends React.Component {
                         <button className="btn-Download" onClick={this.scrollToDownloadAPPSection}>
                           Download APP
                         </button>
+                      </div>
+                      <div className="download-app-button">
+                        <a href="https://apps.apple.com/us/app/retail-oep/id1508990742?ls=1" className="download-btn" target="_blank"  rel="noopener noreferrer">
+                          <MDBIcon fab icon="apple" />
+                          <p><small>Download On</small><br /> App Store</p>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.oep&hl=en" target="_blank"  rel="noopener noreferrer" className="download-btn hover-active">
+                          <MDBIcon fab icon="google-play" />
+                          <p><small>Download On</small><br /> Google Play</p>
+                        </a>
                       </div>
                     </div>    
                 </MDBCol>

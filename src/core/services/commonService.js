@@ -66,7 +66,8 @@ class ApiService {
     /*Post API Without Authentication header */
     postAPI(urlSegment, formdata) {        
         const headers = {
-            'Content-Type': 'application/json'           
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*"         
         }
         return axios.post(API_BASE_URL+urlSegment, formdata, {headers: headers});
     }

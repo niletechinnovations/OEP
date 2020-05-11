@@ -182,7 +182,7 @@ export default class FormElementsEdit extends React.Component {
             <br />
             <div className="checkbox">
               <label>
-                <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />
+                <input type="checkbox" checked={this_checked} value={true} onChange={this.editElementProp.bind(this, 'required', 'checked')} />&nbsp;
                 Required
               </label>
             </div>
@@ -221,8 +221,8 @@ export default class FormElementsEdit extends React.Component {
             { (this.state.element.element === 'RadioButtons' || this.state.element.element === 'Checkboxes') && canHaveDisplayHorizontal &&
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />
-                  Display horizonal
+                  <input type="checkbox" checked={this_checked_inline} value={true} onChange={this.editElementProp.bind(this, 'inline', 'checked')} />&nbsp;
+                  Display horizontal
                 </label>
               </div>
             }

@@ -79,7 +79,8 @@ class SubscriptionPlan extends React.Component {
     }
     if( !window.confirm('Are you sure to cancel this subscription?'))
       return false;
-
+    if(planInfo.paymentMethod !== "" && planInfo.paymentMethod.toLowerCase() !== 'paypal')
+      toast.error("Current subscription through in-app subscription. Please cancel through your itunes plateform");
     this.setState( { loading: true}, () => {
         commonService.postAPIWithAccessToken('subscription/cancel', {subscriberId: planInfo.subscriberId})
           .then( res => {

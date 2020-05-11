@@ -27,6 +27,7 @@ class ResetPassword extends React.Component {
       confirmPassword: '',
       token: '',
       loading: false,
+      isExpanded: false
     };
   }
   componentDidMount() {
@@ -76,11 +77,18 @@ class ResetPassword extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   
+  toggleLearnMore = () => {
+    this.setState({
+      isExpanded: !this.state.isExpanded,
+    });
+  }
 
   render() {
-    debugger;
+    
     const { newPassword, confirmPassword, loading } = this.state;
-     
+    let moreContent = '';
+    if(this.state.isExpanded)
+      moreContent = <p>We will have templates ready for you and continue to add more and more templates weekly, but not all retail is the same. Therefore, we allow you to customize and create your own template for your daily needs.  The templates can be created on your website access and immediately available on your app customized and ready for you.  This can all be done for the same low price monthly and no hidden fees or EVER!!</p>
     let loaderElement = '';
     if(loading)
       loaderElement = <Loader />
@@ -94,15 +102,12 @@ class ResetPassword extends React.Component {
                   <MDBCol className="col-md-6 mt-xl-5 mb-5">
                     <div className="account-content">
                       <h1 className="">Customize your form builder</h1>
-                      <p>We're Committed to Service Excellence.</p>
-                      <p>Learn more about how to get the most out of OEP.</p>
-                      <p>
-                        Rem repellendus quasi fuga nesciunt dolorum nulla magnam
-                        veniam sapiente, fugiat! Commodi sequi non animi ea dolor
-                        molestiae iste.
+                      <p>We provide the basic templates for the world to get you started in the right direction. If you need more details in your business, you can also develop the template for your precise needs, we will help you do this.
                       </p>
+
+                      {moreContent}
                       <div className="btn-section">
-                        <a className="btn-Started" href="#!">Learn More</a>
+                        <button className="btn-Started" onClick={this.toggleLearnMore}>{this.state.isExpanded ? 'Hide':'Read More'}</button>
                       </div>
                     </div>
                   </MDBCol>
