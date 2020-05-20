@@ -73,7 +73,11 @@ class FeedBackPreviewPage extends React.Component {
     } ) 
   }
   
-  createPdf = (html) => Doc.createPdf(html, this.state.feedBackInfo.inspectionId);
+  createPdf = (html) => { 
+    //window.postMessage(JSON.stringify({pdfUrl: this.state.feedBackInfo.downloadInspectionFeedBack}), '*');
+    window.postMessage(JSON.stringify({dataType: "pdfHTml", "content": html.innerHTML}), '*');
+    Doc.createPdf(html, this.state.feedBackInfo.inspectionId); 
+  }
   render() {
     const { loading, feedBackInfo} = this.state;     
     let loaderElement ='';

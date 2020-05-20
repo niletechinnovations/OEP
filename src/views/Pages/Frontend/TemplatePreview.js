@@ -21,6 +21,7 @@ class TemplatePreview extends React.Component {
       formValid: false,
       templatePreviewData : [],
       formProccessing: false,
+      templatePdfUrl:"",
       userAnswer: {},      
     }    
     
@@ -53,7 +54,7 @@ class TemplatePreview extends React.Component {
           formField.categoryId = templateDetail.categoryId;
           formField.subCategoryId = templateDetail.subCategoryId;
           formField.template_name = templateDetail.templateName;          
-          this.setState({loading:false, formField: formField, formValid: true, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
+          this.setState({loading:false, formField: formField, templatePdfUrl: templateDetail.downloadTemplateUrl, formValid: true, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
          
         } )
         .catch( err => {         
@@ -76,7 +77,11 @@ class TemplatePreview extends React.Component {
     formField[fieldName] = fieldValue;
     this.setState({formField: formField});
   }
-  createPdf = (html) => Doc.createPdf(html, this.state.templateId);
+  createPdf = (html) => {
+    //window.postMessage(JSON.stringify({ pdfUrl: this.state.templatePdfUrl}), '*');
+    window.postMessage(JSON.stringify({dataType: "pdfHTml", "content": html.innerHTML}), '*');
+    Doc.createPdf(html, this.state.templateId);
+  }
   render() {
     let loaderElement = '';
     if(this.state.loading)

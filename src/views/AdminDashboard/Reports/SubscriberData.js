@@ -39,7 +39,7 @@ class SubscriberData extends Component {
       let orgInfo = {   
         organizationName: subscriberInfo.organizationName || " ",      
         planName: subscriberInfo.planName || " ",
-        amount: subscriberInfo.amount || " ",
+        amount: subscriberInfo.amount,
         startDate: commonFunction.getDate(subscriberInfo.startDate || " "),
         endDate: commonFunction.getDate(subscriberInfo.endDate  || " "),
         subscriberId: subscriberInfo.subscriberId || " ",

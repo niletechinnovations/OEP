@@ -332,7 +332,7 @@ class Organization extends Component {
             <Card className="oep-card">
               <CardHeader className="mainHeading">
                 <strong>Organization List</strong> 
-                {/*<Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Organization</Button>*/}
+                <Button color="" className="categoryAdd" type="button" onClick={this.toggle}><i className="fa fa-plus"></i> Add Organization</Button>
               </CardHeader>
               <CardBody>
                 
@@ -410,7 +410,7 @@ class Organization extends Component {
                 <Col md={"6"}>  
                   <FormGroup> 
                     <Label htmlFor="role">Role</Label>            
-                    <Input type="text" placeholder="Role *" id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler}  />
+                    <Input type="text" placeholder="Role " id="role" name="role" value={this.state.formField.role} onChange={this.changeHandler}  />
                   </FormGroup>
                 </Col>
                 <Col md={"6"}>  

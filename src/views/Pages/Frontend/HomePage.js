@@ -124,7 +124,7 @@ class HomePage extends React.Component {
                 <MDBCol className="col-lg-6 col-md-6 mt-xl-5">
                   <div className="main-slider-content">
                       <h1 className="">
-                      OEP will be the digital platform to help you inspect what you expect!{" "}
+                      OEP will be the Digital Platform to help you inspect what you expect!{" "}
                       </h1>
                       {/*<p className="">
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
