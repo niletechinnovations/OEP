@@ -78,8 +78,7 @@ class TemplatePreview extends React.Component {
     this.setState({formField: formField});
   }
   createPdf = (html) => {
-    //window.postMessage(JSON.stringify({ pdfUrl: this.state.templatePdfUrl}), '*');
-    window.postMessage(JSON.stringify({dataType: "pdfHTml", "content": html.innerHTML}), '*');
+    window.postMessage(JSON.stringify({ pdfUrl: this.state.templatePdfUrl}), '*');
     Doc.createPdf(html, this.state.templateId);
   }
   render() {
