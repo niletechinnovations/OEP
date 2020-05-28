@@ -198,3 +198,7 @@ a.linkdin-btn{background: #007bb6;}
 .info-icon-link .fa.fa-info {
     padding: 5px;
 }
+.feedBack-body .sign-off {
+    padding: 10px 0px;
+    font-weight: 500 !important;
+}

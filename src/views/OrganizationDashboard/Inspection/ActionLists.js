@@ -177,7 +177,7 @@ class ActionLists extends Component {
     let actionFormData = this.state.actionData;
     actionFormData.priority_input = actionFormData.priority_input ? actionFormData.priority_input : 1;
     let formData = {authId: this.state.organizationId, description: actionFormData.action_description, employeeId: actionFormData.employee_id, priority: actionFormData.priority_input, dueDate: actionFormData.due_date, organizationId: this.state.organizationId};
-    this.setState( { loading: true }, () => {
+    this.setState( { formProccessing: true }, () => {
       const rowIndex = this.state.rowIndex;
       if(rowIndex > -1) {
         const actionInfo = this.state.inspectionList[rowIndex];
@@ -214,11 +214,11 @@ class ActionLists extends Component {
             .then( res => {        
               
               if ( undefined === res.data.data || !res.data.status ) { 
-                this.setState( { loading: false} );
+                this.setState( { formProccessing: false} );
                 toast.error(res.data.message);
                 return;
               }             
-              this.setState({ actionData: {}, loading: false, modal: false});
+              this.setState({ actionData: {}, formProccessing: false, modal: false});
               toast.success(res.data.message);
               this.inspectionList();
             } )
@@ -228,7 +228,7 @@ class ActionLists extends Component {
                 this.props.history.push('/login');
               }
               else
-                this.setState( { loading: false } );
+                this.setState( { formProccessing: false } );
                 toast.error(err.message);
             } )        
       }
@@ -335,7 +335,7 @@ class ActionLists extends Component {
               </FormGroup> 
             </ModalBody>
             <ModalFooter>
-              <Button className="submit-btn" type="submit">Submit</Button>
+              <Button className="submit-btn" disabled = {this.state.formProccessing} type="submit">{this.state.formProccessing ? "Processing..": "Submit"}</Button>
               <Button className="btnCancel" onClick={this.toggle}>Cancel</Button>
             </ModalFooter>
           </Form>

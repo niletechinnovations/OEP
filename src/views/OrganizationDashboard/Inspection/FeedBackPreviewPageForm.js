@@ -177,25 +177,41 @@ class FeedBackPreviewPageForm extends Component {
       </div>
     return (
       <div className="card-Preview-info">
-      {failedItemView}
-      <div className="feedBack-body">
-          <table className="feedBackPreviewTable">
-            <thead>
-              <tr>
-                  <th>Questions</th>
-                  <th>Response</th>
-                  <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-             {formFeild.map((formFieldDetails, index) =>
-              formFieldDetails === null || formFieldDetails === undefined ? "" : 
-                <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
-              )}
-            </tbody>
-          </table>
-      </div>
-      {mediaFileView}
+        {failedItemView}
+        <div className="feedBack-body">
+            <table className="feedBackPreviewTable">
+              <thead>
+                <tr>
+                    <th>Questions</th>
+                    <th>Response</th>
+                    <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+               {formFeild.map((formFieldDetails, index) =>
+                formFieldDetails === null || formFieldDetails === undefined ? "" : 
+                  <FieldLayout key={index} formFieldDetails={formFieldDetails} formValue = {formFeildValue[formFieldDetails.id]} apiUrl={this.props.apiUrl}  />
+                )}
+              </tbody>
+            </table>
+        </div>
+        {mediaFileView}
+        <div className="feedBack-body">
+            <h3 className="sign-off">Sign-off</h3>
+            <table className="feedBackPreviewTable">
+             
+              <tbody>
+               <tr>
+                    <td><p>Comments/Recommendations</p></td>
+                    
+                </tr>
+                <tr>
+                    <td><p>Name & Signature</p></td>
+                    
+                </tr>
+              </tbody>
+            </table>
+        </div>
       </div>
     );
   }

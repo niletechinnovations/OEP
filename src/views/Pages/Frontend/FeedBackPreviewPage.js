@@ -135,7 +135,7 @@ class FeedBackPreviewPage extends React.Component {
                               <Label htmlFor="templateId"># Store Rank</Label>            
                               <p>{feedBackInfo.storeRank}</p>
                             </FormGroup>
-                          </Col>xcv
+                          </Col>
                           <Col md={3}>
                             <FormGroup> 
                               <Label htmlFor="templateId">Started On</Label>            
