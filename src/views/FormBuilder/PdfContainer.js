@@ -67,7 +67,8 @@ class PdfContainer extends Component {
             } )
           }
           else {
-            const formdata = {email: this.state.share_email, body_content: this.bodyRef.current.innerHTML };            
+            let templateName = this.props.templateName != undefined ? this.props.templateName : "";
+            const formdata = {email: this.state.share_email, body_content: this.bodyRef.current.innerHTML, template_name: templateName };            
             commonService.postAPIWithAccessToken('template/share-template', formdata)
             .then( res => {   
               if ( undefined === res.data.data || !res.data.status ) {

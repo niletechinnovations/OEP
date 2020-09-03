@@ -461,7 +461,7 @@ class AssignInspection extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/admin/inspection');
+          this.props.history.push('/admin/manage-inspection/inspection');
          
         } )
         .catch( err => {         
@@ -486,7 +486,7 @@ class AssignInspection extends React.Component {
           
           this.setState({ modal: false});
           toast.success(res.data.message);
-          this.props.history.push('/admin/inspection');
+          this.props.history.push('/admin/manage-inspection/inspection');
          
         } )
         .catch( err => {         
@@ -505,7 +505,7 @@ class AssignInspection extends React.Component {
   };
 
   resetForm(){
-    this.props.history.push('/admin/inspection');
+    this.props.history.push('/admin/manage-inspection/inspection');
   }
 
   addMoreOption() {

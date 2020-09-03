@@ -71,7 +71,7 @@ class FeedBackPreviewPage extends React.Component {
   backButtonPrevious(){
     this.props.history.push('/admin/manage-inspection/inspection/'+this.state.feedBackInfo.inspectionId);
   }
-  createPdf = (html) => Doc.createPdf(html, this.state.feedBackInfo.inspectionId);
+  createPdf = (html) => Doc.createPdf(html, this.state.feedBackInfo.templateName+'_'+commonService.getCurrentDate());
   render() {
     const { loading, feedBackInfo} = this.state;     
     let loaderElement ='';
@@ -182,7 +182,7 @@ class FeedBackPreviewPage extends React.Component {
                       </Col>                    
                     </Row>
                   </div>             
-                  <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} apiUrl={this.state.apiUrl}   /> 
+                  <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} apiUrl={this.state.apiUrl} comments = {this.state.feedBackInfo.comments} signatureImageData = {this.state.feedBackInfo.signatureImageData}  /> 
                 </PdfContainer>
               </CardBody>
             </Card>

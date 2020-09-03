@@ -19,7 +19,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title">{ renderHTML(formFieldDetails.content)}</Label>
+              <Label className="inspection-title">{ renderHTML(formFieldDetails.content.trim())}</Label>
             </FormGroup>
         </div>
       )
@@ -28,7 +28,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
         </Col>
@@ -38,7 +38,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label>{ renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((checkBoxOptions, index) =>              
                 <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent} />
@@ -52,7 +52,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
         </Col>
@@ -62,7 +62,7 @@ function FieldLayout(props) {
       return(
         <Col lg={12}>
           <FormGroup>
-            <Label>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label>{ renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} onChange={props.onchangeEvent}>
 
               {formFieldDetails.options.map((dropOptions, index) =>              
@@ -82,14 +82,14 @@ function FieldLayout(props) {
       if(props.actionValue !== "")
         actionView = <div className="action-content-section">
                         <Label className="remarks-label">Action</Label>
-                        <p>{ renderHTML(props.actionValue.description)}</p>
+                        <p>{ renderHTML(props.actionValue.description.trim())}</p>
                         <div className="date"><b>Due Date:</b> {props.actionValue.dueDate}</div>
                         <Button className="btn-bl btn-edit" onClick={props.actionEvent} disabled={props.disabledModule} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                       </div>;
       if(props.remarksValue !== "" && !props.formFieldRemarks[formFieldDetails.id]) 
         remarkSection = <div className="remarks-content-section">
                           <Label className="remarks-label">Comments</Label>
-                          <p>{ renderHTML(props.remarksValue)}</p><Button className="btn-bl btn-edit" disabled={props.disabledModule} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
+                          <p>{ renderHTML(props.remarksValue.trim())}</p><Button className="btn-bl btn-edit" disabled={props.disabledModule} onClick={props.remarkEvent} data-id ={props.indexItem} data-inputid={formFieldDetails.id}><i className="fa fa-pencil"></i></Button>
                         </div>
       else
         remarkSection = <div className={className}>
@@ -106,7 +106,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title"><span className="inspection-no-value">{countQuestion}</span>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+              <Label className="inspection-title"><span className="inspection-no-value">{countQuestion}</span>{ renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
               <div className="inspection-check">
                 {formFieldDetails.options.map((radioButtonOptions, index) =>              
                   <CustomInput key={index} name={formFieldDetails.id} type="radio" disabled={props.disabledModule} checked={props.formValue === radioButtonOptions.value ? true : false} className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
@@ -133,7 +133,7 @@ function FieldLayout(props) {
       return(
         <div className="inspection-form-card">
             <FormGroup>
-              <Label className="inspection-title">{ renderHTML(formFieldDetails.content)}</Label>
+              <Label className="inspection-title">{ renderHTML(formFieldDetails.content.trim())}</Label>
             </FormGroup>  
         </div>
       )
@@ -142,20 +142,23 @@ function FieldLayout(props) {
       return(
           <Col lg={12}>
           <FormGroup>
-            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label htmlFor={formFieldDetails.id}>{ renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} disabled type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeFileEvent}  />
           </FormGroup>
         </Col> 
       ) 
-     
-    default: 
-      return (
 
+    case 'LineBreak':
+      return (<hr />)
+    default: 
+
+      return (
+        
         <div className="inspection-form-card">
             <FormGroup>
               <Label className="inspection-title">{ renderHTML(formFieldDetails.content || "")}</Label>
             </FormGroup>  
-        </div>
+        </div> 
       )
      
 
@@ -338,6 +341,34 @@ class PreviewTemplatePageForm extends Component {
             formFieldRemarks={this.state.formFieldRemarks} cancelRemarkEvent={this.cancelRemarkEventHandle} 
             deleteImage= {this.deleteInspectionImage.bind(this)} disabledModule={this.props.disabledModule} actionEvent={this.actionEventHandle} actionValue={this.props.actionValue[formFieldDetails.id] ? this.props.actionValue[formFieldDetails.id] : ""}  />
           )}
+          {this.props.showSignatureComponent && 
+            <div className ="signature-description-area">
+              <div className="inspection-form-card">
+                  <FormGroup>
+                    <Label>Comments/Recommendations</Label>
+                    <Input type ="textarea" name="comments_recommendations" onChange = {this.props.updateSignoffComments} value = {this.props.comments_recommendations} />
+                  </FormGroup>
+              </div>
+              <div className="inspection-form-card">
+                  <FormGroup>
+                    <Label style = {{width: '98%'}}>Name & Signature  <button className="btn-ye pull-right" onClick = {this.props.resetSignature}>Reset</button></Label>
+                    <div style = {{width:'100%', display: 'block'}}>
+                      {this.props.SignatureComponent}
+                    </div>
+
+                  </FormGroup>
+              </div>
+              {this.props.previousSignatureImage && <div className="inspection-form-card">
+                  <FormGroup>
+                    <Label>Previous Signature </Label>
+                    <div style = {{width:'100%', display: 'block'}}>
+                    <img src={this.props.previousSignatureImage} style = {{width:'100%'}} alt="" />
+                    </div>
+                  </FormGroup>
+              </div>}
+            </div>
+
+          }
           
       </div>
       <Modal isOpen={this.state.modal } toggle={this.toggle} className="category-modal-section">

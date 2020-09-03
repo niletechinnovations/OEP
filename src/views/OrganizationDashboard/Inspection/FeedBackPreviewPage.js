@@ -72,7 +72,7 @@ class FeedBackPreviewPage extends React.Component {
   backButtonPrevious(){
     this.props.history.push('/organization/inspection/'+this.state.feedBackInfo.inspectionId);
   }
-  createPdf = (html) => Doc.createPdf(html, this.state.feedBackInfo.inspectionId);
+  createPdf = (html) => Doc.createPdf(html, this.state.feedBackInfo.templateName+'_'+commonService.getCurrentDate());
   render() {
     const { loading, feedBackInfo} = this.state;   
     

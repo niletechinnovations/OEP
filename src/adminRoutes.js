@@ -18,6 +18,7 @@ import ActionLists from './views/AdminDashboard/Inspection/ActionLists';
 import Subscription from './views/AdminDashboard/Subscription/Subscription';
 import SubscriberList from './views/AdminDashboard/Reports/Subscriber';
 import LeaderBoard from './views/AdminDashboard/Reports/LeaderBoard';
+import WeeklyReports from './views/AdminDashboard/Reports/WeeklyReports';
 import Profile from './views/AdminDashboard/Profile/Profile';
 
 const adminRoutes = [
@@ -48,6 +49,7 @@ const adminRoutes = [
   { path: '/admin/subscription', exact: true,  name: 'Subscription', component: Subscription },
   { path: '/admin/reports/subscriber-list', exact: true,  name: 'Subscriber List', component: SubscriberList },
   { path: '/admin/reports/leaderboard', exact: true,  name: 'LeaderBoard', component: LeaderBoard },
+  { path: '/admin/reports/weekly-reports', exact: true,  name: 'Weekly Reports', component: WeeklyReports },
 
 ];
 

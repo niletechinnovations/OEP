@@ -1,5 +1,24 @@
 import React, { Component } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
+/*import {
+  Badge,
+  Button,
+  
+  ButtonGroup,
+  ButtonToolbar,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Col,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Progress,
+  Row,
+} from 'reactstrap';*/
 import {
   Card,
   CardBody,
@@ -8,19 +27,79 @@ import {
   Row,
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle } from '@coreui/coreui/dist/js/coreui-utilities';
+import { getStyle } from '@coreui/coreui/dist/js/coreui-utilities'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
+import './Dashboard.css';
 
-
-//const brandPrimary = getStyle('--primary')
-/*const brandSuccess = getStyle('--success')*/
+const brandPrimary = getStyle('--primary')
+/*const brandSuccess = getStyle('--success')
+const brandWarning = getStyle('--warning')
+const brandDanger = getStyle('--danger')*/
 const brandInfo = getStyle('--info')
-/*const brandWarning = getStyle('--warning')
-const brandDanger = getStyle('--danger')
-*/
 
+
+// Card Chart 1
+const cardChartData1 = (labels = [], data = []) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Organization',
+        backgroundColor: brandPrimary,
+        borderColor: 'rgba(255,255,255,.55)',
+        data: data,
+      },
+    ],
+  }
+};
+
+const cardChartOpts1 = (data = []) => {
+ return {
+    tooltips: {
+      enabled: false,
+      custom: CustomTooltips
+    },
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
+    },
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+            color: 'transparent',
+            zeroLineColor: 'transparent',
+          },
+          ticks: {
+            fontSize: 2,
+            fontColor: 'transparent',
+          },
+
+        }],
+      yAxes: [
+        {
+          display: false,
+          ticks: {
+            display: false,
+            min: Math.min.apply(Math, data) - 5,
+            max: Math.max.apply(Math, data) + 5,
+          },
+        }],
+    },
+    elements: {
+      line: {
+        borderWidth: 1,
+      },
+      point: {
+        radius: 4,
+        hitRadius: 10,
+        hoverRadius: 4,
+      },
+    }
+  }
+}
 
 
 // Card Chart 2
@@ -86,13 +165,12 @@ const cardChartOpts2 = (data = []) => {
 };
 
 // Card Chart 3
-// Card Chart 3
 const cardChartData3 = (labels = [], data = []) =>  {
   return {
     labels: labels,
     datasets: [
       {
-        label: 'Rank',
+        label: 'Subscriber',
         backgroundColor: 'rgba(255,255,255,.2)',
         borderColor: 'rgba(255,255,255,.55)',
         data: data,
@@ -140,7 +218,7 @@ const cardChartData4 =  (labels = [], data = []) =>  {
     labels: labels,
     datasets: [
       {
-        label: 'Store Walks',
+        label: 'Store Walk',
         backgroundColor: 'rgba(255,255,255,.3)',
         borderColor: 'transparent',
         data: data,
@@ -148,6 +226,17 @@ const cardChartData4 =  (labels = [], data = []) =>  {
     ],
   };
 }
+/*const cardChartData14 = {
+  labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+  datasets: [
+    {
+      label: 'Data',
+      data: [78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98,78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98],
+      backgroundColor: 'rgba(99, 154, 255, 0.73)',
+    },
+  ],
+};*/
+
 const cardChartData14 = (labels = [], data = []) =>  {
   return {
     labels: labels,
@@ -163,7 +252,6 @@ const cardChartData14 = (labels = [], data = []) =>  {
 const cardChartOpts14 = {
  
 };
-
 
 const cardChartOpts4  = (data = []) => {
  return {
@@ -188,6 +276,8 @@ const cardChartOpts4  = (data = []) => {
     },
   };
 }
+
+
 
 // sparkline charts
 /*const sparkLineChartData = [
@@ -375,27 +465,21 @@ class Dashboard extends Component {
       inspectionData: [],
       organizationLables: [],
       organizationData: [],
-      conductedInspection: {labels: [], data: []},
       totalStoreWalk: 0,
       storeWalkLables: [],
       storeWalkData: [],
-      rankJump: 0,
-      rankLabels: [],
-      rankData: []
+      totalActiveSubscriber: 0,
+      subscriberGraphData: [],
+      subscriberGraphLables: [],
+      conductedInspection: {labels: [], data: []}
     };
-  }
-
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    });
   }
 
   componentDidMount() { 
     this.setState( { loading: true}, () => {
       commonService.getAPIWithAccessToken('dashboard')
         .then( res => {
-          
+          console.log(res);
            
           if ( undefined === res.data.data || !res.data.status ) {
             this.setState( {  loading: false } );
@@ -404,16 +488,10 @@ class Dashboard extends Component {
           }   
           const responseData = res.data.data;
          
-          if(responseData.organizationSubscriptionPlan.status)
-            commonService.setIsSubscribe(true);
-          else{
-            commonService.setIsSubscribe(false);
-            this.props.history.push('/organization/subscription/plan');
-          }
           this.setState({loading:false, dashBoardStats: res.data.data, 
             inspectionData: responseData.inspectionGraphData.data, inspectionLabels: responseData.inspectionGraphData.labels,
             organizationData: responseData.organizationGraphData.data, organizationLables: responseData.organizationGraphData.labels});     
-          
+         
         } )
         .catch( err => {         
           if(err.response !== undefined && err.response.status === 401) {
@@ -428,7 +506,7 @@ class Dashboard extends Component {
     } )
     this.getConductedGraph();
     this.storeWalkGraph();
-    this.rankingInformation();
+    this.subscriptionGraph();
   }
 
   getConductedGraph() {
@@ -486,10 +564,9 @@ class Dashboard extends Component {
         }
       } )
   }
-  
 
-  rankingInformation() {
-    commonService.getAPIWithAccessToken('dashboard/organization-ranking')
+  subscriptionGraph() {
+    commonService.getAPIWithAccessToken('dashboard/subscription-graph')
       .then( res => {
         console.log(res);
          
@@ -500,7 +577,7 @@ class Dashboard extends Component {
         }   
         const responseData = res.data.data;
         
-        this.setState({rankJump: responseData.rankJump, rankData: responseData.rankGraphData.data, rankLabels: responseData.rankGraphData.labels});     
+        this.setState({totalActiveSubscriber: responseData.totalActiveSubscriber, subscriberGraphData: responseData.subscriptionData.data, subscriberGraphLables: responseData.subscriptionData.labels});     
        
       } )
       .catch( err => {         
@@ -515,6 +592,11 @@ class Dashboard extends Component {
       } )
   }
 
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+    });
+  }
 
   onRadioBtnClick(radioSelected) {
     this.setState({
@@ -529,7 +611,7 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" sm="6" lg="4">
+          <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
                 
@@ -542,17 +624,28 @@ class Dashboard extends Component {
             </Card>
           </Col>
 
-          
+          <Col xs="12" sm="6" lg="3">
+            <Card className="text-white bg-primary">
+              <CardBody className="pb-0">
+                
+                <div className="text-value">{this.state.dashBoardStats.organizationCount}</div>
+                <div>Total Organizations</div>
+              </CardBody>
+              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
+                <Line data={cardChartData1(this.state.organizationLables, this.state.organizationData)} options={cardChartOpts1(this.state.organizationData)} height={70} />
+              </div>
+            </Card>
+          </Col>
 
-          <Col xs="12" sm="6" lg="4">
+          <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-warning">
               <CardBody className="pb-0">
                 
-                <div className="text-value">{this.state.rankJump}%</div>
-                <div>Organizations Ranking</div>
+                <div className="text-value">{this.state.totalActiveSubscriber}</div>
+                <div>Active Subscriber</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
-                <Line data={cardChartData3(this.state.rankLabels, this.state.rankData)} options={cardChartOpts3(this.state.rankData)} height={70} />
+                <Line data={cardChartData3(this.state.subscriberGraphLables, this.state.subscriberGraphData)} options={cardChartOpts3(this.state.subscriberGraphData)} height={70} />
               </div>
             </Card>
           </Col>
@@ -562,7 +655,7 @@ class Dashboard extends Component {
               <CardBody className="pb-0">
                 
                 <div className="text-value">{this.state.totalStoreWalk}</div>
-                <div>Store Walks</div>
+                <div>Store Walk</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 <Bar data={cardChartData4(this.state.storeWalkLables, this.state.storeWalkData)} options={cardChartOpts4(this.state.storeWalkData)} height={70} />

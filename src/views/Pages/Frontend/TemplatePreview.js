@@ -54,7 +54,7 @@ class TemplatePreview extends React.Component {
           formField.categoryId = templateDetail.categoryId;
           formField.subCategoryId = templateDetail.subCategoryId;
           formField.template_name = templateDetail.templateName;          
-          this.setState({loading:false, formField: formField, templatePdfUrl: templateDetail.downloadTemplateUrl, formValid: true, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
+          this.setState({loading:false, templateName: templateDetail.templateName, formField: formField, templatePdfUrl: templateDetail.downloadTemplateUrl, formValid: true, templateId: templateDetail.templateId, templatePreviewData: templateDetail.formField});     
          
         } )
         .catch( err => {         
@@ -79,7 +79,7 @@ class TemplatePreview extends React.Component {
   }
   createPdf = (html) => {
     window.postMessage(JSON.stringify({ pdfUrl: this.state.templatePdfUrl}), '*');
-    Doc.createPdf(html, this.state.templateId);
+    Doc.createPdf(html, this.state.templateName+'_'+commonService.getCurrentDate());
   }
   render() {
     let loaderElement = '';
@@ -96,7 +96,7 @@ class TemplatePreview extends React.Component {
                         <MDBCol lg="12" className="card-info-box">
                             <MDBCard>
                                 <MDBCardBody>
-                                  <PdfContainer createPdf={this.createPdf} templateType = "template" history = {this.props.history} shareTemplate = "yes" templateId = {this.state.templateId}>
+                                  <PdfContainer createPdf={this.createPdf} templateType = "template" history = {this.props.history} shareTemplate = "yes" templateName = {this.state.templateName} templateId = {this.state.templateId}>
                                     <PreviewTemplatePageForm templateField = {this.state.templatePreviewData} answers={this.state.userAnswer} createFormFieldName={this.handleFormFieldName} updateFormFieldValue={this.handleUpdateFormFieldValue}  /> 
                                   </PdfContainer>
                                 </MDBCardBody>

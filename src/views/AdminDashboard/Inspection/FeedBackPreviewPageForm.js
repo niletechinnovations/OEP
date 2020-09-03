@@ -140,8 +140,8 @@ class FeedBackPreviewPageForm extends Component {
     let mediaFileView = '';
     if(allMediaFile.length > 0 )
       mediaFileView = <div className="feedBack-body">         
-         <h2>Failed Responses</h2>  
-         <p>This section lists responses that were set as "failed responses" in this template used for this audit </p>          
+         <h2>All uploaded pictures</h2>  
+         <p>This section lists responses that were set as "uploaded pictures" in this template used for this audit </p>          
           <table className="feedBackPreviewTable">
             <thead>
               <tr>
@@ -203,11 +203,12 @@ class FeedBackPreviewPageForm extends Component {
             <tbody>
              <tr>
                   <td><p>Comments/Recommendations</p></td>
+                  <td><p>{this.props.comments}</p></td>
                   
               </tr>
               <tr>
                   <td><p>Name & Signature</p></td>
-                  
+                  <td>{this.props.signatureImageData && <img src = {this.props.signatureImageData} alt ="signature" />}</td>
               </tr>
             </tbody>
           </table>

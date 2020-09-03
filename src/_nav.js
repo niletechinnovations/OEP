@@ -90,7 +90,11 @@ export default {
         {
           name: 'Leaderboard',
           url: '/admin/reports/leaderboard',
-        }      
+        },
+        {
+          name: 'Weekly Reports',
+          url: '/admin/reports/weekly-reports',
+        }       
       ]    
     },
     /*{

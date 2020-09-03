@@ -75,7 +75,7 @@ class FeedBackPreviewPage extends React.Component {
   
   createPdf = (html) => { 
     window.postMessage(JSON.stringify({pdfUrl: this.state.feedBackInfo.downloadInspectionFeedBack}), '*');
-    Doc.createPdf(html, this.state.feedBackInfo.inspectionId); 
+    Doc.createPdf(html, this.state.feedBackInfo.templateName+'_'+commonService.getCurrentDate()); 
   }
   render() {
     const { loading, feedBackInfo} = this.state;     
@@ -187,7 +187,7 @@ class FeedBackPreviewPage extends React.Component {
                       </Col>                    
                     </Row>
                   </div>             
-                  <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} apiUrl={this.state.apiUrl}   /> 
+                  <FeedBackPreviewPageForm templateField = {this.state.feedBackInfo.templateFormData} feedBackData = {this.state.feedBackInfo.feedBackData} comments = {this.state.feedBackInfo.comments} signatureImageData = {this.state.feedBackInfo.signatureImageData} apiUrl={this.state.apiUrl}   /> 
                 </PdfContainer>
               </CardBody>
             </Card>

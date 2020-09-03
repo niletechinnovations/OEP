@@ -25,6 +25,8 @@ import {
   CardTitle,
   Col,  
   Row,
+  FormGroup,
+  Input
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle } from '@coreui/coreui/dist/js/coreui-utilities'
@@ -41,14 +43,77 @@ const brandInfo = getStyle('--info')
 
 
 // Card Chart 1
+const lineChartData = (labels = [], data = [], labelName = '', fill = false, backgroundColor = 'rgba(255,255,255,.55)', borderColor = brandPrimary) =>  {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: labelName,
+        backgroundColor: backgroundColor,
+        borderColor: borderColor,
+        fill: fill,
+        data: data,
+      },
+    ],
+  }
+};
+
+const lineChartOptions = (data = []) => {
+ return {
+    tooltips: {
+      enabled: false,
+      custom: CustomTooltips
+    },
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
+    },
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+            color: 'transparent',
+            zeroLineColor: 'transparent',
+          },
+          ticks: {
+            fontSize: 2,
+            fontColor: 'transparent',
+          },
+
+        }],
+      yAxes: [
+        {
+          display: false,
+          ticks: {
+            display: false,
+            min: Math.min.apply(Math, data) - 5,
+            max: Math.max.apply(Math, data) + 5,
+          },
+        }],
+    },
+    elements: {
+      line: {
+        borderWidth: 1,
+      },
+      point: {
+        radius: 4,
+        hitRadius: 10,
+        hoverRadius: 4,
+      },
+    }
+  }
+}
+
+
+// Card Chart 1
 const cardChartData1 = (labels = [], data = []) =>  {
   return {
     labels: labels,
     datasets: [
       {
-        label: 'Organization',
-        backgroundColor: brandPrimary,
-        borderColor: 'rgba(255,255,255,.55)',
+        label: 'Score',
+        backgroundColor: 'rgba(255,255,255,.55)',
+        borderColor: brandPrimary,
         data: data,
       },
     ],
@@ -108,7 +173,7 @@ const cardChartData2 = (labels = [], data = []) =>  {
     labels: labels,
     datasets: [
       {
-        label: 'Inspection',
+        label: 'Inspection Conducted',
         backgroundColor: brandInfo,
         borderColor: 'rgba(255,255,255,.55)',
         data: data,
@@ -170,7 +235,7 @@ const cardChartData3 = (labels = [], data = []) =>  {
     labels: labels,
     datasets: [
       {
-        label: 'Subscriber',
+        label: 'Unique Inspection',
         backgroundColor: 'rgba(255,255,255,.2)',
         borderColor: 'rgba(255,255,255,.55)',
         data: data,
@@ -218,9 +283,10 @@ const cardChartData4 =  (labels = [], data = []) =>  {
     labels: labels,
     datasets: [
       {
-        label: 'Store Walk',
+        label: 'Failed Item',
         backgroundColor: 'rgba(255,255,255,.3)',
         borderColor: 'transparent',
+
         data: data,
       },
     ],
@@ -244,8 +310,10 @@ const cardChartData14 = (labels = [], data = []) =>  {
       {
         label: 'Inspection',
         backgroundColor: 'rgba(99, 154, 255, 0.73)',
+        fill: false,
         data: data,
       },
+      
     ],
   }
 };
@@ -278,83 +346,31 @@ const cardChartOpts4  = (data = []) => {
 }
 
 
-
-// sparkline charts
-/*const sparkLineChartData = [
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'New Audits',
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Recurring Audits',
-  },
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'Pageviews',
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Organic',
-  },
-  {
-    data: [78, 81, 80, 45, 34, 12, 40],
-    label: 'CTR',
-  },
-  {
-    data: [1, 13, 9, 17, 34, 41, 38],
-    label: 'Bounce Rate',
-  },
-];
-
-const makeSparkLineData = (dataSetNo, variant) => {
-  const dataset = sparkLineChartData[dataSetNo];
-  const data = {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+// BarCard Chart 2
+const barChartData = (labels = [], data = [], labelName = '', backgroundColor = 'green', borderColor = 'rgba(255,255,255,.55)') =>  {
+  return {
+    labels: labels,
     datasets: [
       {
-        backgroundColor: 'transparent',
-        borderColor: variant ? variant : '#c2cfd6',
-        data: dataset.data,
-        label: dataset.label,
+        label: labelName,
+        backgroundColor: backgroundColor,
+        borderColor: borderColor,
+        data: data,
+        fill: false
       },
     ],
-  };
-  return () => data;
+  }
 };
 
-const sparklineChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  responsive: true,
-  maintainAspectRatio: true,
-  scales: {
-    xAxes: [
-      {
-        display: false,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-  elements: {
-    line: {
-      borderWidth: 2,
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3,
-    },
-  },
-  legend: {
-    display: false,
-  },
-};*/
+const barChartOptions = (data = [], options = {}) => {
+ return {
+    
+  }
+};
+
+
+
+
 
 // Main Chart
 
@@ -374,80 +390,7 @@ for (var i = 0; i <= elements; i++) {
   data3.push(65);
 }
 
-/*const mainChart = {
-  labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: hexToRgba(brandInfo, 10),
-      borderColor: brandInfo,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 2,
-      data: data1,
-    },
-    {
-      label: 'My Second dataset',
-      backgroundColor: 'transparent',
-      borderColor: brandSuccess,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 2,
-      data: data2,
-    },
-    {
-      label: 'My Third dataset',
-      backgroundColor: 'transparent',
-      borderColor: brandDanger,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 1,
-      borderDash: [8, 5],
-      data: data3,
-    },
-  ],
-};
 
-const mainChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips,
-    intersect: true,
-    mode: 'index',
-    position: 'nearest',
-    callbacks: {
-      labelColor: function(tooltipItem, chart) {
-        return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor }
-      }
-    }
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          drawOnChartArea: false,
-        },
-      }],
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250,
-        },
-      }],
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3,
-    },
-  },
-};*/
 
 class Dashboard extends Component {
   constructor(props) {
@@ -460,7 +403,7 @@ class Dashboard extends Component {
       dropdownOpen: false,
       radioSelected: 2,
       loading: false,
-      dashBoardStats: {organizationCount: 0, inspectionCount: 0},
+      dashBoardStats: {totalInspection: 0, avegareSocre: 0, totalFailedItem: 0},
       inspectionLabels: [],
       inspectionData: [],
       organizationLables: [],
@@ -471,13 +414,23 @@ class Dashboard extends Component {
       totalActiveSubscriber: 0,
       subscriberGraphData: [],
       subscriberGraphLables: [],
-      conductedInspection: {labels: [], data: []}
+      conductedInspection: {labels: [], data: []},
+      totalConductedInspection: {labels: [], data: []},
+      totalAverageSocre: {labels: [], data: []},
+      totalUniqueInspections: {labels: [], data: []},
+      totalFailedItems: {labels: [], data: []},
+      monthlyInspection: {labels: [], data: []},
+      inspectionGraphType : 'daily',
+      inspectionGraphYear : '',
+      monthlyPerformance: {labels: [], data: []},
+      performanceGraphType : 'weekly',
+      performanceGraphYear : ''
     };
   }
 
   componentDidMount() { 
     this.setState( { loading: true}, () => {
-      commonService.getAPIWithAccessToken('dashboard')
+      commonService.getAPIWithAccessToken('reports/overall-count')
         .then( res => {
           console.log(res);
            
@@ -488,11 +441,8 @@ class Dashboard extends Component {
           }   
           const responseData = res.data.data;
          
-          this.setState({loading:false, dashBoardStats: res.data.data, 
-            inspectionData: responseData.inspectionGraphData.data, inspectionLabels: responseData.inspectionGraphData.labels,
-            organizationData: responseData.organizationGraphData.data, organizationLables: responseData.organizationGraphData.labels});     
-         
-        } )
+          this.setState({loading:false, dashBoardStats: res.data.data} )
+        })
         .catch( err => {         
           if(err.response !== undefined && err.response.status === 401) {
             localStorage.clear();
@@ -504,11 +454,235 @@ class Dashboard extends Component {
           }
         } )
     } )
-    this.getConductedGraph();
+
+    /*this.getConductedGraph();
     this.storeWalkGraph();
-    this.subscriptionGraph();
+    this.subscriptionGraph();*/
+    this.getInspectionConductedGraph();
+    this.getInspectionAverageScoreGraph();
+    this.getInspectionFailedItemGraph();
+    let currentDate = new Date();
+    let year = currentDate.getFullYear();
+    this.setState({inspectionGraphYear: year, performanceGraphYear: year})
+    this.getMonthlyInspection(year, 'daily');
+    this.getMonthlyPerformance(year, 'weekly');
+    /*this.getWeeklyInspection(year);
+    this.getDailyInspection(year);*/
   }
 
+  getInspectionConductedGraph(){
+      commonService.getAPIWithAccessToken('reports/inspection-reports?period=overall&duration=8')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        } 
+        debugger;
+        const responseData = res.data.data;  
+        let totalConductedInspection = this.state.totalConductedInspection;
+        totalConductedInspection.labels =  responseData.labels;
+        totalConductedInspection.data =  responseData.data;
+        this.setState({totalConductedInspection: totalConductedInspection});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+
+  getInspectionAverageScoreGraph() {
+      commonService.getAPIWithAccessToken('reports/inspection-scores?period=overall&duration=8')
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        const responseData = res.data.data;
+        let totalAverageSocre = this.state.totalAverageSocre;
+        totalAverageSocre.labels =  responseData.labels;
+        totalAverageSocre.data =  responseData.data;
+        this.setState({totalAverageSocre: totalAverageSocre});    
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+  getInspectionFailedItemGraph() {
+      commonService.getAPIWithAccessToken('reports/inspection-failed-item?period=overall&duration=8')
+      .then( res => {
+        console.log(res);
+         debugger;
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        }   
+        const responseData = res.data.data;
+        let totalFailedItems = this.state.totalFailedItems;
+        totalFailedItems.labels =  responseData.labels;
+        totalFailedItems.data =  responseData.data;
+        this.setState({totalFailedItems: totalFailedItems});    
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+  /*Get Monthly Inspection*/
+  getMonthlyInspection(year, type){
+    
+      let queryString = "&period="+type;
+      commonService.getAPIWithAccessToken('reports/inspection-reports?years='+parseInt(year)+queryString)
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        } 
+        
+        const responseData = res.data.data;  
+        let monthlyInspection = this.state.monthlyInspection;
+        monthlyInspection.labels =  responseData.labels;
+        monthlyInspection.data =  responseData.data;
+        this.setState({monthlyInspection: monthlyInspection});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+
+  /*Get Monthly Performance*/
+  getMonthlyPerformance(year, type){
+    
+      let queryString = "&period="+type;
+      commonService.getAPIWithAccessToken('reports/inspection-scores?years='+parseInt(year)+queryString)
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        } 
+        
+        const responseData = res.data.data;  
+        let monthlyPerformance = this.state.monthlyPerformance;
+        monthlyPerformance.labels =  responseData.labels;
+        monthlyPerformance.data =  responseData.data;
+        this.setState({monthlyPerformance: monthlyPerformance});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+  /*Get Wekkly Inspection*/
+  getWeeklyInspection(year){
+
+      commonService.getAPIWithAccessToken('reports/inspection-reports?period=weekly&year='+year)
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        } 
+        
+        const responseData = res.data.data;  
+        let weeklyInspection = this.state.weeklyInspection;
+        weeklyInspection.labels =  responseData.labels;
+        weeklyInspection.data =  responseData.data;
+        this.setState({weeklyInspection: weeklyInspection});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
+  /*Get Daily Inspection*/
+  getDailyInspection(year){
+
+      commonService.getAPIWithAccessToken('reports/inspection-reports?period=daily&year='+year)
+      .then( res => {
+        console.log(res);
+         
+        if ( undefined === res.data.data || !res.data.status ) {
+          this.setState( {  loading: false } );
+          toast.error(res.data.message);    
+          return;
+        } 
+        
+        const responseData = res.data.data;  
+        let daily = this.state.daily;
+        daily.labels =  responseData.labels;
+        daily.data =  responseData.data;
+        this.setState({daily: daily});     
+       
+      } )
+      .catch( err => {         
+        if(err.response !== undefined && err.response.status === 401) {
+          localStorage.clear();
+          this.props.history.push('/login');
+        }
+        else {
+          this.setState( { loading: false } );
+          toast.error(err.message);    
+        }
+      } )
+  }
   getConductedGraph() {
     commonService.getAPIWithAccessToken('dashboard/conducted-inspection')
       .then( res => {
@@ -608,61 +782,79 @@ class Dashboard extends Component {
 
   render() {
 
+    let minOffset = 0, maxOffset = 10;
+    let thisYear = (new Date()).getFullYear();
+    let allYears = [];
+    for(let x = 0; x <= maxOffset; x++) {
+        allYears.push(thisYear - x)
+    }
+
+    const yearList = allYears.map((x) => {return(<option key={x}>{x}</option>)});
+
     return (
       <div className="animated fadeIn">
+        
+
         <Row>
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-info">
+          <Col xs="12" sm="6" lg="6">
+            <Card className=" ">
               <CardBody className="pb-0">
                 
-                <div className="text-value">{this.state.dashBoardStats.inspectionCount}</div>
+                
                 <div>Total Inspections</div>
+                <div className="text-value">{this.state.dashBoardStats.totalInspection}</div>
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Line data={cardChartData2(this.state.inspectionLabels, this.state.inspectionData)} options={cardChartOpts2(this.state.inspectionData)} height={70} />
+              
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <Line data={lineChartData(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data, 'Inspections', true, '#green', '#f7dedf')} options={lineChartOptions(this.state.totalConductedInspection.data)} height={70} />
               </div>
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-primary">
+          <Col xs="12" sm="6" lg="6">
+            <Card className=" ">
               <CardBody className="pb-0">
                 
-                <div className="text-value">{this.state.dashBoardStats.organizationCount}</div>
-                <div>Total Organizations</div>
+                
+                <div>Average Score</div>
+                <div className="text-value">{this.state.dashBoardStats.avegareSocre}%</div>
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Line data={cardChartData1(this.state.organizationLables, this.state.organizationData)} options={cardChartOpts1(this.state.organizationData)} height={70} />
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <Line data={lineChartData(this.state.totalAverageSocre.labels, this.state.totalAverageSocre.data, 'Average Score', true, '#f7dedf', '#f7dedf')} options={lineChartOptions(this.state.totalAverageSocre.data)} height={70} />
               </div>
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-warning">
+          <Col xs="12" sm="6" lg="6">
+            <Card className=" ">
               <CardBody className="pb-0">
                 
-                <div className="text-value">{this.state.totalActiveSubscriber}</div>
-                <div>Active Subscriber</div>
+                
+                <div>Total Unique Inspection</div>
+                <div className="text-value">0</div>
               </CardBody>
-              <div className="chart-wrapper" style={{ height: '70px' }}>
-                <Line data={cardChartData3(this.state.subscriberGraphLables, this.state.subscriberGraphData)} options={cardChartOpts3(this.state.subscriberGraphData)} height={70} />
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <Line data={lineChartData(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data, 'Unique Inspection', true, '#f7dedf', 'red')} options={lineChartOptions(this.state.totalConductedInspection.data)} height={70} />
               </div>
             </Card>
           </Col>
 
-          <Col xs="12" sm="6" lg="3">
-            <Card className="text-white bg-danger">
+          <Col xs="12" sm="6" lg="6">
+            <Card className=" ">
               <CardBody className="pb-0">
                 
-                <div className="text-value">{this.state.totalStoreWalk}</div>
-                <div>Store Walk</div>
+                
+                <div>Total Failed Items</div>
+                <div className="text-value">{this.state.dashBoardStats.totalFailedItem}</div>
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Bar data={cardChartData4(this.state.storeWalkLables, this.state.storeWalkData)} options={cardChartOpts4(this.state.storeWalkData)} height={70} />
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <Line data={lineChartData(this.state.totalFailedItems.labels, this.state.totalFailedItems.data, 'Failed Item', true, '#f7dedf', 'blue')} options={lineChartOptions(this.state.totalFailedItems.data)} height={70} />
               </div>
             </Card>
           </Col>
         </Row>
+
+
         <Row>
           <Col>
             <Card className="">
@@ -674,187 +866,84 @@ class Dashboard extends Component {
                   
                 </Row>
                 <div className="chart-wrapper" >
-                  <Bar data={cardChartData14(this.state.conductedInspection.labels, this.state.conductedInspection.data)} options={cardChartOpts14}  />
+                  <div className="chart-options">
+                      <div className="filter">
+                          <FormGroup>
+                            <label>Year</label>
+                            <Input type = "select" value = {this.state.inspectionGraphYear} onChange = {(event) => {
+                              
+                              this.setState({inspectionGraphYear: event.target.value});
+                              this.getMonthlyInspection(event.target.value, this.state.inspectionGraphType);
+                            }} >
+                              {yearList}
+                            </Input>
+                          </FormGroup>
+                          <FormGroup>
+                            <label>Graph Type</label>
+                            <Input type = "select" value = {this.state.inspectionGraphType} onChange = {(event) => {
+                              this.setState({inspectionGraphType: event.target.value});
+                              this.getMonthlyInspection(this.state.inspectionGraphYear, event.target.value);
+                            }} >
+                              <option value="daily">Daily</option>
+                              <option value="weekly">Weekly</option>
+                              <option value="monthly">Monthly</option>
+                            </Input>
+                          </FormGroup>
+                      </div>
+                  </div>
+                  <Line data={cardChartData14(this.state.monthlyInspection.labels, this.state.monthlyInspection.data)} options={cardChartOpts14}  />
                 </div>
               </CardBody>              
             </Card>
           </Col>
         </Row>
-        { /* <Row>
+
+        <Row>
           <Col>
-            <Card>
+            <Card className="">
               <CardBody>
                 <Row>
                   <Col sm="5">
-                    <CardTitle className="mb-0">Inspections Performance</CardTitle>
-                    <div className="small text-muted">November 2019</div>
-                  </Col>
-                  <Col sm="7" className="d-none d-sm-inline-block">
-                    <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button>
-                    <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
-                      <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Day</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Month</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>Year</Button>
-                      </ButtonGroup>
-                    </ButtonToolbar>
-                  </Col>
-                </Row>
-                <div className="chart-wrapper" style={{ height: 300 + 'px', marginTop: 40 + 'px' }}>
-                  <Line data={mainChart} options={mainChartOpts} height={300} />
-                </div>
-              </CardBody>
-              <CardFooter>
-                <Row className="text-center">
-                  <Col sm={12} md className="mb-sm-2 mb-0">
-                    <div className="text-muted">Visits</div>
-                    <strong>29.703 Inspections (40%)</strong>
-                    <Progress className="progress-xs mt-2" color="success" value="40" />
-                  </Col>
-                  <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
-                    <div className="text-muted">Unique</div>
-                    <strong>24.093 Inspections (20%)</strong>
-                    <Progress className="progress-xs mt-2" color="info" value="20" />
+                    <CardTitle className="mb-0">Performance</CardTitle>
                   </Col>
                   
                 </Row>
-              </CardFooter>
+                <div className="chart-wrapper" >
+                  <div className="chart-options">
+                      <div className="filter">
+                          <FormGroup>
+                            <label>Year</label>
+                            <Input type = "select" value = {this.state.performanceGraphYear} onChange = {(event) => {
+                              
+                              this.setState({performanceGraphYear: event.target.value});
+                              this.getMonthlyPerformance(event.target.value, this.state.performanceGraphType);
+                            }} >
+                              {yearList}
+                            </Input>
+                          </FormGroup>
+                          <FormGroup>
+                            <label>Graph Type</label>
+                            <Input type = "select" value = {this.state.performanceGraphType} onChange = {(event) => {
+                              this.setState({performanceGraphType: event.target.value});
+                              this.getMonthlyPerformance(this.state.performanceGraphYear, event.target.value);
+                            }} >
+                              <option value="daily">Daily</option>
+                              <option value="weekly">Weekly</option>
+                              <option value="monthly">Monthly</option>
+                            </Input>
+                          </FormGroup>
+                      </div>
+                  </div>
+                  <Bar data={barChartData(this.state.monthlyPerformance.labels, this.state.monthlyPerformance.data)} options={barChartOptions(this.state.monthlyPerformance.data)}  />
+                </div>
+              </CardBody>              
             </Card>
           </Col>
         </Row>
+        
 
         
-        <Row>
-          <Col>
-            <Card>
-              <CardHeader>
-                Inspections 
-              </CardHeader>
-              <CardBody>
-                <Row>
-                  <Col xs="12" md="6" xl="6">
-                    
-                    <hr className="mt-0" />
-                    <div className="progress-group mb-4">
-                      <div className="progress-group-prepend">
-                        <span className="progress-group-text">
-                          Monday
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="34" />
-                        <Progress className="progress-xs" color="danger" value="78" />
-                      </div>
-                    </div>
-                    <div className="progress-group mb-4">
-                      <div className="progress-group-prepend">
-                        <span className="progress-group-text">
-                        Tuesday
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="56" />
-                        <Progress className="progress-xs" color="danger" value="94" />
-                      </div>
-                    </div>
-                    <div className="progress-group mb-4">
-                      <div className="progress-group-prepend">
-                        <span className="progress-group-text">
-                        Wednesday
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="12" />
-                        <Progress className="progress-xs" color="danger" value="67" />
-                      </div>
-                    </div>
-                    <div className="progress-group mb-4">
-                      <div className="progress-group-prepend">
-                        <span className="progress-group-text">
-                        Thursday
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="43" />
-                        <Progress className="progress-xs" color="danger" value="91" />
-                      </div>
-                    </div>
-                    <div className="progress-group mb-4">
-                      <div className="progress-group-prepend">
-                        <span className="progress-group-text">
-                        Friday
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="22" />
-                        <Progress className="progress-xs" color="danger" value="73" />
-                      </div>
-                    </div>
-                    <div className="progress-group mb-4">
-                      <div className="progress-group-prepend">
-                        <span className="progress-group-text">
-                        Saturday
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="53" />
-                        <Progress className="progress-xs" color="danger" value="82" />
-                      </div>
-                    </div>
-                    <div className="progress-group mb-4">
-                      <div className="progress-group-prepend">
-                        <span className="progress-group-text">
-                        Sunday
-                        </span>
-                      </div>
-                      <div className="progress-group-bars">
-                        <Progress className="progress-xs" color="info" value="9" />
-                        <Progress className="progress-xs" color="danger" value="69" />
-                      </div>
-                    </div>
-                    <div className="legend text-center">
-                      <small>
-                        <sup className="px-1"><Badge pill color="info">&nbsp;</Badge></sup>
-                        New Inspections
-                        &nbsp;
-                        <sup className="px-1"><Badge pill color="danger">&nbsp;</Badge></sup>
-                        Recurring Inspections
-                      </small>
-                    </div>
-                  </Col>
-                  <Col xs="12" md="6" xl="6">
-                    <Row>
-                      <Col sm="6">
-                        <div className="callout callout-warning">
-                          <small className="text-muted">New Inspections</small>
-                          <br />
-                          <strong className="h4">7,623</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
-                        <div className="callout callout-success">
-                          <small className="text-muted">Total Inspections</small>
-                          <br />
-                          <strong className="h4">49,123</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30} />
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                    <hr className="mt-0" />
-
-                  </Col>
-                </Row>
-                <br />
-                
-              </CardBody>
-            </Card>
-          </Col>
-        </Row> */ }
+        
       </div>
     );
   }

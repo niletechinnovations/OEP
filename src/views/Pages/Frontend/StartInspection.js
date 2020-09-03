@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import commonService from '../../../core/services/commonService';
 import GeoLocationData from '../../../core/google-map/GeoLocationData';
 import Loader from '../../Loader/Loader';
+import SignatureCanvas from 'react-signature-canvas';
 import './StartInspection.css';
 
 import PreviewTemplatePageForm from './PreviewTemplatePageForm';
@@ -17,6 +18,7 @@ class StartInspection extends React.Component {
   scrollToTop = () => window.scrollTo(0, 0);
   constructor(props){
     super(props);
+    this.sigCanvas = {};
     this.state = {   
       loading: false, 
       loadingTemplate: false,
@@ -58,7 +60,9 @@ class StartInspection extends React.Component {
       isDisabled: false,
       disabledFormMessage: "You can not access to makes changes in this inspection ",
       warningMessage: "Please start the timer first before submitting form",
-      allowAllocationMessage: "Please allow location to access inspection"   
+      allowAllocationMessage: "Please allow location to access inspection",
+      comments_recommendations: "",  
+      previousSignatureImage: "", 
     }    
     
     this.handleFormFieldName = this.handleFormFieldName.bind(this);
@@ -76,6 +80,7 @@ class StartInspection extends React.Component {
     this.updateTime = this.updateTime.bind(this);
     this.updateStartTime = this.updateStartTime.bind(this);
     this.updateEndTime = this.updateEndTime.bind(this);
+    this.updateSignoffComments = this.updateSignoffComments.bind(this);
 
   }
 
@@ -146,11 +151,16 @@ class StartInspection extends React.Component {
             }
           }
           let remarks = this.state.remarks;
+          let comments_recommendations = this.state.comments_recommendations;
+          let previousSignatureImage = this.state.previousSignatureImage;
           if(inspectionDetail.feedbackDataId !== "") {
             for (var key in inspectionDetail.feedBackData) {
               formField[key] = inspectionDetail.feedBackData[key].input;
               remarks[key] = inspectionDetail.feedBackData[key].remarks
             }
+            comments_recommendations = inspectionDetail.comments || "";
+            if(inspectionDetail.signatureImageData)
+              previousSignatureImage = inspectionDetail.signatureImageData;
           }
           let isDisabled = this.state.isDisabled;
           let autoTimerStart = this.state.autoTimerStart;
@@ -158,7 +168,7 @@ class StartInspection extends React.Component {
             isDisabled = true;
           if(!isDisabled)
             autoTimerStart = true;
-          this.setState({loading:false, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, totalFormFillingTime: inspectionDetail.totalFormFillingTime, autoTimerStart: autoTimerStart, isDisabled: isDisabled, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
+          this.setState({loading:false, comments_recommendations: comments_recommendations, previousSignatureImage: previousSignatureImage, loadingTemplate: true, remarks: remarks, formField: formField, formValid: true, inspectionId: inspectionDetail.inspectionId, totalFormFillingTime: inspectionDetail.totalFormFillingTime, autoTimerStart: autoTimerStart, isDisabled: isDisabled, templateId: inspectionDetail.templateId, organizationId: inspectionDetail.organizationId, templatePreviewData: inspectionDetail.templateFormData, previousFeedBackData: inspectionDetail.feedBackData, feedbackDataId: inspectionDetail.feedbackDataId,  employeeList: inspectionDetail.employeeList, actionInfo: actionInfo, mediaFileInfo: mediaFileInfo, previousUploadedFile: prevMediaFileInfo});
           
           
         } )
@@ -395,7 +405,11 @@ class StartInspection extends React.Component {
     let formData = {inspectionId: this.state.inspectionId, totalTimeCalculated: this.state.totalTimeCalculated, 
       saveAsDraft: saveAsDraft, authId: this.state.authId,
        feedBackData: this.state.formField, remarks: this.state.remarks, mediaFile: this.state.mediaFileInfo, 
-       state:this.state.state,city:this.state.city,locality:this.state.locality, actionInfo: this.state.actionData, feedbackDataId: this.state.feedbackDataId, addressInfo: this.state.addressInfo};
+       state:this.state.state,city:this.state.city,locality:this.state.locality,
+       actionInfo: this.state.actionData, feedbackDataId: this.state.feedbackDataId, addressInfo: this.state.addressInfo,
+       comments_recommendations: this.state.comments_recommendations,
+       signatureUrl: !this.sigCanvas.isEmpty() ? this.sigCanvas.getTrimmedCanvas().toDataURL('image/png') : this.state.previousSignatureImage
+     };
    
     this.setState( { loading: true}, () => {      
       commonService.postAPIWithAccessToken('inspection/feedback', formData)
@@ -408,6 +422,8 @@ class StartInspection extends React.Component {
           } 
           
           this.setState({ modal: false, loading: false});
+          if(!saveAsDraft)
+            window.postMessage("GoBack", '*');
           toast.success(res.data.message);
          
         } )
@@ -545,6 +561,17 @@ class StartInspection extends React.Component {
           } );
     });
   }
+
+  updateSignoffComments = event => {
+    this.setState({comments_recommendations: event.target.value});
+  }
+
+  resetSignature = event => {
+    event.preventDefault();
+    this.sigCanvas.clear();
+
+    this.setState({previousSignatureImage: ""});
+  }
   render() {
     
     let loaderElement = '';
@@ -559,7 +586,7 @@ class StartInspection extends React.Component {
             geoLocationTags = <GeoLocationData cords = {this.props.coords} updateAddress = {this.updateGeoLocationAddress} />
       }
     }
-    
+    let showSignatureComponent = false;
     if(this.state.loadingTemplate){
       if(this.state.templatePreviewData.length > 20 && this.state.currentQuestionPosition === 1) {
         actionButton = <>
@@ -577,6 +604,7 @@ class StartInspection extends React.Component {
         </>;
       }
       else if(this.state.templatePreviewData.length > 20){
+        showSignatureComponent = true;
         actionButton = <>
           <Button onClick={this.handlePrevStepForm} className="btn-gr">Prev</Button>
           <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr" disabled={this.state.isDisabled}>Submit</Button>
@@ -584,13 +612,15 @@ class StartInspection extends React.Component {
               
         </>;
       }
-      else
+      else{
+        showSignatureComponent = true;
         actionButton = <>
           <Button onClick={this.handleSubmitForm.bind(this, false)} className="btn-gr" disabled={this.state.isDisabled}>Submit</Button>
           <Button onClick={this.handleSubmitForm.bind(this, true)} className="btn-ye" disabled={this.state.isDisabled}>Save as Draft</Button>
               
         </>;
-        timerSection = <Timer updateStartTime= {this.updateStartTime} updateEndTime= {this.updateEndTime} updateTime={this.updateTime} totalFormFillingTime = {this.state.totalFormFillingTime} disabledModule={this.state.isDisabled} autoTimerStart = {this.state.autoTimerStart}/>
+      }
+       timerSection = <Timer updateStartTime= {this.updateStartTime} updateEndTime= {this.updateEndTime} updateTime={this.updateTime} totalFormFillingTime = {this.state.totalFormFillingTime} disabledModule={this.state.isDisabled} autoTimerStart = {this.state.autoTimerStart}/>
     }
     
     const formFieldItem = this.state.templatePreviewData.length > 20 ? ((this.state.templatePreviewData.length + 20 >= this.state.currentQuestionPosition) ? this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.currentQuestionPosition + 19 ) :this.state.templatePreviewData.slice(this.state.currentQuestionPosition-1, this.state.templatePreviewData.length -1)) : this.state.templatePreviewData;
@@ -624,7 +654,16 @@ class StartInspection extends React.Component {
                                     handleRemoveMediaFile = {this.handleRemoveMediaFile}
                                     updateQuestionCountval = {this.updateQuestionCountval}
                                     disabledModule={this.state.isDisabled}
+                                    showSignatureComponent = {showSignatureComponent}
+                                    updateSignoffComments = {this.updateSignoffComments}
+                                    comments_recommendations = {this.state.comments_recommendations}
+                                    previousSignatureImage = {this.state.previousSignatureImage}
+                                    SignatureComponent = {<SignatureCanvas ref={(ref) => { this.sigCanvas = ref }} 
+                                      canvasProps={{className: 'sigCanvas'}} />}
+                                    resetSignature = {this.resetSignature}
                                      /> 
+                                    
+                                    
                                     {actionButton}
                                 </MDBCardBody>
                             </MDBCard>

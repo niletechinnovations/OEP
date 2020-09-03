@@ -116,6 +116,17 @@ class ApiService {
     getGoogleAPIKey() {
         return googleAPIKey;
     }
+    getCurrentDate(){
+        var d = new Date();
+
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+
+        var output = d.getFullYear() + '_' +
+            ((''+month).length<2 ? '0' : '') + month + '_' +
+            ((''+day).length<2 ? '0' : '') + day;
+        return output;
+    }
 }
 
 export default new ApiService();

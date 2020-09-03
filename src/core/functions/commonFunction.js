@@ -77,6 +77,17 @@ class commonFunction {
         else 
           return `0 seconds`;
     }
+    getcurrentDate(){
+        var d = new Date();
+
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+
+        var output = d.getFullYear() + '_' +
+            ((''+month).length<2 ? '0' : '') + month + '_' +
+            ((''+day).length<2 ? '0' : '') + day;
+        return output;
+    }
 }
 
 export default new commonFunction();

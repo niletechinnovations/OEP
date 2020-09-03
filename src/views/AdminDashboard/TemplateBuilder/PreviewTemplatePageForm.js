@@ -15,14 +15,14 @@ function FieldLayout(props) {
   switch(formFieldDetails.element) {
     case 'Header':
       return(
-          <h2 className="form-heading-title">{renderHTML(formFieldDetails.content)}</h2>
+          <h2 className="form-heading-title">{renderHTML(formFieldDetails.content.trim())}</h2>
       )
      
     case 'TextInput':
       return(
         <div className="formField-item">
           <FormGroup>
-            <Label className="formField-label" htmlFor={formFieldDetails.id}>{renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label" htmlFor={formFieldDetails.id}>{renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
         </div>
@@ -32,7 +32,7 @@ function FieldLayout(props) {
       return(
         <div className="formField-item">
           <FormGroup>
-            <Label className="formField-label">{renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label">{renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((checkBoxOptions, index) =>              
                 <CustomInput name={formFieldDetails.id} key={index} type="checkbox" className="checkboxInput" label={checkBoxOptions.text} value={checkBoxOptions.value} id={checkBoxOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent} />
@@ -46,7 +46,7 @@ function FieldLayout(props) {
       return(
         <div className="formField-item">
           <FormGroup>
-            <Label className="formField-label" htmlFor={formFieldDetails.id}>{renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label" htmlFor={formFieldDetails.id}>{renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="textarea" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
           </FormGroup>
         </div>
@@ -56,7 +56,7 @@ function FieldLayout(props) {
       return(
         <div className="formField-item">
           <FormGroup>
-            <Label className="formField-label">{renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label">{renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} type="select" className="dropDown" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} onChange={props.onchangeEvent}>
 
               {formFieldDetails.options.map((dropOptions, index) =>              
@@ -72,7 +72,7 @@ function FieldLayout(props) {
       return(
         <div className="formField-item">
           <FormGroup>
-            <Label className="formField-label"><span className="inspection-no-value">{countQuestion}</span>{renderHTML(formFieldDetails.label)}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label"><span className="inspection-no-value">{countQuestion}</span>{renderHTML(formFieldDetails.label.trim())}{formFieldDetails.required ? "*" : ""}</Label>
             <div>
               {formFieldDetails.options.map((radioButtonOptions, index) =>              
                 <CustomInput key={index} name={formFieldDetails.id} type="radio" disabled className="radioInput" label={radioButtonOptions.text} value={radioButtonOptions.value} id={radioButtonOptions.key} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeEvent}  />
@@ -92,7 +92,7 @@ function FieldLayout(props) {
     case 'Paragraph':
       return(
         <div className="formField-item">
-          <p>{renderHTML(formFieldDetails.content)}</p>
+          <p>{renderHTML(formFieldDetails.content.trim())}</p>
         </div>
       )
      
@@ -100,16 +100,17 @@ function FieldLayout(props) {
       return(
           <div className="formField-item">
           <FormGroup>
-            <Label className="formField-label" htmlFor={formFieldDetails.id}>{formFieldDetails.label}{formFieldDetails.required ? "*" : ""}</Label>
+            <Label className="formField-label" htmlFor={formFieldDetails.id}>{formFieldDetails.label.trim()}{formFieldDetails.required ? "*" : ""}</Label>
             <Input name={formFieldDetails.id} disabled type="file" accept="image/*" id={formFieldDetails.id} required={formFieldDetails.required ? true : false} placeholder={formFieldDetails.label} onChange={props.onchangeFileEvent}  />
           </FormGroup>
         </div> 
       ) 
-     
+    case 'LineBreak':
+      return (<hr />)
     default: 
       return (
         <div className="formField-item">
-          <h2>{renderHTML(formFieldDetails.label)}</h2>
+          <h2>{renderHTML(formFieldDetails.content)}</h2>
         </div>
       )
      

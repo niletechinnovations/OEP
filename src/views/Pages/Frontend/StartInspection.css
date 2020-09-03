@@ -111,7 +111,13 @@ textarea.remarks-form-group.form-control {border: 1px solid #d9e0e3; font-size: 
 
 
 
-
+canvas.sigCanvas {
+    border: 2px solid grey;
+    padding: 20px;
+    display: block;
+    width: 220px;
+    height: 200px;
+}
 
 /*responsive*/
 
@@ -131,6 +137,7 @@ textarea.remarks-form-group.form-control {border: 1px solid #d9e0e3; font-size: 
 }
 
 @media only screen and (max-width : 991px) {
+    canvas.sigCanvas {  width: 800px; height: 200px; }
 }
 
 @media only screen and (max-width : 767px) {
@@ -142,19 +149,32 @@ label.inspection-title{ font-size: 12px;padding: 5px;}
 .action-content-section label, .remarks-content-section label{font-size: 13px;}
 .action-content-section p{font-size: 12px;}
 .card-info-box .card-body{padding: 0;}
-
+canvas.sigCanvas {  width: 650px; height: 200px; }
 
 }
 
 @media only screen and (max-width: 576px) {
+    canvas.sigCanvas {    
+        width: 500px;
+        height: 200px;
+    }
 }
 
 @media only screen and (max-width : 480px) {
+    canvas.sigCanvas {    
+        width: 300px;
+        height: 200px;
+    }
 }
 
 @media only screen and (max-width : 320px) {
-
+    canvas.sigCanvas {    
+        width: 250px;
+        height: 200px;
+    }
 }
+
+
 
 
 
