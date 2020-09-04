@@ -104,9 +104,28 @@ const barChartData = (labels = [], data = [], labelName = '', backgroundColor = 
   }
 };
 
-const barChartOptions = (data = [], options = {}) => {
+const barChartOptions = (data = [], options = {xfontSize: 8, yfontSize: 8}) => {
  return {
     
+  scales: {
+    xAxes: [
+      {
+        
+        ticks: {
+          fontColor: "#000",
+          fontSize: options.xfontSize
+        },
+      }
+    ],yAxes: [
+      {
+        
+        ticks: {
+          fontColor: "#000",
+          fontSize: options.yfontSize
+        },
+      }
+    ],}
+
   }
 };
 
@@ -307,6 +326,11 @@ class WeeklyReports extends Component {
     this.getTop10OrganizationInspection();
     this.getScoreingByArea();
     this.getInspectionConductedLastWeek();
+    document.body.classList.add("weekly-graph-page");
+  }
+  
+  componentWillUnmount() {
+    document.body.classList.remove("weekly-graph-page");
   }
 
   getLast4WeekInspection(){
@@ -639,109 +663,112 @@ class WeeklyReports extends Component {
     return (
       <div className="animated fadeIn">
         
+        <div className="storewalk-H grey-bg">
+          <p>Storewalks</p>
+        </div>
 
         <Row>
           <Col xs="12" sm="6" lg="3">
-            <h2>Weekly Storewalks Frequency (Last 4 Weeks)</h2>
+            <h5>Weekly Storewalks Frequency (Last 4 Weeks)</h5>
             <Card className="text-white ">
               
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Bar data={cardChartData2(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data)} options={cardChartOpts2(this.state.totalConductedInspection.data)} height={150} />
+                <Bar data={barChartData(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data,'Inspection','#ffc592', '#000')} options={barChartOptions(this.state.totalConductedInspection.data, {xfontSize: 8, yfontSize: 8})} height={200} />
               </div>
             </Card>
           </Col>
 
           <Col xs="12" sm="6" lg="3">
-            <h2>Weekly Storewalks Score (Last 4 Weeks)</h2>
+            <h5>Weekly Storewalks Score (Last 4 Weeks)</h5>
             <Card className="text-white">
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Bar data={cardChartData1(this.state.totalAverageSocre.labels, this.state.totalAverageSocre.data)} options={cardChartOpts1(this.state.totalAverageSocre.data)} height={150} />
+                <Bar data={barChartData(this.state.totalAverageSocre.labels, this.state.totalAverageSocre.data, 'Avg Score','#ffc592', '#000')} options={barChartOptions(this.state.totalAverageSocre.data, {xfontSize: 8, yfontSize: 8})} height={200} />
               </div>
             </Card>
           </Col>
 
           <Col xs="12" sm="6" lg="3">
-            <h2>5 Lowest Scoring Stores (Last Week)</h2>
+            <h5>5 Lowest Scoring Stores (Last Week)</h5>
             <Card className="text-white">
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Bar data={barChartData(this.state.lastWeekLowestScore.labels, this.state.lastWeekLowestScore.data, 'Score', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.lastWeekLowestScore.data)} height={150} />
+                <Bar data={barChartData(this.state.lastWeekLowestScore.labels, this.state.lastWeekLowestScore.data, 'Score', '#c10000', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.lastWeekLowestScore.data, {xfontSize: 8, yfontSize: 8})} height={200} />
               </div>
             </Card>
           </Col>
 
           <Col xs="12" sm="6" lg="3">
-            <h2>5 Highest Scoring Stores (Last Week)</h2>
+            <h5>5 Highest Scoring Stores (Last Week)</h5>
             <Card className="text-white">
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Bar data={barChartData(this.state.lastWeekTopStore.labels, this.state.lastWeekTopStore.data, 'Score', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.lastWeekTopStore.data)} height={150} />
+                <Bar data={barChartData(this.state.lastWeekTopStore.labels, this.state.lastWeekTopStore.data, 'Score', '#0070c1', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.lastWeekTopStore.data, {xfontSize: 8, yfontSize: 8})} height={200} />
               </div>
             </Card>
           </Col>
-
-
-          <Col xs="12" sm="6" lg="3">
-            <h2>Top 5 Failed Items (YTD)</h2>
-            <Card className="text-white">
-              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <HorizontalBar data={barChartData(this.state.top5FailedItemYearly.labels, this.state.top5FailedItemYearly.data, 'Failed Item', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top5FailedItemYearly.data)} height={150} />
-              </div>
-            </Card>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <h2>Top 5 Failed Items (Last Week)</h2>
-            <Card className="text-white">
-              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <HorizontalBar data={barChartData(this.state.top5FailedItemLastWeek.labels, this.state.top5FailedItemLastWeek.data, 'Failed Item', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top5FailedItemLastWeek.data)} height={150} />
-              </div>
-            </Card>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <h2>Storewalks Scoring by Store Format (YTD)</h2>
-            <Card className="text-white">
-              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <HorizontalBar data={barChartData(this.state.top10StoreScore.labels, this.state.top10StoreScore.data, 'Score', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top10StoreScore.data)} height={150} />
-              </div>
-            </Card>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <h2>Storewalks Frequency by Managers (YTD)</h2>
-            <Card className="text-white">
-              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <HorizontalBar data={barChartData(this.state.top10OrganizationInspection.labels, this.state.top10OrganizationInspection.data, 'Frequency', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top10OrganizationInspection.data)} height={150} />
-              </div>
-            </Card>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <h2>Storewalks Scoring by Area (YTD)</h2>
-            <Card className="text-white">
-              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <HorizontalBar data={barChartData(this.state.top10ScoreingByArea.labels, this.state.top10ScoreingByArea.data, 'Score', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top10ScoreingByArea.data)} height={150} />
-              </div>
-            </Card>
-          </Col>
-
-          <Col xs="12" sm="6" lg="3">
-            <h2>All Storewalks Conducted (Last Week)</h2>
-            <Card className="text-white">
-              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Bar data={barChartData(this.state.totalInspectionConductedLastWeek.labels, this.state.totalInspectionConductedLastWeek.data, 'Inspection', '#c6a5a5', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.totalInspectionConductedLastWeek.data)} height={150} />
-              </div>
-            </Card>
-          </Col>
-
-          
         </Row>
 
+        <div className="storewalk-H light-blue-bg">
+          <p>Area Performance</p>
+        </div>
+        <Row>
+          <Col xs="12" sm="6" lg="3">
+            <h5>Top 5 Failed Items (YTD)</h5>
+            <Card className="text-white light-blue-bd">
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <HorizontalBar data={barChartData(this.state.top5FailedItemYearly.labels, this.state.top5FailedItemYearly.data, 'Failed Item', '#5b7ca4', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top5FailedItemYearly.data, {xfontSize: 8, yfontSize: 8})} height={200} />
+              </div>
+            </Card>
+          </Col>
 
-       
-        
+          <Col xs="12" sm="6" lg="3">
+            <h5>Top 5 Failed Items (Last Week)</h5>
+            <Card className="text-white light-blue-bd">
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <HorizontalBar data={barChartData(this.state.top5FailedItemLastWeek.labels, this.state.top5FailedItemLastWeek.data, 'Failed Item', '#fe9129', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top5FailedItemLastWeek.data, {xfontSize: 8, yfontSize: 8})} height={200} />
+              </div>
+            </Card>
+          </Col>
 
-        
-        
+          <Col xs="12" sm="6" lg="3">
+            <h5>Storewalks Scoring by Store Format (YTD)</h5>
+            <Card className="text-white light-blue-bd">
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <HorizontalBar data={barChartData(this.state.top10StoreScore.labels, this.state.top10StoreScore.data, 'Score', '#4e81bd', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top10StoreScore.data, {xfontSize: 8, yfontSize: 8})} height={200} />
+              </div>
+            </Card>
+          </Col>
+
+          <Col xs="12" sm="6" lg="3">
+            <h5>Storewalks Frequency by Managers (YTD)</h5>
+            <Card className="text-white light-blue-bd">
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <HorizontalBar data={barChartData(this.state.top10OrganizationInspection.labels, this.state.top10OrganizationInspection.data, 'Frequency', '#d2c0ec', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top10OrganizationInspection.data, {xfontSize: 8, yfontSize: 8})} height={200} />
+              </div>
+            </Card>
+          </Col>
+          </Row>
+
+          <div className="storewalk-H light-orange-bg">
+            <p>Failed Items</p>
+          </div>
+          <Row>
+          <Col xs="12" sm="6" lg="3">
+            <h5>Storewalks Scoring by Area (YTD)</h5>
+            <Card className="text-white light-orange-bd">
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <HorizontalBar data={barChartData(this.state.top10ScoreingByArea.labels, this.state.top10ScoreingByArea.data, 'Score', '#fdaa66', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.top10ScoreingByArea.data, {xfontSize: 8, yfontSize: 8})} height={200} />
+              </div>
+            </Card>
+          </Col>
+
+          <Col xs="12" sm="6" lg="3">
+            <h5>All Storewalks Conducted (Last Week)</h5>
+            <Card className="text-white light-orange-bd">
+              <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
+                <Bar data={barChartData(this.state.totalInspectionConductedLastWeek.labels, this.state.totalInspectionConductedLastWeek.data, 'Inspection', '#6b94c9', 'rgba(255,255,255,.55)')} options={barChartOptions(this.state.totalInspectionConductedLastWeek.data, {xfontSize: 8, yfontSize: 8})} height={200} />
+              </div>
+            </Card>
+          </Col>
+        </Row>
       </div>
     );
   }
