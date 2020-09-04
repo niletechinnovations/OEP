@@ -480,7 +480,7 @@ class Dashboard extends Component {
           toast.error(res.data.message);    
           return;
         } 
-        debugger;
+       
         const responseData = res.data.data;  
         let totalConductedInspection = this.state.totalConductedInspection;
         totalConductedInspection.labels =  responseData.labels;
@@ -532,7 +532,7 @@ class Dashboard extends Component {
       commonService.getAPIWithAccessToken('reports/inspection-failed-item?period=overall&duration=8')
       .then( res => {
         console.log(res);
-         debugger;
+         
         if ( undefined === res.data.data || !res.data.status ) {
           this.setState( {  loading: false } );
           toast.error(res.data.message);    
@@ -806,7 +806,7 @@ class Dashboard extends Component {
               </CardBody>
               
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Line data={lineChartData(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data, 'Inspections', true, '#green', '#f7dedf')} options={lineChartOptions(this.state.totalConductedInspection.data)} height={70} />
+                <Line data={lineChartData(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data, 'Inspections', true, '#d1eecf', '#23ab20')} options={lineChartOptions(this.state.totalConductedInspection.data)} height={70} />
               </div>
             </Card>
           </Col>
@@ -820,7 +820,7 @@ class Dashboard extends Component {
                 <div className="text-value">{this.state.dashBoardStats.avegareSocre}%</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Line data={lineChartData(this.state.totalAverageSocre.labels, this.state.totalAverageSocre.data, 'Average Score', true, '#f7dedf', '#f7dedf')} options={lineChartOptions(this.state.totalAverageSocre.data)} height={70} />
+                <Line data={lineChartData(this.state.totalAverageSocre.labels, this.state.totalAverageSocre.data, 'Average Score', true, '#d3ecf6', '#2b9fd7')} options={lineChartOptions(this.state.totalAverageSocre.data)} height={70} />
               </div>
             </Card>
           </Col>
@@ -834,7 +834,7 @@ class Dashboard extends Component {
                 <div className="text-value">0</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Line data={lineChartData(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data, 'Unique Inspection', true, '#f7dedf', 'red')} options={lineChartOptions(this.state.totalConductedInspection.data)} height={70} />
+                <Line data={lineChartData(this.state.totalConductedInspection.labels, this.state.totalConductedInspection.data, 'Unique Inspection', true, '#fce6d5', '#f57e3a')} options={lineChartOptions(this.state.totalConductedInspection.data)} height={70} />
               </div>
             </Card>
           </Col>
@@ -848,7 +848,7 @@ class Dashboard extends Component {
                 <div className="text-value">{this.state.dashBoardStats.totalFailedItem}</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '150px' }}>
-                <Line data={lineChartData(this.state.totalFailedItems.labels, this.state.totalFailedItems.data, 'Failed Item', true, '#f7dedf', 'blue')} options={lineChartOptions(this.state.totalFailedItems.data)} height={70} />
+                <Line data={lineChartData(this.state.totalFailedItems.labels, this.state.totalFailedItems.data, 'Failed Item', true, '#fadede', '#ea595c')} options={lineChartOptions(this.state.totalFailedItems.data)} height={70} />
               </div>
             </Card>
           </Col>
@@ -859,38 +859,69 @@ class Dashboard extends Component {
           <Col>
             <Card className="">
               <CardBody>
-                <Row>
-                  <Col sm="5">
-                    <CardTitle className="mb-0">Inspections Conducted</CardTitle>
-                  </Col>
+                <div className="d-sm-flex align-items-center justify-content-between ">
+                  <CardTitle className="mb-0 h4">Inspections Conducted</CardTitle>
                   
-                </Row>
-                <div className="chart-wrapper" >
                   <div className="chart-options">
-                      <div className="filter">
-                          <FormGroup>
-                            <label>Year</label>
-                            <Input type = "select" value = {this.state.inspectionGraphYear} onChange = {(event) => {
-                              
-                              this.setState({inspectionGraphYear: event.target.value});
-                              this.getMonthlyInspection(event.target.value, this.state.inspectionGraphType);
-                            }} >
-                              {yearList}
-                            </Input>
-                          </FormGroup>
-                          <FormGroup>
-                            <label>Graph Type</label>
-                            <Input type = "select" value = {this.state.inspectionGraphType} onChange = {(event) => {
-                              this.setState({inspectionGraphType: event.target.value});
-                              this.getMonthlyInspection(this.state.inspectionGraphYear, event.target.value);
-                            }} >
-                              <option value="daily">Daily</option>
-                              <option value="weekly">Weekly</option>
-                              <option value="monthly">Monthly</option>
-                            </Input>
-                          </FormGroup>
-                      </div>
-                  </div>
+                        <div className="filter">
+                            <FormGroup className="mr-2">
+                              <label>Year</label>
+                              <Input type = "select" value = {this.state.inspectionGraphYear} onChange = {(event) => {
+                                
+                                this.setState({inspectionGraphYear: event.target.value});
+                                this.getMonthlyInspection(event.target.value, this.state.inspectionGraphType);
+                              }} >
+                                {yearList}
+                              </Input>
+                            </FormGroup>
+                            <FormGroup className="mr-2">
+                              <label>Graph Type</label>
+                              <Input type = "select" value = {this.state.inspectionGraphType} onChange = {(event) => {
+                                this.setState({inspectionGraphType: event.target.value});
+                                this.getMonthlyInspection(this.state.inspectionGraphYear, event.target.value);
+                              }} >
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                              </Input>
+                            </FormGroup>
+                            <FormGroup className="">
+                            
+                            
+                            <div className="d-flex"> 
+                              <div className="mr-2">
+                                <label></label> 
+                                <div className="form-control mt-2">
+                                  <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                              <div>
+                                <label></label>
+                                <div className="form-control mt-2">
+                                  <i class="fa fa-line-chart"></i>
+                                </div>
+                              </div>
+                              <div className="ml-2">
+                                <label>Export</label>
+                                <div className="mr-2">
+                                  <Input type = "select" value = {this.state.inspectionGraphType} onChange = {(event) => {
+                                    this.setState({inspectionGraphType: event.target.value});
+                                    this.getMonthlyInspection(this.state.inspectionGraphYear, event.target.value);
+                                  }} >
+                                    <option value="daily">XLSX</option>
+                                    <option value="weekly">CSV</option>
+                                    <option value="monthly">JSON</option>
+                                  </Input>
+                                </div>
+                              </div>
+                            </div>
+                            </FormGroup>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="chart-wrapper" >
                   <Line data={cardChartData14(this.state.monthlyInspection.labels, this.state.monthlyInspection.data)} options={cardChartOpts14}  />
                 </div>
               </CardBody>              
@@ -902,38 +933,70 @@ class Dashboard extends Component {
           <Col>
             <Card className="">
               <CardBody>
-                <Row>
-                  <Col sm="5">
-                    <CardTitle className="mb-0">Performance</CardTitle>
-                  </Col>
+               
+                 
+                  <div className="d-sm-flex align-items-center justify-content-between ">
+                  <CardTitle className="mb-0 h4">Performance</CardTitle>
                   
-                </Row>
-                <div className="chart-wrapper" >
                   <div className="chart-options">
-                      <div className="filter">
-                          <FormGroup>
-                            <label>Year</label>
-                            <Input type = "select" value = {this.state.performanceGraphYear} onChange = {(event) => {
-                              
-                              this.setState({performanceGraphYear: event.target.value});
-                              this.getMonthlyPerformance(event.target.value, this.state.performanceGraphType);
-                            }} >
-                              {yearList}
-                            </Input>
-                          </FormGroup>
-                          <FormGroup>
-                            <label>Graph Type</label>
-                            <Input type = "select" value = {this.state.performanceGraphType} onChange = {(event) => {
-                              this.setState({performanceGraphType: event.target.value});
-                              this.getMonthlyPerformance(this.state.performanceGraphYear, event.target.value);
-                            }} >
-                              <option value="daily">Daily</option>
-                              <option value="weekly">Weekly</option>
-                              <option value="monthly">Monthly</option>
-                            </Input>
-                          </FormGroup>
-                      </div>
-                  </div>
+                        <div className="filter">
+                            <FormGroup className="mr-2">
+                              <label>Year</label>
+                              <Input type = "select" value = {this.state.inspectionGraphYear} onChange = {(event) => {
+                                
+                                this.setState({inspectionGraphYear: event.target.value});
+                                this.getMonthlyInspection(event.target.value, this.state.inspectionGraphType);
+                              }} >
+                                {yearList}
+                              </Input>
+                            </FormGroup>
+                            <FormGroup className="mr-2">
+                              <label>Graph Type</label>
+                              <Input type = "select" value = {this.state.inspectionGraphType} onChange = {(event) => {
+                                this.setState({inspectionGraphType: event.target.value});
+                                this.getMonthlyInspection(this.state.inspectionGraphYear, event.target.value);
+                              }} >
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                              </Input>
+                            </FormGroup>
+                            <FormGroup className="">
+                            
+                            
+                            <div className="d-flex"> 
+                              <div className="mr-2">
+                                <label></label> 
+                                <div className="form-control mt-2">
+                                  <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                              <div>
+                                <label></label>
+                                <div className="form-control mt-2">
+                                  <i class="fa fa-line-chart"></i>
+                                </div>
+                              </div>
+                              <div className="ml-2">
+                                <label>Export</label>
+                                <div className="mr-2">
+                                  <Input type = "select" value = {this.state.inspectionGraphType} onChange = {(event) => {
+                                    this.setState({inspectionGraphType: event.target.value});
+                                    this.getMonthlyInspection(this.state.inspectionGraphYear, event.target.value);
+                                  }} >
+                                    <option value="daily">XLSX</option>
+                                    <option value="weekly">CSV</option>
+                                    <option value="monthly">JSON</option>
+                                  </Input>
+                                </div>
+                              </div>
+                            </div>
+                            </FormGroup>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div className="chart-wrapper" > 
                   <Bar data={barChartData(this.state.monthlyPerformance.labels, this.state.monthlyPerformance.data)} options={barChartOptions(this.state.monthlyPerformance.data)}  />
                 </div>
               </CardBody>              

@@ -1,3 +1,6 @@
+body.header-fixed.weekly-graph-page {
+    background: #fff !important;
+}
 .btn-outline-secondary {
     color: #e3ab36 !important;
     background-color: transparent !important;
@@ -17,3 +20,46 @@
     background-color: transparent !important;
     border-color: #e3ab36 !important;
 }
+
+.storewalk-H.grey-bg{
+    background: #f2f2f2;
+}
+
+.storewalk-H.light-blue-bg{
+    background: #dce6f1;
+}
+
+.storewalk-H.light-orange-bg{
+    background: #fde9da;
+}
+
+.light-orange-bd.card{
+    border: 10px solid #fde9da !important;
+}
+
+.light-blue-bd.card{
+    border: 10px solid #dce6f1 !important;
+}
+
+.storewalk-H {
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.storewalk-H p{
+    margin-bottom: 0px;
+    font-size: 17px;
+}
+
+.card{
+    border: 10px solid #f2f2f2 !important;
+}
+
+h5 {
+    color: #000;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 21px;
+}
+
