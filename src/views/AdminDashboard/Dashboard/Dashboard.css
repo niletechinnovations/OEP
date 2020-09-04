@@ -17,3 +17,6 @@
     background-color: transparent !important;
     border-color: #e3ab36 !important;
 }
+
+.chart-options .filter{display: flex;}
+.ic-container{padding: 4px 10px; border:1px solid #ccc;}
